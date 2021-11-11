@@ -55,18 +55,25 @@ if (App::environment('production')) {
 
     // Restaurant API routes routes
   Route::apiResource('restaurant','Api\Restaurant\RestaurantController');
-    // Get deleted qr codes
+    // Get deleted restaurant
   Route::get('restaurant/fetch-deleted','Api\Restaurant\RestaurantController@fetchDeleted');
-    // Restore qr codes
+    // Restore restaurant
   Route::get('restaurant/restore/{id}','Api\Restaurant\RestaurantController@restore');
-    //  Parmamnently delete qr codes
+    //  Parmamnently delete restaurant
   Route::get('restaurant/parmanently-delete/{id}','Api\Restaurant\RestaurantController@parmanentlyDelete');
+
+    // Menu API routes routes
+  Route::apiResource('menu','Api\Menu\MenuController');
+    // Get deleted menu
+  Route::get('menu/fetch-deleted','Api\Menu\MenuController@fetchDeleted');
+    // Restore menu
+  Route::get('menu/restore/{id}','Api\Menu\MenuController@restore');
+    //  Parmamnently delete menu
+  Route::get('menu/parmanently-delete/{id}','Api\Menu\MenuController@parmanentlyDelete');
 
 
 
   
-
-
 
 Route::fallback(function() {
         return response()->json([

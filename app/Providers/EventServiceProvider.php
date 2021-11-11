@@ -62,6 +62,17 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Restaurant\restaurantDestroyed' => [
             //
         ],
+
+         // Menu events
+        'App\Events\Menu\menuCreated' => [
+            //
+        ],
+        'App\Events\Menu\menuUpdated' => [
+            //
+        ],
+        'App\Events\Menu\menuDestroyed' => [
+            //
+        ],
     ];
 
     /**
