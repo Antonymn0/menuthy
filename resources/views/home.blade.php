@@ -30,7 +30,7 @@
 
                     <tr>
                         <td align="center">
-                            <a href="menuthy_dashboard.php">Dashboard</a>
+                            <a href="/home">Dashboard</a>
                         </td>
                         <td align="center">
                             <a href="menuthy_section_grid.php">Menu</a>
