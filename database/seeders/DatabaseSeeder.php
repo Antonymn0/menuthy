@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(10)->create();
-         \App\Models\Order::factory(10)->create();
+         \App\Models\User::factory(env('DB_SEEDER', 10))->create();
+         \App\Models\Order::factory(env('DB_SEEDER', 10))->create();
+         \App\Models\QrCode::factory(env('DB_SEEDER', 10))->create();
     }
 }

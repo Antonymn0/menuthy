@@ -37,10 +37,21 @@ if (App::environment('production')) {
 
     // Orders route
   Route::apiResource('order','Api\Order\OrderController');
-  // Restore order
-   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
-  //  Parmamnently delete order
+    // Get deleted orders
+  Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
+    // Restore order
+  Route::get('order/restore/{id}','Api\Order\OrderController@restore');
+   //  Parmamnently delete order
   Route::get('order/parmanently-delete/{id}','Api\Order\OrderController@parmanentlyDelete');
+
+    // Qr code route
+  Route::apiResource('qrcode','Api\QrCode\QrCodeController');
+    // Get deleted qr codes
+  Route::get('qrcode/fetch-deleted','Api\QrCode\QrCodeController@fetchDeleted');
+    // Restore qr codes
+  Route::get('qrcode/restore/{id}','Api\QrCode\QrCodeController@restore');
+    //  Parmamnently delete qr codes
+  Route::get('qrcode/parmanently-delete/{id}','Api\QrCode\QrCodeController@parmanentlyDelete');
 
 
 
@@ -51,6 +62,6 @@ if (App::environment('production')) {
 Route::fallback(function() {
         return response()->json([
             'success'=> false,
-            'message' => 'No such route found on this serve',
+            'message' => 'No such route found on this server',
             ], 404);
 });

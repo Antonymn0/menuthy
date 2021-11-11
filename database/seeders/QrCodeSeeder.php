@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class OrderSeeder extends Seeder
+class QrCodeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Order::factory(env('DB_SEEDER', 10))->create();
+        \App\Models\QrCode::factory(env('DB_SEEDER', 10))->create();
     }
 }
