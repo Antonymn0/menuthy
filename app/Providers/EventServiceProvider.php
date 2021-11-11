@@ -51,6 +51,17 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\QrCode\qrCodeDestroyed' => [
             //
         ],
+
+         // Restaurant events
+        'App\Events\Restaurant\restaurantCreated' => [
+            //
+        ],
+        'App\Events\Restaurant\restaurantUpdated' => [
+            //
+        ],
+        'App\Events\Restaurant\restaurantDestroyed' => [
+            //
+        ],
     ];
 
     /**

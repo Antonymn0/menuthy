@@ -28,14 +28,14 @@ if (App::environment('production')) {
 
 
 
-    // Users route
+    // Users API routes
   Route::apiResource('user','Api\User\UserController');
   //  Parmamnently delete user
   Route::get('user/parmanently-delete/{id}','Api\User\UserController@parmanentlyDelete');
   // Restore user
    Route::get('user/restore/{id}','Api\User\UserController@restoreUser');
 
-    // Orders route
+    // Orders API routes
   Route::apiResource('order','Api\Order\OrderController');
     // Get deleted orders
   Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
@@ -44,7 +44,7 @@ if (App::environment('production')) {
    //  Parmamnently delete order
   Route::get('order/parmanently-delete/{id}','Api\Order\OrderController@parmanentlyDelete');
 
-    // Qr code route
+    // Qr code API routes
   Route::apiResource('qrcode','Api\QrCode\QrCodeController');
     // Get deleted qr codes
   Route::get('qrcode/fetch-deleted','Api\QrCode\QrCodeController@fetchDeleted');
@@ -52,6 +52,15 @@ if (App::environment('production')) {
   Route::get('qrcode/restore/{id}','Api\QrCode\QrCodeController@restore');
     //  Parmamnently delete qr codes
   Route::get('qrcode/parmanently-delete/{id}','Api\QrCode\QrCodeController@parmanentlyDelete');
+
+    // Restaurant API routes routes
+  Route::apiResource('restaurant','Api\Restaurant\RestaurantController');
+    // Get deleted qr codes
+  Route::get('restaurant/fetch-deleted','Api\Restaurant\RestaurantController@fetchDeleted');
+    // Restore qr codes
+  Route::get('restaurant/restore/{id}','Api\Restaurant\RestaurantController@restore');
+    //  Parmamnently delete qr codes
+  Route::get('restaurant/parmanently-delete/{id}','Api\Restaurant\RestaurantController@parmanentlyDelete');
 
 
 

@@ -29,7 +29,7 @@ class OrderTest extends TestCase
             ]);
     }
 
-      /**
+    /**
      * A basic feature test can create an order .
      *
      * @return void
@@ -83,7 +83,7 @@ class OrderTest extends TestCase
      *
      * @return void
      */
-    public function test_can_delete_an_order()
+    public function test_can_softdelete_an_order()
     {       
         Order::factory()->create();
         $order = Order::first();
