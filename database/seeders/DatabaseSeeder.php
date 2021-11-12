@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
          \App\Models\QrCode::factory(env('DB_SEEDER', 10))->create();
          \App\Models\Menu::factory(env('DB_SEEDER', 10))->create();
          \App\Models\Table::factory(env('DB_SEEDER', 10))->create();
+         \App\Models\MenuItem::factory(env('DB_SEEDER', 10))->create();
     }
 }

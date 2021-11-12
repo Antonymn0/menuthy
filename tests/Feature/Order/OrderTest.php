@@ -36,7 +36,7 @@ class OrderTest extends TestCase
      */
     public function test_can_create_order()
     {
-        $order = Order::factory()->create();
+       
         $data = @json_decode(json_encode(Order::factory()->create()), true);
         $response = $this->json('POST', 'api/order/', $data);
         $response ->assertStatus(201)

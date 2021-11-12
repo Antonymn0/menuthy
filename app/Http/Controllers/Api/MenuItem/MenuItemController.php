@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api\Order;
+namespace App\Http\Controllers\Api\MenuItem;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Order;
-use App\Events\Order\orderCreated;
-use App\Events\Order\orderUpdated;
-use App\Events\Order\orderDestroyed;
-use App\Http\Requests\Order\ValidateOrder;
+use App\Models\MenuItem;
+use App\Events\MenuItem\menuItemCreated;
+use App\Events\MenuItem\menuItemUpdated;
+use App\Events\MenuItem\menuItemDestroyed;
+use App\Http\Requests\MenuItem\ValidateMenuItem;
 
-class OrderController extends Controller
+class MenuItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,27 +19,27 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(env('API_PAGINATION', 10));
+        $menuItems = MenuItem::paginate(env('API_PAGINATION', 10));
         return response()->json([
             'success'=> true,
-            'message' => 'A list of orders',
-            'data'=>$orders], 200);
+            'message' => 'A list of menuItem',
+            'data'=>$menuItems], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request\ValidateOrder  $request
+     * @param  \Illuminate\Http\Request\ValidateMenuItem  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ValidateOrder $request)
+    public function store(ValidateMenuItem $request)
     {
         $data = $request->validated();        
-        $order = Order::create($data);
-        event(new orderCreated($order));
+        $menuItem = MenuItem::create($data);
+        event(new menuItemCreated($menuItem));
         return response()->json([
             'success'=> true,
-            'message'=> 'Order created successfuly',
+            'message'=> 'MenuItem created successfuly',
             'data'=> true,
             ],  201);
     }
@@ -52,47 +52,47 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order= Order::findOrFail($id);
+        $menuItem = MenuItem::findOrFail($id);
         return response()->json([
             'success'=> true,
-            'message'=> 'Á single order retrieved successfully', 
-            'data'=>$order], 200);
+            'message'=> 'Á single menuItem retrieved successfully', 
+            'data'=>$menuItem], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request\ValidateOrder  $request
+     * @param  \Illuminate\Http\Request\ValidateMenuItem  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidateOrder $request, $id)
+    public function update(ValidateMenuItem $request, $id)
     {
         $data = $request->validated();
-        $order = Order::findOrFail($id)->update($data);
-        $order = Order::findOrFail($id);
-        event(new orderUpdated($order));
+        $menuItem = MenuItem::findOrFail($id)->update($data);
+        event(new menuItemUpdated($menuItem));
         return response()->json([
             'success'=> true, 
-            'message'=>'Order updated successfuly', 
-            'data'=>true],  200);
+            'message'=>'MenuItem updated successfuly', 
+            'data'=>$menuItem],  200);
     }
 
     /**
-     * SoftDelete the specified resource from storage.
+     * Softdelete the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $order = Order::findOrFail($id)->delete();
-        event(new orderDestroyed($order));
+        $menuItem = MenuItem::findOrFail($id)->delete();
+        event(new menuItemDestroyed($menuItem));
         return response()->json([
             'success'=> true, 
-            'message'=> 'Order deleted successfuly', 
-            'data'=>$order], 200);
+            'message'=> 'MenuItem deleted successfuly', 
+            'data'=>$menuItem], 200);
     }
+
 
     /**
      * Restore the specified resource back into storage.
@@ -103,11 +103,11 @@ class OrderController extends Controller
      */
     public function restore( $id)
     {
-        $order = Order::onlyTrashed()->findOrFail($id)->restore(); 
+        $meniItem = MenuItem::onlyTrashed()->findOrFail($id)->restore(); 
         return response()->json([
             'success'=> true, 
-            'message'=>'Order restored successfully', 
-            'data'=>$order],  200);
+            'message'=>'MeniItem restored successfully', 
+            'data'=>$meniItem],  200);
     }
 
      /**
@@ -118,13 +118,12 @@ class OrderController extends Controller
      */
     public function parmanentlyDelete($id)
     {
-        $order = Order::onlyTrashed()->findOrFail($id)->forceDelete();
-        event(new orderDestroyed($order)); 
+        $menuItem = MenuItem::onlyTrashed()->findOrFail($id)->forceDelete();
+        event(new menuItemDestroyed($menuItem)); 
         return response()->json([
             'success' => true,
-            'message' => 'Order parmanently deleted!',
-            'data' => $order
+            'message' => 'MenuItem parmanently deleted!',
+            'data' => $menuItem
         ], 200);
     }
-
 }
