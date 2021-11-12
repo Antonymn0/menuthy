@@ -71,6 +71,15 @@ if (App::environment('production')) {
     //  Parmamnently delete menu
   Route::get('menu/parmanently-delete/{id}','Api\Menu\MenuController@parmanentlyDelete');
 
+    // Table API routes routes
+  Route::apiResource('table','Api\Table\TableController');
+    // Get deleted Table
+  Route::get('table/fetch-deleted','Api\Table\TableController@fetchDeleted');
+    // Restore Table
+  Route::get('table/restore/{id}','Api\Table\TableController@restore');
+    //  Parmamnently delete Table
+  Route::get('table/parmanently-delete/{id}','Api\Table\TableController@parmanentlyDelete');
+
 
 
   
