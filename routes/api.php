@@ -89,6 +89,15 @@ if (App::environment('production')) {
     //  Parmamnently delete MenuItem
   Route::get('menu-item/parmanently-delete/{id}','Api\MenuItem\MenuItemController@parmanentlyDelete');
 
+    // SubMenu API routes routes
+  Route::apiResource('sub-menu','Api\SubMenu\SubMenuController');
+    // Get deleted SubMenu
+  Route::get('sub-menu/fetch-deleted','Api\SubMenu\SubMenuController@fetchDeleted');
+    // Restore SubMenu
+  Route::get('sub-menu/restore/{id}','Api\SubMenu\SubMenuController@restore');
+    //  Parmamnently delete SubMenu
+  Route::get('sub-menu/parmanently-delete/{id}','Api\SubMenu\SubMenuController@parmanentlyDelete');
+
 
 
   

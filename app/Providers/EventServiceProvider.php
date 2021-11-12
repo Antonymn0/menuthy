@@ -95,6 +95,17 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MenuItem\menuItemDestroyed' => [
             //
         ],
+
+         // SubMenu events
+        'App\Events\SubMenu\subMenuCreated' => [
+            //
+        ],
+        'App\Events\SubMenu\subMenuUpdated' => [
+            //
+        ],
+        'App\Events\SubMenu\subMenuDestroyed' => [
+            //
+        ],
     ];
 
     /**
