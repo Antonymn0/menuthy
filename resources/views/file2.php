@@ -16,8 +16,8 @@
 <!-- bootstrap cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<style>
-        <style>
+    <style>
+    <style>
             body {
                 font-family: 'Nunito', sans-serif;
             }
@@ -28,16 +28,21 @@
         </style>
     </head>
     <body class="antialiased d-flex align-content-center align-elements-center">
-        <main class="container-fluid vh-100 pt-5">
-            <div class=" col-md-6 card m-auto d-flex p-5 align-items-center my-auto">
-               <h1> Menuthy Digital menu </h1> 
-                <h5> Serve Inovatively </h5>
-                <p class="p-3 mt-2">
-                    <span> <a href="/login" class="btn btn-login mr-2">Login</a></span>
-                    <span> <a href="/register" class="btn btn-warning text-white">Register</a></span>
-                </p>
-            </div>
-        </main>
-            
-    </body>
+  <div id="app">
+    <Home />
+  </div>
+
+<main class="container-fluid vh-100 pt-5">
+    <div class=" col-md-6 card m-auto d-flex p-5 align-items-center my-auto">
+        <h1> Menuthy Digital menu </h1> 
+        <h5> Serve Inovatively </h5>
+        <p class="p-3 mt-2">
+            <span> <a href="/login" class="btn btn-login mr-2">Login</a></span>
+            <span> <a href="/register" class="btn btn-warning text-white">Register</a></span>
+        </p>
+    </div>
+</main>
+
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
 </html>

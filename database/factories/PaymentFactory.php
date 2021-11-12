@@ -15,9 +15,9 @@ class PaymentFactory extends Factory
     {
         return [
             'order_id' => 1,
-            'amount_due' => $this->faker->randomFloat(2,0,2),
-            'amount_paid' => $this->faker->randomFloat(2,0,2),
-            'discount_amount' => $this->faker->randomFloat(2,0,2),
+            'amount_due' => $this->faker->randomFloat(2,2),
+            'amount_paid' => $this->faker->randomFloat(2,2),
+            'discount_amount' => $this->faker->randomFloat(2,2),
             'status' => $this->faker->randomElement(['paid', 'pending']),
             'payment_method' => $this->faker->randomElement(['paypal', 'mobileMoney', 'stripe']),
             'transaction_id' => $this->faker->regexify('[A-Za-z0-9]{20}'),

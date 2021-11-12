@@ -14,13 +14,13 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'menu_item_name' => $this->faker->word(),
+            'menu_item_name' => $this->faker->randomElement(['chicken wings', 'rice and lamb stew', 'beef curry', 'roast potatoes']),
             'menu_item_type' => $this->faker->word(),
-            'menu_item_id' => $this->faker->randomdigit(),
+            'menu_item_id' => $this->faker->randomdigit(), //foreign key
             'is_take_away' => $this->faker->randomdigit(),
             'is_inhouse' => $this->faker->randomdigit(),
             'price' => $this->faker->randomFloat(1,0),
-            'preperation_time' => $this->faker->word(),
+            'preperation_time' => $this->faker->randomElement(['20min', '10min', '5min']),
             'state' => $this->faker->word(),
             'accompaniments' => $this->faker->sentence(),
             'avatar' => $this->faker->url() ,

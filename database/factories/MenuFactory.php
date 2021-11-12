@@ -14,8 +14,8 @@ class MenuFactory extends Factory
     public function definition()
     {
         return [
-            'menu_name' => $this->faker->word(),
-            'category' => $this->faker->word(),
+            'menu_name' => $this->faker->randomElement(['main', 'drinks', 'daily specials','Desserts', 'Breakfast','lunch']),
+            'category' => $this->faker->randomElement(['food', 'drinks', 'appetizer']),
             'restaurant_id' => 1,
             'availability' => $this->faker->word(),
             'take_away' => $this->faker->randomDigit(),

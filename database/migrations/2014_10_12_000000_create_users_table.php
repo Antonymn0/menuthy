@@ -19,12 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('first_name')->required();
             $table->string('middle_name')->nullable();
             $table->string('last_name')->required();
-            $table->string('user_name')->required()->unique();
             $table->string('email')->required()->unique();
-            $table->string('phone')->required()->unique();
+            $table->string('password')->required();
+            $table->string('user_name')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('address')->nullable();
             $table->text('biography')->nullable();
-            $table->string('password')->required();
             $table->dateTime('dob')->nullable();
             $table->string('county')->nullable();
             $table->string('city')->nullable();
@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->integer('suspended_by')->nullable()->index();
             $table->string('avatar')->nullable();
             $table->timestamp('deleted_at')->nullable();
-            $table->string('name');          
+            $table->string('name')->nullable();          
             
             $table->rememberToken();
             $table->timestamps();

@@ -2,6 +2,10 @@
 
 @section('content')
 
+<div class="container" id="app">
+<div >
+    <Home />
+</div>
 
                 {{-- <div class="alert-success p-2 w-50 m-auto rounded zindex-tooltip m-0">
                     @if (session('status'))
@@ -18,16 +22,11 @@
     <table border="0" cellpadding="5" cellspacing="5" width="100%">
         <tr>
             <td style="background-color: #2c2d3a;padding-left: 120px;">
-
-               
             </td>
-
         </tr>
         <tr>
             <td style="background-color: #262734; padding-left: 150px;">
-
                 <table border="0" cellpadding="5" cellspacing="5" width="50%">
-
                     <tr>
                         <td align="center">
                             <a href="/home">Dashboard</a>
@@ -40,17 +39,13 @@
                         </td>
                         <td align="center">
                             <!--<a href="menuthy_display_qr.php">QR Code</a>-->
-
                             <a href="#" data-toggle="modal" data-target="#exampleModalLong">QR Code</a>
-
-
                         </td>
                         <td align="center">
                             <a href="#" data-toggle="modal" data-target="#exampleModalLong1">Mobile Preview</a>
                         </td>
                         <td align="center">
                             <a href="menuthy_dashboard.php?lo=<?php print uniqid()." ss001".uniqid();?>">Logout</a>
-
                         <td>
                             <a href="menuthy_add_section.php" class="btn btn-success">
                                 Add Menu
@@ -58,16 +53,11 @@
                         </td>
                     </tr>
                 </table>
-
             </td>
-
         </tr>
-
         <tr>
             <td style="padding-left: 150px;">
-
                 <table border="0" cellpadding="10" cellspacing="10" width="100%">
-
                     <tr>
                         <td width="33%">
                             <div style="border: 0px solid black; height: 200px;  width: 400px; margin: 15px; padding: 30px; border-radius: 4px;
@@ -76,7 +66,6 @@ box-shadow:  8px 8px 16px #cccccc,
              -8px -8px 16px #ffffff;">
                                 <h4 style="color: #ed202e;">Menu</h4>
                                 <p>
-
                                     Start by Adding the Menu <br />(i.e: Breakfast, Lunch and Dinner, Beverage)
                                 </p>
                                 <a href="menuthy_add_section.php" class="btn btn-danger" style="font-size: 15px;">Add
@@ -265,5 +254,5 @@ box-shadow:  8px 8px 16px #cccccc,
                 <!-- Mobile Preview end -->
 
 
-
+</div>
 @endsection
