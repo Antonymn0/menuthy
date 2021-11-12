@@ -98,6 +98,15 @@ if (App::environment('production')) {
     //  Parmamnently delete SubMenu
   Route::get('sub-menu/parmanently-delete/{id}','Api\SubMenu\SubMenuController@parmanentlyDelete');
 
+    // Payment API routes routes
+  Route::apiResource('payment','Api\Payment\PaymentController');
+    // Get deleted Payment
+  Route::get('payment/fetch-deleted','Api\Payment\PaymentController@fetchDeleted');
+    // Restore Payment
+  Route::get('payment/restore/{id}','Api\Payment\PaymentController@restore');
+    //  Parmamnently delete Payment
+  Route::get('payment/parmanently-delete/{id}','Api\Payment\PaymentController@parmanentlyDelete');
+
 
 
   

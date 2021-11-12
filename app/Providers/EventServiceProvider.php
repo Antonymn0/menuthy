@@ -106,6 +106,17 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SubMenu\subMenuDestroyed' => [
             //
         ],
+
+         // Payment events
+        'App\Events\Payment\paymentCreated' => [
+            //
+        ],
+        'App\Events\Payment\paymentUpdated' => [
+            //
+        ],
+        'App\Events\Payment\paymentDestroyed' => [
+            //
+        ],
     ];
 
     /**

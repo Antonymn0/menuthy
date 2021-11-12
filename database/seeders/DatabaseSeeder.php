@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
          \App\Models\Table::factory(env('DB_SEEDER', 10))->create();
          \App\Models\MenuItem::factory(env('DB_SEEDER', 10))->create();
          \App\Models\SubMenu::factory(env('DB_SEEDER', 10))->create();
+         \App\Models\Payment::factory(env('DB_SEEDER', 10))->create();
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api\Order;
+namespace App\Http\Controllers\Api\Payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Order;
-use App\Events\Order\orderCreated;
-use App\Events\Order\orderUpdated;
-use App\Events\Order\orderDestroyed;
-use App\Http\Requests\Order\ValidateOrder;
+use App\Models\Payment;
+use App\Events\Payment\paymentCreated;
+use App\Events\Payment\paymentUpdated;
+use App\Events\Payment\paymentDestroyed;
+use App\Http\Requests\Payment\ValidatePayment;
 
-class OrderController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,27 +19,27 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(env('API_PAGINATION', 10));
+        $payments = Payment::paginate(env('API_PAGINATION', 10));
         return response()->json([
             'success'=> true,
-            'message' => 'A list of orders',
-            'data'=>$orders], 200);
+            'message' => 'A list of payments',
+            'data'=>$payments], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request\ValidateOrder  $request
+     * @param  \Illuminate\Http\Request\ValidatePayment  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ValidateOrder $request)
+    public function store(ValidatePayment $request)
     {
         $data = $request->validated();        
-        $order = Order::create($data);
-        event(new orderCreated($order));
+        $payment = Payment::create($data);
+        event(new paymentCreated($payment));
         return response()->json([
             'success'=> true,
-            'message'=> 'Order created successfuly',
+            'message'=> 'payment created successfuly',
             'data'=> true,
             ],  201);
     }
@@ -52,60 +52,61 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order= Order::findOrFail($id);
+        $payment= Payment::findOrFail($id);
         return response()->json([
             'success'=> true,
-            'message'=> 'Á single order retrieved successfully', 
-            'data'=>$order], 200);
+            'message'=> 'Á single payment retrieved successfully', 
+            'data'=>$payment], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request\ValidateOrder  $request
+     * @param  \Illuminate\Http\Request\ValidatePayment  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidateOrder $request, $id)
+    public function update(ValidatePayment $request, $id)
     {
         $data = $request->validated();
-        $order = Order::findOrFail($id)->update($data);
-        $order = Order::findOrFail($id);
-        event(new orderUpdated($order));
+        $payments = Payment::findOrFail($id)->update($data);
+        $payments = Payment::findOrFail($id);
+        event(new paymentUpdated($payments));
         return response()->json([
             'success'=> true, 
-            'message'=>'Order updated successfuly', 
+            'message'=>'Payments updated successfuly', 
             'data'=>true],  200);
     }
 
     /**
-     * SoftDelete the specified resource from storage.
+     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $order = Order::findOrFail($id)->delete();
-        event(new orderDestroyed($order));
+        $payment = Payment::findOrFail($id)->delete();
+        event(new paymentDestroyed($payment));
         return response()->json([
             'success'=> true, 
-            'message'=> 'Order deleted successfuly', 
-            'data'=>$order], 200);
+            'message'=> 'Payment deleted successfuly', 
+            'data'=>$payment], 200);
     }
 
     /**
      * Restore the specified resource back into storage.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function restore( $id)
     {
-        $order = Order::onlyTrashed()->findOrFail($id)->restore(); 
+        $payment = Payment::onlyTrashed()->findOrFail($id)->restore(); 
         return response()->json([
             'success'=> true, 
-            'message'=>'Order restored successfully', 
-            'data'=>$order],  200);
+            'message'=>'Payment restored successfully', 
+            'data'=>$payment],  200);
     }
 
      /**
@@ -116,13 +117,12 @@ class OrderController extends Controller
      */
     public function parmanentlyDelete($id)
     {
-        $order = Order::onlyTrashed()->findOrFail($id)->forceDelete();
-        event(new orderDestroyed($order)); 
+        $payment = Payment::onlyTrashed()->findOrFail($id)->forceDelete();
+        event(new paymentDestroyed($payment)); 
         return response()->json([
             'success' => true,
-            'message' => 'Order parmanently deleted!',
-            'data' => $order
+            'message' => 'Payment parmanently deleted!',
+            'data' => $payment
         ], 200);
     }
-
 }
