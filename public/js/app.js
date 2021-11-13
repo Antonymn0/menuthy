@@ -20121,7 +20121,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"conatiner h-100\"><div class=\"row justify-content-center h-100\"><div class=\"card col-sm-3 m-1\"><div class=\"card-body\"> This is some text within a card body. </div></div><div class=\"card col-sm-3 m-1\"><div class=\"card-body\"> This is some text within a card body. </div></div><div class=\"card col-sm-3 m-1\"><div class=\"card-body\"> This is some text within a card body. </div></div></div></div>", 1);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"conatiner h-100\"><div class=\"row justify-content-center p-5\"><div class=\"row col-md-6 m-0 p-0\"><div class=\"card col-sm-6 p-3 my-1\"><div class=\"card-body\"><h3> Edit your menu </h3><p> Create new menus, add or edit your items and sections in your menus </p><a href=\"\" class=\"btn btn primary-btn-color mx-auto text-center\"> Menus</a></div></div><div class=\"card col-sm-6 my-1\"><div class=\"card-body\"><h3> Change your theme </h3><p> Design your menu to reflect your business and your brand </p><a href=\"\" class=\"btn btn-primary\">Design</a></div></div></div><div class=\"row col-md-6\"><div class=\"card col-sm-6 my-1 m-0 p-0\"><div class=\"card-body\"><h3> Menu settings </h3><p> Set up all the details of your menu to fit it in your business </p><a href=\"\" class=\"btn btn-lg btn-warning\"> Settings</a></div></div><div class=\"card col-sm-6 my-1\"><div class=\"card-body\"><h3> Integrations </h3><p> Connect with the Payment, POS, Printer systems for seamless ordering </p><a href=\"\" class=\"btn btn-lg btn-success\"> Integrate</a></div></div></div></div><!-- banner section --><div class=\"row justify-content-center p-5\"><div class=\"card page-banner p-5 text-white\"><div class=\"col-xs-8\"><h2> Try our contactless online ordering solution! </h2><p> Get started with FineDine Delivery &amp; Pick-up Menu for online ordering with no excessive commission or use QR Menu for a contactless dine-in experience. </p><a href=\"\" class=\"btn btn-lg bg-white\"> https://fndn.mn/antony-restaurant <span class=\"btn btn-sm btn-default\"> Copy link</span></a></div><div class=\"col-xs-4\"><img src=\"\" alt=\"\"></div></div></div><!-- feedback and recent orders section  --><div class=\"row p-5\"><div class=\"card col-md-6 p-2 my-1\"><h4> Recent orders <span class=\"float-right btn small primary-btn-color\"> All oders</span></h4><div class=\"table-responsive\"><table class=\"table table-sm table-hover table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">First</th><th scope=\"col\">Last</th><th scope=\"col\">Handle</th></tr></thead><tbody><tr><th scope=\"row\">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr><tr><th scope=\"row\">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr></tbody></table></div></div><div class=\"card col-md-6 p-2 my-1\"><h4> Feedback <span class=\"float-right small btn primary-btn-color\">All feedback</span></h4><div class=\"table-responsive\"><table class=\"table table-sm table-hover table-striped\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">First</th><th scope=\"col\">Last</th><th scope=\"col\">Handle</th></tr></thead><tbody><tr><th scope=\"row\">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr></tbody></table></div></div></div></div>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Header = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Header");
@@ -20180,7 +20180,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "bg-dark py-5 text-white"
+  "class": "py-5 text-white page-header"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -20211,12 +20211,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "bg-dark"
+  "class": "top-navbar"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", {
-  "class": "m-0 p-0"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", {
   "class": "navbar navbar-expand-lg navbar-dark bg-dark"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "container-fluid"

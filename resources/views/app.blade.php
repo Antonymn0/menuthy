@@ -17,6 +17,44 @@
 @routes
 <script src="{{ mix('js/app.js') }}" defer></script>
 
+<style>
+    body {
+        color:#212529;
+        background-color: #fff;
+    }
+    .primary-btn-color{
+        background-color: #e6034b;
+        border-color: #e6034b;
+        color:#fff;
+    }
+    .primary-btn-color:hover {
+        border-color: #f4516c;
+    }
+    
+    .page-header{
+        background-color: #2c2d3a;
+    }
+    .top-navbar{    
+        padding: 0;
+        position: relative;
+        z-index: 1;
+        background: #262734;
+        height: 70px;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        }
+    
+    .page-banner{
+        background-image: linear-gradient(to bottom right, rgb(236, 37, 37), rgb(243, 88, 17));
+    }
+    }
+</style>
+
 </head>
 
 <body class="font-sans antialiased">

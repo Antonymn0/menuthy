@@ -1,5 +1,5 @@
 <template >
-    <div class="bg-dark py-5 text-white">
+    <div class=" py-5 text-white page-header">
         <div>
            <h3>
                <img src="{{ dynamic_asset('images/menuthy_logo_i.jpg') }}" alt="">

@@ -1,7 +1,7 @@
 <template >
-    <div class="bg-dark">
+    <div class="top-navbar">
         <p>
-        <hr class="m-0 p-0" />
+
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Dashboard</a>
