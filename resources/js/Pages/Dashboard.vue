@@ -67,7 +67,7 @@
                         Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
                         QR Menu for a contactless dine-in experience.
                     </p>
-                    <a href="" class="btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm btn-default"> Copy link</span> </a> 
+                    <a href="" class="btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm btn-default border rounded"> Copy link</span> </a> 
                 </div>
                 <div class="col-xs-4">
                     <img src="" alt="">
@@ -77,7 +77,8 @@
 
         <!-- feedback and recent orders section  -->
         <div class="row p-5">
-            <div class=" card col-md-6 p-2 my-1">
+            <div class="shadow p-3 mb-5 bg-white rounded">Regular shadow</div>
+            <div class=" shadow-sm card col-md-6 p-2 my-1">
                 <h4>
                     Recent orders <span class="float-right btn small primary-btn-color"> All oders</span>
                 </h4>
@@ -88,7 +89,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">First</th>
                                 <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Handle</th> 
                             </tr>
                         </thead>
                         <tbody>
