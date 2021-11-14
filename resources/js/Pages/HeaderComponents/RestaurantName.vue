@@ -5,7 +5,7 @@
           Restaurant name  
           <i class="bi bi-caret-down float-right"></i> 
         </a>
-        <div class="dropdown-menu rounded p-3 " aria-labelledby="navbarDropdown" style="width:50%;">
+        <div class="dropdown-menu rounded p-3 " aria-labelledby="navbarDropdown" style="width:80%;">
             <p class="row justify-content-center" style="font-size:1.2rem; color:#e3342f;">
               <span class="col-sm-8"> <a href="#" class="text-decoration-none text-dark " > Jon Doe Restaurant</a> </span>
               <span class="col-sm-4"> <i class="bi bi-geo-alt-fill " ></i> </span> 

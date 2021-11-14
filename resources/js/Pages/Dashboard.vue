@@ -3,9 +3,9 @@
 <Header />
 <Topnavbar />
 
-    <div class=" conatiner h-100">
-        <div class="row top-cards p-5 align-items-center">
-            <div class="card shadow  m-1">
+    <div class=" conatiner mb-3 p-5">
+        <div class=" top-cards px-2 ">
+            <div class="card shadow  ">
                 <div class="card-body">
                     <h3>
                         Edit your menu
@@ -13,10 +13,10 @@
                     <p>
                         Create new menus, add or edit your items and sections in your menus
                     </p>
-                    <a href="" class="btn btn primary-btn  mx-auto text-center"> Menus</a>
+                    <a href="" class="btn btn-danger mx-auto text-center"> Menus</a>
                 </div>
             </div>
-            <div class="card shadow  m-1">
+            <div class="card shadow  ">
                 <div class="card-body">
                     <h3>
                         Change your theme
@@ -29,7 +29,7 @@
             </div> 
 
         
-            <div class="card shadow  m-1 ">
+            <div class="card shadow   ">
                 <div class="card-body">
                     <h3>
                         Menu settings
@@ -37,7 +37,7 @@
                     <p>
                         Set up all the details of your menu to fit it in your business
                     </p>
-                    <a href="" class="btn btn-lg btn-warning"> Settings</a>
+                    <a href="" class="btn btn-lg btn-danger"> Settings</a>
                 </div>
             </div> 
             <div class="card shadow  ">
@@ -46,7 +46,7 @@
                         Integrations
                     </h3>
                     <p>
-                        Connect with the Payment, POS, Printer systems for seamless ordering
+                        Connect with the Payment, POS or Printer systems 
                     </p>
                     <a href="" class="btn btn-lg btn-success"> Integrate</a>
                 </div>
@@ -54,7 +54,7 @@
         </div>
 
         <!-- banner section -->
-        <div class=" banner row justify-content-center p-5" >
+        <div class=" banner row justify-content-center px-4 py-3 " >
             <div class="card shadow page-banner p-5 text-white">            
                 <div class="col-xs-8 ">          
                     <h2>
@@ -73,7 +73,7 @@
         </div>
 
         <!-- feedback and recent orders section  -->
-        <div class="row feedback p-5">
+        <div class="row feedback px-2  my-2">
             <div class="card shadow card p-2">
                <div class=" ">
                 <h4>   Recent orders <span class="float-right btn small primary-btn-color"> All oders</span>        </h4>
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-            <div class=" card shadow  p-2 m-1 ">
+            <div class=" card shadow  p-2  ">
                 <div class="  ">
                     <h4> Feedback  <span class="float-right small btn primary-btn-color">All feedback</span>        </h4>
                     <div class="table-responsive">
@@ -168,31 +168,43 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/app.scss";
 
+.top-cards {
+    display: table;
+    flex-direction: row;
+
+
+}
 .top-cards .card{
-    width:24%;
+    display: table-cell;
+    margin:.09rem;
+ 
+
 }
 .feedback .card{
     width:49%;
 }
 
 
-/* media quesries */
+/* media queries */
 @media only screen and (max-width: 900px) {
   .top-cards .card{
-    width:48%;
+        display: block;
+        width: 48%;
+        float:left;
 }
 .feedback .card{
     width:98%;
 }
 }
+
 @media only screen and (max-width: 750px) {
-    .top-cards .card{
-        width:48%;
+//
 }
-}
+
 @media only screen and (max-width: 650px) {
       .top-cards .card{
-        width:98%;
+            display: block;
+             width: 98%;
 }
 }
 
