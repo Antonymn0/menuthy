@@ -17,7 +17,7 @@
                         </a>
                         <a href="#" class="p-1"> <i class="bi bi-lightning-fill text-white"></i></a> 
                         <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
-                         <a href="" class="p-1" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
+                        <a href="" class="p-1" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
                             <i class="bi bi-qr-code text-white"></i>
                         </a>
                     </div>

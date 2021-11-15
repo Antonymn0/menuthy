@@ -2,21 +2,23 @@
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
         <a class="btn btn-lg btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Restaurant name  
-          <i class="bi bi-caret-down float-right"></i> 
+         <small> Restaurant name &nbsp; <i class="bi bi-caret-down float-right pt-2 "></i>  </small> 
+           
         </a>
-        <div class="dropdown-menu rounded " aria-labelledby="navbarDropdown" style="width:90%; margin:auto">                
-            <div class="row  justify-content-center p-2 bg-danger rounded px-5 m-0 mb-3">  
-                    <!-- toggle mobile menu  modal  -->
-                <a href="#" class="col-md-3"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
-                    <!-- toggle edit restaurant modal  -->
-                <a href="#" class="col-md-3" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
+        <div class="dropdown-menu rounded ribbon " aria-labelledby="navbarDropdown" style="width:90%; margin:auto">                
+            <div class="row  justify-content-center p-2 bg-danger rounded px-2 m-0 mb-3">  
+                        <!-- toggle edit restaurant modal  -->
+                <a href="#" class="res-top" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
                     <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i>
                 </a>
-                    <!-- publish changes  -->
-                <a href="" class="col-md-3"> <i class="bi bi-lightning-fill text-white"></i> </a>  
+                 <!-- publish changes  -->
+                <a href="" class="res-top"> <i class="bi bi-lightning-fill text-white"></i> </a>
+                    <!-- toggle mobile menu  modal  -->
+                <a href="#" class="res-top"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
+                
+                 
                 <!-- toggle qr code modal  -->
-                <a href="" class="col-md-3" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
+                <a href="" class="res-top" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
                     <i class="bi bi-qr-code text-white"></i>
                 </a>
             </div> 
@@ -60,6 +62,12 @@ export default {
          background-color: $primary-button;  
          color:#fff;
          border-radius: 50px;      
+     }
+     .ribbon{
+         .res-top{
+             width:20%;
+             
+         }
      }
  }
 </style>

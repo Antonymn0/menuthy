@@ -3,8 +3,8 @@
 <Header />
 <Topnavbar />
 
-    <div class=" conatiner mb-3 p-5">
-        <div class=" top-cards px-2 ">
+    <div class="  mb-3  mx-1">
+        <div class=" top-cards  px-1 pt-4">
             <div class="card shadow  ">
                 <div class="card-body">
                     <h3>
@@ -54,8 +54,8 @@
         </div>
 
         <!-- banner section -->
-        <div class=" banner row justify-content-center px-4 py-3 " >
-            <div class="card shadow page-banner p-5 text-white">            
+        <div class=" banner row justify-content-center px-4 py-5 " >
+            <div class="card shadow page-banner px-3 py-5 text-white">            
                 <div class="col-xs-8 ">          
                     <h2>
                         Try our contactless online ordering solution!
@@ -63,8 +63,10 @@
                     <p>
                         Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
                         QR Menu for a contactless dine-in experience.
+                          
                     </p>
-                    <a href="" class="btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm btn-default border rounded"> Copy link</span> </a> 
+                   <a href="#" class="p-2 btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm border rounded">Copy link</span> </a>
+               
                 </div>
                 <div class="col-xs-4">
                     <img src="" alt="">
@@ -171,14 +173,11 @@ export default {
 .top-cards {
     display: table;
     flex-direction: row;
-
-
+    width:100%;
 }
 .top-cards .card{
     display: table-cell;
     margin:.09rem;
- 
-
 }
 .feedback .card{
     width:49%;
@@ -204,7 +203,8 @@ export default {
 @media only screen and (max-width: 650px) {
       .top-cards .card{
             display: block;
-             width: 98%;
+             width: 95%;
+             
 }
 }
 
