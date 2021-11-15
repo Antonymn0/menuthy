@@ -8,6 +8,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" href="images/menuthy_logo_icon.png">
+
     {{-- bootstrap css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -67,6 +69,23 @@
 
     @routes
 
+ <script>
+     //mobil burger menu script
+     /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "80%";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+    
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.body.style.backgroundColor = "white";
+    }
+ </script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
     integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
 </script>
@@ -75,6 +94,9 @@
 </script>
 {{-- webpack.mix.css --}}
 <script src="{{ mix('js/app.js') }}" defer></script>
+
+
+
 </body>
 
 </html>
