@@ -6,3 +6,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+
+
+// vue sweet alert custom styles
+@import '~sweetalert2/src/variables';
+
+$swal2-background: #fff;
+$swal2-confirmButton: #e3342f;
+$swal2-cancelButton: #f30400;
+
+@import '~sweetalert2/src/sweetalert2';

@@ -16,9 +16,13 @@ class CreateSubMenusTable extends Migration
         Schema::create('sub_menus', function (Blueprint $table) {
             $table->id();
             $table->string('sub_menu_name')->required();
-            $table->string('sub_menu_type')->required();
+            $table->string('sub_menu_type')->nullable();
             $table->integer('menu_id')->required(); //foreign key
-            $table->string('availability')->required(); 
+            $table->integer('restaurant_id')->required(); //foreign key
+            $table->string('availability')->nullable(); 
+            $table->integer('is_new')->nullable(); 
+            $table->integer('is_signiture')->nullable(); 
+            $table->integer('publish')->nullable(); 
             $table->integer('take_away')->nullable(); 
             $table->integer('inhouse')->nullable(); 
             $table->string('available_days')->nullable(); 

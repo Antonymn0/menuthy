@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Menu;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Menu;
 
 class MenuController extends Controller
 {
@@ -15,7 +16,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Menus/Menus');
+        $menus = Menu::paginate(env('API_PAGINATION', 10));
+        return Inertia::render('Menus/Menus',['menus' =>  $menus] );
     }
 
 

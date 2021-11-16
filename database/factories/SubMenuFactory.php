@@ -17,6 +17,7 @@ class SubMenuFactory extends Factory
             'sub_menu_name' => $this->faker-> randomElement(['half breakfast', 'full breakfast', 'half lunch']),
             'sub_menu_type' => $this->faker-> randomElement(['food', 'beverages', 'drinks']),
             'menu_id' => 1,
+            'restaurant_id' => 1,
             'availability' => $this->faker-> randomElement(['morning', 'afternoon', 'allday']),
             'take_away' => $this->faker-> numberBetween(1,2),
             'inhouse' => $this->faker-> numberBetween(1,2),

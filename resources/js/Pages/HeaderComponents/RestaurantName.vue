@@ -39,12 +39,14 @@
      
 </template>
 <script>
-import MobileMenu from './MobileMenu'
+import MobilePreview from './MobilePreview'
 import RestaurantInformation from "./RestaurantInformation"
 import QrCode from './QrCode'
 export default {
     components:{
         RestaurantInformation,
+        MobilePreview,
+        QrCode,
         
     }
 }

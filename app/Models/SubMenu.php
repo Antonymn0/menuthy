@@ -20,6 +20,7 @@ class SubMenu extends Model
         'sub_menu_name',
         'sub_menu_type',
         'menu_id',
+        'restaurant_id',
         'availability',
         'take_away',
         'inhouse',

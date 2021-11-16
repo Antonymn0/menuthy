@@ -7,7 +7,9 @@
         <div class=" col-md-10 row">
             <div class="row  ">
                 <p class="col-md-4 ">
-                     <img src="images/menuthy_logo_i.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:70%; height:auto; margin:auto"> 
+                    <a href="#">
+                         <img src="images/menuthy_logo_i.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:70%; height:auto; margin:auto"> 
+                     </a>
                 </p>
                 <div class="row col-sm-8 justify-content-center p-2">
                     <RestaurantName class="col-sm-5" />
@@ -32,7 +34,7 @@
     <div class="row header-toggle " style="height:0;">        
         <div class="row col-sm-5 align-items-center">
             <RestaurantInformation class="col-sm-2"/>            
-            <MobileMenu class="col-sm-2"/>
+            <MobilePreview class="col-sm-2"/>
             <QrCode class="col-sm-2"/>
         </div>
     </div>
@@ -41,14 +43,14 @@
 <script>
 import RestaurantName from "../HeaderComponents/RestaurantName";
 import RestaurantInformation from "../HeaderComponents/RestaurantInformation";
-import MobileMenu from "../HeaderComponents/MobileMenu";
+import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
 export default {
     components:{
         RestaurantName,
         RestaurantInformation,
-        MobileMenu,
+        MobilePreview,
         MobileNav,
         QrCode,
     }

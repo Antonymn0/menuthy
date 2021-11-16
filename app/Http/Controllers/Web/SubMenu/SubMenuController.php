@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Submenu;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\SubMenu;
 
 class SubMenuController extends Controller
 {
@@ -15,7 +16,8 @@ class SubMenuController extends Controller
      */
     public function index()
     {
-        return Inertia::render('SubMenu/SubMenu');
+        $subMenus = SubMenu::paginate(ENV('API_PAGINATION',10));
+        return Inertia::render('SubMenu/SubMenu', ['subMenus'=> $subMenus]);
     }
 
     /**

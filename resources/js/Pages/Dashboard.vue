@@ -13,7 +13,7 @@
                     <p>
                         Create new menus, add or edit your items and sections in your menus
                     </p>
-                    <a href="" class="btn btn-danger mx-auto text-center"> Menus</a>
+                    <a href="/menus" class="btn btn-danger mx-auto text-center"> Menus</a>
                 </div>
             </div>
             <div class="card shadow  ">

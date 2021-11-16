@@ -16,15 +16,21 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('restaurant_name')->required();
-            $table->string('restaurant_type')->required();
+            $table->string('restaurant_type')->nullable();
             $table->foreignId('user_id')->required()->references('id')->on('users')->onDelete('cascade');
-            $table->string('country')->required();
-            $table->string('county')->required();
-            $table->string('city')->required();
+            $table->string('country')->nullable();
+            $table->string('county')->nullable();
+            $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('restaurant_phone_number')->nullable();
             $table->string('restaurant_email')->nullable();
             $table->string('is24/7')->nullable();
+            $table->string('timezone')->nullable();
+            $table->string('website')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
             $table->dateTime('opening_hrs')->nullable();
             $table->dateTime('closing_hrs')->nullable();
             $table->integer('offer_accomodation')->nullable();

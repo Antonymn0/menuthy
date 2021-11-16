@@ -16,13 +16,14 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('menu_name')->required();
-            $table->string('category')->required();
-            $table->foreignId('restaurant_id')->required()->refferences('id')->on('restaurants')->onDelete('cascade');
-            $table->string('availability')->required();
-            $table->integer('take_away')->required();
-            $table->integer('in_house')->required();
-            $table->string('available_days')->required();
+            $table->string('category')->nullable();
+            $table->foreignId('restaurant_id')->required(); // ->refferences('id')->on('restaurants')->onDelete('cascade');
+            $table->string('availability')->nullable();
+            $table->integer('take_away')->nullable();
+            $table->integer('in_house')->nullable();
+            $table->string('available_days')->nullable();
             $table->string('slang')->nullable();
+            $table->integer('published')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->string('avatar')->nullable();

@@ -25,13 +25,14 @@ class ValidateMenu extends FormRequest
     {
         return [
             'menu_name' => ['required', 'string'],
-            'category' => ['required', 'string'],
-            'restaurant_id' => ['required', 'integer'],
-            'availability' => ['required', 'string'],
-            'take_away' => ['required', 'integer'],
-            'in_house' => ['required', 'integer'],
+            'category' => [ 'string'],
+            'restaurant_id' => ['required','integer'],
+            'availability' => [ 'string'],
+            'take_away' => [ 'integer'],
+            'in_house' => [ 'integer'],
             'available_days' => [ 'string'],
             'slang' => [ 'string'],
+            'published' => [ 'integer'],
             'description' => [ 'string'],
             'avatar' => [ 'string']
             // 'deleted_at' => [ 'date']

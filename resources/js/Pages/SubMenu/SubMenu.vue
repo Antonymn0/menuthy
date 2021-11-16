@@ -5,24 +5,27 @@
     <div class="main-sub-menu p-5  mb-5">   
         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i> Sub menu</p>
         <h3 class="mt-4">Sub-menu name</h3>
-        <div class="row pr-0 ">
-            <div class="menu-card p-0  p-1">  
+
+        <div class="row pr-0 " >
+            <div class="menu-card p-0  p-1" v-for="(subMenu) in subMenus.data" :key="subMenu.id">  
                 <div class="card p-1  text-center">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                        
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
+                            <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
                             <li><a class="dropdown-item" href="#">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Add</a></li>
-                            <li><a class="dropdown-item" href="#">Duplicate</a></li>
-                            <li><a class="dropdown-item" href="#">Delete</a></li>                   
-                        </ul>
-                        <!-- <img src="" alt="menu-image"> -->
-                        <i class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
+                            <li><a class="dropdown-item" href="#" @click="duplicateSubMenu(subMenu.id)">Duplicate</a></li>
+                            <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
+                        </ul>                        
+                         <a href="/menu-items">
+                             <img v-if = "subMenu.avatar = 0 " src="subMenu.avatar"  class="img-fluid" />                       
+                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
+                        </a>  
                     </div>
                     <div class="row m-1 p-1 w-100">
                         <h4 class="p-0" style="width:75%; float:left">
-                            Breakfast menu
+                            {{subMenu.sub_menu_name}}
                         </h4>
                         <div class=" custom-control custom-switch" style="width:25%; float:right">
                             <label class="switch">
@@ -32,7 +35,7 @@
                         </div>
                     </div>                   
                     <p> 5 items  </p>
-                    <p>  Nov 9, 2021  </p>                                       
+                    <p>  {{  formatDate(subMenu.created_at)}}   </p>                                       
                 </div>
             </div>     
         
@@ -47,95 +50,77 @@
                 </div>
             </div>                     
         </div>
-
-        <!-- add sub Menu modal -->
-        <div class="modal fade  " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title text-center" id="exampleModalLabel">Add a section (sub menu)</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Section name</label>
-                            <input type="text" class="form-control p-4" id="exampleFormControlInput1" placeholder="menu name here...">
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="maneu-name">Description</label>
-                            <textarea name="description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu section</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput2">Note</label>
-                            <input type="text" class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included">
-                        </div> 
-                        <div class="form-group">
-                            <label for="exampleFormControlInput2">Photo</label>
-                            <input type="file" class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included">
-                        </div> 
-                        <div class="col-sm-6 p-2">
-                            <div class="row custom-control p-3  custom-switch  ">
-                                <span clas='col-xs-8'>  Mark section as new </span>
-                                <span class="col-xs-4">
-                                    <label class="switch ">
-                                        <input type="checkbox" class="">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </span>                                    
-                            </div> 
-                            <div class="row custom-control p-3  custom-switch  ">
-                                <span clas='col-xs-8'>  Mark section as signiture </span>
-                                <span class="col-xs-4">
-                                    <label class="switch ">
-                                        <input type="checkbox" class="">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </span>                                    
-                            </div>
-                            <div class="row custom-control p-3  custom-switch  ">
-                                <span clas='col-xs-8'>  Publish </span>
-                                <span class="col-xs-4">
-                                    <label class="switch ">
-                                        <input type="checkbox" class="">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </span>                                    
-                            </div>
-                        </div>                         
-                        <div class="modal-footer w-50  mx-auto">
-                          <button type="button" class="btn primary-btn ">Save</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </form>
-                </div>                
-                </div>
-            </div>
-        </div> 
+            <AddSubMenuForm />
     </div>
 
     <Footer />
 </template>
 
 <script>
+import moment from 'moment';
 
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
+import AddSubMenuForm from "./AddSubMenuForm";
 
 export default {
-  props: {
-    //
-  
-  },
+ props:['subMenus'],
   components: {
   Header,
   Topnavbar,
-   Footer
+   Footer,
+   AddSubMenuForm,
 
+  },
+  methods:{
+      deleteSubMenu( id){
+            if (!confirm('Are you sure want to delete this section?')) return;
+            axios.delete('/api/sub-menu/' + id)
+            .then( response => {
+            if( response.status = 200){
+                this.$swal('Success, Section deleted!');
+                this.$inertia.visit('/sub-menu');
+                }                
+            });
+        },
+        duplicateSubMenu(id){
+            axios.get('/api/sub-menu/' + id)
+            .then( response => {
+                if( response.status = 200){   
+                    var data =    response.data.data ;             
+                    console.log(data);
+                    // convert response to form data 
+                    var form_data = new FormData();  
+                    for (let item in data) {
+                        console.log(item, data[item]);
+                        if(item == 'sub_menu_name') form_data.append(item, data[item]);
+                        if(item == 'restaurant_id') form_data.append(item, data[item]);
+                        if(item == 'menu_id') form_data.append(item, data[item]);
+                        }
+                        // save data
+                    axios.post('/api/sub-menu', form_data )
+                    .then( response => {
+                        this.$swal('Success, Section duplicated!');
+                    })
+                    .catch(error=>{
+                        this.$swal('Error, Failed to duplicate!');
+                        console.log(error);
+                    });
+                 }                
+            })
+            .catch( error => {
+                this.pageErrors = "Failed to execute!";
+                console.log(error);
+            }); 
+
+        },
+
+      formatDate(date){
+            if (date) {
+                return moment(String(date)).format('ll');
+            }
+        },
   },
 };
 </script>

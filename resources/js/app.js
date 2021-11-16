@@ -10,7 +10,11 @@ import {
 import { InertiaProgress } from "@inertiajs/progress";
 import moment from "moment";
 
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 const el = document.getElementById("app");
+
 
 createApp({
     render: () =>
@@ -21,6 +25,7 @@ createApp({
 })
     .mixin({ methods: { route } })
     .use(InertiaPlugin)
+    .use(VueSweetalert2)
     .mount(el);
 
 InertiaProgress.init({ color: "#4B5563" });

@@ -21,7 +21,7 @@ class MenuItemFactory extends Factory
             'sub_menu_id' => $this->faker->randomDigit(1,2),
             'inhouse' => $this->faker->randomDigit(1,2),
             'price' => $this->faker->randomFloat(1,2),
-            'preperation_time' => $this->faker->randomElement(['20min', '30min', '10min', '5min']),
+            'preparation_time' => $this->faker->randomElement([20, 30, 10 ,5]),
             'available_days' => $this->faker->word(),
             'slang' => $this->faker->word(),
             'description' => $this->faker->sentence(),

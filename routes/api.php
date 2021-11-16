@@ -62,14 +62,6 @@ if (App::environment('production')) {
     //  Parmamnently delete restaurant
   Route::get('restaurant/parmanently-delete/{id}','Api\Restaurant\RestaurantController@parmanentlyDelete');
 
-    // Menu API routes routes
-  Route::apiResource('menu','Api\Menu\MenuController');
-    // Get deleted menu
-  Route::get('menu/fetch-deleted','Api\Menu\MenuController@fetchDeleted');
-    // Restore menu
-  Route::get('menu/restore/{id}','Api\Menu\MenuController@restore');
-    //  Parmamnently delete menu
-  Route::get('menu/parmanently-delete/{id}','Api\Menu\MenuController@parmanentlyDelete');
 
     // Table API routes routes
   Route::apiResource('table','Api\Table\TableController');
@@ -80,6 +72,15 @@ if (App::environment('production')) {
     //  Parmamnently delete Table
   Route::get('table/parmanently-delete/{id}','Api\Table\TableController@parmanentlyDelete');
 
+    // Menu API routes routes
+  Route::apiResource('menu','Api\Menu\MenuController');
+    // Get deleted menu
+  Route::get('menu/fetch-deleted','Api\Menu\MenuController@fetchDeleted');
+    // Restore menu
+  Route::get('menu/restore/{id}','Api\Menu\MenuController@restore');
+    //  Parmamnently delete menu
+  Route::get('menu/parmanently-delete/{id}','Api\Menu\MenuController@parmanentlyDelete');
+  
     // MenuItem API routes routes
   Route::apiResource('menu-item','Api\MenuItem\MenuItemController');
     // Get deleted MenuItem
