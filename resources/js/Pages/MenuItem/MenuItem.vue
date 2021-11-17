@@ -13,7 +13,7 @@
         
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems.data" :key="menuItem.id">  
-                <div class="card p-1  text-center">
+                <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
