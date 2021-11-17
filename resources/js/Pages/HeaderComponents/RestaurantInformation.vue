@@ -1,10 +1,10 @@
 <template>
     <div class="p-0 m-0 col-sm-2">
-        <div class="">
+        <div class="m-3 pr-3">
             <a href="#"  data-toggle="modal" data-target="#exampleModalEditRestaurant" > <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i></a>
             
             <!-- edit restaurant Information modal -->
-        <div class="modal fade  " id="exampleModalEditRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditRestaurantLabel" aria-hidden="true">
+        <div class="modal fade " id="exampleModalEditRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditRestaurantLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -13,12 +13,12 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-2">
                     <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Restaurant  name</label>
                             <input type="text" class="form-control p-4"  v-bind="form.restaurant_name" id="exampleFormControlInput" placeholder="Restaurant name here...">
-                            {{ errors.restaurant_name}}
+                           <small class="text-danger"> {{ errors.restaurant_name}}</small> 
                         </div>
                     
                         <div class="form-group">

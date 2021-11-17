@@ -15,6 +15,10 @@
                 <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
                  <small class="text-danger"> {{ errors.description}} </small>
             </div>
+             <div class="form-group">
+                 <label for="file1">Image <small>(Optional)</small></label>
+                <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
+            </div>
             <div class="modal-footer text-center mx-auto">
                 <button type="submit" class="btn primary-btn "  @click="submitForm()" data-dismiss="modal">Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -36,6 +40,7 @@ export default defineComponent({
                 menu_name:'breakfast',
                 restaurant_id:1,
                 description:'breafast menu',
+                image:'',
             },
             errors:{ },
             success:'',
@@ -51,6 +56,7 @@ export default defineComponent({
                 form_data.append('menu_name', this.form.menu_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
                 form_data.append('description', this.form.description);
+                if(this.form.image) form_data.append('image', this.form.image);
             axios.post('/api/menu', form_data)
             .then( response => {
             if( response.status = 201){               
@@ -70,7 +76,10 @@ export default defineComponent({
             else delete this.errors.name;
             if(!this.form.description) this.errors.description = 'This field is required' ;
             else  delete this.errors.description; 
-        }        
+        },  
+        fileUpload(event){
+            this.form.image = event.target.files[0];
+        }      
     },
    
 });

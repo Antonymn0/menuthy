@@ -29,6 +29,7 @@ class ValidateMenuItem extends FormRequest
             'price' => ['required', 'regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
             'discount' => [ 'regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
             'preparation_time' => ['required', 'string'],
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
             'menu_item_type' => [ 'string'],
             'availability' => ['string'],
             'take_away' => [ 'integer'],
@@ -40,7 +41,6 @@ class ValidateMenuItem extends FormRequest
             'available_days' => [ 'string'],
             'slang' => [ 'string'],
             'description' => [ 'string'],
-            'image' => [ 'string'],
             'avatar' => [ 'string'],
             // 'deleted_at' => [ 'date']
         ];

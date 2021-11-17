@@ -3,9 +3,9 @@
 <Header />
 <Topnavbar />
 
-    <div class="  mb-3  mx-1">
+    <div class="  mb-3  mx-1 slide-down">
         <div class=" top-cards  px-1 pt-4">
-            <div class="card shadow  ">
+            <div class="card shadow fade-in ">
                 <div class="card-body">
                     <h3>
                         Edit your menu
@@ -16,7 +16,7 @@
                     <a href="/menus" class="btn btn-danger mx-auto text-center"> Menus</a>
                 </div>
             </div>
-            <div class="card shadow  ">
+            <div class="card shadow  fade-in">
                 <div class="card-body">
                     <h3>
                         Change your theme
@@ -29,7 +29,7 @@
             </div> 
 
         
-            <div class="card shadow   ">
+            <div class="card shadow  fade-in ">
                 <div class="card-body">
                     <h3>
                         Menu settings
@@ -40,7 +40,7 @@
                     <a href="" class="btn btn-lg btn-danger"> Settings</a>
                 </div>
             </div> 
-            <div class="card shadow  ">
+            <div class="card shadow fade-in ">
                 <div class="card-body">
                     <h3>
                         Integrations
@@ -55,7 +55,7 @@
 
         <!-- banner section -->
         <div class=" banner row justify-content-center px-4 py-5 " >
-            <div class="card shadow page-banner px-3 py-5 text-white">            
+            <div class="card shadow page-banner px-3 py-5 text-white fade-in">            
                 <div class="col-xs-8 ">          
                     <h2>
                         Try our contactless online ordering solution!
@@ -76,7 +76,7 @@
 
         <!-- feedback and recent orders section  -->
         <div class="row feedback px-2  my-2">
-            <div class="card shadow card p-2">
+            <div class="card shadow card p-2 mt-2 fade-in">
                <div class=" ">
                 <h4>   Recent orders <span class="float-right btn small primary-btn-color"> All oders</span>        </h4>
                 <div class="table-responsive">
@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <div class=" card shadow  p-2  ">
+            <div class=" card shadow  p-2 mt-2 ">
                 <div class="  ">
                     <h4> Feedback  <span class="float-right small btn primary-btn-color">All feedback</span>        </h4>
                     <div class="table-responsive">

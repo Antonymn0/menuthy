@@ -23,9 +23,8 @@
                             <li><a class="dropdown-item" href="#" @click="duplicateMenuItem(menuItem.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li>                   
                         </ul>
-                        <img src="" alt="menu-image">
                         <a href="/sub-menu">
-                             <img v-if = "menuItem.avatar = 0 " src="menuItem.avatar"  class="img-fluid" />                       
+                             <img v-if = "menuItem.image != null "  :src="'storage/'+ menuItem.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>                       
                     </div>

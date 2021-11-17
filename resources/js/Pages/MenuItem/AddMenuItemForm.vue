@@ -29,6 +29,10 @@
                 <input type="number"   class="form-control p-4" v-bind="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
             </div>
              <div class="form-group">.
+                 <label for="exampleFormControlInputprice">Image <small>(optional)</small></label>
+                <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice" name="image" placeholder="Preparation time" @change="fileUpload">
+            </div>
+             <div class="form-group">.
                  <label for="exampleFormControlInputprice">Allegy warning</label>
                  <select name="" id="" class="form-control p-4" multiple>
                      <option value="">-select-</option>
@@ -44,7 +48,16 @@
                             <span clas='col-xs-8'>  Mark item as new </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="p-2" name="is_new" v-bind="form.is_new">
+                                    <input type="checkbox" class="p-2" name="is_new" v-bind="form.is_new" checked="form.is_new">
+                                    <span class="slider round"></span>
+                                </label>
+                            </span>                                    
+                        </div> 
+                        <div class="row custom-control p-3  custom-switch  ">
+                            <span clas='col-xs-8'>  Mark item as hot </span>
+                            <span class="col-xs-4">
+                                <label class="switch ">
+                                    <input type="checkbox" class="p-2" name="is_new" v-bind="form.is_new" checked="form.is_hot">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
@@ -53,7 +66,7 @@
                             <span clas='col-xs-8'>  Mark item as signiture </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture">
+                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture" checked="form.is_signiture">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
@@ -62,7 +75,7 @@
                             <span clas='col-xs-8'>  Mark item as special presentation </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture">
+                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture" checked="form.is_special_presentation">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
@@ -71,7 +84,7 @@
                             <span clas='col-xs-8'> Publish </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture">
+                                    <input type="checkbox" class="" checked="form.publish" name="is_signiture" v-bind="form.is_signiture">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
@@ -101,12 +114,14 @@ export default {
                 file:'', 
                 preparation_time:1.2, 
                 allergy_warning:'', 
-                is_new:1, 
-                is_signiture:1, 
-                is_special_presentation:1, 
-                publish:1, 
-                discount:0,
-                price:0,
+                is_new:true, 
+                is_hot:true, 
+                is_signiture:false, 
+                is_special_presentation:true, 
+                publish:true, 
+                discount:true,
+                price:true,
+                image:''
             },
             errors:{},
         }
@@ -128,16 +143,17 @@ export default {
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
                 form_data.append('publish', this.form.publish);
+                if(this.form.image) form_data.append('image', this.form.image);
             console.log('Price: ', this.form.price);
             axios.post('/api/menu-item', form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success, Sub new menu item added!');
+                this.$swal('Success, Item added!');
                 this.$inertia.visit('/menu-items');
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, Menu not added!');
+               this.$swal('Failed, Item not added!');
                 console.log(error.response.data.errors);                    
             });
         },
@@ -158,7 +174,10 @@ export default {
             if(!this.form.sub_menu_id) this.errors.sub_menu_id = 'Sub menu id field is required' ;
             else  delete this.errors.menu_id;
             console.log(this.errors); 
-        }    
+        },
+        fileUpload(event){
+            this.form.image = event.target.files[0];
+        }     
     },
 }
 </script>

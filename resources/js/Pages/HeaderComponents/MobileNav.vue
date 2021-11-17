@@ -1,10 +1,10 @@
 <template>
     <div class="mobileNav border-bottom">
-        <div class="row text-center ">
-            <div class="logo p-2 img-fluid row justify-content-center">
+        <div class="d-flex text-center container-fluid">
+            <div class="logo col-sm-6 p-2 img-fluid row justify-content-center">
                 <img src="images/artboard.png" alt="menuthy-logo" class="img-fluid">
             </div>
-            <div class="right-div p-2 row">
+            <div class="right-div col-sm-6 p-2 row">
                 <div class="resName"> 
                     <RestaurantName /> 
                 </div>
@@ -60,7 +60,18 @@
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Integrations</a></li>
                                 </ul>
-                            </li>                            
+                            </li>  
+                            <li class="dropdown-item  pt-2">
+                                <form action="/logout" method="POST" enctype="multipart/form-data">
+                                    <div class="ml-2 border-top pt-2">
+                                    <input type="hidden" name="_token" :value="csrf">    <!--csrf token field -->
+                                    <button type="submit" class="btn-danger mx-auto"> 
+                                        <i class="bi bi-box-arrow-left pr-1"></i> 
+                                        Logout
+                                    </button>
+                                    </div>                        
+                                </form>                     
+                            </li>                  
                         </ul>
                     </div>
 
@@ -78,6 +89,12 @@
 import RestaurantName from "../HeaderComponents/RestaurantName";
 
 export default {
+    data(){
+        return{
+            authUser: window.authUser,  // Authenticated user Imported from laravel main blade file
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
+        }
+    },
     components:{
         RestaurantName,
     
@@ -95,10 +112,10 @@ export default {
         padding:5px;
         display:none;
         .logo{
-            width:20%;
+            width:15%;
             padding:5px;
             img{
-                max-width:80%;
+                max-width:60%;
                 height:auto;
             }
         }
@@ -130,6 +147,7 @@ export default {
   color:#1f2027; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
+  padding-right: 10px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -163,12 +181,21 @@ export default {
   .mobileNav{
      display:block;
   } 
+  .mobileNav .logo{
+      width:10%;
+       img{     
+           width:15vh;
+        max-width:50%;
+        height:auto;  
+    }
+    }
 }
 @media screen and (max-width: 450px) {
    .mobileNav .logo{
       width:30%;
       padding-left :20px;
        img{     
+        width:15vh;
         max-width:100%;
         height:auto;  
     }
@@ -176,6 +203,11 @@ export default {
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (min-height: 450px) {
+    .mobileNav .logo img{     
+        width:5rem;
+        max-width:100%;
+        height:4rem;  
+    }
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }

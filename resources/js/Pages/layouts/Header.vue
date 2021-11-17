@@ -7,8 +7,8 @@
         <div class=" col-md-10 row">
             <div class="row  ">
                 <p class="col-md-4 ">
-                    <a href="#">
-                         <img src="images/menuthy_logo_i.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:70%; height:auto; margin:auto"> 
+                    <a href="/dashboard">
+                         <img src="images/menuthy_logo_i.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:50px; height:auto; "> 
                      </a>
                 </p>
                 <div class="row col-sm-8 justify-content-center p-2">
@@ -26,9 +26,30 @@
                 </div>                
             </div>   
         </div>           
-        <div class="col-md-2 float-right text-left">
-            <span>Jon Doe </span>  
-            <span class="rounded-circle ml-2 "><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
+        <div class="col-md-2 float-right text-leftnav-item dropdown ">           
+            <a class="nav-link  p-0 m-0 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="mb-2 pr-1">{{authUser.first_name}} </span>  
+                <img  v-if="authUser.image"  :src="'public/' + authUser.image"  alt="profile-image" >
+                <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
+            </a>
+            <ul class="dropdown-menu pb-0 mb-0" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                 
+                <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li class="dropdown-item  border-top px-2">
+                    <form action="/logout" method="POST" enctype="multipart/form-data">
+                        <div class="ml-2">
+                         <input type="hidden" name="_token" :value="csrf">    <!--csrf token field -->
+                         <button type="submit" class="btn-danger mx-auto"> 
+                            <i class="bi bi-box-arrow-left pr-1"></i> 
+                             Logout
+                       </button>
+                        </div>                        
+                    </form>                     
+                </li>
+            </ul>
+            
         </div>        
     </div>
     <div class="row header-toggle " style="height:0;">        
@@ -46,16 +67,32 @@ import RestaurantInformation from "../HeaderComponents/RestaurantInformation";
 import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
+
 export default {
+    data(){
+        return{
+            authUser: window.authUser,  // Authenticated user Imported from laravel main blade file
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
+        }
+    },
     components:{
         RestaurantName,
         RestaurantInformation,
         MobilePreview,
         MobileNav,
         QrCode,
-    }
+    },
+    created() {
+        // console.log(this.authUser);
+    },
+    methods:{
+        logout(){
+             this.$inertia.visit('/logout');
+        }
+    },
 }
 </script>
+
 <style lang='scss'>
 @import "../../../sass/app.scss";
 

@@ -34,7 +34,8 @@ class ValidateMenu extends FormRequest
             'slang' => [ 'string'],
             'published' => [ 'integer'],
             'description' => [ 'string'],
-            'avatar' => [ 'string']
+            'avatar' => [ 'string'],
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048'
             // 'deleted_at' => [ 'date']
         ];
     }

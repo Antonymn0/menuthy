@@ -6,36 +6,48 @@
         </a>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalqrCode" tabindex="-1" aria-labelledby="exampleModalqrCodeLabel" aria-hidden="true">
+        <div class="modal fade m-2" id="exampleModalqrCode" tabindex="-1" aria-labelledby="exampleModalqrCodeLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header pb-1 m-0">
                 <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your device  </h4>
-                <ul class="nav nav-tabs ">
-                        <li class="active " > <a data-toggle="tab" href="#mobile" class="btn card">Mobile</a> </li>
-                        <li > <a data-toggle="tab" href="#tablet" class="btn card">Tablet</a> </li>
-                    </ul>
+               
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
+                     <ul class="nav nav-tabs float-center">
+                        <li class="active " @click="generatQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card">Mobile</a> </li>
+                        <li @click="generatQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card">Tablet</a> </li>
+                    </ul>
              
                     <div class="tab-content">
                         <!-- mobile qr code  -->
                         <div id="mobile" class="tab-pane fade in active py-3">
-                             <div class="qrcode container">
-                                <img src="images/qrcodes/qr1.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:70%; height:auto; margin:auto"> 
-                                </div>
-                                <p>
-                                    Qr code link here
-                                </p>
+                             <small> Mobile</small>
+                             <div class="qrcode container"> 
+                                <vue-qrcode :value="this.qrCode" :options="{ width: 150 }"></vue-qrcode>
+                            </div>
+                            <p>
+                                Link: {{this.qrCode}}
+                            </p>
                             <p class="w-50 mx-auto my-2 p-3">
                                 <button type="button" class="btn btn-danger float-right" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
                         <div id="tablet" class="tab-pane fade">
-                           <div class="qrcode container">
-                                <img src="images/qrcodes/qr1.png" class="mx-auto my-auto img-fluid pl-4 text-danger" alt="image-logo" style="width:70%; height:auto; margin:auto"> 
+                            <small> Tablet</small>
+                           <div class="qrcode container">                               
+                                <vue-qrcode
+                                    :value="this.qrCode"
+                                    :options="{
+                                        width:200,
+                                        color: {
+                                            dark: '#e3342f',
+                                            light: '#fff',
+                                        },
+                                    }">
+                                </vue-qrcode>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Venue ID</label>
@@ -66,6 +78,29 @@
 
 <script>
 export default {
+    data(){
+        return{
+            qrCode:'menuthy.herokuapp.com',
+           
+        } 
+    },
+    methods:{
+        generatQqrCode(){
+            console.log('Generating qr code...');
+            axios.get('/api/qrcode-generate')
+            .then( response => {
+            if( response.status = 200){
+                this.qrCode = response.data;
+                console.log(this.qrCode);
+                } 
+            })
+            .catch( error => {
+               this.$swal('Failed to generate Qr code!');
+                console.log(error.response.data.errors);
+                return;                    
+            });
+        },
+    }
     
 }
 </script>

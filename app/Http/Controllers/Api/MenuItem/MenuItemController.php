@@ -34,7 +34,13 @@ class MenuItemController extends Controller
      */
     public function store(ValidateMenuItem $request)
     {
-        $data = $request->validated();        
+        $data = $request->validated();  
+         
+        if($request->hasFile('image')){            
+           $path = $request->file('image')->store('public');
+           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+           $data['image'] = $path;
+        }     
         $menuItem = MenuItem::create($data);
         event(new menuItemCreated($menuItem));
         return response()->json([

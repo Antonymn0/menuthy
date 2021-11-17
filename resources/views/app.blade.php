@@ -105,22 +105,107 @@ width: 300px;
 height: 440px;
 background: white;
 }
-</style>
 
+/* fade in animation  */
+.fade-in {
+animation: fadeIn ease 3s;
+-webkit-animation: fadeIn ease 3s;
+-moz-animation: fadeIn ease 3s;
+-o-animation: fadeIn ease 3s;
+-ms-animation: fadeIn ease 3s;
+}
+@keyframes fadeIn {
+0% {
+opacity:0;
+}
+100% {
+opacity:1;
+}
+}
+
+@-moz-keyframes fadeIn {
+0% {
+opacity:0;
+}
+100% {
+opacity:1;
+}
+}
+
+@-webkit-keyframes fadeIn {
+0% {
+opacity:0;
+}
+100% {
+opacity:1;
+}
+}
+
+@-o-keyframes fadeIn {
+0% {
+opacity:0;
+}
+100% {
+opacity:1;
+}
+}
+
+@-ms-keyframes fadeIn {
+0% {
+opacity:0;
+}
+100% {
+opacity:1;
+}
+/* slide down effect */
+div {
+width: 100px;
+height: 100px;
+background-color: red;
+position: relative;
+animation-name: example;
+animation-duration: 1s;
+}
+
+@keyframes example {
+0% { top:-10px;}
+100% { top:0px;}
+}
+
+</style>
 
 
 </head>
 
-<body class="font-sans antialiased">
-    @inertia
+<body class="font-sans antialiased" >
 
-    @routes
+
+    @if(Auth::check())
+        <script>
+            // pass Auth::user object to javascript
+            window.authUser={!! json_encode(Auth::user()); !!};   
+        </script>
+        @inertia
+        @routes        
+    @else
+        <script>
+            // else auth user null
+            window.authUser=null;
+        </script>
+        <div>
+            <p>
+                Not logged in
+            </p>
+           
+            @include('welcome')
+        </div>
+    @endif
 
  <script>
-     //mobil burger menu script
+     //mobile burger menu script
      /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
     function openNav() {
-    document.getElementById("mySidenav").style.width = "80%";
+    document.getElementById("mySidenav").style.width = "50%";
     document.getElementById("main").style.marginLeft = "250px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }
@@ -131,6 +216,8 @@ background: white;
     document.getElementById("main").style.marginLeft = "0";
     document.body.style.backgroundColor = "white";
     }
+
+
  </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -141,8 +228,6 @@ background: white;
 </script>
 {{-- webpack.mix.css --}}
 <script src="{{ mix('js/app.js') }}" defer></script>
-
-
 
 </body>
 

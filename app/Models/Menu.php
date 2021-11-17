@@ -26,8 +26,9 @@ class Menu extends Model
         'available_days',
         'slang',
         'description',
-        'deleted_at',
-        'avatar'
+        'image',
+        'avatar',
+        'deleted_at'
 
     ];
 

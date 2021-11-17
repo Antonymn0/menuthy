@@ -26,6 +26,7 @@ class CreateMenusTable extends Migration
             $table->integer('published')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('deleted_at')->nullable();
+            $table->string('image')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamps();
         });
