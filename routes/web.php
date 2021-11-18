@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Mail\WelcomeEmail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +24,8 @@ Route::get('/', function () {
     Route::get('/login','Web\Auth\AuthController@showLoginForm');
 
 Route::middleware(['auth'])->group(function () { 
+    // verify emai route
+    Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
        
     //logout route
     Route::post('/logout','Web\Auth\AuthController@logout');
@@ -35,12 +37,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/menus', [App\Http\Controllers\Web\Menu\MenuController::class, 'index'])->name('menus');
     Route::get('/sub-menu', [App\Http\Controllers\Web\SubMenu\SubMenuController::class, 'index'])->name('sub-menu');
     Route::get('/menu-items', [App\Http\Controllers\Web\MenuItem\MenuItemController::class, 'index'])->name('menu-items');
-    Route::get('/item', [App\Http\Controllers\Web\Item\ItemController::class, 'index'])->name('item');
 
     //Qr code routes
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');
     Route::get('qrcode-create','QrCodeController@create')->name('qrcode-create');
 
 });
-Auth::routes();
+
+Auth::routes(['verify' => true]);
+
+//test email route
+ Route::get('test-email',function(){
+
+     return new WelcomeEmail($user='first_name');
+ });
+
+
+
+Route::fallback(function() {
+        return response()->json([
+            'success'=> false,
+            'message' => 'No such route found on this server',
+            ], 404);
+});
  

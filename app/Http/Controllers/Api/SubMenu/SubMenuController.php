@@ -33,8 +33,15 @@ class SubMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ValidateSubMenu $request)
-    {
-        $data = $request->validated();        
+    {    
+
+        $data = $request->validated(); 
+        if($request->hasFile('image')){            
+           $path = $request->file('image')->store('public');
+           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+           $data['image'] = $path;
+        }
+
         $subMenu = SubMenu::create($data);
         event(new subMenuCreated($subMenu));
         return response()->json([
@@ -68,7 +75,13 @@ class SubMenuController extends Controller
      */
     public function update(ValidateSubMenu $request, $id)
     {
-        $data = $request->validated();
+        $data = $request->validated(); 
+        if($request->hasFile('image')){            
+           $path = $request->file('image')->store('public');
+           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+           $data['image'] = $path;
+        }
+
         SubMenu::findOrFail($id)->update($data);
         $subMenu = SubMenu::findOrFail($id);
         event(new subMenuUpdated($subMenu));

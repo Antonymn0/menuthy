@@ -19,30 +19,38 @@
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
-                            <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal'menu.id'">Edit</a></li>
+                            <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="'#exampleModalUpdate'+ menu.id">Edit</a></li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenuItem(menuItem.id)">Duplicate</a></li>
-                            <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li>                   
+                            <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li> 
+
+                            <li>    
+                                
+                            </li>                  
                         </ul>
+                       
+                         <UpdateMenuItem :menuItem = menuItem /> <!-- pass menuItem as prop to child -->
                         <a href="/sub-menu">
                              <img v-if = "menuItem.image != null "  :src="'storage/'+ menuItem.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>                       
                     </div>
                     <div class="row m-1 p-1 w-100">
-                        <h4 class="p-0" style="width:75%; float:left">
+                        <h4 class="p-0 " style="width:70%; float:left">
                             {{menuItem.menu_item_name}}
                         </h4>
-                        <div class=" custom-control custom-switch" style="width:25%; float:right">
+                        <!-- switch -->
+                        <div class=" custom-control custom-switch" style="width:20%; float:right">
                             <label class="switch">
-                                <input type="checkbox" class="" value="true">
+                                <input type="checkbox" class="" checked="menuItem.publish">
                                 <span class="slider round"></span>
                             </label>
                         </div>
                     </div>                    
                     <p> 5 items  </p>
-                    <p>  {{  formatDate(menuItem.created_at)}}  </p>                                      
+                    <p>  {{  formatDate(menuItem.created_at)}}  </p>  
+                                                       
                 </div>       
-
+  
             </div>              
            
                 <!-- add new menu box  -->
@@ -58,20 +66,10 @@
             </div>          
 
             <!-- add new Menu modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title text-center" id="exampleModalLabel">Add new Item</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                        <AddMenuItemForm />
-                    
-                    </div>
-                </div>
-            </div>      
+            <div>
+                <AddMenuItemForm />                    
+                                  
+            </div>                    
                      
         </div>
     </div>
@@ -86,10 +84,12 @@ import $ from "jquery";
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import AddMenuItemForm from "../MenuItem/AddMenuItemForm";
-import EditMenuForm from "../Menus/EditMenuForm";
+import UpdateMenuItem from "../MenuItem/UpdateMenuItem";
 import Footer from "../layouts/Footer";
 
+
 export default {
+   
  props:['menuItems'],
  data(){
      return{
@@ -103,7 +103,7 @@ export default {
   Topnavbar,
    Footer,
    AddMenuItemForm,
-   EditMenuForm,
+   UpdateMenuItem,
 
 
   },
@@ -207,8 +207,8 @@ export default {
   right:0;
   top:0;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 36px;
+  height: 22px;
 }
 
 /* Hide default HTML checkbox */
@@ -234,10 +234,10 @@ export default {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 19px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -252,14 +252,14 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 30px;
 }
 
 .slider.round:before {

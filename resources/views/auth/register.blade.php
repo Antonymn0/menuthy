@@ -38,7 +38,10 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div>
+                            <input id="registration_status" type="hidden" class="form-control   name="registration_status"
+                                value="pending" required  autofocus>
+                        </div>
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

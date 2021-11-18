@@ -13,22 +13,22 @@
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name</label>
-                        <input type="text" class="form-control p-4" name="sub_menu_name" v-bind="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
+                        <input type="text" class="form-control p-4" name="sub_menu_name" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
                     </div>
                 
                     <div class="form-group">
                         <label for="maneu-name">Description</label>
-                        <textarea name="description"  class="form-control p-3" v-bind="form.description" id="" cols="10" rows="5">Describe the menu section</textarea>
+                        <textarea   class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput2">Photo</label>
-                        <input type="file" class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included">
+                        <input type="file" class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included" @change="fileUpload">
                     </div> 
                      <div class="row custom-control p-3  custom-switch  ">
                         <span clas='col-xs-8'>  Publish </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" name="publish" v-bind="form.publish">
+                                <input type="checkbox" class=""  v-model="form.publish" @click="logPub">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -38,7 +38,7 @@
                             <span clas='col-xs-8'>  Mark section as new </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="" name="is_new" v-bind="form.is_new">
+                                    <input type="checkbox" class=""  v-model="form.is_new">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
@@ -47,15 +47,15 @@
                             <span clas='col-xs-8'>  Mark section as signiture </span>
                             <span class="col-xs-4">
                                 <label class="switch ">
-                                    <input type="checkbox" class="" name="is_signiture" v-bind="form.is_signiture">
+                                    <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture">
                                     <span class="slider round"></span>
                                 </label>
                             </span>                                    
                         </div>
                        
                          <div class="form-group">
-                            <input type="hidden" class="form-control p-4" v-bind="form.restaurant_id" name="resaturant_id" required>
-                            <input type="hidden" class="form-control p-4" v-bind="form.menu_id" name="resaturant_id" required>
+                            <input type="hidden" class="form-control p-4" v-model="form.restaurant_id" name="resaturant_id" required>
+                            <input type="hidden" class="form-control p-4" v-model="form.menu_id" name="resaturant_id" required>
                         </div>
                     </div>                         
                     <div class="modal-footer w-50  mx-auto">
@@ -70,17 +70,22 @@
 </template>
 
 <script>
-export default {
+import { reactive } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { defineComponent } from "vue";
+
+export default defineComponent({
     data(){
         return{
             form:{
-                sub_menu_name:'',
+                sub_menu_name:'menu 1',
                 restaurant_id:1,
                 menu_id:1,
                 description:'',
-                is_new:1,
-                is_signiture: 1,
-                publish: 1,
+                is_new:true,
+                is_signiture: true,
+                publish: false,
+                image:'',
             },
             errors:{},
             success:'',
@@ -92,18 +97,23 @@ export default {
             this.validateForm();
             if(this.errors.length > 0) return;
             console.log('no errors...');
+            console.log(this.form);
             let form_data = new FormData();
                 form_data.append('sub_menu_name', this.form.sub_menu_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
                 form_data.append('menu_id', this.form.menu_id);
-                // form_data.append('description', this.form.description);
-                // form_data.append('is_signiture', this.form.is_signiture);
-                // form_data.append('is_new', this.form.is_new);
-                // form_data.append('publish', this.form.publish);
-            console.log(form_data);
+                form_data.append('description', this.form.description);
+                form_data.append('is_signiture', this.form.is_signiture);
+                form_data.append('is_new', this.form.is_new);
+                form_data.append('publish', this.form.publish);
+                if(this.form.image) form_data.append('image', this.form.image);
+                for(var pair of form_data.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                    }
             axios.post('/api/sub-menu', form_data)
             .then( response => {
             if( response.status = 201){
+                console.log('responce: ',response);
                 this.$swal('Success, Sub menu added!');
                 this.$inertia.visit('/sub-menu');
                 } 
@@ -115,16 +125,25 @@ export default {
         },
 
         validateForm () {
-            if(!this.form.sub_menu_name) this.errors.sub_menu_name = 'Submenu field is required' ;
+            if(!this.form.sub_menu_name) this.errors.sub_menu_name = 'This field is required' ;
             else delete this.errors.sub_menu_name;
+
             if(!this.form.restaurant_id) this.errors.restaurant_id = 'Restaurant id field is required' ;
             else  delete this.errors.restaurant_id; 
+
             if(!this.form.menu_id) this.errors.menu_id = 'menu id field is required' ;
             else  delete this.errors.menu_id;
             console.log(this.errors); 
-        },      
+        }, 
+
+        fileUpload(event){
+            this.form.image = event.target.files[0];
+        }     
     },
-}
+    logPub(){
+        console.log(this.form.publish);
+    }
+});
 </script>    
 
 <style lang="scss" scoped>

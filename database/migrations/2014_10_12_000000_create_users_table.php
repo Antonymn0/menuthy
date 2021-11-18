@@ -23,6 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('password')->required();
             $table->string('user_name')->nullable()->unique();
             $table->string('phone')->nullable()->unique();
+            $table->string('registration_status')->nullable();
+            $table->string('package_type')->nullable();
+            $table->dateTime('trial_expiry')->nullable();
+            $table->dateTime('registration_expiry')->nullable();
             $table->string('address')->nullable();
             $table->text('biography')->nullable();
             $table->dateTime('dob')->nullable();

@@ -33,7 +33,7 @@ class MenuItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ValidateMenuItem $request)
-    {
+    {   dd($request);
         $data = $request->validated();  
          
         if($request->hasFile('image')){            

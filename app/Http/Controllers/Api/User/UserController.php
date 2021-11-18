@@ -42,6 +42,7 @@ class UserController extends Controller
         return response()->json([
             'success'=> true,
             'message'=> 'User created successfuly',
+            'data' => true,
             ],  201);
     }
 

@@ -26,7 +26,7 @@ class MenuItemFactory extends Factory
             'slang' => $this->faker->word(),
             'description' => $this->faker->sentence(),
             'discount' => $this->faker->randomFloat(1,2),
-            'image' => $this->faker->url(),
+            'image' =>  $this->faker-> randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']),
             'avatar' => $this->faker->word(),
             // 'deleted_at' => null
         ];

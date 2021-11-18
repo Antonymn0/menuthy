@@ -18,8 +18,8 @@
                             <li><a class="dropdown-item" href="#" @click="duplicateSubMenu(subMenu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
-                         <a href="/menu-items">
-                             <img v-if = "subMenu.avatar = 0 " src="subMenu.avatar"  class="img-fluid" />                       
+                        <a href="/menu-items">
+                             <img v-if = "subMenu.image != null " :src="'storage/'+ subMenu.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>  
                     </div>
@@ -29,7 +29,8 @@
                         </h4>
                         <div class=" custom-control custom-switch" style="width:25%; float:right">
                             <label class="switch">
-                                <input type="checkbox" class="">
+                                <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'">
+                                <input type="checkbox" class=""  v-else>
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -88,16 +89,19 @@ export default {
             axios.get('/api/sub-menu/' + id)
             .then( response => {
                 if( response.status = 200){   
-                    var data =    response.data.data ;             
-                    console.log(data);
+                    var data =    response.data.data ;      
                     // convert response to form data 
                     var form_data = new FormData();  
                     for (let item in data) {
-                        console.log(item, data[item]);
-                        if(item == 'sub_menu_name') form_data.append(item, data[item]);
-                        if(item == 'restaurant_id') form_data.append(item, data[item]);
-                        if(item == 'menu_id') form_data.append(item, data[item]);
+                        if(item == 'id') continue;
+                        if(item == 'created_at') continue;
+                        if(item == 'deleted_at') continue;
+                        if(item == 'updated_at') continue;
+                        form_data.append(item, data[item]);
                         }
+                         for(var pair of form_data.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                    }
                         // save data
                     axios.post('/api/sub-menu', form_data )
                     .then( response => {
@@ -151,70 +155,71 @@ export default {
         padding: 5px;
     }
 
-    /* The switch - the box around the slider */
-    .switch {
-    position: absolute;
-    right:0;
-    top:0;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-    }
+    
+/* The switch - the box around the slider */
+.switch {
+  position: absolute;
+  right:0;
+  top:0;
+  display: inline-block;
+  width: 36px;
+  height: 22px;
+}
 
-    /* Hide default HTML checkbox */
-    .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    }
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-    /* The slider */
-    .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-    }
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
 
-    .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-    }
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
 
-    input:checked + .slider {
-    background-color: $primary-button;
-    }
+input:checked + .slider {
+  background-color: $red;
+}
 
-    input:focus + .slider {
-    box-shadow: 0 0 1px $primary-button;
-    }
+input:focus + .slider {
+  box-shadow: 0 0 1px $red;
+}
 
-    input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-    }
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
 
-    /* Rounded sliders */
-    .slider.round {
-    border-radius: 34px;
-    }
+/* Rounded sliders */
+.slider.round {
+  border-radius: 30px;
+}
 
-    .slider.round:before {
-    border-radius: 50%;
-    }
+.slider.round:before {
+  border-radius: 50%;
+}
 
     /* media quesries */
     @media only screen and (max-width: 900px) {

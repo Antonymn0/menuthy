@@ -14,7 +14,7 @@ class userCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $user;
+    public $user;
     
     /**
      * Create a new event instance.
@@ -24,6 +24,7 @@ class userCreated
      */
     public function __construct($user)
     {
+
         $this->user = $user;
     }
 
