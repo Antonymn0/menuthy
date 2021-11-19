@@ -16,7 +16,7 @@ class SubMenuController extends Controller
      */
     public function index()
     {
-        $subMenus = SubMenu::paginate(ENV('API_PAGINATION',10));
+        $subMenus = SubMenu::with('MenuItem')->paginate(ENV('API_PAGINATION',10));
         return Inertia::render('SubMenu/SubMenu', ['subMenus'=> $subMenus]);
     }
 
@@ -48,8 +48,10 @@ class SubMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {           
+        $menuItems = SubMenu::with('MenuItem')->findOrFail($id);
+
+        return Inertia::render('MenuItem/MenuItem', ['menuItems'=> $menuItems]);
     }
 
     /**

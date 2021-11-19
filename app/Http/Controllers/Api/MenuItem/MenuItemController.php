@@ -33,7 +33,7 @@ class MenuItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ValidateMenuItem $request)
-    {   dd($request);
+    {   
         $data = $request->validated();  
          
         if($request->hasFile('image')){            
@@ -48,6 +48,24 @@ class MenuItemController extends Controller
             'message'=> 'MenuItem created successfuly',
             'data'=> true,
             ],  201);
+    }
+
+
+   /**
+     * toggle publish the specified resource.
+     *
+     * @param  int  $id $value
+     * @return \Illuminate\Http\Response
+     */
+    public function togglePublish($id, $value)
+    {
+        menuItem::where("id", $id)
+        ->update(['publish'=> $value]);
+        return response()->json([
+            'success'=> true,
+            'message'=> 'Sub menu publish toggled',
+            'data'=> true,
+            ],  200);
     }
 
     /**

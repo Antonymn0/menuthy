@@ -47,6 +47,10 @@
                 <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
             </div>
              <div class="form-group">
+                <label for="exampleFormControlInputprice">Food Origin</label>
+                <input type="text"   class="form-control p-4" v-model="form.origin" id="exampleFormControlInputprice"  placeholder="carlories" >
+            </div>
+             <div class="form-group">
                  <label for="exampleFormControlInputprice">Image </label>
                 <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
             </div>
@@ -177,6 +181,7 @@ components: { Multiselect },
                 discount:1,
                 price:1,
                 image:'',
+                origin:'',
                 allergy_warning:{ },               
             },           
             errors:{ l:''},
@@ -198,6 +203,7 @@ components: { Multiselect },
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
                 form_data.append('publish', this.form.publish);
+                form_data.append('origin', this.form.origin);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
             axios.post('/api/menu-item', form_data)

@@ -23,7 +23,7 @@ class CreateMenusTable extends Migration
             $table->integer('in_house')->nullable();
             $table->string('available_days')->nullable();
             $table->string('slang')->nullable();
-            $table->integer('published')->nullable();
+            $table->string('published')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->string('image')->nullable();

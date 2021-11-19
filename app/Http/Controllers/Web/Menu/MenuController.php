@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Web\Menu;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Menu;
+use App\Models\SubMenu;
+use App\Models\Restaurant;
+
 
 class MenuController extends Controller
 {
@@ -16,21 +20,15 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::paginate(env('API_PAGINATION', 10));
+        $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first() ;
+
+        $menus = Menu::with('SubMenu')->WHERE('restaurant_id', $restaurant->id)->get();
+
         return Inertia::render('Menus/Menus',['menus' =>  $menus] );
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.
@@ -39,8 +37,14 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {     
+        $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first() ;
+
+        $subMenus = SubMenu::with('Menu')
+                        ->WHERE('menu_id', $id)
+                        ->get();
+
+        return Inertia::render('SubMenu/SubMenu', ['subMenus'=> $subMenus]);
     }
 
     /**

@@ -9,10 +9,12 @@
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-        <h3 class="mt-4">Menu items  </h3>
+         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menuItems.sub_menu_name}}  </p>
+        <h3 class="mt-4">Items  </h3>
+        {{menuItems.sub_menu_name.toUpperCase()}}
         
         <div class="row pr-0 " >
-            <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems.data" :key="menuItem.id">  
+            <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems.menu_item" :key="menuItem.id">  
                 <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -29,10 +31,10 @@
                         </ul>
                        
                          <UpdateMenuItem :menuItem = menuItem /> <!-- pass menuItem as prop to child -->
-                        <a href="/sub-menu">
+                        <p>
                              <img v-if = "menuItem.image != null "  :src="'storage/'+ menuItem.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
-                        </a>                       
+                        </p>                       
                     </div>
                     <div class="row m-1 p-1 w-100">
                         <h4 class="p-0 " style="width:70%; float:left">
@@ -40,14 +42,19 @@
                         </h4>
                         <!-- switch -->
                         <div class=" custom-control custom-switch" style="width:20%; float:right">
-                            <label class="switch">
-                                <input type="checkbox" class="" checked="menuItem.publish">
+                            <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
+                               <input type="checkbox" class="" checked v-if="menuItem.publish == 'true'" @click="togglePublish(menuItem.id, 'false')" >
+                                <input type="checkbox" class=""  v-else  @click="togglePublish(menuItem.id, 'true')">
                                 <span class="slider round"></span>
                             </label>
+                            
                         </div>
                     </div>                    
-                    <p> 5 items  </p>
-                    <p>  {{  formatDate(menuItem.created_at)}}  </p>  
+                    <p> Price:  {{menuItem.price}}  </p>
+                    <p data-toggle="tooltip" data-placement="left" title="Preparation time">
+                          <i class="bi bi-alarm text-danger" ></i> 
+                        {{menuItem.preparation_time}}  mins 
+                    </p>  
                                                        
                 </div>       
   
@@ -167,10 +174,23 @@ export default {
                 }); 
 
         },
+        togglePublish(id, state){
+            axios.get('/api/menu-item/toggle-publish/' + id + '/' + state)
+            .then( response => {
+                console.log(response);
+            })
+            .catch(error=>{
+                this.$swal('Error, Failed to publish!');
+                console.log(error);
+            });
+        } , 
 
   },
    mounted(){
-        console.log(this.menus.data);
+        console.log(this.menuItems);
+        for(var pair of this.menuItems) {
+        console.log(pair); 
+        }
     },
    
    

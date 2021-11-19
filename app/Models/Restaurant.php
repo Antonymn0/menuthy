@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Menu;
+use App\Models\User;
+
 class Restaurant extends Model
 {
     use HasFactory;   
@@ -60,5 +63,17 @@ class Restaurant extends Model
     protected $casts = [
         //
     ];
+
+     // eloquent <relation
+    //gets menu items
+    public function Menu(){
+        return $this->hasMany(Menu::class,'restaurant_id', 'id');
+    }
+
+     // eloquent <relation
+    //gets menu items
+    public function User(){
+        return $this->belongsTo(User::class,'user_id', 'id');
+    }
 }
 

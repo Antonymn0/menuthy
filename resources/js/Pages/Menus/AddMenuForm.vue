@@ -1,4 +1,14 @@
 <template>
+  <!-- add new Menu modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center" id="exampleModalLabel">Add new menu</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
     <div class="modal-body">
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
@@ -25,6 +35,9 @@
             </div>
         </form>
     </div>
+       </div>
+                </div>
+            </div>  
 </template>
 
 <script>
@@ -61,7 +74,7 @@ export default defineComponent({
             .then( response => {
             if( response.status = 201){               
                 this.$swal('Success, Menu created!');
-                this.$inertia.visit('/menus');
+                this.$inertia.reload();
                 } 
             })
             .catch( error => {

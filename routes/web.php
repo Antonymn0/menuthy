@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// redict users after authentication
+Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
+// route to dash board users will be redirected accordingly
+ Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
 
     // Auth routes
     Route::post('login','Web\Auth\AuthController@login');
@@ -35,8 +39,11 @@ Route::middleware(['auth'])->group(function () {
 
     //
     Route::get('/menus', [App\Http\Controllers\Web\Menu\MenuController::class, 'index'])->name('menus');
+ 
     Route::get('/sub-menu', [App\Http\Controllers\Web\SubMenu\SubMenuController::class, 'index'])->name('sub-menu');
+    Route::get('/sub-menu/{id}', [App\Http\Controllers\Web\Menu\MenuController::class, 'show'])->name('sub-menu');
     Route::get('/menu-items', [App\Http\Controllers\Web\MenuItem\MenuItemController::class, 'index'])->name('menu-items');
+    Route::get('/menu-items/{id}', [App\Http\Controllers\Web\SubMenu\SubMenuController::class, 'show'])->name('menu-item1');
 
     //Qr code routes
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');

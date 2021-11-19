@@ -32,7 +32,7 @@ class ValidateMenu extends FormRequest
             'in_house' => [ 'integer'],
             'available_days' => [ 'string'],
             'slang' => [ 'string'],
-            'published' => [ 'integer'],
+            'published' => [ 'string'],
             'description' => [ 'string'],
             'avatar' => [ 'string'],
             'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048'

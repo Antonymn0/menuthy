@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\MenuItem;
+use App\Models\Menu;
+
 class SubMenu extends Model
 {
     use HasFactory;   
@@ -53,4 +56,16 @@ class SubMenu extends Model
     protected $casts = [
         //
     ];
+
+  // eloquent relation
+    //gets submenus
+    public function Menu(){
+        return $this->belongsTo(Menu::class,'menu_id', 'id');
+    }
+    
+    // eloquent <relation
+    //gets menu items
+    public function MenuItem(){
+        return $this->hasMany(MenuItem::class,'sub_menu_id', 'id');
+    }
 }

@@ -20,9 +20,9 @@ class CreateSubMenusTable extends Migration
             $table->integer('menu_id')->required(); //foreign key
             $table->integer('restaurant_id')->required(); //foreign key
             $table->string('availability')->nullable(); 
-            $table->string('is_new')->required(); 
-            $table->string('is_signiture')->required(); 
-            $table->string('publish')->required(); 
+            $table->string('is_new')->nullable(); 
+            $table->string('is_signiture')->nullable(); 
+            $table->string('publish')->nullable(); 
             $table->string('take_away')->nullable(); 
             $table->string('inhouse')->nullable(); 
             $table->string('available_days')->nullable(); 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\MenuItem;
+use App\Models\SubMenu;
 
 class MenuItemController extends Controller
 {
@@ -16,7 +17,8 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        $menuItems = MenuItem::paginate(ENV('API_PAGINATION',10));
+        $menuItems = MenuItem::with(['SubMenu'])->paginate(ENV('API_PAGINATION',10));
+
         return Inertia::render('MenuItem/MenuItem', ['menuItems'=> $menuItems]);
     }
 
@@ -49,7 +51,9 @@ class MenuItemController extends Controller
      */
     public function show($id)
     {
-        //
+         $menuItems = SubMenu::findOrFail($id);;
+
+        return Inertia::render('MenuItem/MenuItem', ['menuItems'=> $menuItems]);
     }
 
     /**

@@ -33,8 +33,7 @@ class SubMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ValidateSubMenu $request)
-    {    
-
+    {  
         $data = $request->validated(); 
         if($request->hasFile('image')){            
            $path = $request->file('image')->store('public');
@@ -64,6 +63,23 @@ class SubMenuController extends Controller
             'success'=> true,
             'message'=> 'Á single subMenu retrieved successfully', 
             'data'=>$subMenu], 200);
+    }
+
+    /**
+     * toggle publish the specified resource.
+     *
+     * @param  int  $id $value
+     * @return \Illuminate\Http\Response
+     */
+    public function togglePublish($id, $value)
+    {
+        SubMenu::where("id", $id)
+        ->update(['publish'=> $value]);
+        return response()->json([
+            'success'=> true,
+            'message'=> 'Sub menu publish toggled',
+            'data'=> true,
+            ],  200);
     }
 
     /**

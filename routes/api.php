@@ -76,6 +76,8 @@ if (App::environment('production')) {
   Route::apiResource('menu','Api\Menu\MenuController');
     // Get deleted menu
   Route::get('menu/fetch-deleted','Api\Menu\MenuController@fetchDeleted');
+  Route::get('menu/duplicate/{id}','Api\Menu\MenuController@duplicate');
+  Route::get('menu/toggle-publish/{id}/{value}','Api\Menu\MenuController@togglePublished');
     // Restore menu
   Route::get('menu/restore/{id}','Api\Menu\MenuController@restore');
     //  Parmamnently delete menu
@@ -83,6 +85,7 @@ if (App::environment('production')) {
   
     // MenuItem API routes routes
   Route::apiResource('menu-item','Api\MenuItem\MenuItemController');
+   Route::get('menu-item/toggle-publish/{id}/{value}','Api\MenuItem\MenuItemController@togglePublish');
     // Get deleted MenuItem
   Route::get('menu-item/fetch-deleted','Api\MenuItem\MenuItemController@fetchDeleted');
     // Restore MenuItem
@@ -90,8 +93,10 @@ if (App::environment('production')) {
     //  Parmamnently delete MenuItem
   Route::get('menu-item/parmanently-delete/{id}','Api\MenuItem\MenuItemController@parmanentlyDelete');
 
+
     // SubMenu API routes routes
   Route::apiResource('sub-menu','Api\SubMenu\SubMenuController');
+  Route::get('sub-menu/toggle-publish/{id}/{value}','Api\SubMenu\SubMenuController@togglePublish');
     // Get deleted SubMenu
   Route::get('sub-menu/fetch-deleted','Api\SubMenu\SubMenuController@fetchDeleted');
     // Restore SubMenu

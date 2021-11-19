@@ -40,7 +40,9 @@ class MenuController extends Controller
            $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
            $data['image'] = $path;
         }
-               
+         if(isset($request->duplicate)){
+             $data['image'] = $request->image;
+         }      
         $menu = Menu::create($data);
         event(new menuCreated($menu));
         return response()->json([
@@ -48,6 +50,41 @@ class MenuController extends Controller
             'message'=> 'Menu created successfuly',
             'data'=> true,
             ],  201);
+    }
+
+    /**
+     * duplicate a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request\
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate($id)   
+    {
+        $menu = Menu::findOrFail($id);
+        $newMenu = $menu->replicate();
+        $newMenu->save();
+        return response()->json([
+            'success'=> true,
+            'message'=> 'Menu created successfuly',
+            'data'=> true,
+            ],  201);
+    }
+
+    /**
+     * toggle publish field.
+     *
+     * @param  \Illuminate\Http\Request\
+     * @return \Illuminate\Http\Response
+     */
+    public function togglePublished($id, $value)   
+    {       
+        Menu::where("id", $id)
+        ->update(['published'=> $value]);
+        return response()->json([
+            'success'=> true,
+            'message'=> 'Menu publish toggled',
+            'data'=> true,
+            ],  200);
     }
 
     /**

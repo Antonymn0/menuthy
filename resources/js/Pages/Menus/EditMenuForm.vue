@@ -1,26 +1,39 @@
 <template>
-    <div class="modal-body">
-        <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Menu name</label>
-                <input type="text" v-model="form.name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
-                 <small class="text-danger"> {{ errors.name}} </small>
+  <!-- add new Menu modal -->
+        <div class="modal fade" :id="'updateModal'+ menus.menu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">Add new menu</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Menu name</label>
+                        <input type="text" v-model="form.name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
+                        <small class="text-danger"> {{ errors.name}} </small>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" v-model="form.name"  class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="maneu-name">Description</label>
+                        <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                        <small class="text-danger"> {{ errors.description}} </small>
+                    </div>
+                    <div class="modal-footer text-center mx-auto">
+                        <button type="submit" class="btn primary-btn ">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="hidden" v-model="form.name"  class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
-            </div>
-        
-            <div class="form-group">
-                <label for="maneu-name">Description</label>
-                <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
-                 <small class="text-danger"> {{ errors.description}} </small>
-            </div>
-            <div class="modal-footer text-center mx-auto">
-                <button type="submit" class="btn primary-btn ">Save changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </form>
+        </div>
     </div>
+</div> 
 </template>
 
 <script>
@@ -73,6 +86,9 @@ export default defineComponent({
             else  delete this.errors.description; 
         }        
     },
+    mounted () {
+        console.log('from menus', this.menus);
+    }
    
 });
 

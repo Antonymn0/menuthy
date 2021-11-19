@@ -2,12 +2,13 @@
     <Header />
     <Topnavbar />
     
-    <div class="main-sub-menu p-5  mb-5">   
-        <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i> Sub menu</p>
-        <h3 class="mt-4">Sub-menu name</h3>
+    <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
+        <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i>  {{this.subMenus[0].menu.menu_name}}  </p>
+        <h3 class="mt-4"> </h3> {{this.subMenus[0].menu.menu_name.toUpperCase()}} 
 
         <div class="row pr-0 " >
-            <div class="menu-card p-0  p-1" v-for="(subMenu) in subMenus.data" :key="subMenu.id">  
+            <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
+               
                 <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                        
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -18,8 +19,8 @@
                             <li><a class="dropdown-item" href="#" @click="duplicateSubMenu(subMenu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
-                        <a href="/menu-items">
-                             <img v-if = "subMenu.image != null " :src="'storage/'+ subMenu.image"  class="img-fluid" />                       
+                        <a :href="'/menu-items/' + subMenu.id">
+                             <img v-if = "subMenu.image  " :src="'storage/'+subMenu.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>  
                     </div>
@@ -28,14 +29,14 @@
                             {{subMenu.sub_menu_name}}
                         </h4>
                         <div class=" custom-control custom-switch" style="width:25%; float:right">
-                            <label class="switch">
-                                <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'">
-                                <input type="checkbox" class=""  v-else>
+                            <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
+                                <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'" @click="togglePublish(subMenu.id, 'false')" >
+                                <input type="checkbox" class=""  v-else  @click="togglePublish(subMenu.id, 'true')">
                                 <span class="slider round"></span>
                             </label>
                         </div>
                     </div>                   
-                    <p> 5 items  </p>
+                    <!-- <p> {{subMenu.sub_menu.length}} items  </p> -->
                     <p>  {{  formatDate(subMenu.created_at)}}   </p>                                       
                 </div>
             </div>     
@@ -52,6 +53,9 @@
             </div>                     
         </div>
             <AddSubMenuForm />
+    </div>
+    <div v-else>
+        empty
     </div>
 
     <Footer />
@@ -120,11 +124,27 @@ export default {
 
         },
 
-      formatDate(date){
+        formatDate(date){
             if (date) {
                 return moment(String(date)).format('ll');
             }
         },
+        togglePublish(id, state){
+            axios.get('/api/sub-menu/toggle-publish/' + id + '/' + state)
+            .then( response => {
+                console.log(response);
+            })
+            .catch(error=>{
+                this.$swal('Error, Failed to publish!');
+                console.log(error);
+            });
+        } , 
+  },
+  mounted(){
+      console.log(this.subMenus);
+      for(var pair of this.subMenus) {
+        console.log(pair); 
+        }
   },
 };
 </script>

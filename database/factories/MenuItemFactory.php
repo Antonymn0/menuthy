@@ -18,7 +18,7 @@ class MenuItemFactory extends Factory
             'menu_item_type' => $this->faker->word(),
             'availability' => $this->faker->word(),
             'take_away' => $this->faker->randomDigit(1.2),
-            'sub_menu_id' => $this->faker->randomDigit(1,2),
+            'sub_menu_id' => rand(1,6),
             'inhouse' => $this->faker->randomDigit(1,2),
             'price' => $this->faker->randomFloat(1,2),
             'preparation_time' => $this->faker->randomElement([20, 30, 10 ,5]),

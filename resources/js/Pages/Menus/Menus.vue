@@ -12,19 +12,24 @@
         <h3 class="mt-4">Menus  </h3>
         
         <div class="row pr-0 " >
-            <div class="menu-card p-0  p-1" v-for="(menu) in menus.data" :key="menu.id">  
+            <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  
                 <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
-                            <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal'menu.id'">Edit</a></li>
+                            <li >
+                                <a class="dropdown-item " href="#" data-toggle="modal" data-target="#updateModal" >                                
+                                    Edit
+                                </a>
+                                    <EditMenuForm menus = menu /> <!--   Edit modal form -->
+                            </li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenu(menu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenu(menu.id)">Delete</a></li>                   
                         </ul>
 
-                        <a href="/sub-menu">
+                        <a :href="'/sub-menu/' + menu.id">
                              <img v-if = "menu.image != null " :src="'storage/'+ menu.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>                       
@@ -34,8 +39,9 @@
                             {{menu.menu_name}}
                         </h4>
                         <div class=" custom-control custom-switch" style="width:25%; float:right">
-                            <label class="switch">
-                                <input type="checkbox" class="" value="true">
+                            <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
+                                <input type="checkbox" class="" checked v-if="menu.published == 'true'" @click="togglePublish(menu.id, 'false')" >
+                                <input type="checkbox" class=""  v-else  @click="togglePublish(menu.id, 'true')">
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -43,23 +49,7 @@
                     <p> 5 items  </p>
                     <p>  {{  formatDate(menu.created_at)}}  </p>                                      
                 </div>
-       
-
-                <!-- edit Menu modal -->
-            <div class="modal fade" id="exampleModal{{menu.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{menu.id}}" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title text-center" id="exampleModalLabel(menu.id)">Update menu</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                        <EditdMenuForm />
-                    
-                    </div>
-                </div>
-            </div>  
+                  
             </div>              
            
                 <!-- add new menu box  -->
@@ -74,22 +64,10 @@
                 </div>
             </div>          
 
-            <!-- add new Menu modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title text-center" id="exampleModalLabel">Add new menu</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                        <AddMenuForm />
-                    
-                    </div>
-                </div>
-            </div>      
-                     
+            <!-- add new Menu modal -->                        
+            <div>
+                <AddMenuForm />
+            </div>
         </div>
     </div>
 
@@ -137,44 +115,43 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.$swal('Success, Menu deleted!');
-                this.$inertia.visit('/menus');
+                this.$inertia.reload();
                 }                
             });
         },
         duplicateMenu(id){
-            axios.get('/api/menu/' + id)
+            
+            axios.get('/api/menu/duplicate/' + id )
             .then( response => {
-                if( response.status = 200){   
-                    var data =    response.data.data ;             
-                    console.log(data);
-                    // convert response to form data 
-                    var form_data = new FormData();  
-                    for (let item in data) {
-                        console.log(item, data[item]);
-                        if(item == 'restaurant_id') form_data.append(item, data[item]);
-                        if(item == 'menu_name') form_data.append(item, data[item]);
-                        }
-                        // save data
-                    axios.post('/api/menu', form_data )
-                    .then( response => {
-                        this.$swal('Success, Menu duplicated!');
-                    })
-                    .catch(error=>{
-                        this.$swal('Error, Failed to duplicate!');
-                        console.log(error);
-                    });
-                }                
+                console.log(response);
+                this.$swal('Success, Menu duplicated!');
+                this.$inertia.reload();
             })
-            .catch( error => {
-                this.pageErrors = "Failed to execute!";
-                    console.log(error);
-                }); 
-
+            .catch(error=>{
+                this.$swal('Error, Failed to duplicate!');
+                console.log(error);
+            });
         },
+        openUpdateModal(event){
+                console.log(event.currentTarget.firstChild);
+                $('.modal').attr('id', newId);
+                $('UpdateModal').modal('show');
+                event.currentTarget.firstChild;
+        } ,  
+        togglePublish(id, state){
+            axios.get('/api/menu/toggle-publish/' + id + '/' + state)
+            .then( response => {
+                console.log(response);
+            })
+            .catch(error=>{
+                this.$swal('Error, Failed to publish!');
+                console.log(error);
+            });
+        } ,         
 
   },
    mounted(){
-        console.log(this.menus.data);
+        console.log(this.menus);
     },
    
    
