@@ -18,10 +18,9 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-
     // authenticate user login 
     public function login(Request $request){
-         dd($Request);
+
         $data = $request->all();
         $credentials = $request->validate([
                 'email' => ['required', 'string', 'email', 'max:255'],
