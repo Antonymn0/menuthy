@@ -23,9 +23,10 @@ Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
  Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
 
     // Auth routes
-    Route::post('login','Web\Auth\AuthController@login');
+    Route::post('login','Web\Auth\AuthController@login')->name('admin-login');
+    
     Route::post('/register-user','Api\User\UserController@store');
-    Route::get('/login','Web\Auth\AuthController@showLoginForm');
+    Route::get('/login','Web\Auth\AuthController@showLoginForm')->name('login');
 
 Route::middleware(['auth'])->group(function () { 
     // verify emai route

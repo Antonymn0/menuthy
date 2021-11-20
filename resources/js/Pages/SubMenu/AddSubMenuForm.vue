@@ -75,12 +75,13 @@ import { Inertia } from '@inertiajs/inertia';
 import { defineComponent } from "vue";
 
 export default defineComponent({
+    props:['menu_id', 'restaurant_id'],
     data(){
         return{
             form:{
                 sub_menu_name:'menu 1',
-                restaurant_id:1,
-                menu_id:1,
+                restaurant_id: 0,
+                menu_id:0,
                 description:'',
                 is_new:true,
                 is_signiture: true,
@@ -100,8 +101,8 @@ export default defineComponent({
             console.log(this.form);
             let form_data = new FormData();
                 form_data.append('sub_menu_name', this.form.sub_menu_name);
-                form_data.append('restaurant_id', this.form.restaurant_id);
-                form_data.append('menu_id', this.form.menu_id);
+                form_data.append('restaurant_id', this.restaurant_id);
+                form_data.append('menu_id', this.menu_id);
                 form_data.append('description', this.form.description);
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
@@ -115,7 +116,7 @@ export default defineComponent({
             if( response.status = 201){
                 console.log('responce: ',response);
                 this.$swal('Success, Sub menu added!');
-                this.$inertia.visit('/sub-menu');
+                this.$inertia.reload();
                 } 
             })
             .catch( error => {
@@ -138,11 +139,20 @@ export default defineComponent({
 
         fileUpload(event){
             this.form.image = event.target.files[0];
-        }     
+        } , 
+        logPub(){
+            console.log(this.form.publish);
+        },
+        mounted(){
+            this.form.menu_id = this.menu_id;
+            this.form.restaurant_id = this.restaurant_id;
+            console.log(this.form.menu_id);
+            console.log(this.form.restaurant_id);
+        
+           } 
     },
-    logPub(){
-        console.log(this.form.publish);
-    }
+    
+
 });
 </script>    
 

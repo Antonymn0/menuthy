@@ -66,7 +66,7 @@
 
             <!-- add new Menu modal -->                        
             <div>
-                <AddMenuForm />
+                <AddMenuForm    :restaurant_id="restaurant_id"/>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@ import EditMenuForm from "../Menus/EditMenuForm";
 import Footer from "../layouts/Footer";
 
 export default {
- props:['menus'],
+ props:['menus','restaurant_id'],
  data(){
      return{
         user: window.User,
@@ -100,7 +100,6 @@ export default {
    Footer,
    AddMenuForm,
    EditMenuForm,
-
 
   },
   methods:{
@@ -151,7 +150,9 @@ export default {
 
   },
    mounted(){
+       
         console.log(this.menus);
+        console.log(this.restaurant_id);
     },
    
    

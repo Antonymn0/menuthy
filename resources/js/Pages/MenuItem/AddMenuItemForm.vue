@@ -162,12 +162,13 @@
   import Multiselect from '@vueform/multiselect'
 export default { 
 components: { Multiselect },
+props:['sub_menu'],
     data: () => {
         return{   
             form:{
                 menu_item_name:'',
-                restaurant_id:1,
-                sub_menu_id:1,
+                restaurant_id:'',
+                sub_menu_id:'',
                 description:'', 
                 carlories:'', 
                 preparation_time:1, 
@@ -194,8 +195,8 @@ components: { Multiselect },
             console.log('No errors in the form...');
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
-                form_data.append('restaurant_id', this.form.restaurant_id);
-                form_data.append('sub_menu_id', this.form.sub_menu_id);
+                form_data.append('restaurant_id', this.sub_menu.restaurant_id);
+                form_data.append('sub_menu_id', this.sub_menu.id);
                 form_data.append('price', this.form.price);                
                 form_data.append('discount', this.form.discount);                
                 form_data.append('description', this.form.description);                
@@ -210,7 +211,7 @@ components: { Multiselect },
             .then( response => {
             if( response.status = 201){
                 this.$swal('Success, Item added!');
-                this.$inertia.visit('/menu-items');
+                this.$inertia.reload();
                 } 
             })
             .catch( error => {
@@ -247,6 +248,12 @@ components: { Multiselect },
             console.log(this.form.menu_item_name);
         }     
     },
+    mounted(){
+        // this.form.restaurant_id = this.sub_menu.restaurant_id;
+        // this.form.restaurant_id = this.sub_menu.restaurant_id;
+        // console.log(this.sub_menu);
+        // console.log(this.restaurant_id);
+    }
 
 }
 </script>

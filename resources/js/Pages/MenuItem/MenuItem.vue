@@ -9,12 +9,12 @@
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menuItems.sub_menu_name}}  </p>
+         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menu.menu_name}}  </p>
         <h3 class="mt-4">Items  </h3>
-        {{menuItems.sub_menu_name.toUpperCase()}}
-        
+        {{menu.menu_name.toUpperCase()}}
+              
         <div class="row pr-0 " >
-            <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems.menu_item" :key="menuItem.id">  
+            <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems" :key="menuItem.id">  
                 <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -74,7 +74,7 @@
 
             <!-- add new Menu modal -->
             <div>
-                <AddMenuItemForm />                    
+                <AddMenuItemForm  :sub_menu="this.menu" :restaurant_id="this.menu"/>                    
                                   
             </div>                    
                      
@@ -97,7 +97,7 @@ import Footer from "../layouts/Footer";
 
 export default {
    
- props:['menuItems'],
+ props:['menuItems', 'menu'],
  data(){
      return{
         user: window.User,
@@ -112,7 +112,6 @@ export default {
    AddMenuItemForm,
    UpdateMenuItem,
 
-
   },
   methods:{
         formatDate(date){
@@ -126,7 +125,7 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.$swal('Success, Item deleted!');
-                this.$inertia.visit('/menu-items');
+                this.$inertia.reload();
                 }                
             })
             .catch(error=>{
@@ -160,7 +159,7 @@ export default {
                     axios.post('/api/menu-item', form_data )
                     .then( response => {
                         this.$swal('Success, Item duplicated!');
-                        this.$inertia.visit('/menu-items');
+                        this.$inertia.reload();
                     })
                     .catch(error=>{
                         this.$swal('Error, Failed to duplicate!');
@@ -187,10 +186,11 @@ export default {
 
   },
    mounted(){
-        console.log(this.menuItems);
-        for(var pair of this.menuItems) {
-        console.log(pair); 
-        }
+        // console.log(this.menuItems);
+        // console.log(this.menu);
+        // for(var pair of this.menuItems) {
+        // console.log(pair); 
+        // }
     },
    
    

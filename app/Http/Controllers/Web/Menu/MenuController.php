@@ -24,7 +24,7 @@ class MenuController extends Controller
 
         $menus = Menu::with('SubMenu')->WHERE('restaurant_id', $restaurant->id)->get();
 
-        return Inertia::render('Menus/Menus',['menus' =>  $menus] );
+        return Inertia::render('Menus/Menus',['menus' =>  $menus, 'restaurant_id' => $restaurant->id] );
     }
 
 
@@ -39,12 +39,16 @@ class MenuController extends Controller
     public function show($id)
     {     
         $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first() ;
-
+        $menu = Menu::findOrFail($id);
         $subMenus = SubMenu::with('Menu')
                         ->WHERE('menu_id', $id)
                         ->get();
 
-        return Inertia::render('SubMenu/SubMenu', ['subMenus'=> $subMenus]);
+        return Inertia::render('SubMenu/SubMenu', [
+            'subMenus'=> $subMenus , 
+            'restaurant_id' => $restaurant->id,
+            'menu' => $menu,
+            ]);
     }
 
     /**

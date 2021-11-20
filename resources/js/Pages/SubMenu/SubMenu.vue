@@ -3,8 +3,8 @@
     <Topnavbar />
     
     <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
-        <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i>  {{this.subMenus[0].menu.menu_name}}  </p>
-        <h3 class="mt-4"> </h3> {{this.subMenus[0].menu.menu_name.toUpperCase()}} 
+        <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i>  {{this.menu.menu_name}}  </p>
+        <h3 class="mt-4"> </h3> {{this.menu.menu_name.toUpperCase()}} 
 
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
@@ -52,7 +52,7 @@
                 </div>
             </div>                     
         </div>
-            <AddSubMenuForm />
+            <AddSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id"/>
     </div>
     <div v-else>
         empty
@@ -70,13 +70,22 @@ import Footer from "../layouts/Footer";
 import AddSubMenuForm from "./AddSubMenuForm";
 
 export default {
- props:['subMenus'],
+ props:['menu','subMenus',  'restaurant_id'],
   components: {
   Header,
   Topnavbar,
    Footer,
    AddSubMenuForm,
 
+  },
+  data(){
+      return{
+          form:{
+            menu_id: this.menu.id,
+            restaurant_id: this.restaurant_id,
+          },
+          
+      }
   },
   methods:{
       deleteSubMenu( id){
@@ -141,7 +150,7 @@ export default {
         } , 
   },
   mounted(){
-      console.log(this.subMenus);
+   
       for(var pair of this.subMenus) {
         console.log(pair); 
         }

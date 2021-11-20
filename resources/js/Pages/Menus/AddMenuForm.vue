@@ -46,18 +46,17 @@ import { Inertia } from '@inertiajs/inertia';
 import { defineComponent } from "vue";
 
 export default defineComponent({
-     props:['menus'],
+     props:['menus', 'restaurant_id'],
     data: () => {
         return{
             form:{
                 menu_name:'breakfast',
-                restaurant_id:1,
+                restaurant_id: 0,
                 description:'breafast menu',
                 image:'',
             },
             errors:{ },
             success:'',
-
         }
      },
     methods:{
@@ -93,6 +92,11 @@ export default defineComponent({
         fileUpload(event){
             this.form.image = event.target.files[0];
         }      
+    },
+    mounted(){       
+        this.form.restaurant_id = this.restaurant_id;
+        console.log(this.menus);
+        console.log(this.restaurant_id);
     },
    
 });

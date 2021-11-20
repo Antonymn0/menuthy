@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\SubMenu;
+use App\Models\Menu;
+use App\Models\MenuItem;
 
 class SubMenuController extends Controller
 {
@@ -48,10 +50,12 @@ class SubMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {           
-        $menuItems = SubMenu::with('MenuItem')->findOrFail($id);
+    {       
+        $menu = Menu::findOrFail($id);
 
-        return Inertia::render('MenuItem/MenuItem', ['menuItems'=> $menuItems]);
+        $menuItems = MenuItem::with('SubMenu')->Where('sub_menu_id',$id)->get();
+
+        return Inertia::render('MenuItem/MenuItem', ['menuItems'=> $menuItems, 'menu'=>$menu]);
     }
 
     /**

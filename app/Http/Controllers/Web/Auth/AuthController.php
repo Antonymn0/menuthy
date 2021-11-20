@@ -18,25 +18,7 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    // authenticate user login 
-    public function login(Request $request){
 
-        $data = $request->all();
-        $credentials = $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'string', 'min:4'],
-            ]);
-        
-        if(Auth::attempt($credentials)){
-             $request->session()->regenerate();
-             $user = Auth::user();
-
-             return redirect()->intended('/dashboard');
-        }  
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);        
-    }
 
     //redirect users
     public function redirectUser(){

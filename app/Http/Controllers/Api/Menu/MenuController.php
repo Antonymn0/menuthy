@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Menu;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Auth;
 use App\Events\Menu\menuCreated;
 use App\Events\Menu\menuUpdated;
 use App\Events\Menu\menuDestroyed;
@@ -42,7 +43,8 @@ class MenuController extends Controller
         }
          if(isset($request->duplicate)){
              $data['image'] = $request->image;
-         }      
+         }  
+
         $menu = Menu::create($data);
         event(new menuCreated($menu));
         return response()->json([
