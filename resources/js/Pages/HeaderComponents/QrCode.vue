@@ -11,14 +11,14 @@
             <div class="modal-content">
             <div class="modal-header pb-1 m-0">
                 <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your device  </h4>
-               
+                    {{qrCode}}
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generatQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card">Mobile</a> </li>
-                        <li @click="generatQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card">Tablet</a> </li>
+                        <li class="active " @click="generateQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card">Mobile</a> </li>
+                        <li @click="generateQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card">Tablet</a> </li>
                     </ul>
              
                     <div class="tab-content">
@@ -81,13 +81,14 @@ export default {
     data(){
         return{
             qrCode:'menuthy.herokuapp.com',
+            restaurant: window.authRestaurant,
            
         } 
     },
     methods:{
-        generatQqrCode(){
+        generateQqrCode(){
             console.log('Generating qr code...');
-            axios.get('/api/qrcode-generate')
+            axios.get('/api/qrcode-generate/'+ this.restaurant.id)
             .then( response => {
             if( response.status = 200){
                 this.qrCode = response.data;

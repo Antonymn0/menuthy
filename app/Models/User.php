@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -69,4 +70,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Get Users restaurant details
+     * 
+     * return json
+     */
+    public function restaurant(){
+
+        $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
+
+        if( $restaurant ){
+            return $restaurant;
+        }
+
+        return null;
+    }
+
 }

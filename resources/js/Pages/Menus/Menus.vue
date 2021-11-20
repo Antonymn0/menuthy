@@ -9,7 +9,7 @@
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-        <h3 class="mt-4">Menus  </h3>
+        <h3 class="mt-4">Main menus  </h3>
         
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  

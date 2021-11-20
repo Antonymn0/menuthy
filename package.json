@@ -34,6 +34,7 @@
         "qrcode": "^1.4.4",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^4.0.12",
-        "vue-sweetalert2": "^5.0.2"
+        "vue-sweetalert2": "^5.0.2",
+        "vue3-carousel": "^0.1.30"
     }
 }

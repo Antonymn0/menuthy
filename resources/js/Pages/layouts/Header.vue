@@ -90,6 +90,9 @@ export default {
              this.$inertia.visit('/logout');
         }
     },
+    mounted(){
+        //
+    }
 }
 </script>
 

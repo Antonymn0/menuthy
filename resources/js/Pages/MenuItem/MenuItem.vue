@@ -10,8 +10,8 @@
             {{pageErrors}}
         </div>
          <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menu.menu_name}}  </p>
-        <h3 class="mt-4">Items  </h3>
-        {{menu.menu_name.toUpperCase()}}
+        <h3 class="mt-4">sub menu Items  </h3>
+        {{menu.sub_menu_name.toUpperCase()}}
               
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems" :key="menuItem.id">  

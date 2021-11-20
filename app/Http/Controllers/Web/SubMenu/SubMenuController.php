@@ -50,8 +50,9 @@ class SubMenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {       
-        $menu = Menu::findOrFail($id);
+    
+    {      // return sub menu items
+        $menu = SubMenu::find($id);
 
         $menuItems = MenuItem::with('SubMenu')->Where('sub_menu_id',$id)->get();
 

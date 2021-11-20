@@ -3,7 +3,7 @@
     <Topnavbar />
     
     <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
-        <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0"></i>  {{this.menu.menu_name}}  </p>
+        <p class="mt-4 small">Sub-menus Menu <i class="bi bi-chevron-right p-0"></i>  {{this.menu.menu_name}}  </p>
         <h3 class="mt-4"> </h3> {{this.menu.menu_name.toUpperCase()}} 
 
         <div class="row pr-0 " >
@@ -20,7 +20,7 @@
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
                         <a :href="'/menu-items/' + subMenu.id">
-                             <img v-if = "subMenu.image  " :src="'storage/'+subMenu.image"  class="img-fluid" />                       
+                             <img v-if = "subMenu.image  " :src="'/storage/'+subMenu.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
                         </a>  
                     </div>

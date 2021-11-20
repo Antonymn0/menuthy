@@ -114,7 +114,7 @@ if (App::environment('production')) {
   Route::get('payment/parmanently-delete/{id}','Api\Payment\PaymentController@parmanentlyDelete');
 
 //Generate Qr code routes
-Route::get('qrcode-generate','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
+Route::get('qrcode-generate/{restaurant_id}','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
 
   
 

@@ -184,6 +184,7 @@ animation-duration: 1s;
         <script>
             // pass Auth::user object to javascript
             window.authUser={!! json_encode(Auth::user()); !!};   
+            window.authRestaurant={!! json_encode(Auth::user()->restaurant()); !!};   
         </script>
         @inertia
         @routes        

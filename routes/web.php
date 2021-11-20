@@ -50,6 +50,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');
     Route::get('qrcode-create','QrCodeController@create')->name('qrcode-create');
 
+    // mobile menu view routes
+    Route::get('/{restaurant_name}/menu/{restaurant_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'showMainMenu'])->name('mobile menu');
+
 });
 
 Auth::routes(['verify' => true]);

@@ -16,9 +16,11 @@ class QrCodeController extends Controller
     	return view('qrcode');
     }
     
+
+   
     public function create()
     {
-     $qrCode =  QrCode::generate('Make me into a QrCode!');
+     dd(QrCode::generate('Make me into a QrCode!'));
      
     }
 }
