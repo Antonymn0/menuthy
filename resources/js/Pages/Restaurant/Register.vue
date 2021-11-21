@@ -1,9 +1,11 @@
 <template>
   <form action="" @submit.prevent="submitForm">
+        <h2> Tell us abot your business </h2>
     <label>
         <p class="label-txt">BUSINESS NAME*</p>
         <input type="text" class="input" v-model="form.restaurant_name">
         <div class="line-box">
+           <small class="text-danger"> {{errors.restaurant_name}}</small>
         <div class="line"></div>
         </div>
     </label>
@@ -19,25 +21,31 @@
         <input type="text" class="input" v-model="form.time_zone">
         <div class="line-box">
         <div class="line"></div>
+        <small class="text-danger"> {{errors.time_zone}}</small>
         </div>
     </label>
     <label>
         <p class="label-txt">CITY* </p>
-        <input type="text" class="input" v-model="form.city">
+         <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  />
         <div class="line-box">
         <div class="line"></div>
+        <small class="text-danger"> {{errors.city}}</small>
         </div>
     </label>
 
-    <button type="submit" class="m-1" @click="submitForm">submit</button>
-    <button type="submit" class="m-1"><a href="">Cancel</a></button>
+    <button type="submit" class="m-1" @click="submitForm">Submit</button>
+    <button type="" class="m-1"><a href="">Cancel</a></button>
     </form>
 </template>
 
 
 <script>
+import vueCountriesCities from "vue-countries-cities";
 export default {
   props:['user_id'],
+  components: {
+  vueCountriesCities,
+},
   data(){
     return{
       form:{
@@ -46,7 +54,9 @@ export default {
         time_zone:'',
         city:'',
         user_id:5,       
-      }, 
+      },
+       selectedCountry: '',
+        selectedCity: '',
       errors:{},
       
     }
@@ -62,7 +72,8 @@ export default {
                 form_data.append('user_id', this.form.user_id);
                 form_data.append('type', this.form.type);
                 form_data.append('type', this.form.type);
-                form_data.append('city', this.form.city);
+                form_data.append('city', this.selectedCity);
+                form_data.append('country', this.selectedCountry);
                 for(var pair of form_data.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                     }
@@ -101,7 +112,10 @@ export default {
 <style>
 
 body {
-  background: #C5E1A5;
+  background: #f09218a1;
+}
+h2{
+  color:#f58b00a1;
 }
 form {
   width: 60%;
@@ -149,7 +163,7 @@ label {
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  background: #8BC34A;
+  background: #f87d0ad7;
   transition: ease .6s;
 }
 
@@ -164,18 +178,21 @@ label {
 button {
   display: inline-block;
   padding: 12px 24px;
-  background: rgb(220,220,220);
+  background: #d45e0ed7;
   font-weight: bold;
-  color: rgb(120,120,120);
+  color: #fff;
   border: none;
   outline: none;
   border-radius: 3px;
   cursor: pointer;
   transition: ease .3s;
 }
+button a{
+  text-decoration:none;
+}
 
 button:hover {
-  background: #8BC34A;
+  background: #ff7300;
   color: #ffffff;
 }
 </style>

@@ -113,7 +113,16 @@ class MenuController extends Controller
      */
     public function update(ValidateMenu $request, $id)
     {
-        $data = $request->validated();
+        $data = $request->validated(); 
+        if($request->hasFile('image')){            
+           $path = $request->file('image')->store('public');
+           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+           $data['image'] = $path;
+        }
+         if(isset($request->duplicate)){
+             $data['image'] = $request->image;
+         } 
+         
         Menu::findOrFail($id)->update($data);
         $menu = Menu::findOrFail($id);
         event(new menuUpdated($menu));

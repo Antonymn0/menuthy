@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
-    //
+    //menus route
     Route::get('/menus', [App\Http\Controllers\Web\Menu\MenuController::class, 'index'])->name('menus');
  
     Route::get('/sub-menu', [App\Http\Controllers\Web\SubMenu\SubMenuController::class, 'index'])->name('sub-menu');
@@ -50,8 +50,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');
     Route::get('qrcode-create','QrCodeController@create')->name('qrcode-create');
 
-    // mobile menu view routes
-    Route::get('/{restaurant_name}/menu/{restaurant_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'showMainMenu'])->name('mobile menu');
+    // main mobile menu view route
+    Route::get('/{restaurant_name}/menu/{restaurant_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMainMenu'])->name('mobile menu');
+    
+    // mobile sub-menus route
+    Route::get('/{restaurant_name}/sub-menu/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getSubMenus'])->name('mobile menu');
+    
 
 });
 

@@ -14,6 +14,10 @@ import VueQrcode from "@chenfengyuan/vue-qrcode";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import $ from "jquery";
+import BootstrapVue3 from "bootstrap-vue-3";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
+
 
 const el = document.getElementById("app");
 
@@ -29,6 +33,7 @@ createApp({
     .use(InertiaPlugin)
     .use(VueSweetalert2)
     .use(VueQrcode)
+    .use(BootstrapVue3)
     .component(VueQrcode.name, VueQrcode)
     .mount(el);
 

@@ -113,8 +113,11 @@ if (App::environment('production')) {
     //  Parmamnently delete Payment
   Route::get('payment/parmanently-delete/{id}','Api\Payment\PaymentController@parmanentlyDelete');
 
-//Generate Qr code routes
-Route::get('qrcode-generate/{restaurant_id}','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
+  //Generate Qr code routes
+  Route::get('qrcode-generate/{restaurant_id}','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
+
+  // mobile menu items route
+    Route::get('/{restaurant_name}/menu-item/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMenuItems'])->name('mobile menu');
 
   
 

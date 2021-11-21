@@ -67,8 +67,9 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ValidateRestaurant $request, $id)
-    {
+    {     
         $data = $request->validated();
+
         $restaurant = Restaurant::findOrFail($id)->update($data);
         event(new restaurantUpdated($restaurant));
         return response()->json([

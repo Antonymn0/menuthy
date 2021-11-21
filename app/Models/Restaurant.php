@@ -24,7 +24,6 @@ class Restaurant extends Model
         'restaurant_type',
         'user_id',
         'country',
-        'county',
         'city',
         'timezone',
         'website',

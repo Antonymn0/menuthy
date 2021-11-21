@@ -19,7 +19,6 @@ class CreateRestaurantsTable extends Migration
             $table->string('restaurant_type')->nullable();
             $table->foreignId('user_id')->required()->references('id')->on('users')->onDelete('cascade');
             $table->string('country')->nullable();
-            $table->string('county')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('restaurant_phone_number')->nullable();

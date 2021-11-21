@@ -1,15 +1,7 @@
 <template>
     <Header />
     <Topnavbar />
-    
-    <div class=" p-5  mb-5">   
-        <div class="badge bg-success " v-if="success">
-            {{success}}
-        </div>
-        <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
-            {{pageErrors}}
-        </div>
-        <h3 class="mt-4">Main menus  </h3>
+  
         
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  
@@ -20,15 +12,16 @@
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
                             <li >
-                                <a class="dropdown-item " href="#" data-toggle="modal" data-target="#updateModal" >                                
+                                <a class="dropdown-item " href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + menu.id" >                                
                                     Edit
                                 </a>
-                                    <EditMenuForm menus = menu /> <!--   Edit modal form -->
+                           
                             </li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenu(menu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenu(menu.id)">Delete</a></li>                   
                         </ul>
-
+                             <!--   Edit modal form -->
+                                    <EditMenuForm :menu = menu /> 
                         <a :href="'/sub-menu/' + menu.id">
                              <img v-if = "menu.image != null " :src="'storage/'+ menu.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
@@ -69,7 +62,7 @@
                 <AddMenuForm    :restaurant_id="restaurant_id"/>
             </div>
         </div>
-    </div>
+ 
 
 
     <Footer />
@@ -92,6 +85,8 @@ export default {
         user: window.User,
         success:'',
         pageErrors:'', 
+        updateModal:20,
+
      }     
  },
   components: {

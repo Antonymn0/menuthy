@@ -12,80 +12,64 @@ use App\Models\Menu;
 class MobileMenuController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the mobile menu.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showMainMenu($restaurant_name, $restaurant_id)
-    {
+    public function getMainMenu($restaurant_name, $restaurant_id)
+    {       
+                //get menus
         $menus = Menu::WHERE('restaurant_id', $restaurant_id)->get();
         
-        return Inertia::render('Customer/MenuView')->with(['menus'=>$menus]);
+                // get sub menus of the first Menu
+        $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
+    
+                // get munu items of the first submenu
+        $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
+        return Inertia::render('MobileMenu/MenuView')->with([
+            'menus'=>$menus,
+            'subMenus'=>$subMenus,
+            'menuItems'=>$menuItems,
+            ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * display submenus
+     * 
+     * @param $submenu_id
+     * 
+     * @return json response
      */
-    public function create()
-    {
-        //
-    }
+
+   public function getSubMenus($id)   {
+
+        $subMenus  = SubMenu::WHERE('menu_id',$id)->get();
+
+        return response()->json([
+            'sucess' => true,
+            'message' => 'A list of submenus',
+            'data' => $subMenus,
+
+        ]);
+   }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * get a list of menu items
+     * 
+     * @param $submenu_id
+     * 
+     * @return response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function getMenuItems($restaurant_name, $id)
+   {
+       $menuItems = MenuItem::WHERE('sub_menu_id', $id)->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+       return response()->json([
+           'sucess' => true,
+            'message' => 'A list of menu items',
+            'data' => $menuItems,
+       ],200);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   }
+    
 }

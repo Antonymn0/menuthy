@@ -27,8 +27,8 @@ class ValidateRestaurant extends FormRequest
             'restaurant_name' => ['required', 'string'],
             'restaurant_type' => [ 'string'],
             'user_id' => ['required', 'integer'],
+            'restaurant_id' => ['required', 'integer'],
             'country' => [ 'string'],
-            'county' => [ 'string'],
             'city' => [ 'string'],
             'address' => [ 'string'],
             'restaurant_phone_number' => [ 'string'],
@@ -46,7 +46,7 @@ class ValidateRestaurant extends FormRequest
             'slang' => [ 'string'],
             'description' => [ 'string'],
             'avatar' => [ 'string'],
-            // 'deleted_at' => [ 'date']
+            
         ];
     }
 }

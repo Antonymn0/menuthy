@@ -8,7 +8,7 @@
             <div class="row  ">
                 <p class="col-md-4 ">
                     <a href="/dashboard">
-                         <img src="images/menuthy_logo_i.png" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:50px; height:auto; "> 
+                         <img :src="'images/menuthy_logo_i.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:50px; height:auto; "> 
                      </a>
                 </p>
                 <div class="row col-sm-8 justify-content-center p-2">
