@@ -1,7 +1,6 @@
 <template>
     <Header />
-    <Topnavbar />
-    
+    <Topnavbar />    
     <div class=" p-5  mb-5">   
         <div class="badge bg-success " v-if="success">
             {{success}}
@@ -10,7 +9,7 @@
             {{pageErrors}}
         </div>
          <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menu.menu_name}}  </p>
-        <h3 class="mt-4">sub menu Items  </h3>
+        <h3 class="mt-4">Sub menu Items  </h3>
         {{menu.sub_menu_name.toUpperCase()}}
               
         <div class="row pr-0 " >
@@ -21,7 +20,7 @@
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
-                            <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="'#exampleModalUpdate'+ menu.id">Edit</a></li>
+                            <li><a class="dropdown-item" href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + menuItem.id">Edit</a></li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenuItem(menuItem.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li> 
 
@@ -30,7 +29,7 @@
                             </li>                  
                         </ul>
                        
-                         <UpdateMenuItem :menuItem = menuItem /> <!-- pass menuItem as prop to child -->
+                         
                         <p>
                              <img v-if = "menuItem.image != null "  :src="'storage/'+ menuItem.image"  class="img-fluid" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
@@ -55,7 +54,8 @@
                           <i class="bi bi-alarm text-danger" ></i> 
                         {{menuItem.preparation_time}}  mins 
                     </p>  
-                                                       
+                        <!-- pass menuItem as prop to child --> 
+                      <UpdateMenuItem :menuItem = menuItem />                             
                 </div>       
   
             </div>              

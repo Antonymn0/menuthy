@@ -117,24 +117,24 @@
 
         <div>
           <!--menu pop up Modal -->
-<div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg mx-5" style="align-items: flex-end; bottom:8rem;" >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel">Main Menu</h5>
-      </div>
-      <div class="modal-body">
-        <ul v-for="menu in menus" :key="menu.id" class="list-unstyled px-5">
-              <li class="border-bottom"> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
-        </ul>
-      </div>
-     
-    </div>
-  </div>
-</div>
+        <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg mx-5" style="align-items: flex-end; bottom:8rem;" >
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel">Main Menu</h5>
+            </div>
+            <div class="modal-body">
+                <ul v-for="menu in menus" :key="menu.id" class="list-unstyled px-5">
+                    <li class="border-bottom"> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
+                </ul>
+            </div>
+            
+            </div>
+        </div>
+        </div>
         </div>
     </div>
-     <div v-else> <p class="text-muted text-center pt-5">No items to show!</p></div>
+     <div v-else> <p class="text-muted text-center pt-5">This restaurant has no items to show!</p></div>
 </div>
 
 
@@ -228,6 +228,7 @@ export default {
 
     .mobile-menu{
         max-width:500px;
+        min-height: 95vh;
         background-image: linear-gradient(rgba(255, 190, 155, 0.068), rgba(235, 217, 173, 0));
     }
     .panel{

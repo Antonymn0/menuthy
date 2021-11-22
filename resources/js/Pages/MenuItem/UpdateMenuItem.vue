@@ -1,57 +1,57 @@
 <template>
 
-     <!-- add new Menu modal -->
-            <div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalUpdateLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title text-center" id="exampleModalUpdateLabel">Update menu Item {{menuItem.id}}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+<!-- update Menu modal -->
+<div class="modal fade text-left" :id="'updateModal'+  menuItem.id" tabindex="-1" role="dialog" :aria-labelledby="'updateModal'+  menuItem.id + 'Label'" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title " :id="'updateModal'+ menuItem.id + 'Label'">Update menu</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Item name</label>
+                            <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
+                            <small class="text-danger"> {{this.form.menu_item_name }} </small>
                         </div>
-    <div class="modal-body">
-        <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Item name</label>
-                <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
-                 <small class="text-danger"> {{this.form.menu_item_name }} </small>
-            </div>
-            <div class="form-group">
-                <input type="hidden" v-model="form.restaurant_id"  class="form-control p-4" id="exampleFormControlInput1" name="restaurant_id" placeholder="restaurant id." required>
-            </div>
-        
-            <div class="form-group">
-                <label for="maneu-name">Description</label>
-                <textarea name="description" v-model="form.menu_item_name" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
-                 <small class="text-danger"> {{ this.form.description}} </small>
-            </div>
-             
-             <div class="form-group">.
-                 <label for="exampleFormControlInputprice">Price</label>
-                <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
-            </div>
-            <div class="form-group">
-                 <label for="exampleFormControlInputfile">Discount</label>
-                <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
-            </div>
-             <div class="form-group">.
-                 <label for="exampleFormControlInputprice">Peparation time</label>
-                <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
-            </div>
-            <div class="form-group">
-                <label for="maneu-name">Ingredients</label>
-                <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
-            </div>
-             <div class="form-group">
-                <label for="exampleFormControlInputprice">Carlories</label>
-                <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
-            </div>
-             <div class="form-group">
-                 <label for="exampleFormControlInputprice">Image </label>
-                <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
-            </div>
-           <div>
+                        <div class="form-group">
+                            <input type="hidden" v-model="form.restaurant_id"  class="form-control p-4" id="exampleFormControlInput1" name="restaurant_id" placeholder="restaurant id." required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="maneu-name">Description</label>
+                            <textarea name="description" v-model="form.menu_item_name" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                            <small class="text-danger"> {{ this.form.description}} </small>
+                        </div>
+                        
+                        <div class="form-group">.
+                            <label for="exampleFormControlInputprice">Price</label>
+                            <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInputfile">Discount</label>
+                            <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
+                        </div>
+                        <div class="form-group">.
+                            <label for="exampleFormControlInputprice">Peparation time</label>
+                            <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="maneu-name">Ingredients</label>
+                            <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInputprice">Carlories</label>
+                            <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInputprice">Image </label>
+                            <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
+                        </div>
+                    <div>
 <Multiselect
   v-model="value"
   mode="tags"
@@ -164,23 +164,23 @@ components: { Multiselect },
         return{   
      
             form:{
-                menu_item_name:'',
+                menu_item_name: menuItem.menu_item_name,
                 restaurant_id:1,
-                sub_menu_id:1,
-                description:'', 
-                carlories:'', 
-                preparation_time:1, 
-                allergy_warning:'', 
-                is_new:false, 
-                is_veg:false, 
-                is_hot:true, 
-                is_signiture:false, 
-                is_special_presentation:true, 
-                publish:true, 
-                discount:1,
-                price:1,
-                image:'',
-                allergy_warning:{ },               
+                sub_menu_id: menuItem.sub_menu_id,
+                description: menuItem.description, 
+                carlories: menuItem.calories, 
+                preparation_time: menuItem.preparation_time, 
+                allergy_warning: menuItem.alergy_warning, 
+                is_new: menuItem.is_new, 
+                is_veg:menuItem.is_veg, 
+                is_hot: menuItem.is_hot, 
+                is_signiture:menuItem.is_signiture, 
+                is_special_presentation: menuItem.is_special_presentation, 
+                publish: menuItem.publish, 
+                discount: menuItem.discount,
+                price: menuItem.price,
+                image: menuItem.image,
+                allergy_warning:{...menuItem.alergy_warning },               
             },
            
             errors:{},
@@ -221,9 +221,7 @@ components: { Multiselect },
             if(this.form.menu_item_name == ''){
                 this.errors.menu_item_name = 'This field is required' ;
                 return;
-            } 
-
-
+            }
             if(!this.form.price) this.errors.price = 'Price field is required' ;
             else delete this.errors.price;
 
@@ -245,7 +243,6 @@ components: { Multiselect },
             console.log(this.form.menu_item_name);
         }     
     },
-
 }
 </script>
 

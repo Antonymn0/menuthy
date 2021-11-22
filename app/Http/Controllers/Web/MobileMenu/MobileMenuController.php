@@ -24,7 +24,7 @@ class MobileMenuController extends Controller
             if(count($menus)){
                     // get sub menus of the first Menu
                 $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
-            if(count(subMenus)){
+            if(count($subMenus)){
                         // get menu items of the first submenu
                 $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
                 return Inertia::render('MobileMenu/MenuView')->with([
