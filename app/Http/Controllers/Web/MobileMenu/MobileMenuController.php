@@ -20,19 +20,27 @@ class MobileMenuController extends Controller
     {       
                 //get menus
         $menus = Menu::WHERE('restaurant_id', $restaurant_id)->get();
-        
-                // get sub menus of the first Menu
-        $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
-    
-                // get munu items of the first submenu
-        $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
-        return Inertia::render('MobileMenu/MenuView')->with([
-            'menus'=>$menus,
-            'subMenus'=>$subMenus,
-            'menuItems'=>$menuItems,
-            ]);
-    }
 
+            if(count($menus)){
+                    // get sub menus of the first Menu
+                $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
+            if(count(subMenus)){
+                        // get menu items of the first submenu
+                $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
+                return Inertia::render('MobileMenu/MenuView')->with([
+                    'menus'=>$menus,
+                    'subMenus'=>$subMenus,
+                    'menuItems'=>$menuItems,
+                    ]);
+            }
+        }
+        // else return empty arrays 
+         return Inertia::render('MobileMenu/MenuView')->with([
+                    'menus'=>[],
+                    'subMenus'=>[],
+                    'menuItems'=>[],
+                    ]);
+    }
     /**
      * display submenus
      * 

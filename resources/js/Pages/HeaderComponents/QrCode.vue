@@ -11,7 +11,7 @@
             <div class="modal-content">
             <div class="modal-header pb-1 m-0">
                 <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your device  </h4>
-                    {{qrCode}}
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

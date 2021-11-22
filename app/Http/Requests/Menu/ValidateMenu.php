@@ -33,7 +33,7 @@ class ValidateMenu extends FormRequest
             'available_days' => [ 'string'],
             'slang' => [ 'string'],
             'published' => [ 'string'],
-            'description' => [ 'string'],
+            'description' => [ ],
             'avatar' => [ 'string'],
             'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048'
             // 'deleted_at' => [ 'date']

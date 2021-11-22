@@ -119,6 +119,7 @@ export default {
                     axios.post('/api/sub-menu', form_data )
                     .then( response => {
                         this.$swal('Success, Section duplicated!');
+                        this.$inertia.reload();
                     })
                     .catch(error=>{
                         this.$swal('Error, Failed to duplicate!');

@@ -1,6 +1,6 @@
 <template>
   <form action="" @submit.prevent="submitForm">
-        <h2> Tell us abot your business </h2>
+        <h2> Tell us about your business </h2>
     <label>
         <p class="label-txt">BUSINESS NAME*</p>
         <input type="text" class="input" v-model="form.restaurant_name">
@@ -28,8 +28,9 @@
         <p class="label-txt">CITY* </p>
          <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  />
         <div class="line-box">
+          
         <div class="line"></div>
-        <small class="text-danger"> {{errors.city}}</small>
+        <small class="text-danger"> {{errors.selectedCity}}</small>
         </div>
     </label>
 
@@ -49,11 +50,11 @@ export default {
   data(){
     return{
       form:{
-        restaurant_name:'',
-        type:'cafeteria',
+        restaurant_name:'Menuthy Cafeteria',
+        type:'Cafeteria',
         time_zone:'',
         city:'',
-        user_id:5,       
+        user_id:'',       
       },
        selectedCountry: '',
         selectedCity: '',
@@ -96,8 +97,8 @@ export default {
           if(!this.form.user_id) this.errors.user_id = 'User id field is required' ;
           else  delete this.errors.user_id; 
 
-          if(!this.form.city) this.errors.city = 'City field is required' ;
-          else  delete this.errors.city;
+          if(!this.selectedCity) this.errors.selectedCity = 'City field is required' ;
+          else  delete this.errors.selectedCity;
           console.log(this.errors); 
         }, 
       },

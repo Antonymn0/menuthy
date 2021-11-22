@@ -153,6 +153,7 @@ export default {
                         if(item == 'preparation_time') form_data.append(item, data[item]);
                         if(item == 'discount') form_data.append(item, data[item]);
                         if(item == 'description') form_data.append(item, data[item]);
+                        if(item == 'publish') form_data.append(item, data[item]);
                         if(item == 'avatar') form_data.append(item, data[item]);                        
                         }
                         // save data

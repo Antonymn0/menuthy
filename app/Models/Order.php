@@ -21,11 +21,12 @@ class Order extends Model
         'menu_item_name',
         'menu_item_type',
         'menu_item_id',
+        'order_number',
         'is_take_away',
         'is_inhouse',
         'price',
         'preperation_time',
-        'state',
+        'status',
         'accompaniments',
         'deleted_at',
         'avatar'

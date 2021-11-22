@@ -2,7 +2,7 @@
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
         <a class="btn btn-lg btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-         <small> {{authRestaurant.restaurant_name}} &nbsp; <i class="bi bi-caret-down float-right pt-2 "></i>  </small> 
+         <small > <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span> &nbsp; <i class="bi bi-caret-down float-right pt-2 "></i>  </small> 
            
         </a>
         <div class="dropdown-menu rounded ribbon modal-lg" aria-labelledby="navbarDropdown" style="width:90%; margin:auto">                
@@ -24,7 +24,7 @@
             </div> 
             <div class="p-2">              
                 <p class="row justify-content-center p-" style="font-size:1.2rem; color:#e3342f;">
-                <span class="col-sm-8"> <a href="#" class="text-decoration-none text-dark " > {{authRestaurant.restaurant_name}}</a> </span>
+                <span class="col-sm-8"> <a href="#" class="text-decoration-none text-dark " > {{this.authRestaurant.restaurant_name}}</a> </span>
                 <span class="col-sm-4"> <i class="bi bi-geo-alt-fill " ></i> </span> 
                 </p>
                 <div class="map text-center" id="map" style="min-width:5rem; min-height:10rem;"> map</div>
@@ -51,10 +51,11 @@ export default {
     },
     data(){
         return{
-            authRestaurant: window.authRestaurant,
+            authRestaurant: '',
         }
     },
     mounted(){
+        this.authRestaurant  = window.authRestaurant;
         console.log("Restaurant is: ", authRestaurant);
     }
 

@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="exampleFormControlInput1">Item name</label>
                 <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
-                 <small class="text-danger"> {{this.form.menu_item_name }} </small>
+                 <small class="text-danger"> {{this.errors.menu_item_name }} </small>
             </div>
             <div class="form-group">
                 <input type="hidden" v-model="form.restaurant_id"  class="form-control p-4" id="exampleFormControlInput1" name="restaurant_id" placeholder="restaurant id." required>
@@ -22,8 +22,8 @@
         
             <div class="form-group">
                 <label for="maneu-name">Description</label>
-                <textarea name="description" v-model="form.menu_item_name" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
-                 <small class="text-danger"> {{ this.form.description}} </small>
+                <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                 <small class="text-danger"> {{ this.errors.description}} </small>
             </div>
              
              <div class="form-group">.

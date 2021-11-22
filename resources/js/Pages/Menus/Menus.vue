@@ -39,7 +39,7 @@
                             </label>
                         </div>
                     </div>                    
-                    <p> 5 items  </p>
+                    <p >{{menu.sub_menu.length }} items  </p>
                     <p>  {{  formatDate(menu.created_at)}}  </p>                                      
                 </div>
                   

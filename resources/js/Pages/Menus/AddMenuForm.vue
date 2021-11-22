@@ -22,7 +22,7 @@
         
             <div class="form-group">
                 <label for="maneu-name">Description</label>
-                <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5"></textarea>
                  <small class="text-danger"> {{ errors.description}} </small>
             </div>
              <div class="form-group">
@@ -30,7 +30,7 @@
                 <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
             </div>
             <div class="modal-footer text-center mx-auto">
-                <button type="submit" class="btn primary-btn "  @click="submitForm()" data-dismiss="modal">Save </button>
+                <button type="submit" class="btn primary-btn "   >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>
@@ -50,9 +50,9 @@ export default defineComponent({
     data: () => {
         return{
             form:{
-                menu_name:'breakfast',
+                menu_name:'',
                 restaurant_id: 0,
-                description:'breafast menu',
+                description:'',
                 image:'',
             },
             errors:{ },
@@ -71,11 +71,12 @@ export default defineComponent({
                 if(this.form.image) form_data.append('image', this.form.image);
             axios.post('/api/menu', form_data)
             .then( response => {
-            if( response.status = 201){               
-                this.$swal('Success, Menu created!');
-                this.$inertia.reload();
-                } 
-            })
+                if( response.status = 201){               
+                    this.$swal('Success, Menu created!');
+                    this.$inertia.reload();
+                    this.modalShow = false;
+                    } 
+                })
             .catch( error => {
                 this.failed= true;
                 this.failed_message = 'Failed! Operation not successful. Please try again!';
@@ -84,10 +85,9 @@ export default defineComponent({
         },
 
         validateForm () {
-            if(!this.form.name) this.errors.name = 'This field is required' ;
-            else delete this.errors.name;
-            if(!this.form.description) this.errors.description = 'This field is required' ;
-            else  delete this.errors.description; 
+            if(!this.form.menu_name) this.errors.menu_name = 'This field is required' ;
+            else delete this.errors.menu_name;
+            
         },  
         fileUpload(event){
             this.form.image = event.target.files[0];

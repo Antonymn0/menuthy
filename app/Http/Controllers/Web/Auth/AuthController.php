@@ -26,11 +26,11 @@ class AuthController extends Controller
 
         //get restaurant associated with user
         $restaurant = Restaurant::Where('user_id', $user->id)->first();
-
+   
 
         // if user has restaurant redirect to dashboard
         if($restaurant){
-            return redirect()->intended('dashboard/'. $user->id . '/' . $restaurant->id);
+            return redirect()->intended('/dashboard');
         }
 
         // else redirect to register resaturant page

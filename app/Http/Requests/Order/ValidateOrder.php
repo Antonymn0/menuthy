@@ -25,13 +25,14 @@ class ValidateOrder extends FormRequest
     {
         return [
         'menu_item_name' =>['required', 'string'],
-        'menu_item_type' =>['required', 'string'],
+        'menu_item_type' =>[ 'string'],
+        'order_number' =>['required', 'integer'],
         'menu_item_id' =>['required', 'integer'],
-        'is_take_away' =>['required', 'integer'],
-        'is_inhouse' =>['required', 'integer'],
+        'is_take_away' =>[ 'integer'],
+        'is_inhouse' =>[ 'integer'],
         'price' =>['required', 'regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
         'preperation_time' =>['required', 'string'],
-        'state' =>['required', 'string'],
+        'status' =>['required', 'string'],
         'accompaniments' =>[ 'string'],
         // 'deleted_at' =>[ 'date'],
         'avatar' =>[ 'string']

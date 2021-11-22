@@ -80,7 +80,7 @@ class User extends Authenticatable
     public function restaurant(){
 
         $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
-
+// dd($restaurant);
         if( $restaurant ){
             return $restaurant;
         }

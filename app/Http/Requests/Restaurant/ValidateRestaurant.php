@@ -27,7 +27,7 @@ class ValidateRestaurant extends FormRequest
             'restaurant_name' => ['required', 'string'],
             'restaurant_type' => [ 'string'],
             'user_id' => ['required', 'integer'],
-            'restaurant_id' => ['required', 'integer'],
+            'restaurant_id' => ['integer'],
             'country' => [ 'string'],
             'city' => [ 'string'],
             'address' => [ 'string'],
