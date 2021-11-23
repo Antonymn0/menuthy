@@ -36,14 +36,20 @@ class MenuController extends Controller
     public function store(ValidateMenu $request)
     {
         $data = $request->validated(); 
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+        //    $path = Storage::disk('public')->putFile('/images', $file);
+
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $extension = $file->extension();
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+
+        //    $path = $request->file('image')->store('public');
+        //    $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+        $path = $fileName ;
            $data['image'] = $path;
-        }
-         if(isset($request->duplicate)){
-             $data['image'] = $request->image;
-         }  
+        } 
 
         $menu = Menu::create($data);
         event(new menuCreated($menu));

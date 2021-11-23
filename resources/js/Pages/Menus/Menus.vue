@@ -28,7 +28,7 @@
                              <!--   Edit modal form -->
                                     <EditMenuForm :menu = menu /> 
                         <a :href="'/sub-menu/' + menu.id">
-                             <img v-if = "menu.image != null " :src="'storage/'+ menu.image"  class="img-fluid" style="height:25vh; width:100%;" />                       
+                             <img v-if = "menu.image != null " :src="'/images/' + menu.image"  class="img-fluid" style="height:25vh; width:100%;" />                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </a>                       
                     </div>
