@@ -6,6 +6,12 @@
     <div class="row  text-white page-header browser-menu pt-3" id="browser-menu">
         <div class=" col-md-10 row">
             <div class="row  ">
+                <!-- notifications -->
+                <div>
+                     <TrialExpiryNotification /> 
+                     <SubscriptionExpiryNotification /> 
+                </div>
+               
                 <p class="col-md-4 ">
                     <a href="/dashboard">
                          <img :src="'/images/menuthy_logo_i.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:200px; height:auto; "> 
@@ -67,6 +73,8 @@ import RestaurantInformation from "../HeaderComponents/RestaurantInformation";
 import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
+import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
+import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
 
 export default {
     data(){
@@ -78,6 +86,7 @@ export default {
     components:{
         RestaurantName,
         RestaurantInformation,
+        SubscriptionExpiryNotification, 
         MobilePreview,
         MobileNav,
         QrCode,

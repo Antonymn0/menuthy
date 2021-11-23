@@ -1,12 +1,7 @@
 <template>
 
-    <div>       
-        <div class=" row p-3">
-            <p class="col-sm-2 card ml-2 pt-1 shadow">
-                <a href="#" class="btn  btn-success text-center  mx-auto m-1" @click="refreshOrders()"> <i class="bi bi-arrow-repeat pr-2"></i>Refresh orders</a>
-                <a href="/dashboard" class="btn  btn-primary  text-center m-1 mx-auto"><i class="bi bi-chevron-left pr-2"></i> Back to dashboard</a> <br/>
-            </p>
-            
+    <div class="card m-1">       
+        <div class=" row p-3">            
             <h1 class="col-sm-9 text-center" v-if="this.authRestaurant.restaurant_name">
               {{this.authRestaurant.restaurant_name}} Orders
             </h1>
@@ -14,12 +9,25 @@
               Restaurant Orders
             </h1>
         </div>
+        <div>
+
+            <!-- audio player  -->
+            <audio            
+                ref="audio"
+                src="/audio/beep-4.mp3">
+            </audio>
+
+        </div>
+        
         <div class="d-flex justify-content-center">
+                <a href="/dashboard" class="btn  btn-primary  m-2 "><i class="bi bi-chevron-left "></i> Dashboard</a> <br/>
+              <a href="#" class="btn  btn-success m-2 " @click="refreshOrders()"> <i class="bi bi-arrow-repeat "></i>Refresh </a>           
             <a href="#" class="btn btn-primary m-2" @click="fetchOrders('today')">All Today</a>
             <a href="#" class="btn btn-success m-2" @click="fetchOrders('completed')">Completed</a>
             <a href="#" class="btn btn-danger m-2" @click="fetchOrders('canceled')">Canceled</a>
             
         </div>
+
         <div class="p-2 table-responsive" >        
             <table class="table table-dark table-xl table-hover p-2 align-middle" style="overflow:scroll">
                 <thead class="lead p-2">
@@ -33,10 +41,9 @@
                         <th scope="col">Take away</th>
                     <th scope="col">Action</th>                    </tr>
                 </thead>
-                <tbody v-for="(order) in this.current_orders.data" :key="order.id" >
-
+                <tbody v-for="(order, index) in this.current_orders.data" :key="order.id" >
                     <tr>
-                        <th scope="row">{{this.counter}}</th>
+                        <th scope="row">{{index}}</th>
                         <td>{{order.order_number}}</td>
                         <td>{{order.menu_item_name}}</td>
                         <td>{{order.status}}</td>
@@ -44,11 +51,14 @@
                         <td v-if="order.table">{{order.table}}</td>
                         <td v-else>0</td>
                         <td>{{order.is_take_away}}</td>
-                        <td class="dd-flex justify-content-center text-center m-1">
+                        <td class="dd-flex justify-content-center text-center m-1" v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
-                            <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'complete')">Complete</a>
-                            <a href="#" class="badge badge-danger btn m-1" @click="markOrder(order.id, 'cancel')">Cancel</a>
-                        </td>                        
+                            <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'completed')">Complete</a>
+                            <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
+                        </td> 
+                        <td v-else>
+                            <a href="#" class="badge badge-danger btn m-1 disabled" >Canceled</a>
+                        </td>                       
                     </tr>                
                     
                 </tbody>
@@ -63,6 +73,7 @@
 <script>
 import Pagination from "../Pagination/Pagination.vue";
 
+
 export default { 
     props:['orders', 'posts'],
     components:{Pagination},
@@ -72,7 +83,7 @@ export default {
             current_orders:'',
             counter:0,
             authRestaurant:{},
-            refreshOrdersInterval:setInterval(this.refreshOrders, 100000), //refresh orders every 7 seconds on load
+            refreshOrdersInterval:setInterval(this.refreshOrders, 10000), //refresh orders every 7 seconds on load
        }
    },
    methods:{
@@ -80,12 +91,9 @@ export default {
             this.counter = this.counter++;
         },
         markOrder(id, value){
-            var form_data= new FormData();
-            form_data.append('status', value);
-             axios.get('/api/order/mark/' + id + '/' + value, form_data)
+             axios.get('/api/order/mark/' + id + '/' + value)
             .then( response => {
             if( response.status = 200){
-                // this.$inertia.reload();
                 console.log(response.data);
                 } 
             })
@@ -93,6 +101,21 @@ export default {
                 this.$swal('Error,  failed to update!');                
                 console.log(error.response.data.errors);                    
             });
+        },
+        cancelOrder(id, value){
+            if(confirm("Are you sure you want to cancel this order?"))
+            {            
+                axios.get('/api/order/mark/' + id + '/' + value)
+                .then( response => {
+                if( response.status = 200){
+                    console.log(response.data);
+                    } 
+                })
+                .catch( error => {
+                    this.$swal('Error,  failed to update!');                
+                    console.log(error.response.data.errors);                    
+                });
+            }
         },
         fetchOrders(search_term){
             if(search_term == 'today') this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
@@ -114,9 +137,18 @@ export default {
             .then( response => {
             if( response.status = 200){
                 console.log('refreshing orders');
-                console.log(response);
+                console.log(response.data.data.data);
+
+                // scan response for new orders
+                response.data.data.data.forEach(order => {
+                    // play a beep sound for a new order 
+                    if(order.status == 'recieved'){
+                        this.$refs.audio.play();
+                        return;
+                    } 
+                });
                 this.current_orders = response.data.data;                
-                // this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+                
                 } 
             })
             .catch( error => {
@@ -124,6 +156,9 @@ export default {
                 this.$swal('Error,  failed to refresh orders!');                
                 console.log(error.response.data.errors);                    
             });
+        },
+        muteAudio(){
+            // this.$refs.audio.mute();
         }
    },
 

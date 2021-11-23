@@ -34,6 +34,7 @@
         "moment": "^2.29.1",
         "qrcode": "^1.4.4",
         "v-pagination-3": "^0.1.7",
+        "vue-audio-better": "^3.0.1",
         "vue-countries-cities": "^1.0.0",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^4.0.12",

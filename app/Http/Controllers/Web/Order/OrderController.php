@@ -52,12 +52,9 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function fetchOrders($restaurant_id, $search_term)
-    {
-         
-
+    {         
           // fetch today orders 
         if($search_term == 'today'){
-
              $orders = Order::whereDate('created_at', Carbon::today())
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15));   

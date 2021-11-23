@@ -2,7 +2,7 @@
 
  <div>
         <a href="#"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
-         <!-- edit restaurant Information modal -->
+         <!-- edit mobile preview modal modal -->
         <div class="modal fade  " id="exampleModalEditmobileMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditmobileMenuLabel" aria-hidden="true">
            
             <div class="modal-dialog modal-lg" role="document">
@@ -13,12 +13,11 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" >
               
-              <div class="smartphone">
-                <div class="content">
-                  Menu here
-                  <!-- <iframe src="/w3css/tryw3css_templates_band.htm" style="width:100%;border:none;height:100%" /> -->
+              <div class="smartphone" style="max-width:100%;">
+                <div class="content m-0 p-0" style="width:100%; height:100%;" >
+                  <iframe src="http://127.0.0.1:8000/menuthy-cafeteria-001/menu/1"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
                 </div>
           </div>
 

@@ -53,7 +53,7 @@ class OrderController extends Controller
      * @return response
      */
     public function markOrder($id, $value){
-        $order= Order::WHERE('id', $id)->first()->update(['status', $value]);
+        $order= Order::WHERE('id', $id)->first()->update(['status' => $value]);
         return ([
             'success' => true,
            'message' => 'Order updated',

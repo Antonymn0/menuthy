@@ -5,7 +5,9 @@
        <div :class="blur"> 
        <p>
            <img src="/storage/hotel_logo_placeholder.png" alt="restaurant-logo" style="width:10vw; height:10vw;">
-       </p>           
+       </p>    
+
+       <!-- main menu dropdown         -->
         <div class=" text-center dropdown col-xs-6 mx-auto pb-2 pt-0">
             <div class="arrow-left p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-justify-left"></i>
@@ -16,14 +18,14 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> 
                 <li v-if="this.menus.length" > 
                     <ul v-for="(menu) in this.menus" :key="menu.id" class="list-unstyled">
-                        <li class="px-3 py-2 border-bottom"> 
-                            <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> 
+                        <li class="px-3 py-2 border-bottom" v-if="menu.publish == 'true'"> 
+                            <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + menu.id" > {{menu.menu_name}} </a> 
                         </li>
                      </ul>
                 </li>
                 <li v-else> 
                     <ul >
-                        <li class="text-muted  p-5"> No items available</li>
+                        <li class="text-muted  p-5"> Menu empty</li>
                     </ul>
                 </li>
             </ul>
@@ -32,22 +34,20 @@
         </div>
    </div>
 
+        <!-- imge slider -->
    <div v-if="this.menus.length" :class="blur"> 
         <carousel :items-to-show="3">
             <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
-                    <div class="img-fluid  panel rounded mt-2 fade-in shadow-right shadow-left" >   
+                    <div class="img-fluid  panel rounded mt-2 fade-in shadow-right shadow-left" v-if="sub_menu.publish == 'true'">   
                         <div class="pb-0 shadow">
-                            <a href="#" class="rounded shadow" @click="[fetchMenuItems(sub_menu.id), updateMenuName('sub_menu.sub_menu_name')]"> 
+                            <a href="#" class="rounded shadow" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]"> 
                                 <img :src="'/images/' + sub_menu.image" alt="food-image" class="img-fluid" v-if="sub_menu.image">
                                 <img src="/images/placeholder.png" alt="food-image" class="img-fluid rounded shadow" v-else>
-                            </a>                 
-
-                        </div>          
-                    
+                            </a> 
+                        </div> 
                     <p class="pt-3 mb-0 ">
                         {{sub_menu.sub_menu_name}}
-                    </p>                   
-                    
+                    </p> 
                     </div>
                 </slide>
                 <template #addons>
@@ -57,6 +57,7 @@
             </template>
         </carousel>
         
+        <!-- menu items -->
         <div v-if="this.menu_items.length " v-show="this.show_menus_list">
             <div class="py-4 mx-3  text-center">
                 <p class="border-bottom p-2 d-inline menu-name">
@@ -64,7 +65,7 @@
                 </p>        
             </div> 
             <div v-for="menu_item in menu_items" :key="menu_item.id">  
-                <div class="open-full-screen" @click="showMenuItem(menu_item)">                        
+                <div class="open-full-screen" @click="showMenuItem(menu_item)" v-if="menu_item.publish== 'true'">                        
                     <div class=" row menu-item p-2 m-2 shadow fade-in open-full-screen">
                         <p class="description m-0">
                             {{menu_item.description}} 
@@ -77,8 +78,8 @@
                             <span>
                             <i class="bi bi-tag pr-2 text-danger text-left " style="font-size:10pt"></i>   ${{menu_item.price}}
                             </span>
-                            <span> 
-                                <a href="#" class="btn btn-sm btn-danger alert-danger"> Order</a>
+                            <span v-if="this.User.package_type != null"> 
+                                <a href="#" class="btn btn-sm btn-danger alert-danger" @click="placeOrder(single_menu_item)"> Order</a>
                             </span>
                             <span>
                             <i class="bi bi-alarm pr-2 text-danger text-right"></i> {{menu_item.preparation_time}} mins
@@ -91,10 +92,10 @@
         <div v-else> <p class="text-muted text-center pt-5 border-top px-3">No items to show!</p>
     </div>
 </div>
-     <div v-else> <p class="text-muted text-center pt-5 border-top px-3">This restaurant has no items to show!</p></div>
+    <div v-else> <p class="text-muted text-center pt-5 border-top px-3">This restaurant has no items to show!</p></div>
 
-        <!-- single menu item for full dissplay -->
-         <div class="mb-3 " v-show="this.show_single_menu_item" >                        
+        <!-- single menu item for full screen display -->
+         <div class="mb-3 " v-show="this.show_single_menu_item" v-if="single_menu_item.publish" >                        
                 <div class="   p-2 m-2 shadow border-top fade-in ">
                     <div class="row m-0  pt-2">
                       <span class="arrow-left" style="top:0; padding:0; width:12%; z-index:5;"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
@@ -127,15 +128,15 @@
                                 <i class="bi bi-alarm pr-2 text-danger "></i> {{single_menu_item.preparation_time}} mins
                             </span> <br>
                         </p> 
-                        <p class=" d-flex justify-content-center">
+                        <p class=" d-flex justify-content-center" v-if="this.User.package_type != null">
                           <a href="#" class="btn  btn-danger pt-2 alert-danger col-xs-8 mx-auto" @click="placeOrder(single_menu_item)"> Order now</a>
                         </p>                       
                              
                     </div>      
                 </div>      
             </div>
-
         <div>
+
           <!--menu pop up Modal -->
         <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg mx-5" style="align-items: flex-end; bottom:8rem;" >
@@ -145,7 +146,8 @@
             </div>
             <div class="modal-body">
                 <ul v-for="menu in menus" :key="menu.id" class="list-unstyled px-5">
-                    <li class="border-bottom"> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
+                    <li class="border-bottom" v-if="menu.publish == 'true'"> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
+                    
                 </ul>
             </div>
             
@@ -167,7 +169,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 export default {
   name: 'App',
 
-  props:['menus', 'subMenus', 'menuItems'],
+  props:['menus', 'subMenus', 'menuItems', 'user'],
 
   components: {
     Carousel,
@@ -185,6 +187,7 @@ export default {
           show_menus_list:true,
           show_single_menu_item:false,
           is_take_away:false,
+          User:{},
       }
   },
   methods:{
@@ -241,6 +244,7 @@ export default {
   },
   mounted(){
         this.menu_items = this.menuItems;
+        this.User= this.user;
          this.restaurant_name = window.authRestaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase()
   }
 

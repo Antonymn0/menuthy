@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SubMenu;
 use App\Models\MenuItem;
+use App\Models\Restaurant;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Menu;
 
@@ -18,6 +20,7 @@ class MobileMenuController extends Controller
      */
     public function getMainMenu($restaurant_name, $restaurant_id)
     {       
+        $user = $this->makeSafeUser($restaurant_id);
                 //get menus
         $menus = Menu::WHERE('restaurant_id', $restaurant_id)->get();
 
@@ -31,10 +34,11 @@ class MobileMenuController extends Controller
                     'menus'=>$menus,
                     'subMenus'=>$subMenus,
                     'menuItems'=>$menuItems,
+                    'user'=> $user,
                     ]);
             }
         }
-        // else return empty arrays 
+        // else return empty array 
          return Inertia::render('MobileMenu/MenuView')->with([
                     'menus'=>[],
                     'subMenus'=>[],
@@ -79,5 +83,36 @@ class MobileMenuController extends Controller
        ],200);
 
    }
+
+   /**
+    *   construct safe public user object to send with the menus
+    * @param $restaurant_id
+
+    * @return safe user object
+    */
+    private function makeSafeUser($restaurant_id){
+          if(isset($restaurant_id))  $restaurant = Restaurant::where('id', $restaurant_id)->first() ;
+            
+           if(isset($restaurant)){
+               $restaurant_owner = User::where('id', $restaurant->id)->first();
+               //create safe user
+            $user = new \stdClass();
+            
+            $user->package_type = $restaurant_owner->package_type;
+            $user->registration_expiry = $restaurant_owner->registration_expir;
+            $user->trial_expiry = $restaurant_owner->trial_expiry;
+            $user->city = $restaurant_owner->city;
+            $user->timezone = $restaurant_owner->timezone;
+
+            return $user;
+           } 
+
+        //    else return exception 404 not found
+        throw new Exception('Restaurant or user not found'); 
+
+
+            
+            
+    }
     
 }
