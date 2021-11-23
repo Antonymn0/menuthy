@@ -32,7 +32,7 @@
                     <div class="img-fluid  panel rounded mt-2 fade-in shadow-right shadow-left" >   
                         <div class="pb-0 shadow">
                             <a href="#" class="rounded shadow" @click="[fetchMenuItems(sub_menu.id), updateMenuName('sub_menu.sub_menu_name')]"> 
-                                <img :src="'/storage/' + sub_menu.image" alt="food-image" class="img-fluid" v-if="sub_menu.image">
+                                <img :src="'/images/' + sub_menu.image" alt="food-image" class="img-fluid" v-if="sub_menu.image">
                                 <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
                             </a>                 
 
@@ -64,7 +64,7 @@
                             {{menu_item.description}} 
                         </p>
                         <p class=" menu-image p-0 m-0">
-                            <img :src="'/storage/' + menu_item.image" alt="menu-image" >
+                            <img :src="'/images/' + menu_item.image" alt="menu-image" >
                         </p>
                     
                         <p class="row price-time pb-0 mb-0 pt-1">
@@ -86,13 +86,14 @@
     </div>
 </div>
      <div v-else> <p class="text-muted text-center pt-5 border-top px-3">This restaurant has no items to show!</p></div>
+
         <!-- single menu item for full dissplay -->
          <div class="mb-3 " v-show="this.show_single_menu_item" >                        
                 <div class="   p-2 m-2 shadow border-top fade-in ">
                     <div class="row m-0  pt-2">
                       <span class="arrow-left" style="top:0; padding:0; width:10%; z-index:5;"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
                        <span class="order-image mx-auto rounded shadow " style="width:70%; max-height:100%">
-                           <img :src="'/storage/' + single_menu_item.image" alt="menu-image" class="rounded w-100 " v-if="single_menu_item.image"> 
+                           <img :src="'/images/' + single_menu_item.image" alt="menu-image" class="rounded w-100 " v-if="single_menu_item.image"> 
                            <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
                         </span>  
                     </div>

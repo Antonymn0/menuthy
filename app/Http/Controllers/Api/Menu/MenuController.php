@@ -38,17 +38,11 @@ class MenuController extends Controller
         $data = $request->validated(); 
         if($request->hasFile('image')){  
             $file = $request->file('image') ;
-        //    $path = Storage::disk('public')->putFile('/images', $file);
-
             $fileName = now()->timestamp . $file->getClientOriginalName()  ;
-            $extension = $file->extension();
             $destinationPath = public_path().'/images' ;
             $file->move($destinationPath,$fileName);
-
-        //    $path = $request->file('image')->store('public');
-        //    $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
         $path = $fileName ;
-           $data['image'] = $path;
+        $data['image'] = $path;
         } 
 
         $menu = Menu::create($data);
@@ -120,14 +114,14 @@ class MenuController extends Controller
     public function update(ValidateMenu $request, $id)
     {
         $data = $request->validated(); 
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
-           $data['image'] = $path;
-        }
-         if(isset($request->duplicate)){
-             $data['image'] = $request->image;
-         } 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        } 
          
         Menu::findOrFail($id)->update($data);
         $menu = Menu::findOrFail($id);

@@ -34,12 +34,15 @@ class SubMenuController extends Controller
      */
     public function store(ValidateSubMenu $request)
     {  
-        $data = $request->validated(); 
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
-           $data['image'] = $path;
-        }
+         $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        } 
 
         $subMenu = SubMenu::create($data);
         event(new subMenuCreated($subMenu));
@@ -109,12 +112,15 @@ class SubMenuController extends Controller
      */
     public function update(ValidateSubMenu $request, $id)
     {
-        $data = $request->validated(); 
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
-           $data['image'] = $path;
-        }
+         $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        } 
 
         SubMenu::findOrFail($id)->update($data);
         $subMenu = SubMenu::findOrFail($id);

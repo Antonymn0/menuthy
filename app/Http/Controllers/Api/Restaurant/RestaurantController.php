@@ -34,7 +34,15 @@ class RestaurantController extends Controller
      */
     public function store(ValidateRestaurant $request)
     {
-        $data = $request->validated();        
+        $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        }        
         $restaurant = Restaurant::create($data);
         event(new restaurantCreated($restaurant));
         return response()->json([
@@ -68,7 +76,15 @@ class RestaurantController extends Controller
      */
     public function update(ValidateRestaurant $request, $id)
     {     
-        $data = $request->validated();
+        $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        } 
 
         $restaurant = Restaurant::findOrFail($id)->update($data);
         event(new restaurantUpdated($restaurant));

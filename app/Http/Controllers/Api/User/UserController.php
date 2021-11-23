@@ -72,11 +72,15 @@ class UserController extends Controller
     {
         $data = $request->validated();
         
-        // $data['phone'] = isset($data['phone']) ? Utilities::cleanPhoneNumber($data['phone']) : null;
-        // if(isset($data['img'])){
-        //     $pathToFile = $request->file('img')->store('Images', 'public');
-        //     $data['img'] = $pathToFile;
-        // } 
+         $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        }  
         $user= User::findOrFail($id)->update($data);
         event(new UserUpdated($user));
         return response()->json([

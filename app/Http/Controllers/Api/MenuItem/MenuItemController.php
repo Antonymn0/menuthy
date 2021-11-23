@@ -34,12 +34,14 @@ class MenuItemController extends Controller
      */
     public function store(ValidateMenuItem $request)
     {   
-        $data = $request->validated();  
-         
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
-           $data['image'] = $path;
+        $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
         }     
         $menuItem = MenuItem::create($data);
         event(new menuItemCreated($menuItem));
@@ -94,11 +96,15 @@ class MenuItemController extends Controller
     {
         $data = $request->validated();  
          
-        if($request->hasFile('image')){            
-           $path = $request->file('image')->store('public');
-           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
-           $data['image'] = $path;
-        }   
+         $data = $request->validated(); 
+        if($request->hasFile('image')){  
+            $file = $request->file('image') ;
+            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
+            $destinationPath = public_path().'/images' ;
+            $file->move($destinationPath,$fileName);
+        $path = $fileName ;
+        $data['image'] = $path;
+        }  
         $menuItem = MenuItem::findOrFail($id)->update($data);
         event(new menuItemUpdated($menuItem));
         return response()->json([
