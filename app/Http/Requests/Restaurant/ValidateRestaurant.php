@@ -25,8 +25,8 @@ class ValidateRestaurant extends FormRequest
     {
         return [
             'restaurant_name' => ['required', 'string'],
-            'restaurant_type' => [ 'string'],
             'user_id' => ['required', 'integer'],
+            'restaurant_type' => [ 'string'],
             'restaurant_id' => ['integer'],
             'country' => [ 'string'],
             'city' => [ 'string'],
@@ -44,6 +44,7 @@ class ValidateRestaurant extends FormRequest
             'closing_hrs' => [ 'date'],
             'offer_accomodation' => [ 'integer'],
             'slang' => [ 'string'],
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
             'description' => [ 'string'],
             'avatar' => [ 'string'],
             

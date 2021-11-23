@@ -16,9 +16,9 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('restaurant_name')->required();
-            $table->string('restaurant_type')->nullable();
-            $table->foreignId('user_id')->required()->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->required();
             $table->string('country')->nullable();
+            $table->string('restaurant_type')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('restaurant_phone_number')->nullable();
@@ -36,6 +36,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('slang')->nullable();
             $table->text('description')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('image')->nullable();
             $table->timestamp('deleted_at')->nullable();
 
 

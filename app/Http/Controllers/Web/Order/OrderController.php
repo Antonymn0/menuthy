@@ -18,9 +18,9 @@ class OrderController extends Controller
      */
     public function index($restaurant_name, $restaurant_id)
     {
-        $orders =Order::WHERE('restaurant_id', $restaurant_id)
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(ENV('API_PAGINATION', 15));
+        $orders = Order::whereDate('created_at', Carbon::today())
+                        ->orderBy('created_at','DESC')
+                        ->paginate(ENV('API_PAGINATION', 15));
 
         return Inertia::render('Order/AllOrders')->with([
             'orders' => $orders,
@@ -34,30 +34,32 @@ class OrderController extends Controller
      */
     public function fetchOrders($restaurant_id, $search_term)
     {
+         
 
-        // fetch today order 
+          // fetch today orders 
         if($search_term == 'today'){
-            dd($restaurant_id);
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
-            
-                    // ->WHERE('created_at', Carbon::today())
-                    ->get();
-                    // ->paginate(ENV('API_PAGINATION', 15));
-                 return Inertia::render('Order/AllOrders')->with([
-                    'orders' => $orders,
-                ]);    
+
+             $orders = Order::whereDate('created_at', Carbon::today())
+                            ->orderBy('created_at','DESC')
+                            ->paginate(ENV('API_PAGINATION', 15));   
+
+               return response()->json([
+                   'success' => true,
+                   'message' => 'A list of orders',
+                   'data' => $orders,           
+               ]);                         
         }
         else{
-             dd($restaurant_id);
+
             // fetch orders according to provided search term 
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
-                    // ->WHERE('created_at', Carbon::today())
-                    // ->WHERE('status', $search_term)
-                    ->get();                    
-                    // ->paginate(ENV('API_PAGINATION', 15));
-                    return Inertia::render('Order/AllOrders')->with([
-                    'orders' => $orders,
-                ]); 
+            $orders = Order::WHERE('status', $search_term)
+                            ->orderBy('created_at','DESC')
+                            ->paginate(ENV('API_PAGINATION', 15)); 
+                return response()->json([
+                    'success' => true,
+                   'message' => 'A list of orders',
+                   'data' => $orders,           
+               ]); 
         }
 
        

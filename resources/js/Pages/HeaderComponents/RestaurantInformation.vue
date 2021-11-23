@@ -14,7 +14,7 @@
                     </button>
                 </div>
                 <div class="modal-body py-2 px-3">
-                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm">
+                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm(2)">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Restaurant  name</label>
                             <input type="text" class="form-control p-4"  v-model="form.restaurant_name" id="exampleFormControlInput" placeholder="Restaurant name here...">
@@ -34,8 +34,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">State</label>
-                                    <input type="text" class="form-control p-4" v-model="form.state" id="exampleFormControlInput2" placeholder="State">
+                                    <label for="exampleFormControlInput2">City</label>
+                                    <input type="text" class="form-control p-4" v-model="form.city" id="exampleFormControlInput2" placeholder="State">
                                 </div> 
                             </div>
                         </div>
@@ -43,13 +43,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Phone</label>
-                                    <input type="text" v-model="form.phone" class="form-control p-4" id="exampleFormControlInput2" placeholder="Phone number">
+                                    <input type="text" v-model="form.restaurant_phone_number" class="form-control p-4" id="exampleFormControlInput2" placeholder="Phone number">
                                 </div> 
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Email</label>
-                                    <input type="email" v-model="form.email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
+                                    <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 
                             </div>
@@ -67,7 +67,10 @@
                         <div class="">
                             <div class="form-group">
                                 <label for="exampleFormControlInput2">Timezone</label>
-                                <input type="text" v-model="form.time_zone" class="form-control p-4" id="exampleFormControlInput2" placeholder="Timezone">
+                                <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
+                                    <option selected >Select time zone</option>
+                                    <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
+                                </select>
                             </div> 
                         </div>
                          
@@ -105,7 +108,7 @@
                             </div>
                         </div>                         
                         <div class=" w-50 p-2 mx-auto">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="submitForm(2)">Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
@@ -135,18 +138,51 @@ export default {
                restaurant_id:'' ,
                 address:'',
                 country:'',
-                state:'',
-                phone:'',
-                email:'',
+                city:'',
+                restaurant_phone_number:'',
+                restaurant_email:'',
                 website:'',
                 timezone:'',
                 facebook:'',
                 instagram:'',
                 twitter:'',
                 youtube:''
-            },
-            
+            },            
             errors:{},
+             timeZones:[
+                  'GMT	Greenwich Mean Time	GMT',
+                  'UTC	Universal Coordinated Time	GMT',
+                  'ECT	European Central Time	GMT+1:00',
+                  'EET	Eastern European Time	GMT+2:00',
+                  'ART	(Arabic) Egypt Standard Time	GMT+2:00',
+                  'EAT	Eastern African Time	GMT+3:00',
+                  'MET	Middle East Time	GMT+3:30',
+                  'NET	Near East Time	GMT+4:00',
+                  'PLT	Pakistan Lahore Time	GMT+5:00',
+                  'IST	India Standard Time	GMT+5:30',
+                  'BST	Bangladesh Standard Time	GMT+6:00',
+                  'VST	Vietnam Standard Time	GMT+7:00',
+                  'CTT	China Taiwan Time	GMT+8:00',
+                  'JST	Japan Standard Time	GMT+9:00',
+                  'ACT	Australia Central Time	GMT+9:30',
+                  'AET	Australia Eastern Time	GMT+10:00',
+                  'SST	Solomon Standard Time	GMT+11:00',
+                  'NST	New Zealand Standard Time	GMT+12:00',
+                  'MIT	Midway Islands Time	GMT-11:00',
+                  'HST	Hawaii Standard Time	GMT-10:00',
+                  'AST	Alaska Standard Time	GMT-9:00',
+                  'PST	Pacific Standard Time	GMT-8:00',
+                  'PNT	Phoenix Standard Time	GMT-7:00',
+                  'MST	Mountain Standard Time	GMT-7:00',
+                  'CST	Central Standard Time	GMT-6:00',
+                  'EST	Eastern Standard Time	GMT-5:00',
+                  'IET	Indiana Eastern Standard Time	GMT-5:00',
+                  'PRT	Puerto Rico and US Virgin Islands Time	GMT-4:00',
+                  'CNT	Canada Newfoundland Time	GMT-3:30',
+                  'AGT	Argentina Standard Time	GMT-3:00',
+                  'BET	Brazil Eastern Time	GMT-3:00',
+                  'CAT	Central African Time	GMT-1:00',
+                  ],
         }
     },
     methods:{
@@ -157,12 +193,11 @@ export default {
             var form_data = new FormData();
                 form_data.append('restaurant_name', this.form.restaurant_name);
                 form_data.append('user_id', this.form.user_id);
-                form_data.append('restaurant_id', this.form.restaurant_id);
                 form_data.append('address', this.form.address);
                 form_data.append('country', this.form.country);
-                form_data.append('state', this.form.state);
-                form_data.append('phone', this.form.phone);
-                form_data.append('email', this.form.email);
+                form_data.append('city', this.form.city);
+                form_data.append('restaurant_phone_number', this.form.restaurant_phone_number);
+                form_data.append('restaurant_email', this.form.restaurant_email);
                 form_data.append('website', this.form.website);
                 form_data.append('timezone', this.form.timezone);
                 form_data.append('facebook', this.form.facebook);
@@ -178,7 +213,7 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.$swal('Update successful!');
-                Inertia.reload();
+                console.log(response);
                 } 
             })
             .catch( error => {
@@ -214,9 +249,9 @@ export default {
         this.form.restaurant_id = window.authRestaurant.id;
         this.form.address = window.authRestaurant.address;
         this.form.country = window.authRestaurant.country;
-        this.form.state = window.authRestaurant.state;
-        this.form.phone = window.authRestaurant.phone;
-        this.form.email = window.authRestaurant.email;
+        this.form.city = window.authRestaurant.city;
+        this.form.restaurant_phone_number = window.authRestaurant.restaurant_phone_number;
+        this.form.restaurant_email = window.authRestaurant.restaurant_email;
         this.form.website = window.authRestaurant.website;
         this.form.timezone = window.authRestaurant.timezone;
         this.form.facebook = window.authRestaurant.facebook;

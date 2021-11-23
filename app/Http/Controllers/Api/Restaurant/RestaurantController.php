@@ -76,6 +76,7 @@ class RestaurantController extends Controller
      */
     public function update(ValidateRestaurant $request, $id)
     {     
+        
         $data = $request->validated(); 
         if($request->hasFile('image')){  
             $file = $request->file('image') ;

@@ -37,7 +37,7 @@ class ValidateSubMenu extends FormRequest
             'available_days' => [ 'string'],
             'slang' => [ 'string'],
             'description' => ['nullable'],
-            // 'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
             'avatar' => [ 'string'],
             // 'deleted_at' => ['string']
             ];

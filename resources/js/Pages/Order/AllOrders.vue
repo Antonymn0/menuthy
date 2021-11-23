@@ -1,9 +1,17 @@
 <template>
 
-    <div>
-        <div class=" d-flex justify-content-center p-2">
-            <h1>
-                Menuthy Restaurant
+    <div>       
+        <div class=" row p-3">
+            <p class="col-sm-2 card ml-2 pt-1 shadow">
+                <a href="#" class="btn  btn-success text-center  mx-auto m-1" @click="refreshOrders()"> <i class="bi bi-arrow-repeat pr-2"></i>Refresh orders</a>
+                <a href="/dashboard" class="btn  btn-primary  text-center m-1 mx-auto"><i class="bi bi-chevron-left pr-2"></i> Back to dashboard</a> <br/>
+            </p>
+            
+            <h1 class="col-sm-9 text-center" v-if="this.authRestaurant.restaurant_name">
+              {{this.authRestaurant.restaurant_name}} Orders
+            </h1>
+            <h1 class="col-sm-9 text-center" v-else>
+              Restaurant Orders
             </h1>
         </div>
         <div class="d-flex justify-content-center">
@@ -37,7 +45,7 @@
                         <td v-else>0</td>
                         <td>{{order.is_take_away}}</td>
                         <td class="dd-flex justify-content-center text-center m-1">
-                            <a href="#" class="badge badge-primary btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
+                            <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
                             <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'complete')">Complete</a>
                             <a href="#" class="badge badge-danger btn m-1" @click="markOrder(order.id, 'cancel')">Cancel</a>
                         </td>                        
@@ -90,18 +98,34 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.current_orders = response.data.data;
-                this.$inertia.reload();
-                console.log(response);
+                console.log(response.data);
                 } 
             })
             .catch( error => {
                 this.$swal('Error,  failed to fetch orders!');                
                 console.log(error.response.data.errors);                    
             });
+        },
+
+        refreshOrders(){
+            axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id)
+            .then( response => {
+            if( response.status = 200){
+                this.current_orders = response.data.data;
+                clearInterval(this.refreshOrders);
+                setInterval(this.refreshOrders, 10000);  //refresh orders every 7 seconds
+                } 
+            })
+            .catch( error => {
+                clearInterval(this.refreshOrders)
+                this.$swal('Error,  failed to refresh orders!');                
+                console.log(error.response.data.errors);                    
+            });
         }
    },
 
     mounted(){
+        setInterval(this.refreshOrders, 10000);  //refresh orders every 7 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
         console.log(this.orders);

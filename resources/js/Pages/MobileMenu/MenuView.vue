@@ -223,13 +223,16 @@ export default {
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
-console.log(...form_data);
+            console.log(...form_data);
+            console.log(typeof(menu_item.price));
+
           axios.post('/api/order', form_data)
             .then( response => {
-            if( response.status = 201){
-                console.log(response.data);
-                } 
-            })
+                if( response.status = 201){
+                    this.$swal( 'Order placed!'); 
+                    console.log(response.data);
+                    } 
+                })
             .catch( error => {
                 this.$swal('Error, Order failed!');                
                 console.log(error.response.data.errors);                    

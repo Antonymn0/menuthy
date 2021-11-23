@@ -35,7 +35,7 @@ class ValidateOrder extends FormRequest
         'preparation_time' =>['required', 'integer'],
         'status' =>['required', 'string'],
         'accompaniments' =>[ 'string'],
-        // 'deleted_at' =>[ 'date'],
+        'deleted_at' =>[ 'date'],
         'avatar' =>[ 'string']
         ];
     }
