@@ -27,7 +27,10 @@
                         </ul>
                              <!--   Edit modal form  -->
                                     <EditMenuForm :menu = menu /> 
-                                             
+                        <a :href="'/sub-menu/' + menu.id">
+                             <img v-if = "menu.image != null " :src="'/images/' + menu.image"  class="img-fluid" style="height:25vh; width:100%;" />                       
+                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
+                        </a>                       
                     </div>
                     <div class="row m-1 p-1 w-100">
                         <h4 class="p-0" style="width:75%; float:left">
