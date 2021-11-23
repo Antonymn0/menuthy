@@ -6,22 +6,28 @@
        <p>
            <img src="/storage/hotel_logo_placeholder.png" alt="restaurant-logo" style="width:10vw; height:10vw;">
        </p>           
-        <div class=" text-center dropdown col-xs-6 mx-auto">
+        <div class=" text-center dropdown col-xs-6 mx-auto pb-2 pt-0">
             <div class="arrow-left p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-justify-left"></i>
             </div>
-            <h4 class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                Main Menu
-            </h4>
-            <div v-if="this.menus.length">
-               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" v-for="(menu) in this.menus" :key="menu.id">
-                    <li> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
-                </ul>
-            </div>
-            <ul v-else>
-                <li class="text-muted"> No items available</li>
+            <button class="text-danger btn p-1 bg-white mb-1 dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="lead"> Main Menu </span>  
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                <li v-if="this.menus.length" > 
+                    <ul v-for="(menu) in this.menus" :key="menu.id" class="list-unstyled">
+                        <li class="px-3 py-2 border-bottom"> 
+                            <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> 
+                        </li>
+                     </ul>
+                </li>
+                <li v-else> 
+                    <ul >
+                        <li class="text-muted  p-5"> No items available</li>
+                    </ul>
+                </li>
             </ul>
-            
+           
         </div>
         </div>
    </div>
@@ -33,7 +39,7 @@
                         <div class="pb-0 shadow">
                             <a href="#" class="rounded shadow" @click="[fetchMenuItems(sub_menu.id), updateMenuName('sub_menu.sub_menu_name')]"> 
                                 <img :src="'/images/' + sub_menu.image" alt="food-image" class="img-fluid" v-if="sub_menu.image">
-                                <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
+                                <img src="/images/placeholder.png" alt="food-image" class="img-fluid rounded shadow" v-else>
                             </a>                 
 
                         </div>          
@@ -91,10 +97,10 @@
          <div class="mb-3 " v-show="this.show_single_menu_item" >                        
                 <div class="   p-2 m-2 shadow border-top fade-in ">
                     <div class="row m-0  pt-2">
-                      <span class="arrow-left" style="top:0; padding:0; width:10%; z-index:5;"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
+                      <span class="arrow-left" style="top:0; padding:0; width:12%; z-index:5;"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
                        <span class="order-image mx-auto rounded shadow " style="width:70%; max-height:100%">
                            <img :src="'/images/' + single_menu_item.image" alt="menu-image" class="rounded w-100 " v-if="single_menu_item.image"> 
-                           <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
+                           <img src="/images/placeholder.png" alt="food-image" class="img-fluid" v-else>
                         </span>  
                     </div>
                     <br>
@@ -331,7 +337,8 @@ console.log(...form_data);
                 .mobile-menu{
                    max-width:80%;
                     .arrow-left {
-                        top:-2rem
+                        top:-2rem;
+                       
                     }
                 }
             }
