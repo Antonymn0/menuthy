@@ -25,7 +25,7 @@
                             <li><a class="dropdown-item" href="#" @click="duplicateMenu(menu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenu(menu.id)">Delete</a></li>                   
                         </ul>
-                             <!--   Edit modal form -->
+                             <!--   Edit modal form  -->
                                     <EditMenuForm :menu = menu /> 
                         <a :href="'/sub-menu/' + menu.id">
                              <img v-if = "menu.image != null " :src="'/images/' + menu.image"  class="img-fluid" style="height:25vh; width:100%;" />                       
