@@ -92,13 +92,37 @@ class MenuItemController extends Controller
      */
     public function update(ValidateMenuItem $request, $id)
     {
-        $data = $request->validated();
+        $data = $request->validated();  
+         
+        if($request->hasFile('image')){            
+           $path = $request->file('image')->store('public');
+           $path = substr($path,7); //Trunchate out the 'public/' part and remain with only file name.
+           $data['image'] = $path;
+        }   
         $menuItem = MenuItem::findOrFail($id)->update($data);
         event(new menuItemUpdated($menuItem));
         return response()->json([
             'success'=> true, 
             'message'=>'MenuItem updated successfuly', 
             'data'=>$menuItem],  200);
+    }
+
+     /**
+     * duplicate a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request\
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate($id)   
+    {
+        $menu = MenuItem::findOrFail($id);
+        $newMenu = $menu->replicate();
+        $newMenu->save();
+        return response()->json([
+            'success'=> true,
+            'message'=> 'MenuI item duplicated successfuly',
+            'data'=> true,
+            ],  200);
     }
 
     /**

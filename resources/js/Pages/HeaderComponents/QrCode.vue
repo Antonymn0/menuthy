@@ -17,8 +17,8 @@
             <div class="modal-body">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card">Mobile</a> </li>
-                        <li @click="generateQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card">Tablet</a> </li>
+                        <li class="active " @click="generateQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card m-1" >Mobile</a> </li>
+                        <li @click="generateQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card m-1">Tablet</a> </li>
                     </ul>
              
                     <div class="tab-content">

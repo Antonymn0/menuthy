@@ -15,19 +15,16 @@
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Item name</label>
                             <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
-                            <small class="text-danger"> {{this.form.menu_item_name }} </small>
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" v-model="form.restaurant_id"  class="form-control p-4" id="exampleFormControlInput1" name="restaurant_id" placeholder="restaurant id." required>
-                        </div>
+                            <small class="text-danger"> {{this.errors.menu_item_name }} </small>
+                        </div>                        
                     
                         <div class="form-group">
                             <label for="maneu-name">Description</label>
-                            <textarea name="description" v-model="form.menu_item_name" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
-                            <small class="text-danger"> {{ this.form.description}} </small>
+                            <textarea name="description" v-model="form.desciption" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                            <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>
                         
-                        <div class="form-group">.
+                        <div class="form-group">
                             <label for="exampleFormControlInputprice">Price</label>
                             <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
                         </div>
@@ -35,7 +32,7 @@
                             <label for="exampleFormControlInputfile">Discount</label>
                             <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
                         </div>
-                        <div class="form-group">.
+                        <div class="form-group">
                             <label for="exampleFormControlInputprice">Peparation time</label>
                             <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
                         </div>
@@ -164,23 +161,23 @@ components: { Multiselect },
         return{   
      
             form:{
-                menu_item_name: menuItem.menu_item_name,
-                restaurant_id:1,
-                sub_menu_id: menuItem.sub_menu_id,
-                description: menuItem.description, 
-                carlories: menuItem.calories, 
-                preparation_time: menuItem.preparation_time, 
-                allergy_warning: menuItem.alergy_warning, 
-                is_new: menuItem.is_new, 
-                is_veg:menuItem.is_veg, 
-                is_hot: menuItem.is_hot, 
-                is_signiture:menuItem.is_signiture, 
-                is_special_presentation: menuItem.is_special_presentation, 
-                publish: menuItem.publish, 
-                discount: menuItem.discount,
-                price: menuItem.price,
-                image: menuItem.image,
-                allergy_warning:{...menuItem.alergy_warning },               
+                menu_item_name: '',
+                restaurant_id:'',
+                sub_menu_id: '',
+                description: '', 
+                carlories: '', 
+                preparation_time: '', 
+                allergy_warning: '', 
+                is_new: '', 
+                is_veg:'', 
+                is_hot: '', 
+                is_signiture:'', 
+                is_special_presentation: '', 
+                publish:'', 
+                discount: '',
+                price: '',
+                image: '',
+                allergy_warning:'',               
             },
            
             errors:{},
@@ -189,7 +186,7 @@ components: { Multiselect },
     methods:{
         submitForm () {
             this.validateForm();
-            if(Object.size(this.errors) > 0) return;
+            if(this.errors.length > 0) return;
             console.log('No errors in the form...');
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
@@ -203,12 +200,13 @@ components: { Multiselect },
                 form_data.append('is_new', this.form.is_new);
                 form_data.append('publish', this.form.publish);
                 form_data.append('allergy_warning', this.form.allergy_warning);
+                form_data.append('_method', 'PUT');
                 if(this.form.image) form_data.append('image', this.form.image);
-            axios.post('/api/menu-item', form_data)
+            axios.post('/api/menu-item/'+ this.menuItem.id , form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success, Item added!');
-                this.$inertia.visit('/menu-items');
+                this.$swal('Success, Item updated!');
+                this.$inertia.reload();
                 } 
             })
             .catch( error => {
@@ -241,8 +239,27 @@ components: { Multiselect },
         },
         logInput(){
             console.log(this.form.menu_item_name);
-        }     
+        } ,    
     },
+    mounted(){                   
+        this.form.menu_item_name =  this.menuItem.menu_item_name;
+        this.form.restaurant_id = 1;
+        this.form.sub_menu_id =  this.menuItem.sub_menu_id;
+        this.form.description =  this.menuItem.description; 
+        this.form.carlories =  this.menuItem.calories; 
+        this.form.preparation_time =  this.menuItem.preparation_time; 
+        this.form.allergy_warning =  this.menuItem.alergy_warning; 
+        this.form.is_new =  this.menuItem.is_new; 
+        this.form.is_veg = this.menuItem.is_veg; 
+        this.form.is_hot =  this.menuItem.is_hot; 
+        this.form.is_signiture = this.menuItem.is_signiture; 
+        this.form.is_special_presentation =  this.menuItem.is_special_presentation; 
+        this.form.publish =  this.menuItem.publish; 
+        this.form.discount =  this.menuItem.discount;
+        this.form.price =  this.menuItem.price;
+        this.form.image =  this.menuItem.image;
+        this.form.allergy_warning = {...this.menuItem.alergy_warning };  
+    }
 }
 </script>
 

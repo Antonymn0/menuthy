@@ -3,8 +3,9 @@
     <Topnavbar />
     
     <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
-        <p class="mt-4 small">Sub-menus Menu <i class="bi bi-chevron-right p-0"></i>  {{this.menu.menu_name}}  </p>
-        <h3 class="mt-4"> </h3> {{this.menu.menu_name.toUpperCase()}} 
+        <p class="mt-4 small"> Menu <i class="bi bi-chevron-right p-0"></i>  Section  </p>
+        <h3> Sections</h3>
+        <p class="mt-4"> A list of sections under {{this.menu.menu_name.toUpperCase()}} menu</p>  
 
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
@@ -15,14 +16,16 @@
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + subMenu.id">Edit</a></li>
                             <li><a class="dropdown-item" href="#" @click="duplicateSubMenu(subMenu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
                         <a :href="'/menu-items/' + subMenu.id">
-                             <img v-if = "subMenu.image  " :src="'/storage/'+subMenu.image"  class="img-fluid" />                       
-                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
-                        </a>  
+                             <img v-if = "subMenu.image  " :src="'/storage/'+subMenu.image"  class="img-fluid" style="height:27vh; width:100%;"/>                       
+                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:12rem; color:#999; "></i>
+                        </a> 
+
+                        <editSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
                     </div>
                     <div class="row m-1 p-1 w-100">
                         <h4 class="p-0" style="width:75%; float:left">
@@ -68,6 +71,7 @@ import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
 import AddSubMenuForm from "./AddSubMenuForm";
+import editSubMenuForm from "./editSubMenuForm";
 
 export default {
  props:['menu','subMenus',  'restaurant_id'],
@@ -76,6 +80,7 @@ export default {
   Topnavbar,
    Footer,
    AddSubMenuForm,
+   editSubMenuForm,
 
   },
   data(){
@@ -94,44 +99,21 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.$swal('Success, Section deleted!');
-                this.$inertia.visit('/sub-menu');
+                this.$inertia.reload();
                 }                
             });
         },
         duplicateSubMenu(id){
-            axios.get('/api/sub-menu/' + id)
+              axios.get('/api/sub-menu/duplicate/' + id )
             .then( response => {
-                if( response.status = 200){   
-                    var data =    response.data.data ;      
-                    // convert response to form data 
-                    var form_data = new FormData();  
-                    for (let item in data) {
-                        if(item == 'id') continue;
-                        if(item == 'created_at') continue;
-                        if(item == 'deleted_at') continue;
-                        if(item == 'updated_at') continue;
-                        form_data.append(item, data[item]);
-                        }
-                         for(var pair of form_data.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                    }
-                        // save data
-                    axios.post('/api/sub-menu', form_data )
-                    .then( response => {
-                        this.$swal('Success, Section duplicated!');
-                        this.$inertia.reload();
-                    })
-                    .catch(error=>{
-                        this.$swal('Error, Failed to duplicate!');
-                        console.log(error);
-                    });
-                 }                
+                console.log(response);
+                this.$swal('Success,  duplicated!');
+                this.$inertia.reload();
             })
-            .catch( error => {
-                this.pageErrors = "Failed to execute!";
+            .catch(error=>{
+                this.$swal('Error, Failed to duplicate!');
                 console.log(error);
-            }); 
-
+            });
         },
 
         formatDate(date){

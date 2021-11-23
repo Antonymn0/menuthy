@@ -18,12 +18,11 @@
                                     Orders
                                  </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Orders</a></li>
+                                <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id">Orders</a></li>
                                 <li><a class="dropdown-item" href="#">Tables</a></li>
                                 <li><a class="dropdown-item" href="#">Waiters</a></li>
                                 <li><a class="dropdown-item" href="#">Modifiers</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                               
                             </ul>
                             </li>
                              <li class="nav-item">
@@ -72,7 +71,12 @@
 
 <script>
 export default {
-    
+    data(){
+        return{
+                restaurant_name: window.authRestaurant.restaurant_name.toLowerCase().replace(/ /g,"-"),
+                restaurant_id: window.authRestaurant.id,
+        }
+    },
 }
 </script>
 

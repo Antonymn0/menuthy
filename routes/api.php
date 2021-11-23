@@ -39,6 +39,7 @@ if (App::environment('production')) {
   Route::apiResource('order','Api\Order\OrderController');
     // Get deleted orders
   Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
+  Route::get('order/mark/{id}/{value}','Api\Order\OrderController@markOrder');
     // Restore order
   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
    //  Parmamnently delete order
@@ -86,6 +87,7 @@ if (App::environment('production')) {
     // MenuItem API routes routes
   Route::apiResource('menu-item','Api\MenuItem\MenuItemController');
    Route::get('menu-item/toggle-publish/{id}/{value}','Api\MenuItem\MenuItemController@togglePublish');
+    Route::get('menu-item/duplicate/{id}','Api\MenuItem\MenuItemController@duplicate');
     // Get deleted MenuItem
   Route::get('menu-item/fetch-deleted','Api\MenuItem\MenuItemController@fetchDeleted');
     // Restore MenuItem
@@ -97,6 +99,7 @@ if (App::environment('production')) {
     // SubMenu API routes routes
   Route::apiResource('sub-menu','Api\SubMenu\SubMenuController');
   Route::get('sub-menu/toggle-publish/{id}/{value}','Api\SubMenu\SubMenuController@togglePublish');
+  Route::get('sub-menu/duplicate/{id}','Api\SubMenu\SubMenuController@duplicate');
     // Get deleted SubMenu
   Route::get('sub-menu/fetch-deleted','Api\SubMenu\SubMenuController@fetchDeleted');
     // Restore SubMenu

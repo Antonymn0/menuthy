@@ -1,6 +1,8 @@
 <template>
 <div class="px-3 card shadow my-2 ml-1 mobile-menu mx-auto">
-   <div class="text-center pt-2">
+    
+   <div class="text-center pt-2 ">
+       <div :class="blur"> 
        <p>
            <img src="/storage/hotel_logo_placeholder.png" alt="restaurant-logo" style="width:10vw; height:10vw;">
        </p>           
@@ -21,14 +23,15 @@
             </ul>
             
         </div>
+        </div>
    </div>
 
-   <div v-if="this.menus.length"> 
+   <div v-if="this.menus.length" :class="blur"> 
         <carousel :items-to-show="3">
             <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
                     <div class="img-fluid  panel rounded mt-2 fade-in shadow-right shadow-left" >   
                         <div class="pb-0 shadow">
-                            <a href="#" @click="[fetchMenuItems(sub_menu.id), updateMenuName('sub_menu.sub_menu_name')]"> 
+                            <a href="#" class="rounded shadow" @click="[fetchMenuItems(sub_menu.id), updateMenuName('sub_menu.sub_menu_name')]"> 
                                 <img :src="'/storage/' + sub_menu.image" alt="food-image" class="img-fluid" v-if="sub_menu.image">
                                 <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
                             </a>                 
@@ -79,39 +82,49 @@
                 </div>      
             </div>
         </div>
-        <div v-else> <p class="text-muted text-center pt-5">No items to show!</p></div>
-
+        <div v-else> <p class="text-muted text-center pt-5 border-top px-3">No items to show!</p>
+    </div>
+</div>
+     <div v-else> <p class="text-muted text-center pt-5 border-top px-3">This restaurant has no items to show!</p></div>
         <!-- single menu item for full dissplay -->
-         <div class="item-full-screen row" v-show="this.show_single_menu_item" >                        
-                <div class=" row  p-2 m-2 shadow fade-in ">
-                    <div class="row m-0">
-                      <span class="arrow-left" style="top:0; padding:0; width:10%"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
-                       <span class="order-image mx-auto rounded shadow " style="width:70%; height:150px"><img :src="'/storage/' + single_menu_item.image" alt="menu-image" class="rounded w-100"> </span>  
+         <div class="mb-3 " v-show="this.show_single_menu_item" >                        
+                <div class="   p-2 m-2 shadow border-top fade-in ">
+                    <div class="row m-0  pt-2">
+                      <span class="arrow-left" style="top:0; padding:0; width:10%; z-index:5;"  @click="showMenuItem([])"> <i class="bi bi-arrow-left"></i></span> 
+                       <span class="order-image mx-auto rounded shadow " style="width:70%; max-height:100%">
+                           <img :src="'/storage/' + single_menu_item.image" alt="menu-image" class="rounded w-100 " v-if="single_menu_item.image"> 
+                           <img src="/storage/placeholder.png" alt="food-image" class="img-fluid" v-else>
+                        </span>  
                     </div>
-                    <p class="text-center p-2">
-                        {{single_menu_item.menu_item_name}}
-                    </p>
-                    <p class="px-2">
-                        <span class="badge bg-primary " v-if="single_menu_item.is_signiture">Signiture</span>
-                        <span class="badge bg-warning text-dark m-1" v-if="single_menu_item.is_halal">Halal</span>
-                       <span class="badge bg-success m-1" v-if="single_menu_item.is_veg">Veg</span>
-                        <span class="badge bg-danger" v-if="single_menu_item.is_new">New</span>
-                    </p>
-                    <p class="row price-time pb-0 mb-0 px-2">
-                        <span>
-                        <i class="bi bi-tag pr-2 text-danger text-left " style="font-size:10pt"></i>   ${{single_menu_item.price}}
-                        </span>
-                       
-                        <span>
-                        <i class="bi bi-alarm pr-2 text-danger text-right"></i> {{single_menu_item.preparation_time}} mins
-                        </span>
-                    </p>
-                    <p class="  p-2">
-                        {{single_menu_item.description}}
-                    </p>
-                     <p class="text-cenetr"> 
-                            <a href="#" class="btn  btn-danger alert-danger col-xs-8 mx-auto" @click="placeOrder(single_menu_item)"> Order now</a>
+                    <br>
+                    <div class=""> 
+                        <p class="text-center ">
+                            {{menu_name}}
                         </p>
+                        <p class=" d-flex justify-content-center">
+                            <span class="badge bg-primary m-1" v-if="single_menu_item.is_signiture">Signiture</span>
+                            <span class="badge bg-warning text-dark m-1" v-if="single_menu_item.is_halal">Halal</span>
+                            <span class="badge bg-success m-1" v-if="single_menu_item.is_veg">Veg</span>
+                            <span class="badge bg-danger m-1" v-if="single_menu_item.is_new">New</span>                             
+                        </p>
+                        <h5 class="pl-5">Description</h5>
+                        <p class=" d-flex justify-content-center  p-2">
+                            {{single_menu_item.description}}
+                        </p> 
+                        <p class=" d-flex justify-content-center"> 
+                            <span class="mr-5">
+                                <i class="bi bi-tag pr-2 text-danger  " style="font-size:10pt"></i>   ${{single_menu_item.price}}
+                            </span>  
+                            <span> </span>                      
+                            <span class="ml-3">
+                                <i class="bi bi-alarm pr-2 text-danger "></i> {{single_menu_item.preparation_time}} mins
+                            </span> <br>
+                        </p> 
+                        <p class=" d-flex justify-content-center">
+                          <a href="#" class="btn  btn-danger pt-2 alert-danger col-xs-8 mx-auto" @click="placeOrder(single_menu_item)"> Order now</a>
+                        </p>                       
+                             
+                    </div>      
                 </div>      
             </div>
 
@@ -133,8 +146,7 @@
         </div>
         </div>
         </div>
-    </div>
-     <div v-else> <p class="text-muted text-center pt-5">This restaurant has no items to show!</p></div>
+
 </div>
 
 
@@ -158,12 +170,13 @@ export default {
   },
   data(){
       return{
+          blur:'',
           restaurant_name:'',
           menu_items:'',
           menu_name:'',
           single_menu_item:'',
           show_menus_list:true,
-          show_sinle_menu_item:false,
+          show_single_menu_item:false,
           is_take_away:false,
       }
   },
@@ -175,6 +188,7 @@ export default {
           this.single_menu_item = menu_item;
           this.show_menus_list = !this.show_menus_list;
           this.show_single_menu_item = !this.show_single_menu_item;
+          this.blur = this.blur == 'blur-background' ? '' : 'blur-background';
       },
       fetchMenuItems( sub_menu_id){
           console.log('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id);
@@ -193,20 +207,20 @@ export default {
       },
       placeOrder(menu_item){
           var form_data = new FormData();
-            form_data.append('menu_item_name', menu_item.item_name);
+            form_data.append('menu_item_name', menu_item.menu_item_name);
+            form_data.append('menu_item_type', menu_item.menu_item_name);
             form_data.append('is_take_away', this.is_take_away);
             form_data.append('order_number', Date.now());
             form_data.append('menu_item_id', menu_item.id);
+            form_data.append('restaurant_id', window.authRestaurant.id);
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
-
+console.log(...form_data);
           axios.post('/api/order', form_data)
             .then( response => {
-            if( response.status = 200){
-                console.log(response.data.data);
-                
-
+            if( response.status = 201){
+                console.log(response.data);
                 } 
             })
             .catch( error => {
@@ -229,6 +243,7 @@ export default {
     .mobile-menu{
         max-width:500px;
         min-height: 95vh;
+        height:auto;
         background-image: linear-gradient(rgba(255, 190, 155, 0.068), rgba(235, 217, 173, 0));
     }
     .panel{
@@ -301,13 +316,15 @@ export default {
             background-color:rgba(194, 48, 48, 0.466);
             }
         order-image{
-            width:80% !important;
-            height:150px;
+            width:80% ;
             align-content: center;
             align-items: center;
 
         }
-
+        .blur-background{
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        }
             /* media quesries */
             @media only screen and (max-width: 700px) {
                 .mobile-menu{

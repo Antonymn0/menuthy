@@ -50,6 +50,24 @@ class SubMenuController extends Controller
             ],  201);
     }
 
+      /**
+     * duplicate a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request\
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate($id)   
+    {
+        $menu = SubMenu::findOrFail($id);
+        $newMenu = $menu->replicate();
+        $newMenu->save();
+        return response()->json([
+            'success'=> true,
+            'message'=> 'sub Menu duplicated successfuly',
+            'data'=> true,
+            ],  200);
+    }
+
     /**
      * Display the specified resource.
      *

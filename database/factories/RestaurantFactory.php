@@ -18,7 +18,7 @@ class RestaurantFactory extends Factory
             'restaurant_type' => $this->faker->word(),
             'user_id' => 1,
             'country' => $this->faker->word(),
-            'county' => $this->faker->word(),
+            // 'county' => $this->faker->word(),
             'city' => $this->faker->word(),
             'address' => $this->faker->address(),
             'restaurant_phone_number' => $this->faker->phoneNumber(),

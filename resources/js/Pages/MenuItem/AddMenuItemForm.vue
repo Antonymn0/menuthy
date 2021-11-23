@@ -144,7 +144,6 @@
                         <input type="hidden" class="form-control p-4" v-model="form.sub_menu_id" name="resaturant_id" required>
                     </div>
                 </div>
-
             </div>  
             <div class="modal-footer text-center mx-auto">
                 <button type="submit" class="btn primary-btn "   >Save </button>
@@ -154,8 +153,8 @@
     </div>
     
       </div>
-                </div>
-            </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -168,7 +167,7 @@ props:['sub_menu'],
             form:{
                 menu_item_name:'',
                 restaurant_id:'',
-                sub_menu_id:'',
+                sub_menu_id: '',
                 description:'', 
                 carlories:'', 
                 preparation_time:1, 
@@ -225,8 +224,6 @@ props:['sub_menu'],
                 this.errors.menu_item_name = 'This field is required' ;
                 return;
             } 
-
-
             if(!this.form.price) this.errors.price = 'Price field is required' ;
             else delete this.errors.price;
 
@@ -249,9 +246,7 @@ props:['sub_menu'],
         }     
     },
     mounted(){
-        // this.form.restaurant_id = this.sub_menu.restaurant_id;
-        // this.form.restaurant_id = this.sub_menu.restaurant_id;
-        // console.log(this.sub_menu);
+        console.log(this.sub_menu);
         // console.log(this.restaurant_id);
     }
 

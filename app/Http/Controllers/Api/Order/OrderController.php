@@ -34,7 +34,8 @@ class OrderController extends Controller
      */
     public function store(ValidateOrder $request)
     {
-        $data = $request->validated();        
+        $data = $request->validated();  
+      
         $order = Order::create($data);
         event(new orderCreated($order));
         return response()->json([
@@ -42,6 +43,23 @@ class OrderController extends Controller
             'message'=> 'Order created successfuly',
             'data'=> true,
             ],  201);
+    }
+
+    /**
+     * mark order complete/cancel item
+     * 
+     * @param $id $value
+     * 
+     * @return response
+     */
+    public function markOrder($id, $value){
+        $order= Order::WHERE('id', $id)->first()->update(['status', $value]);
+        return ([
+            'success' => true,
+           'message' => 'Order updated',
+           'data' => true,
+        ]);
+        
     }
 
     /**

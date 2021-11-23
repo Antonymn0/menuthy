@@ -1,5 +1,6 @@
 <template>
-  <form action="" @submit.prevent="submitForm">
+<div class="p-1 " style="height:70vh">
+  <form action="" @submit.prevent="submitForm" class="rounded shadow">
         <h2> Tell us about your business </h2>
     <label>
         <p class="label-txt">BUSINESS NAME*</p>
@@ -17,8 +18,14 @@
         </div>
     </label>
     <label>
+      
         <p class="label-txt">TIME ZONE* </p>
-        <input type="text" class="input" v-model="form.time_zone">
+        <input type="text" class="input" >
+        <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
+        <option selected >Select time zone</option>
+        <option v-bind="this.item" v-for="item in timeZones" :key="item">{{item}}</option>
+        
+      </select>
         <div class="line-box">
         <div class="line"></div>
         <small class="text-danger"> {{errors.time_zone}}</small>
@@ -26,17 +33,18 @@
     </label>
     <label>
         <p class="label-txt">CITY* </p>
-         <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  />
-        <div class="line-box">
-          
-        <div class="line"></div>
+        <div style="overflow:hidden; margin:0;">
+          <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  style="max-width:100%;"/>  
+          </div>         
+        
         <small class="text-danger"> {{errors.selectedCity}}</small>
-        </div>
+        
     </label>
 
     <button type="submit" class="m-1" @click="submitForm">Submit</button>
     <button type="" class="m-1"><a href="">Cancel</a></button>
     </form>
+    </div>
 </template>
 
 
@@ -59,6 +67,40 @@ export default {
        selectedCountry: '',
         selectedCity: '',
       errors:{},
+      timeZones:[
+                  'GMT	Greenwich Mean Time	GMT',
+                  'UTC	Universal Coordinated Time	GMT',
+                  'ECT	European Central Time	GMT+1:00',
+                  'EET	Eastern European Time	GMT+2:00',
+                  'ART	(Arabic) Egypt Standard Time	GMT+2:00',
+                  'EAT	Eastern African Time	GMT+3:00',
+                  'MET	Middle East Time	GMT+3:30',
+                  'NET	Near East Time	GMT+4:00',
+                  'PLT	Pakistan Lahore Time	GMT+5:00',
+                  'IST	India Standard Time	GMT+5:30',
+                  'BST	Bangladesh Standard Time	GMT+6:00',
+                  'VST	Vietnam Standard Time	GMT+7:00',
+                  'CTT	China Taiwan Time	GMT+8:00',
+                  'JST	Japan Standard Time	GMT+9:00',
+                  'ACT	Australia Central Time	GMT+9:30',
+                  'AET	Australia Eastern Time	GMT+10:00',
+                  'SST	Solomon Standard Time	GMT+11:00',
+                  'NST	New Zealand Standard Time	GMT+12:00',
+                  'MIT	Midway Islands Time	GMT-11:00',
+                  'HST	Hawaii Standard Time	GMT-10:00',
+                  'AST	Alaska Standard Time	GMT-9:00',
+                  'PST	Pacific Standard Time	GMT-8:00',
+                  'PNT	Phoenix Standard Time	GMT-7:00',
+                  'MST	Mountain Standard Time	GMT-7:00',
+                  'CST	Central Standard Time	GMT-6:00',
+                  'EST	Eastern Standard Time	GMT-5:00',
+                  'IET	Indiana Eastern Standard Time	GMT-5:00',
+                  'PRT	Puerto Rico and US Virgin Islands Time	GMT-4:00',
+                  'CNT	Canada Newfoundland Time	GMT-3:30',
+                  'AGT	Argentina Standard Time	GMT-3:00',
+                  'BET	Brazil Eastern Time	GMT-3:00',
+                  'CAT	Central African Time	GMT-1:00',
+                  ],
       
     }
   },
@@ -72,6 +114,7 @@ export default {
                 form_data.append('restaurant_name', this.form.restaurant_name);
                 form_data.append('user_id', this.form.user_id);
                 form_data.append('type', this.form.type);
+                form_data.append('time_zone', this.form.time_zone);
                 form_data.append('type', this.form.type);
                 form_data.append('city', this.selectedCity);
                 form_data.append('country', this.selectedCountry);
@@ -100,6 +143,10 @@ export default {
           if(!this.selectedCity) this.errors.selectedCity = 'City field is required' ;
           else  delete this.errors.selectedCity;
           console.log(this.errors); 
+
+          if(!this.time_zone) this.errors.time_zone = 'Timezone field is required' ;
+          else  delete this.errors.time_zone;
+          console.log(this.errors); 
         }, 
       },
 
@@ -112,17 +159,16 @@ export default {
 </script>
 <style>
 
-body {
-  background: #f09218a1;
-}
+
 h2{
   color:#f58b00a1;
 }
 form {
-  width: 60%;
+  width: 50%;
   margin: 60px auto;
-  background: #efefef;
-  padding: 60px 120px 80px 120px;
+  height:auto;
+  background: #eed8b6;
+  padding: 30px;
   text-align: center;
   -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
   box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
@@ -135,7 +181,7 @@ label {
 .label-txt {
   position: absolute;
   top: -1.6em;
-  padding: 10px;
+  padding: 2px;
   font-family: sans-serif;
   font-size: .8em;
   letter-spacing: 1px;

@@ -3,7 +3,12 @@
     <Topnavbar />
   
         
-        <div class="row pr-0 " >
+        <div class="row pr-0 px-3 ml-2" >
+            <div class="p-2 mt-5 ml-3">
+                <h3> Main menu</h3>
+                <p> A list of main menus in your restaurant</p>
+            </div>
+            
             <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  
                 <div class="card p-1  text-center fade-in ">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
@@ -23,8 +28,8 @@
                              <!--   Edit modal form -->
                                     <EditMenuForm :menu = menu /> 
                         <a :href="'/sub-menu/' + menu.id">
-                             <img v-if = "menu.image != null " :src="'storage/'+ menu.image"  class="img-fluid" />                       
-                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
+                             <img v-if = "menu.image != null " :src="'storage/'+ menu.image"  class="img-fluid" style="height:25vh; width:100%;" />                       
+                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </a>                       
                     </div>
                     <div class="row m-1 p-1 w-100">
@@ -113,12 +118,11 @@ export default {
                 }                
             });
         },
-        duplicateMenu(id){
-            
+        duplicateMenu(id){            
             axios.get('/api/menu/duplicate/' + id )
             .then( response => {
                 console.log(response);
-                this.$swal('Success, Menu duplicated!');
+                this.$swal('Success,  duplicated!');
                 this.$inertia.reload();
             })
             .catch(error=>{
@@ -146,8 +150,8 @@ export default {
   },
    mounted(){
        
-        console.log(this.menus);
-        console.log(this.restaurant_id);
+        // console.log(this.menus);
+        // console.log(this.restaurant_id);
     },
    
    

@@ -8,7 +8,7 @@
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i> <i class="bi bi-chevron-right p-0 m-0"></i> {{menu.menu_name}}  </p>
+         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i>  Section <i class="bi bi-chevron-right p-0 m-0"></i> Items</p>
         <h3 class="mt-4">Sub menu Items  </h3>
         {{menu.sub_menu_name.toUpperCase()}}
               
@@ -22,17 +22,12 @@
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + menuItem.id">Edit</a></li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenuItem(menuItem.id)">Duplicate</a></li>
-                            <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li> 
-
-                            <li>    
-                                
-                            </li>                  
+                            <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li>                 
                         </ul>
                        
-                         
                         <p>
-                             <img v-if = "menuItem.image != null "  :src="'storage/'+ menuItem.image"  class="img-fluid" />                       
-                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:6.5rem; color:#999; "></i>
+                             <img v-if = "menuItem.image != null "  :src="'/storage/'+ menuItem.image"  class="img-fluid" style="height:25vh; width:100%;"/>                       
+                             <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </p>                       
                     </div>
                     <div class="row m-1 p-1 w-100">
@@ -55,7 +50,7 @@
                         {{menuItem.preparation_time}}  mins 
                     </p>  
                         <!-- pass menuItem as prop to child --> 
-                      <UpdateMenuItem :menuItem = menuItem />                             
+                      <UpdateMenuItem :menuItem = 'menuItem' />                             
                 </div>       
   
             </div>              
@@ -74,9 +69,9 @@
 
             <!-- add new Menu modal -->
             <div>
-                <AddMenuItemForm  :sub_menu="this.menu" :restaurant_id="this.menu"/>                    
+                <AddMenuItemForm  :sub_menu='this.menu' />                    
                                   
-            </div>                    
+            </div>                   
                      
         </div>
     </div>
@@ -134,45 +129,16 @@ export default {
             });
         },
         duplicateMenuItem(id){
-            axios.get('/api/menu-item/' + id)
+            axios.get('/api/menu-item/duplicate/' + id )
             .then( response => {
-                if( response.status = 200){   
-                    var data =    response.data.data ;             
-                    console.log(data);
-                    // convert response to form data 
-                    var form_data = new FormData();  
-                    for (let item in data) {
-                        console.log(item, data[item]);
-                        if(item == 'id') continue;
-                        if(item == 'created_at') continue;
-                        if(item == 'updated-at') continue;
-                        if(item == 'deleted_at') continue;
-                        if(item == 'menu_item_name') form_data.append(item, data[item]);
-                        if(item == 'sub_menu_id') form_data.append(item, data[item]);
-                        if(item == 'price') form_data.append(item, data[item]);
-                        if(item == 'preparation_time') form_data.append(item, data[item]);
-                        if(item == 'discount') form_data.append(item, data[item]);
-                        if(item == 'description') form_data.append(item, data[item]);
-                        if(item == 'publish') form_data.append(item, data[item]);
-                        if(item == 'avatar') form_data.append(item, data[item]);                        
-                        }
-                        // save data
-                    axios.post('/api/menu-item', form_data )
-                    .then( response => {
-                        this.$swal('Success, Item duplicated!');
-                        this.$inertia.reload();
-                    })
-                    .catch(error=>{
-                        this.$swal('Error, Failed to duplicate!');
-                        console.log(error);
-                    });
-                }                
+                console.log(response);
+                this.$swal('Success,  duplicated!');
+                this.$inertia.reload();
             })
-            .catch( error => {
-                this.pageErrors = "Failed to execute!";
-                    console.log(error);
-                }); 
-
+            .catch(error=>{
+                this.$swal('Error, Failed to duplicate!');
+                console.log(error);
+            });                
         },
         togglePublish(id, state){
             axios.get('/api/menu-item/toggle-publish/' + id + '/' + state)
@@ -187,8 +153,8 @@ export default {
 
   },
    mounted(){
-        // console.log(this.menuItems);
-        // console.log(this.menu);
+        // console.log('menuItems is: ',this.menuItems);
+        // console.log('menu is : ',this.menu);
         // for(var pair of this.menuItems) {
         // console.log(pair); 
         // }
