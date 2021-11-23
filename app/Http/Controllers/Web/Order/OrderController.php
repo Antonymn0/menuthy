@@ -28,6 +28,25 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function refreshOrders($restaurant_name, $restaurant_id)
+    {
+        $orders = Order::whereDate('created_at', Carbon::today())
+                        ->orderBy('created_at','DESC')
+                        ->paginate(ENV('API_PAGINATION', 15));
+
+        return response()->json([
+                    'success' => true,
+                   'message' => 'A list of orders',
+                   'data' => $orders,           
+               ]); 
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

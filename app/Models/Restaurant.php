@@ -66,14 +66,14 @@ class Restaurant extends Model
 
      // eloquent <relation
     //gets menu items
-    // public function Menu(){
-    //     return $this->hasMany(Menu::class,'restaurant_id', 'id');
-    // }
+    public function Menu(){
+        return $this->hasMany(Menu::class,'restaurant_id', 'id');
+    }
 
      // eloquent <relation
     //gets menu items
-    // public function User(){
-    //     return $this->belongsTo(User::class,'user_id', 'id');
-    // }
+    public function User(){
+        return $this->belongsTo(User::class,'user_id', 'id');
+    }
 }
 

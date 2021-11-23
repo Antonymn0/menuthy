@@ -72,6 +72,7 @@ export default {
             current_orders:'',
             counter:0,
             authRestaurant:{},
+            refreshOrdersInterval:setInterval(this.refreshOrders, 100000), //refresh orders every 7 seconds on load
        }
    },
    methods:{
@@ -84,7 +85,7 @@ export default {
              axios.get('/api/order/mark/' + id + '/' + value, form_data)
             .then( response => {
             if( response.status = 200){
-                this.$inertia.reload();
+                // this.$inertia.reload();
                 console.log(response.data);
                 } 
             })
@@ -94,6 +95,7 @@ export default {
             });
         },
         fetchOrders(search_term){
+            if(search_term == 'today') this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
             axios.get('/orders/'+ this.authRestaurant.id + '/' + search_term)
             .then( response => {
             if( response.status = 200){
@@ -108,16 +110,17 @@ export default {
         },
 
         refreshOrders(){
-            axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id)
+            axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {
             if( response.status = 200){
-                this.current_orders = response.data.data;
-                clearInterval(this.refreshOrders);
-                setInterval(this.refreshOrders, 10000);  //refresh orders every 7 seconds
+                console.log('refreshing orders');
+                console.log(response);
+                this.current_orders = response.data.data;                
+                // this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
                 } 
             })
             .catch( error => {
-                clearInterval(this.refreshOrders)
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
                 this.$swal('Error,  failed to refresh orders!');                
                 console.log(error.response.data.errors);                    
             });
@@ -125,7 +128,7 @@ export default {
    },
 
     mounted(){
-        setInterval(this.refreshOrders, 10000);  //refresh orders every 7 seconds on load
+        // this.refreshOrdersInterval = setInterval(this.refreshOrders, 1000);  //refresh orders every 7 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
         console.log(this.orders);

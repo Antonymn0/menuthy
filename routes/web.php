@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
     
     // orders routes
     Route::get('/{restaurant_name}/orders/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('orders');
+    Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
     Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
 
 
