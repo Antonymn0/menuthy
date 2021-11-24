@@ -100,8 +100,7 @@ export default {
                   'AGT	Argentina Standard Time	GMT-3:00',
                   'BET	Brazil Eastern Time	GMT-3:00',
                   'CAT	Central African Time	GMT-1:00',
-                  ],
-      
+                  ],     
     }
   },
     methods:{
@@ -129,7 +128,7 @@ export default {
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, errors in the form!');
+               this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },

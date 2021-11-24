@@ -140,7 +140,7 @@ export default {
                 country:'',
                 city:'',
                 restaurant_phone_number:'',
-                restaurant_email:'',
+                restaurant_email:null,
                 website:'',
                 timezone:'',
                 facebook:'',
@@ -197,7 +197,7 @@ export default {
                 form_data.append('country', this.form.country);
                 form_data.append('city', this.form.city);
                 form_data.append('restaurant_phone_number', this.form.restaurant_phone_number);
-                form_data.append('restaurant_email', this.form.restaurant_email);
+                if(this.form.restaurant_email) form_data.append('restaurant_email', this.form.restaurant_email);
                 form_data.append('website', this.form.website);
                 form_data.append('timezone', this.form.timezone);
                 form_data.append('facebook', this.form.facebook);
@@ -207,13 +207,13 @@ export default {
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
                 for(var pair of form_data.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
+                    // console.log(pair[0]+ ', '+ pair[1]); 
                     }
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {
             if( response.status = 200){
                 this.$swal('Update successful!');
-                console.log(response);
+                // console.log(response);
                 } 
             })
             .catch( error => {
@@ -226,8 +226,7 @@ export default {
         },
 
         validateForm () {
-            console.log(this.form.restaurant_name);
-            console.log(this.form.user_id);
+
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'Restaurant name field is required' ;
             else delete this.errors.restaurant_name;  
 

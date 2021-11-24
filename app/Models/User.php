@@ -48,7 +48,8 @@ class User extends Authenticatable
         'regn_status',
         'suspended_by',
         'avatar',
-        'name'
+        'name',
+        'image',
 
     ];
 

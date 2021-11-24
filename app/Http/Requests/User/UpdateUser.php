@@ -53,7 +53,8 @@ class UpdateUser extends FormRequest
             'suspended_at'=> ['date'],
             'avatar'=> ['string', 'max:255'],
             'remember_token' => ['string'],
-            'name'=> ['string']
+            'name'=> ['string'],
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
         ];
     }
 }

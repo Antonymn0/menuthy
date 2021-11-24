@@ -106,7 +106,7 @@ export default {
         duplicateSubMenu(id){
               axios.get('/api/sub-menu/duplicate/' + id )
             .then( response => {
-                console.log(response);
+                // console.log(response);
                 this.$swal('Success,  duplicated!');
                 this.$inertia.reload();
             })
@@ -124,7 +124,7 @@ export default {
         togglePublish(id, state){
             axios.get('/api/sub-menu/toggle-publish/' + id + '/' + state)
             .then( response => {
-                console.log(response);
+                // console.log(response);
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');

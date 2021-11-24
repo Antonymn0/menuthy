@@ -56,7 +56,7 @@ export default {
     },
     mounted(){
         this.authRestaurant  = window.authRestaurant;
-        console.log("Restaurant is: ", authRestaurant);
+        // console.log("Restaurant is: ", authRestaurant);
     }
 
 }

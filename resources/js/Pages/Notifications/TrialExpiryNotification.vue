@@ -1,10 +1,36 @@
 <template>
-<div class="alert mx-auto ml-2 fade-in" v-if="this.trialExpiryDate != null">
+<div class="alert mx-auto ml-2 fade-in" v-if="this.trialExpiryDate !== null">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to subscribe
      <a href="#">Subscribe</a>
 </div>
 </template>
+
+<script>
+import moment from 'moment';
+export default {
+    data(){
+        return{
+            trialExpiryDate:null,
+        }
+    },
+    methods:{
+        formatDate(date){
+            if (date) {
+                return moment(String(date)).format('ll ');
+            }
+        },
+        updateDate(){
+            this.trialExpiryDate = window.authUser.trial_expiry;
+        },
+    },
+    mounted(){
+        setTimeout(this.updateDate(), 5000);
+
+    }
+}
+</script>
+
 
 <style lang="scss" scoped>
 /* The alert message box */
@@ -36,27 +62,3 @@
   color: black;
 }
 </style>
-<script>
-import moment from 'moment';
-export default {
-    data(){
-        return{
-            trialExpiryDate:2,
-        }
-    },
-    methods:{
-        formatDate(date){
-            if (date) {
-                return moment(String(date)).format('ll ');
-            }
-        },
-        updateDate(){
-            this.trialExpiryDate = window.authUser.trial_expiry;
-        },
-    },
-    mounted(){
-        setTimeout(this.updateDate, 5000);
-        console.log(window.authUser.trial_expiry);
-    }
-}
-</script>

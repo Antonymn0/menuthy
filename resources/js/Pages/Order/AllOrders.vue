@@ -108,12 +108,12 @@ export default {
                 axios.get('/api/order/mark/' + id + '/' + value)
                 .then( response => {
                 if( response.status = 200){
-                    console.log(response.data);
+                    // console.log(response.data);
                     } 
                 })
                 .catch( error => {
                     this.$swal('Error,  failed to update!');                
-                    console.log(error.response.data.errors);                    
+                    // console.log(error.response.data.errors);                    
                 });
             }
         },
@@ -123,12 +123,12 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.current_orders = response.data.data;
-                console.log(response.data);
+                // console.log(response.data);
                 } 
             })
             .catch( error => {
                 this.$swal('Error,  failed to fetch orders!');                
-                console.log(error.response.data.errors);                    
+                // console.log(error.response.data.errors);                    
             });
         },
 
@@ -136,8 +136,8 @@ export default {
             axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {
             if( response.status = 200){
-                console.log('refreshing orders');
-                console.log(response.data.data.data);
+                // console.log('refreshing orders');
+                // console.log(response.data.data.data);
 
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
@@ -154,7 +154,7 @@ export default {
             .catch( error => {
                 this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
                 this.$swal('Error,  failed to refresh orders!');                
-                console.log(error.response.data.errors);                    
+                // console.log(error.response.data.errors);                    
             });
         },
         muteAudio(){
@@ -166,7 +166,7 @@ export default {
         // this.refreshOrdersInterval = setInterval(this.refreshOrders, 1000);  //refresh orders every 7 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
-        console.log(this.orders);
+        // console.log(this.orders);
     }
 }
 </script>

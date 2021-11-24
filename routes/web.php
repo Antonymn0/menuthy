@@ -25,7 +25,7 @@ Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
     // Auth routes
     Route::post('login','Web\Auth\AuthController@login')->name('admin-login');
     
-    Route::post('/register-user','Api\User\UserController@store');
+    Route::post('/register','Api\User\UserController@store');
     Route::get('/login','Web\Auth\AuthController@showLoginForm')->name('login');
 
 Route::middleware(['auth'])->group(function () { 

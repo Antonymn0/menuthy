@@ -8,8 +8,9 @@
             <div class="row  ">
                 <!-- notifications -->
                 <div>
-                     <TrialExpiryNotification /> 
-                     <SubscriptionExpiryNotification /> 
+                     <!-- <TrialExpiryNotification /> 
+                     <SubscriptionExpiryNotification />  -->
+                     <Profile />
                 </div>
                
                 <p class="col-md-4 ">
@@ -35,11 +36,11 @@
         <div class="col-md-2 float-right text-leftnav-item dropdown ">           
             <a class="nav-link  p-0 m-0 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="mb-2 pr-1">{{authUser.first_name}} </span>  
-                <img  v-if="authUser.image"  :src="'public/' + authUser.image"  alt="profile-image" >
+                <img  v-if="authUser.image"  :src="'/images/' + authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
                 <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
             </a>
             <ul class="dropdown-menu pb-0 mb-0" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >Profile</a></li>
                  
                 <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -54,8 +55,7 @@
                         </div>                        
                     </form>                     
                 </li>
-            </ul>
-            
+            </ul>            
         </div>        
     </div>
     <div class="row header-toggle " style="height:0;">        
@@ -73,6 +73,7 @@ import RestaurantInformation from "../HeaderComponents/RestaurantInformation";
 import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
+import Profile from "../Profile/Profile";
 import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
 import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
 
@@ -87,7 +88,9 @@ export default {
         RestaurantName,
         RestaurantInformation,
         SubscriptionExpiryNotification, 
+        TrialExpiryNotification,
         MobilePreview,
+        Profile,
         MobileNav,
         QrCode,
     },

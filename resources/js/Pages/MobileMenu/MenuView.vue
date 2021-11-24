@@ -80,7 +80,7 @@
                             </span>
                             <span v-if="this.User.package_type != null"> 
                                 <a href="#" class="btn btn-sm btn-danger alert-danger" @click="placeOrder(single_menu_item)"> Order</a>
-                            </span>
+                            </span>s
                             <span>
                             <i class="bi bi-alarm pr-2 text-danger text-right"></i> {{menu_item.preparation_time}} mins
                             </span>
@@ -207,7 +207,7 @@ export default {
             if( response.status = 200){
                 // console.log(response.data.data);
                 this.menu_items = response.data.data;
-                console.log(this.menu_items);
+                // console.log(this.menu_items);
                 } 
             })
             .catch( error => {
@@ -226,14 +226,14 @@ export default {
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
-            console.log(...form_data);
-            console.log(typeof(menu_item.price));
+            // console.log(...form_data);
+            // console.log(typeof(menu_item.price));
 
           axios.post('/api/order', form_data)
             .then( response => {
                 if( response.status = 201){
                     this.$swal( 'Order placed!'); 
-                    console.log(response.data);
+                    // console.log(response.data);
                     } 
                 })
             .catch( error => {
