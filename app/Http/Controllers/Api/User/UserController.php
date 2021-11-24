@@ -9,6 +9,8 @@ use App\Events\User\userUpdated;
 use App\Events\User\userDestroyed;
 use App\Http\Requests\User\ValidateUser;
 use App\Http\Requests\User\UpdateUser;
+use Illuminate\Support\Facades\Hash;
+use App\Helpers\Utilities;
 use App\Models\User;
 
 class UserController extends Controller
@@ -36,13 +38,17 @@ class UserController extends Controller
      */
     public function store(ValidateUser $request)
     {       
-        $data = $request->validated();        
-        $user= User::create($data);
+        $data = $request->validated();
+
+        $user_data = Utilities::createNamesFromFullName($data);
+        $user_data['password']  = Hash::make($data['password']);
+
+        $user= User::create($user_data);
         event(new userCreated($user));
         return response()->json([
             'success'=> true,
             'message'=> 'User created successfuly',
-            'data' => true,
+            'data' => $user,
             ],  201);
     }
 

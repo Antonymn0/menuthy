@@ -28,6 +28,9 @@ if (App::environment('production')) {
 
 
 
+    // User register routes
+  Route:: post('/register/user','Auth\RegisterController@create');
+
     // Users API routes
   Route::apiResource('user','Api\User\UserController');
   //  Parmamnently delete user

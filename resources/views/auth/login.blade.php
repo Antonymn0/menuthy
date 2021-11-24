@@ -1,75 +1,146 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container pt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+@section('content')    
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<style>
+    body {
+        background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
+        background-size: cover;
+        font-family: Montserrat;
+    }
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    .logo {
+        width: 213px;
+        height: 36px;
+        background: url('http://i.imgur.com/fd8Lcso.png') no-repeat;
+        margin: 30px auto;
+    }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    .login-block {
+        width: 320px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        border-top: 5px solid #ff656c;
+        margin: 0 auto;
+    }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    .login-block h1 {
+        text-align: center;
+        color: #000;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+    .login-block input {
+        width: 100%;
+        height: 42px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-family: Montserrat;
+        padding: 0 20px 0 50px;
+        outline: none;
+    }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+    .login-block input#username {
+        background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+        background-size: 16px 80px;
+    }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    .login-block input#username:focus {
+        background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+        background-size: 16px 80px;
+    }
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+    .login-block input#password {
+        background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+        background-size: 16px 80px;
+    }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+    .login-block input#password:focus {
+        background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+        background-size: 16px 80px;
+    }
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary mr-2">
-                                    {{ __('Login') }}
-                                </button> or 
-                               <a href="/register" class="btn brn-sm btn-warning ml-2">Register</a>
-                               <br/>
+    .login-block input:active,
+    .login-block input:focus {
+        border: 1px solid #ff656c;
+    }
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link p-2 " href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+    .login-block button {
+        width: 100%;
+        height: 40px;
+        background: #ff656c;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #e15960;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-family: Montserrat;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .login-block button:hover {
+        background: #ff7b81;
+    }
+</style>
+
+
+<div class="login-block border mt-3">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <h1>Login</h1>
+            <div class="form-group">
+                <label for="email" class="">{{ __('E-Mail Address') }}</label>                
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>                    
+                
+                <div class="form-group">
+                    <label for="password" class="t">{{ __('Password') }}</label>                
+                    <input id="password" type="password" class=" @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-            </div>
-        </div>
+            
+                <div class="py-2 d-flex align-content-center">
+                    <input class="  border" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="" for="remember">
+                        {{ __('Remember Me') }}
+                    </label>
+                </div>
+                    
+                
+                <div class="form-group">
+                    <button type="submit" class="m-1">
+                        {{ __('Login') }}
+                    </button> 
+                    <button> <a href="/register" class="my-2 mx-2">  Register </a></button>
+                    <br/>                    
+                    <br/>                    
+                        <a class="mt-3 text-dark " href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                     
+               
+                </div>       
+        </form>
     </div>
-</div>
+
 @endsection

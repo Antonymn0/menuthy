@@ -187,8 +187,16 @@ animation-duration: 1s;
             window.authRestaurant={!! json_encode(Auth::user()->restaurant()); !!};   
         </script>
         @inertia
-        @routes        
+        @routes 
+    @elseif(Auth::guest())
+       
+        @inertia
+        @routes 
+   
     @else
+
+
+
         <script>
             // else auth user null
             window.authUser=null;

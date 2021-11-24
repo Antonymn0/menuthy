@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Mail\WelcomeEmail;
+
+use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,16 +20,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+
+Route::get('register', function () { 
+     return Inertia::render('User/RegisterUser');
+      })->name('register');
+
+Route::get('/login', function () { 
+     return Inertia::render('User/Login');
+      })->name('login');
+
+
+// Route::post('register', function () {  return "register"; })->name('register');
+
+
+
 // redict users after authentication
 Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
+
 // route to dash board users will be redirected accordingly
  Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
 
-    // Auth routes
-    Route::post('login','Web\Auth\AuthController@login')->name('admin-login');
-    
-    Route::post('/register','Api\User\UserController@store');
-    Route::get('/login','Web\Auth\AuthController@showLoginForm')->name('login');
+
+ 
 
 Route::middleware(['auth'])->group(function () { 
     // verify emai route
@@ -64,7 +82,10 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes([
+    'register' => false,
+    'verify' => true,
+    ]); 
 
 //test email route
  Route::get('test-email',function(){
