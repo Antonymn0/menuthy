@@ -62,7 +62,7 @@ class LoginController extends Controller
         ]);  
     }
 
-     /*
+     /*  
      *  Logout user
      */
     public function logout(Request $request){
