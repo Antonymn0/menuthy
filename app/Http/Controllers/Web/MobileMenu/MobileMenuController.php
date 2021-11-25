@@ -19,7 +19,7 @@ class MobileMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getMainMenu($restaurant_name, $restaurant_id, $menu_id=null, $table_number=null)
+    public function getMainMenu($restaurant_name, $restaurant_id, $table_number=null)
     {       
         $user = $this->makeSafeUser($restaurant_id, $table_number);
 
@@ -30,7 +30,7 @@ class MobileMenuController extends Controller
                 // get all sub menus of the first Menu item
                 $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
 
-                if(isset($menu_id)) $subMenus  = SubMenu::WHERE('menu_id',$menu_id)->get();
+                // if(isset($menu_id)) $subMenus  = SubMenu::WHERE('menu_id',$menu_id)->get();
 
                 if(count($subMenus)){
                     // get all menu items of the first submenu item

@@ -153,8 +153,9 @@
             </div>
             <div class="modal-body">
                 <ul v-for="menu in menus" :key="menu.id" class="list-unstyled px-5">
-                    <li class="border-bottom" v-if="menu.publish == 'true'"> <a class="dropdown-item" :href="'/' + restaurant_name + '/menu/' + menu.id"> {{menu.menu_name}} </a> </li>
-                    
+                     <li class="px-3 py-2 border-bottom" v-if="menu.published == 'true'"> 
+                        <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + restaurant.id + '/' + menu.id + '/' + table_number" > {{menu.menu_name}} </a> 
+                    </li>
                 </ul>
             </div>
             
