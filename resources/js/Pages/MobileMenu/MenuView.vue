@@ -86,7 +86,7 @@
                             <i class="bi bi-tag pr-2 text-danger text-left " style="font-size:10pt"></i>   ${{menu_item.price}}
                             </span>
                             <span v-if="this.User.package_type != null"> 
-                                <a href="#" class="btn btn-sm btn-danger alert-danger" @click="placeOrder(single_menu_item)"> Order</a>
+                                <a href="#" class="btn btn-sm btn-danger alert-danger" @click="placeOrder(menu_item)"> Order</a>
                             </span>s
                             <span>
                             <i class="bi bi-alarm pr-2 text-danger text-right"></i> {{menu_item.preparation_time}} mins
@@ -244,8 +244,8 @@ export default {
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
-            if(this.User.table_number) form_data.append('table_number', this.User.table_number);
-            // console.log(...form_data);
+            if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
+            console.log(...form_data);
             // console.log(typeof(menu_item.price));
 
           axios.post('/api/order', form_data)
