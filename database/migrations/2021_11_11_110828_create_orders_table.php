@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('status')->required();
             $table->string('restaurant_id')->required();
             $table->integer('menu_item_id')->required();
+            $table->integer('table_number')->required();
             $table->bigInteger('order_number')->required();
             $table->string('menu_item_type')->nullable();
             $table->string('is_take_away')->nullable();

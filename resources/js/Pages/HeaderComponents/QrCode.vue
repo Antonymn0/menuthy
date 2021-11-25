@@ -17,8 +17,8 @@
             <div class="modal-body">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQqrCode"> <a data-toggle="tab" href="#mobile" class="btn card m-1" >Mobile</a> </li>
-                        <li @click="generateQqrCode" > <a data-toggle="tab" href="#tablet" class="btn card m-1">Tablet</a> </li>
+                        <li class="active " @click="generateQrCode(this.restaurant.id)"> <a data-toggle="tab" href="#mobile" class="btn card m-1" >Mobile</a> </li>
+                        <li > <a data-toggle="tab" href="#tables" class="btn card m-1">Tables</a> </li>
                     </ul>
              
                     <div class="tab-content">
@@ -35,11 +35,12 @@
                                 <button type="button" class="btn btn-danger float-right" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
-                        <div id="tablet" class="tab-pane fade">
-                            <small> Tablet</small>
+                        <!-- tables qr code  -->
+                        <div id="tables" class="tab-pane fade">
+                            <small> Tables</small>
                            <div class="qrcode container">                               
                                 <vue-qrcode
-                                    :value="this.qrCode"
+                                    :value="this.tables_qr_code_link"
                                     :options="{
                                         width:200,
                                         color: {
@@ -50,16 +51,16 @@
                                 </vue-qrcode>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">Venue ID</label>
-                                    <input type="text" disabled class="form-control p-4" name="twitter" id="exampleFormControlInput2" placeholder="Venue ID">
+                                    <label for="exampleFormControlInput2">Link</label>
+                                    <input type="text" disabled class="form-control p-4" v-model="this.tables_qr_code_link" id="exampleFormControlInput2" placeholder="Link">
                                 </div> 
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">pin code</label>
-                                    <input type="text"  class="form-control p-4" name="twitter" id="exampleFormControlInput2" placeholder="Pin code">
+                                    <label for="exampleFormControlInput2">Table number</label>
+                                    <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no">
                                 </div> 
                                 
-                            <p class="row align-items-center w-80 mx-auto my-2 p-2">
-                                <button type="button" class="btn btn-primary col-sm-2 m-1" data-bs-dismiss="modal">Save</button>
+                            <p class="row align-items-center  mx-auto my-2 p-2">
+                                <button type="button" class="btn btn-primary col-sm-2 m-1" @click="this.generateTablesQrCode(this.table_number)" >Generate</button>
                                 <button type="button" class="btn btn-success col-sm-3 m-1 row" data-bs-dismiss="modal"> <i class="bi bi-printer"></i> Print</button>
                                 <button type="button" class="btn btn-danger col-sm-2 m-1" data-bs-dismiss="modal">Cancel</button>
                             </p>
@@ -80,19 +81,37 @@
 export default {
     data(){
         return{
-            qrCode:'menuthy.herokuapp.com',
             restaurant: window.authRestaurant,
-           
+            qrCode:'null',
+            table_number:1,
+            tables_qr_code_link:'null',           
         } 
     },
     methods:{
-        generateQqrCode(){
+        // mobile qr code
+        generateQrCode(restaurant_id){
             console.log('Generating qr code...');
-            axios.get('/api/qrcode-generate/'+ this.restaurant.id)
+            axios.get('/api/qrcode-generate/'+ restaurant_id)
             .then( response => {
             if( response.status = 200){
                 this.qrCode = response.data;
                 console.log(this.qrCode);
+                } 
+            })
+            .catch( error => {
+               this.$swal('Failed to generate Qr code!');
+                console.log(error.response.data.errors);
+                return;                    
+            });
+        },
+            // tables qr code
+        generateTablesQrCode(table_number){
+            if(table_number > 50) table_number = 50; //max table number is 50
+            axios.get('/api/qrcode-generate/' + this.restaurant.id + '/' + table_number)
+            .then( response => {
+            if( response.status = 200){
+                this.tables_qr_code_link = response.data;
+                console.log(this.tables_qr_code_link);
                 } 
             })
             .catch( error => {

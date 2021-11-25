@@ -16,38 +16,31 @@ use Inertia\Inertia;
 |
 */
 
+/////////// PUBLIC ROUTES  ///////////////
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
-
-Route::get('register', function () { 
+   // main mobile menu view route (via qr code)
+   Route::get('/{restaurant_name}/menu/{restaurant_id}/{menu_id?}/{table_number?}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMainMenu'])->name('mobile menu');
+   
+   // mobile sub-menus route (via qr code)
+   Route::get('/{restaurant_name}/sub-menu/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getSubMenus'])->name('mobile menu');
+   
+   // show vuejs user register form
+   Route::get('register', function () { 
      return Inertia::render('User/RegisterUser');
       })->name('register');
 
-Route::get('/login', function () { 
-     return Inertia::render('User/Login');
-      })->name('login');
 
-
-// Route::post('register', function () {  return "register"; })->name('register');
-
-
-
-// redict users after authentication
-Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
-
-// route to dash board users will be redirected accordingly
- Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
-
-
- 
-
+/////////// PROTECTED ROUTES /////
 Route::middleware(['auth'])->group(function () { 
-    // verify emai route
+    // route to dash board users will be redirected accordingly
+    Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
+    // redict users after authentication
+    Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
+
+    // verify email route
     Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
        
     //logout route
@@ -67,18 +60,11 @@ Route::middleware(['auth'])->group(function () {
     //Qr code routes
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');
     Route::get('qrcode-create','QrCodeController@create')->name('qrcode-create');
-
-    // main mobile menu view route
-    Route::get('/{restaurant_name}/menu/{restaurant_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMainMenu'])->name('mobile menu');
-    
-    // mobile sub-menus route
-    Route::get('/{restaurant_name}/sub-menu/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getSubMenus'])->name('mobile menu');
     
     // orders routes
     Route::get('/{restaurant_name}/orders/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('orders');
     Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
     Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
-
 
 });
 

@@ -28,6 +28,7 @@ class Order extends Model
         'price',
         'preparation_time',
         'status',
+        'table_number',
         'accompaniments',
         'deleted_at',
         'avatar'

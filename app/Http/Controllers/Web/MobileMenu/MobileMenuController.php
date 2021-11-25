@@ -13,40 +13,57 @@ use App\Models\Menu;
 
 class MobileMenuController extends Controller
 {
+
     /**
-     * Display a listing of the mobile menu.
+     * Initialy display a listing of menus on mobile menu.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getMainMenu($restaurant_name, $restaurant_id)
+    public function getMainMenu($restaurant_name, $restaurant_id, $menu_id=null, $table_number=null)
     {       
-        $user = $this->makeSafeUser($restaurant_id);
-                //get menus
+        $user = $this->makeSafeUser($restaurant_id, $table_number);
+
+                //get all menus
         $menus = Menu::WHERE('restaurant_id', $restaurant_id)->get();
 
             if(count($menus)){
-                    // get sub menus of the first Menu
+                // get all sub menus of the first Menu item
                 $subMenus  = SubMenu::WHERE('menu_id',$menus[0]->id)->get();
-            if(count($subMenus)){
-                        // get menu items of the first submenu
-                $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
-                return Inertia::render('MobileMenu/MenuView')->with([
-                    'menus'=>$menus,
-                    'subMenus'=>$subMenus,
-                    'menuItems'=>$menuItems,
-                    'user'=> $user,
-                    ]);
+
+                if(isset($menu_id)) $subMenus  = SubMenu::WHERE('menu_id',$menu_id)->get();
+
+                if(count($subMenus)){
+                    // get all menu items of the first submenu item
+                    $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
+                    return Inertia::render('MobileMenu/MenuView')->with([
+                        'menus'=>$menus,
+                        'subMenus'=>$subMenus,
+                        'menuItems'=>$menuItems,
+                        'user'=> $user,
+                        ]);
+                }
             }
-        }
         // else return empty array 
          return Inertia::render('MobileMenu/MenuView')->with([
                     'menus'=>[],
                     'subMenus'=>[],
                     'menuItems'=>[],
+                    'user'=> $user,
                     ]);
     }
+
+
+
+
+
+
+
+
+
+
+
     /**
-     * display submenus
+     * when a user clicks on a main menu link he gets a list of sub menus back 
      * 
      * @param $submenu_id
      * 
@@ -66,7 +83,7 @@ class MobileMenuController extends Controller
    }
 
     /**
-     * get a list of menu items
+     * When the user clicks on sub menu he get a list of menu items back
      * 
      * @param $submenu_id
      * 
@@ -85,30 +102,37 @@ class MobileMenuController extends Controller
    }
 
    /**
-    *   construct safe public user object to send with the menus
+    *   Construct safe public user object to send with the menus
     * @param $restaurant_id
 
     * @return safe user object
     */
-    private function makeSafeUser($restaurant_id){
+    private function makeSafeUser($restaurant_id, $table_number=null){
+        
           if(isset($restaurant_id))  $restaurant = Restaurant::where('id', $restaurant_id)->first() ;
             
            if(isset($restaurant)){
-               $restaurant_owner = User::where('id', $restaurant->id)->first();
-               //create safe user
-            $user = new \stdClass();
-            
-            $user->package_type = $restaurant_owner->package_type;
-            $user->registration_expiry = $restaurant_owner->registration_expir;
-            $user->trial_expiry = $restaurant_owner->trial_expiry;
-            $user->city = $restaurant_owner->city;
-            $user->timezone = $restaurant_owner->timezone;
+               $restaurant_owner = User::where('id', $restaurant->user_id)->first();
 
-            return $user;
-           } 
+               if($restaurant_owner){
+                    //create a safe user object with only nessesary details if user exists
+                    $user = new \stdClass();
+                    
+                    $user->package_type = $restaurant_owner->package_type;
+                    $user->registration_expiry = $restaurant_owner->registration_expir;
+                    $user->trial_expiry = $restaurant_owner->trial_expiry;
+                    $user->city = $restaurant_owner->city;
+                    $user->timezone = $restaurant_owner->timezone;
+
+                    //pass table number to user object if isset() true
+                    if(isset($table_number)) $user->table_number = $table_number;  
+
+                    return $user;
+               }
+            } 
 
         //    else return exception 404 not found
-        throw new Exception('Restaurant or user not found'); 
+        return 'Restaurant or user not found'; 
 
 
             

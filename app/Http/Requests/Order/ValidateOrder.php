@@ -28,6 +28,7 @@ class ValidateOrder extends FormRequest
         'menu_item_type' =>[ 'string'],
         'order_number' =>['required', 'integer'],
         'menu_item_id' =>['required', 'integer' ],
+        'table_number' =>[ 'integer' ],
         'restaurant_id' =>['required', 'integer' ],
         'is_take_away' =>[ 'string'],
         'is_inhouse' =>[ 'string'],

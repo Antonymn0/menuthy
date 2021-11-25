@@ -48,7 +48,7 @@
                         <td>{{order.menu_item_name}}</td>
                         <td>{{order.status}}</td>
                         <td>{{order.preparation_time}}</td>
-                        <td v-if="order.table">{{order.table}}</td>
+                        <td v-if="order.table_number">{{order.table_number}}</td>
                         <td v-else>0</td>
                         <td>{{order.is_take_away}}</td>
                         <td class="dd-flex justify-content-center text-center m-1" v-if="order.status != 'canceled'">

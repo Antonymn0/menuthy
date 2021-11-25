@@ -1,36 +1,39 @@
 <template>
-<div class="px-3 card shadow my-2 ml-1 mobile-menu mx-auto">
+<div class="row"> 
+<div class="px-3 card shadow my-2 ml-2  mobile-menu ">
     
-   <div class="text-center pt-2 ">
+   <div class="text-center pt-2 fixed">
        <div :class="blur"> 
-       <p>
-           <img src="/storage/hotel_logo_placeholder.png" alt="restaurant-logo" style="width:10vw; height:10vw;">
-       </p>    
+        <p> 
+            <img :src="'/images/' + this.restaurant.image" v-if="this.restaurant.image" class="border-bottom mx-auto rounded"  alt="restaurant-logo" style="width:10vw; height:10vw;">
+            <img src="/storage/hotel_logo_placeholder.png" v-else alt="restaurant-logo" style="width:10vw; height:10vw;">
+            <h4 styele="color:#eee;"> {{this.restaurant.restaurant_name}} </h4>
+        </p>    
 
-       <!-- main menu dropdown         -->
-        <div class=" text-center dropdown col-xs-6 mx-auto pb-2 pt-0">
-            <div class="arrow-left p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bi bi-justify-left"></i>
+        <!-- main menu dropdown         -->
+            <div class=" text-center dropdown col-xs-6 mx-auto pb-2 pt-0">
+                <div class="arrow-left p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-justify-left"></i>
+                </div>
+                <button class="text-danger btn p-1 bg-white mb-1 dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="lead"> Main Menu </span>  
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                    <li v-if="this.menus.length" > 
+                        <ul v-for="(menu) in this.menus" :key="menu.id" class="list-unstyled">
+                            <li class="px-3 py-2 border-bottom" v-if="menu.published == 'true'"> 
+                                <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + restaurant.id + '/' + menu.id + '/' + table_number" > {{menu.menu_name}} </a> 
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-else> 
+                        <ul class="list-unstyled">
+                            <li class="text-muted  p-5"> Menu empty</li>
+                        </ul>
+                    </li>
+                </ul>
+            
             </div>
-            <button class="text-danger btn p-1 bg-white mb-1 dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="lead"> Main Menu </span>  
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> 
-                <li v-if="this.menus.length" > 
-                    <ul v-for="(menu) in this.menus" :key="menu.id" class="list-unstyled">
-                        <li class="px-3 py-2 border-bottom" v-if="menu.publish == 'true'"> 
-                            <a class="dropdown-item p-2" :href="'/' + restaurant_name + '/menu/' + menu.id" > {{menu.menu_name}} </a> 
-                        </li>
-                     </ul>
-                </li>
-                <li v-else> 
-                    <ul >
-                        <li class="text-muted  p-5"> Menu empty</li>
-                    </ul>
-                </li>
-            </ul>
-           
-        </div>
         </div>
    </div>
 
@@ -67,6 +70,10 @@
             <div v-for="menu_item in menu_items" :key="menu_item.id">  
                 <div class="open-full-screen" @click="showMenuItem(menu_item)" v-if="menu_item.publish== 'true'">                        
                     <div class=" row menu-item p-2 m-2 shadow fade-in open-full-screen">
+
+                        <p class="description m-0 text-center">
+                            {{menu_item.menu_item_name}} 
+                        </p>
                         <p class="description m-0">
                             {{menu_item.description}} 
                         </p>
@@ -107,7 +114,7 @@
                     <br>
                     <div class=""> 
                         <p class="text-center ">
-                            {{menu_name}}
+                            {{single_menu_item.menu_item_name}}
                         </p>
                         <p class=" d-flex justify-content-center">
                             <span class="badge bg-primary m-1" v-if="single_menu_item.is_signiture">Signiture</span>
@@ -155,14 +162,23 @@
         </div>
         </div>
         </div>
+    </div>
 
+<div class="d-flex  align-items-center mx-auto space-filler-logo text-center "  >
+    <div class="inner-div"> 
+        <img :src="'/images/' + this.restaurant.image" v-if="this.restaurant.image" class="border-bottom mx-auto rounded"  alt="restaurant-logo" style="width:10vw; height:10vw;">
+        <img src="/storage/hotel_logo_placeholder.png" v-else class="border-bottom mx-auto"  alt="restaurant-logo" style="width:10vw; height:10vw;">
+     <div class="border my-2 card lead"></div>
+       <h2 styele="color:#eee;"> {{this.restaurant.restaurant_name}} </h2> 
+    </div>        
+</div>
 </div>
 
 
 </template>
 
 <script>
-// If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
+
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
@@ -181,6 +197,7 @@ export default {
       return{
           blur:'',
           restaurant_name:'',
+          restaurant:'',
           menu_items:'',
           menu_name:'',
           single_menu_item:'',
@@ -226,6 +243,7 @@ export default {
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
+            if(this.User.table_number) form_data.append('table_number', this.User.table_number);
             // console.log(...form_data);
             // console.log(typeof(menu_item.price));
 
@@ -245,7 +263,9 @@ export default {
   mounted(){
         this.menu_items = this.menuItems;
         this.User= this.user;
-         this.restaurant_name = window.authRestaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase()
+         this.restaurant_name = window.authRestaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();
+         this.restaurant= window.authRestaurant;
+         console.log(this.user);
   }
 
 };
@@ -255,10 +275,19 @@ export default {
 @import "../../../sass/app.scss";  
 
     .mobile-menu{
+        width:40%;
         max-width:500px;
         min-height: 95vh;
         height:auto;
         background-image: linear-gradient(rgba(255, 190, 155, 0.068), rgba(235, 217, 173, 0));
+    }
+    .space-filler-logo{
+        float:right;
+        width:20px;
+        min-height:95vh;
+    }
+    .inner-div{
+        margin-top:50%;
     }
     .panel{
         width:31.5vw;
@@ -339,22 +368,27 @@ export default {
             filter: blur(5px);
             -webkit-filter: blur(5px);
         }
-            /* media quesries */
+            /* media queries */
             @media only screen and (max-width: 700px) {
                 .mobile-menu{
-                   max-width:80%;
+                   width:99%;
+                    max-width:100%;
                     .arrow-left {
                         top:-2rem;
                        
                     }
+                }
+                .space-filler-logo{
+                    display: none !important;
                 }
             }
            
 
             @media only screen and (max-width: 650px) {
                 .mobile-menu{
+                    width:99%;
                     max-width:100%;
-                    
+ 
                 }
             }
                 

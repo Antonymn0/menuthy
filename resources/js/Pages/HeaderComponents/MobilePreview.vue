@@ -18,7 +18,7 @@
               
               <div class="smartphone" style="max-width:100%;">
                 <div class="content m-0 p-0" style="width:100%; height:100%;" >
-                  <iframe src=" http://127.0.0.1:8000/menuthy-cafeteria-001/menu/1"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
+                  <iframe :src="this.preview_link"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
                 </div>
           </div>
 
@@ -35,20 +35,21 @@
 export default {
 data(){
   return{
-    preview_link:'kookokok',
+    preview_link:'',
     restaurant: null,
   }
 },
   methods:{
       // generate prview link
       getQqrCodeLink(){
-            console.log('Generating preview link...');
+            console.log('Generating preview link.on..', '/api/qrcode-generate/'+ this.restaurant.id);
             axios.get('/api/qrcode-generate/'+ this.restaurant.id)
             .then( response => {
-            if( response.status = 200){
-              console.log(this.restaurant);
-              console.log(response);            
-                return response.data;
+              if( response.status = 200){
+                console.log(this.restaurant);
+                console.log(response);            
+                  this.preview_link = response.data;
+                  console.log( 'New preview link ', this.preview_link);
                 } 
             })
             .catch( error => {
@@ -60,7 +61,7 @@ data(){
   },
   mounted(){
     this.restaurant = window.authRestaurant;
-    this.preview_link = this.getQqrCodeLink();
+     this.getQqrCodeLink();
     console.log('preview link', this.preview_link);
     console.log('restaurant', this.restaurant);
     

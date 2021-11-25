@@ -19,15 +19,7 @@ if (App::environment('production')) {
     URL::forceScheme('https');
 }
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-
-//     return $request->user();
-// });
-
   
-
-
-
     // User register routes
   Route:: post('/register/user','Auth\RegisterController@create');
 
@@ -52,11 +44,17 @@ if (App::environment('production')) {
   Route::apiResource('qrcode','Api\QrCode\QrCodeController');
     // Get deleted qr codes
   Route::get('qrcode/fetch-deleted','Api\QrCode\QrCodeController@fetchDeleted');
+
     // Restore qr codes
   Route::get('qrcode/restore/{id}','Api\QrCode\QrCodeController@restore');
+
     //  Parmamnently delete qr codes
   Route::get('qrcode/parmanently-delete/{id}','Api\QrCode\QrCodeController@parmanentlyDelete');
 
+  //Generate Qr code routes
+  Route::get('qrcode-generate/{restaurant_id}/{table_number?}','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
+
+/*  ------------------------------------------------------------------------------------------------------------------------------------ */
     // Restaurant API routes routes
   Route::apiResource('restaurant','Api\Restaurant\RestaurantController');
     // Get deleted restaurant
@@ -119,8 +117,7 @@ if (App::environment('production')) {
     //  Parmamnently delete Payment
   Route::get('payment/parmanently-delete/{id}','Api\Payment\PaymentController@parmanentlyDelete');
 
-  //Generate Qr code routes
-  Route::get('qrcode-generate/{restaurant_id}','Api\QrCode\QrCodeGenerateController@generate')->name('qrcode-generate');
+  
 
   // mobile menu items route
     Route::get('/{restaurant_name}/menu-item/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMenuItems'])->name('mobile menu');

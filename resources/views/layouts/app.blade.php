@@ -34,7 +34,7 @@
 </head>
 <body>
     <div id="app">
-        <div style="background-color: #2c2d3a; padding-left: 120px;" >
+        <div style="background-color: #e9e4da46; padding-left: 120px;" >
 
        
         <nav class="navbar navbar-expand-md   text-white" >
@@ -53,18 +53,18 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto text-dark">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link  text-dark href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else

@@ -19,6 +19,7 @@ class OrderFactory extends Factory
             'menu_item_id' => $this->faker->randomdigit(), //foreign key
             'is_take_away' => $this->faker->randomdigit(),
             'order_number' => 2568,
+            'table_number' => 25,
             'is_inhouse' => $this->faker->randomdigit(),
             'price' => $this->faker->randomFloat(1,0),
             'restaurant_id' => $this->faker->randomFloat(1,0),
