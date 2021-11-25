@@ -54,14 +54,19 @@
                                     <label for="exampleFormControlInput2">Link</label>
                                     <input type="text" disabled class="form-control p-4" v-model="this.tables_qr_code_link" id="exampleFormControlInput2" placeholder="Link">
                                 </div> 
-                                <div class="form-group">
-                                    <label for="exampleFormControlInput2">Table number</label>
+                                <div class="form-group" v-if="this.user.package_type !== null">
+                                    <label for="exampleFormControlInput2">Enter table number <small class="text-muted">(max: {{this.max_package_tables}} )</small></label>
                                     <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no">
+                                </div> 
+                                <div class="form-group" v-else>
+                                    <label for="exampleFormControlInput2">Enter table number <small class="text-muted">(max: 1 )</small></label>
+                                    <input type="number" min="1" max="50" disabled  class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no">
                                 </div> 
                                 
                             <p class="row align-items-center  mx-auto my-2 p-2">
-                                <button type="button" class="btn btn-primary col-sm-2 m-1" @click="this.generateTablesQrCode(this.table_number)" >Generate</button>
-                                <button type="button" class="btn btn-success col-sm-3 m-1 row" data-bs-dismiss="modal"> <i class="bi bi-printer"></i> Print</button>
+                                <button type="button" class="btn btn-primary col-sm-2 m-1"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)" >Generate</button>
+                                <button type="button" disabled class="btn btn-primary col-sm-2 m-1" v-else  >Generate</button>
+                                <button type="button" disabled class="btn btn-success col-sm-3 m-1 row" data-bs-dismiss="modal"> <i class="bi bi-printer"></i> Print</button>
                                 <button type="button" class="btn btn-danger col-sm-2 m-1" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
@@ -82,8 +87,10 @@ export default {
     data(){
         return{
             restaurant: window.authRestaurant,
+            user: window.authUser,
             qrCode:'null',
             table_number:1,
+            max_package_tables:'1',
             tables_qr_code_link:'null',           
         } 
     },
@@ -106,7 +113,7 @@ export default {
         },
             // tables qr code
         generateTablesQrCode(table_number){
-            if(table_number > 50) table_number = 50; //max table number is 50
+            if(table_number > this.max_package_tables) table_number = this.max_package_tables; //max table number dependent on package allowed
             axios.get('/api/qrcode-generate/' + this.restaurant.id + '/' + table_number)
             .then( response => {
             if( response.status = 200){
@@ -120,6 +127,10 @@ export default {
                 return;                    
             });
         },
+
+    },
+    mounted(){
+        this.max_package_tables= window.authUser.tables;
     }
     
 }

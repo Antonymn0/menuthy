@@ -45,6 +45,7 @@ class User extends Authenticatable
         'suspended_by',
         'email_verified_at',
         'gender',
+        'tables',
         'regn_status',
         'suspended_by',
         'avatar',

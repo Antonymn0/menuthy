@@ -46,6 +46,7 @@ class UpdateUser extends FormRequest
             'suspended_at'=> ['date'],
             'email_verified_at'=> ['date'],
             'gender'=> ['integer'],
+            'tables'=> ['integer'],
             'nationality'=> ['string', 'max:255'],
             'suspended_by'=> ['integer'],
             'gender'=> ['integer'],

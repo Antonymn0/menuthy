@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('gender')->nullable();
             $table->integer('regn_status')->nullable();
+            $table->integer('tables')->nullable();
             $table->integer('suspended_by')->nullable()->index();
             $table->string('avatar')->nullable();
             $table->timestamp('deleted_at')->nullable();
