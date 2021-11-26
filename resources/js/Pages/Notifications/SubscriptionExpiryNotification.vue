@@ -9,10 +9,11 @@
 
 <script>
 import moment from 'moment';
+
 export default {
     data(){
         return{
-            registrationExpiryDate:'null',
+            registrationExpiryDate:null,
         }
     },
     methods:{
@@ -22,17 +23,15 @@ export default {
             }
         },
         updateDate(){
-            // let expDate = window.authUser.registration_expiry.getTime();
-            // let today = new Date();
-            // // console.log(expDate - today, expDate,Date.now() );
-            // if(expDate - today < 25 ){
-            //     this.registrationExpiryDate = window.authUser.registration_expiry;
-            // }
-            
+            let expDate = window.authUser.registration_expiry;
+          this.registrationExpiryDate = window.authUser.registration_expiry;
+                 
         },
     },
     mounted(){
-        setTimeout(this.updateDate(), 5000);
+        setTimeout(this.updateDate(), 10000);
+        
+        
     }
 }
 </script>

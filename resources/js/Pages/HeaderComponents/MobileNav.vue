@@ -1,5 +1,98 @@
 <template>
-    <div class="mobileNav border-bottom">
+
+
+<div class="parent-nav bg-dark px-4 py-2">
+    <div class="logo">
+        <img src="/images/artboard.png" alt="menuthy-logo" class="img-fluid">
+    </div>
+    <div>
+        <RestaurantName /> 
+    </div>
+    <div>
+        <span onclick="openNav()"><i class="bi bi-list text-white " style="font-size:1.5rem"></i></span>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link "  href="/super-admin">Super admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link "  href="/dashboard">Dashboard</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menus">Menus</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Orders
+                            </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id">Orders</a></li>
+                        <li><a class="dropdown-item" href="#">Tables</a></li>
+                        <li><a class="dropdown-item" href="#">Waiters</a></li>
+                        <li><a class="dropdown-item" href="#">Modifiers</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="#">Design</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Feedback
+                            </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Survey forms</a></li>
+                        <li><a class="dropdown-item" href="#">Survey results</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="#">Reports</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item dropdown m-1">
+                        <a class="nav-link  p-0 m-0 " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots pl-2" style="font-size: 1.5rem; "></i>
+                            </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Campaigns</a></li>
+                            <li><a class="dropdown-item" href="#">Info page</a></li>
+                            <li><a class="dropdown-item" href="#">Devices</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Integrations</a></li>
+                        </ul>
+                    </li>  
+                    <li class="dropdown-item  pt-2">
+                        <form action="/logout" method="POST" enctype="multipart/form-data">
+                            <div class="ml-2 border-top pt-2">
+                            <input type="hidden" name="_token" :value="csrf">     
+                            <button type="submit" class="btn-danger mx-auto"> 
+                                <i class="bi bi-box-arrow-left pr-1"></i> 
+                                Logout
+                            </button>
+                            </div>                        
+                        </form>                     
+                    </li>                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <div class="mobileNav border-bottom">
         <div class="d-flex text-center container-fluid">
             <div class="logo col-sm-6 p-2 img-fluid row justify-content-center">
                 <img src="images/artboard.png" alt="menuthy-logo" class="img-fluid">
@@ -67,8 +160,8 @@
                             <li class="dropdown-item  pt-2">
                                 <form action="/logout" method="POST" enctype="multipart/form-data">
                                     <div class="ml-2 border-top pt-2">
-                                    <input type="hidden" name="_token" :value="csrf">    <!--csrf token field -->
-                                    <button type="submit" class="btn-danger mx-auto"> 
+                                    <input type="hidden" name="_token" :value="csrf">     -->
+                                    <!-- <button type="submit" class="btn-danger mx-auto"> 
                                         <i class="bi bi-box-arrow-left pr-1"></i> 
                                         Logout
                                     </button>
@@ -78,13 +171,13 @@
                         </ul>
                     </div>
 
-                    <!-- Use any element to open the sidenav -->
+                     Use sidenav burger icon -->
                     <span onclick="openNav()"><i class="bi bi-list text-white " style="font-size:1.5rem"></i></span>
                          
-                </div>
+                <!-- </div>
             </div>
         </div>
-    </div>
+    </div> -->  
     
 </template>
 
@@ -110,32 +203,15 @@ export default {
 
 <style lang="scss" scoped>
 
-    .mobileNav{
-        background-color:#2c2d3a;
-        padding:5px;
-        display:none;
-        .logo{
-            width:15%;
-            padding:5px;
-            img{
-                max-width:60%;
-                height:auto;
-            }
-        }
-        .right-div{
-            width:60%;
-            float:right;
+ .parent-nav{
+     display:none;
+ }
+.logo img{
+    width:40px;
+    height:40px;
+}
 
-            .resName{
-                width:80%;
 
-            }
-            .burger-icon{
-                width:20%;
-                float:right;
-            }
-        }
-    }
    
 
 /* The side navigation menu */
@@ -181,38 +257,23 @@ export default {
 
 //media querries
 @media screen and (max-width: 950px) {
-  .mobileNav{
-     display:block;
-  } 
-  .mobileNav .logo{
-      width:10%;
-       img{     
-           width:15vh;
-        max-width:50%;
-        height:auto;  
-    }
-    }
+ .parent-nav{
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+
+}
+.logo img{
+    width:40px;
+    height:40px;
+}
 }
 @media screen and (max-width: 450px) {
-   .mobileNav .logo{
-      width:30%;
-      padding-left :20px;
-       img{     
-        width:15vh;
-        max-width:100%;
-        height:auto;  
-    }
-  }
+ 
 }
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (min-height: 450px) {
-    .mobileNav .logo img{     
-        width:5rem;
-        max-width:100%;
-        height:4rem;  
-    }
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+
 }
 
 </style>

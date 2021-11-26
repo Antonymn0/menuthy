@@ -234,7 +234,7 @@ export default {
           show_menus_list:true,
           show_single_menu_item:false,
           is_take_away:false,
-          User:{},
+          User:{},    
       }
   },
   methods:{

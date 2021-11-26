@@ -1,7 +1,7 @@
 <template>
 <div class="alert mx-auto ml-2 fade-in" v-if="this.trialExpiryDate !== null">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to subscribe
+    Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to 
      <a href="#">Subscribe</a>
 </div>
 </template>
@@ -25,7 +25,9 @@ export default {
         },
     },
     mounted(){
-        setTimeout(this.updateDate(), 5000);
+      setTimeout(this.updateDate(),5000);
+
+       
 
     }
 }

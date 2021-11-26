@@ -34,7 +34,7 @@ class userCreatedListener
     public function handle(userCreated $event)
     {
 
-    //    Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
-    //    Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+       Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
+       Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
     }
 }

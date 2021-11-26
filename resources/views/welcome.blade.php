@@ -12,7 +12,7 @@
                     <h6>
                         Serve Inovitavely
                     </h6>
-                </div>z
+                </div>
                 
 
                 <div class="form-group row mb-0">

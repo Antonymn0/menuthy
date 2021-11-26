@@ -78,7 +78,7 @@
             </div>  
             <div class="d-flex align-content-ceneter">
                <button type="submit" class="m-2">Register</button>
-               <button class="btn btn-secondary m-2"><a href="/login" class="text-white"> Cancel</a></button>  
+               <button class="btn btn-secondary m-2"> <a href="/login" class="text-white"> Cancel </a></button>  
             </div>      
            
         </form>
@@ -153,6 +153,7 @@ export default {
                 user_data.append('email', this.form.email);
                 user_data.append('password', this.form.password);
                 user_data.append('password_again', this.form.password_again);
+                user_data.append('package_type', 'master');
 
             axios.post('api/user', user_data)
             .then( response => {
