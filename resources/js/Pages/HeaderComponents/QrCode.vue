@@ -29,7 +29,8 @@
                                 <vue-qrcode :value="this.qrCode" :options="{ width: 150 }"></vue-qrcode>
                             </div>
                             <p>
-                                Link: {{this.qrCode}}
+                                <small class="text-muted"> Click the link to open</small> <br>
+                                Link: <a :href="this.qrCode" target="_blank"> {{this.qrCode}}</a> 
                             </p>
                             <p class="w-50 mx-auto my-2 p-3">
                                 <button type="button" class="btn btn-danger float-right" data-bs-dismiss="modal">Cancel</button>

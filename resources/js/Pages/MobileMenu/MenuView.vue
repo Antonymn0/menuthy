@@ -8,7 +8,7 @@
             </p>
         </div>
     </div>
-<!-- -------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------------------- -->
     <!-- imge slider -->
     <div class=" carousel-div">
     <div v-if="this.menus.length" :class="blur"> 
@@ -116,8 +116,10 @@ export default {
 
 .parent-div{
     width:45rem;
+    height:100vh;
     margin:auto;
     border-right: 1px solid grey;
+    overflow-y:scroll;
 }
 
 .carousel-div{
@@ -233,7 +235,17 @@ export default {
    .parent-div{
     width:100vw;
      border-right: none;
-}
+    }
+    .inner-carousel-div {
+        width:100%;
+        padding: .1rem;
+    }
+
+    .img-div img {
+        height: 100px;
+    
+    }
+
     .elements-div{
         width:99%;       
         text-align: center;
