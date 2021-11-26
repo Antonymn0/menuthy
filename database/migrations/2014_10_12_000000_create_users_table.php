@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->required();
             $table->string('user_name')->nullable()->unique();
             $table->string('phone')->nullable()->unique();
-            $table->string('registration_status')->nullable();
+            $table->string('registration_status')->nullable()->default('trial');
             $table->string('package_type')->nullable();
             $table->dateTime('trial_expiry')->nullable();
             $table->dateTime('registration_expiry')->nullable();
@@ -36,9 +36,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('suspended_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('gender')->nullable();
-            $table->integer('regn_status')->nullable();
-            $table->integer('tables')->nullable();
-            $table->integer('suspended_by')->nullable()->index();
+            $table->integer('tables')->nullable()->default(1);
+            $table->integer('suspended_by')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->string('name')->nullable();          

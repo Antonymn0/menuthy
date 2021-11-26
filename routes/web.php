@@ -68,23 +68,26 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+
+//-------------------------------SUPER ADMIN ROUTES -------------------------- //////
+
+    Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
+
+
+
+
+
 Auth::routes([
     'register' => false,
     'verify' => true,
     ]); 
 
-//test email route
- Route::get('test-email',function(){
 
-     return new WelcomeEmail($user='first_name');
- });
-
-
-
+// falback route
 Route::fallback(function() {
         return response()->json([
             'success'=> false,
-            'message' => 'No such route found on this server',
+            'message' => 'Page not found',
             ], 404);
 });
  

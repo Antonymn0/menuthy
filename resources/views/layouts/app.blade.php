@@ -34,7 +34,7 @@
 </head>
 <body>
     <div id="app">
-        <div style="background-color: #e9e4da46; padding-left: 120px;" >
+        <div style="background-color: padding-left: 120px;" >
 
        
         <nav class="navbar navbar-expand-md   text-white" >
@@ -53,40 +53,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto text-dark">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link  text-dark href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link  text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="" id="dropdown" aria-labelledby="">
-                                    <a class="dropdown-item text-white" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+       
                 </div>
             </div>
         </nav>

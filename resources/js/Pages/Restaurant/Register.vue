@@ -1,5 +1,5 @@
 <template>
-<div class="p-1 " style="height:70vh">
+<div class="p-1 " style="height:50vh">
   <form action="" @submit.prevent="submitForm" class="rounded shadow">
         <h2> Tell us about your business </h2>
     <label>
@@ -62,7 +62,9 @@ export default {
         type:'Cafeteria',
         time_zone:'',
         city:'',
-        user_id:'',       
+        user_id:'', 
+        regestration_status:'trial',      
+        tables:1,      
       },
        selectedCountry: '',
         selectedCity: '',
@@ -115,6 +117,8 @@ export default {
                 form_data.append('type', this.form.type);
                 form_data.append('time_zone', this.form.time_zone);
                 form_data.append('type', this.form.type);
+                form_data.append('tables', this.form.tables);
+                form_data.append('registration_status', this.form.registration_status);
                 form_data.append('city', this.selectedCity);
                 form_data.append('country', this.selectedCountry);
                 for(var pair of form_data.entries()) {
@@ -241,6 +245,8 @@ button:hover {
   background: #ff7300;
   color: #ffffff;
 }
+
+
 </style>
 
     

@@ -1,5 +1,11 @@
 <template>
-    <div class="logo"></div>
+    <div class="logo p-2">
+             <a class="p-3" href="/">
+                <img src="/images/menuthy_logo_i.jpg" class="rounded m-0" width="200"  alt="menuthy-logo">
+            </a>
+<button class="btn  m-2 mr-5 border float-right"><a href="/login" class="text-dark "> Go to login</a></button>  
+        
+    </div>
 
     <div class="login-block border">
         <form action="" enctype="multipart/form-data" @submit.prevent="submitForm()">
@@ -72,7 +78,7 @@
             </div>  
             <div class="d-flex align-content-ceneter">
                <button type="submit" class="m-2">Register</button>
-               <button class="btn btn-secondary m-2"><a href="/login" class="text-white"> cancel</a></button>  
+               <button class="btn btn-secondary m-2"><a href="/login" class="text-white"> Cancel</a></button>  
             </div>      
            
         </form>
@@ -220,31 +226,26 @@ export default {
 
 <style scoped>
     body {
-    background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
-    background-size: cover;
     font-family: Montserrat;
     }
     
-    .logo {
-    width: 213px;
-    height: 36px;
-    background: url('http://i.imgur.com/fd8Lcso.png') no-repeat;
-    margin: 30px auto;
-    }
+
     
     .login-block {
     width: 50%;
     padding: 20px;
-    background: #fff;
+    background: rgba(233, 233, 233, 0);
     border-radius: 5px;
     border-top: 5px solid #ff656c;
     margin: 0 auto;
+    margin-bottom: 2rem;
+
     }
     
     .login-block h1 {
     text-align: center;
     color: rgb(228, 107, 107);
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 20px;
@@ -263,31 +264,19 @@ export default {
     outline: none;
     }
     
-    .login-block input#username {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
-    background-size: 16px 80px;
-    }
+ 
     
-    .login-block input#username:focus {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
-    background-size: 16px 80px;
-    }
-    
-    .login-block input#password {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
-    background-size: 16px 80px;
-    }
-    
+
     .login-block input#password:focus {
     background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
     background-size: 16px 80px;
     }
     
-    .login-block input:active, .login-block input:focus {
+    .login-block input:active, .login-block input:focus .login-block select:focus{
     border: 1px solid #ff656c;
     }
     
-    .login-block button {
+    .login-block button, .button {
     width: 100%;
     height: 40px;
     background: #ff656c;
@@ -296,7 +285,6 @@ export default {
     border: 1px solid #e15960;
     color: #fff;
     font-weight: bold;
-    text-transform: uppercase;
     font-size: 14px;
     font-family: Montserrat;
     outline: none;
@@ -304,6 +292,19 @@ export default {
     }
     
     .login-block button:hover {
-    background: #ff7b81;
+    background: #f5414a;
     }
+/* media queries */
+    @media only screen and (max-width: 900px) {
+        .login-block{
+            width:80%;
+        }
+    }
+/* media queries */
+    @media only screen and (max-width: 700px) {
+        .login-block{
+            width:98%;
+        }
+    }
+
 </style>

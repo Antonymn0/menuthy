@@ -46,7 +46,7 @@ class User extends Authenticatable
         'email_verified_at',
         'gender',
         'tables',
-        'regn_status',
+
         'suspended_by',
         'avatar',
         'name',
@@ -78,16 +78,23 @@ class User extends Authenticatable
      * Get Users restaurant details
      * 
      * return json
+     * ------ this block to be refactored in favour of eloquent relation further below
      */
     public function restaurant(){
 
         $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
-// dd($restaurant);
+
         if( $restaurant ){
             return $restaurant;
         }
 
         return null;
+    }
+
+    // eloquent relation
+    //gets menu items
+    public function getRestaurant(){
+        return $this->hasMany(Restaurant::class,'user_id', 'id');
     }
 
 }
