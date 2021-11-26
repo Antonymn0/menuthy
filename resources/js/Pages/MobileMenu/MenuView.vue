@@ -241,10 +241,7 @@ export default {
         padding: .1rem;
     }
 
-    .img-div img {
-        height: 100px;
     
-    }
 
     .elements-div{
         width:99%;       
