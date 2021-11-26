@@ -5,8 +5,8 @@
             <MobilePreview />
             <QrCode />
              <MobileNav />
-             <!-- <TrialExpiryNotification /> 
-            <SubscriptionExpiryNotification />   -->
+             <TrialExpiryNotification /> 
+            <SubscriptionExpiryNotification />  
             <Profile />
         
 <!-- --------------header---------------------------- -->
