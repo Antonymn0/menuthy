@@ -22,13 +22,13 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * return clients portal info.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function clientsPortal()
     {
-        //
+       return Inertia::render('SuperAdmin/Clients/Portal');
     }
 
     /**

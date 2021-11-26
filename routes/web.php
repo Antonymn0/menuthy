@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
 //-------------------------------SUPER ADMIN ROUTES -------------------------- //////
 
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
+    Route::get('admin/client-portal',[App\Http\Controllers\Web\Admin\AdminController::class, 'clientsPortal'])->name('super-admin');
 
 
 

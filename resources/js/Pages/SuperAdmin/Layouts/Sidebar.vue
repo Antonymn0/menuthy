@@ -1,39 +1,33 @@
 <template>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark" style="width: 280px; height:80vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-white shadow" style="width: 280px; height:80vh;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-4">Dashboard</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-          Home
-        </a>
-      </li>
       <li>
-        <a href="#" class="nav-link link-dark">
+        <a href="/admin" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
           Dashboard
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-dark">
+        <a href="/admin/client-portal" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-          Orders
+          Clients portal
         </a>
       </li>
       <li>
         <a href="#" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-          Products
+          View scans
         </a>
       </li>
       <li>
         <a href="#" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Customers
+          Inbox
         </a>
       </li>
     </ul>
@@ -48,7 +42,15 @@
         <li><a class="dropdown-item" href="#">Settings</a></li>
         <li><a class="dropdown-item" href="#">Profile</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li class="dropdown-item  border-top px-2">
+                <form action="/logout" method="POST" enctype="multipart/form-data">
+                    <div class="ml-2">
+                        <input type="hidden" name="_token" :value="csrf">                       
+                        <i class="bi bi-box-arrow-left pr-1"></i> 
+                            Logout                   
+                    </div>                        
+                </form>                     
+            </li>
       </ul>
     </div>
   </div>

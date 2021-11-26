@@ -1,10 +1,10 @@
 <template>
-    <div class="bg-dark">
+    <div class="navbar-white">
     <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-dark">
 
-  <a class="navbar-brand" href="#!">
-    <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="30" alt="mdb logo">
+  <a class="navbar-brand" href="/admin">
+    <img src="/images/menuthy_logo_i_a.png" height="30" alt="mdb logo" style="background-color:#d3d3d3; height:70px">
   </a>
 
   <!-- Collapse button -->
@@ -16,8 +16,7 @@
   <!-- Breadcrumbs -->
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a class="waves-effect" href="#!">Home</a></li>
-    <li class="breadcrumb-item"><a class="waves-effect" href="#!">Templates</a></li>
-    <li class="breadcrumb-item active"><a class="waves-effect" href="#!">E-commerce</a></li>
+    <li class="breadcrumb-item"><a class="waves-effect" href="#!">Dashboard</a></li>
   </ol>
   <!-- Breadcrumbs -->
 
@@ -58,10 +57,17 @@
           Sign in
         </a>
       </li>
-      <li class="nav-item pl-2 mb-2 mb-md-0">
-        <a href="#!" type="button"
-          class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
-      </li>
+       <li class="dropdown-item  border-top px-2">
+                <form action="/logout" method="POST" enctype="multipart/form-data">
+                    <div class="ml-2">
+                        <input type="hidden" name="_token" :value="csrf">    
+                        <button type="submit" class="btn-danger mx-auto"> 
+                        <i class="bi bi-box-arrow-left pr-1"></i> 
+                            Logout
+                    </button>
+                    </div>                        
+                </form>                     
+            </li>
     </ul>
 
   </div>
@@ -71,3 +77,14 @@
 <!-- Navbar -->
 </div>
 </template>
+
+<script>
+export default {
+   data(){
+        return{
+            authUser: window.authUser,  // Authenticated user Imported from laravel main blade file
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
+        }
+    },
+}
+</script>

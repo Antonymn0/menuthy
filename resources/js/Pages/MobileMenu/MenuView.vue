@@ -64,8 +64,8 @@
 
                 <div class="text-div">
                     <p class="ribbon d-flex justify-content-between ">
-                        <span class="time text-white pl-2"> <small>{{menu_item.preparation_time}} mins </small> </span>
-                        <span class="price"> ${{menu_item.price}}</span>
+                        <span class="time text-white pl-2"> <i class="bi bi-alarm pr-2 text-white "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="price bold"> <b> ${{menu_item.price}}</b> </span>
                     </p>
                     <h4 class="title">
                     <span>  {{menu_item.menu_item_name}} </span> 
@@ -299,7 +299,7 @@ export default {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    top:-1.5rem;
+    top:-1.2rem;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.459);
     margin-bottom: 0;

@@ -66,7 +66,8 @@
                             <th scope="col">Business name</th>
                             <th scope="col">Business Email</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Package</th>
+                            <th scope="col">Package type</th>
+                            <th scope="col">Expriry date</th>
                         </tr>
                     </thead>
                     <tbody v-if="this.users != undefined">
@@ -78,6 +79,7 @@
                                 <td> {{user.get_restaurant[0].restaurant_email}} </td>
                                 <td> {{user.get_restaurant[0].address}} </td>
                                 <td> {{user.package_type}} </td>
+                                <td> {{user.registration_expiry}} </td>
                         </tr>                       
                     </tbody>
                     <tbody v-else>
