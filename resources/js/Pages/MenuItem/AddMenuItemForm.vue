@@ -55,27 +55,16 @@
                 <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
             </div>
            <div>
-<Multiselect
-  v-model="value"
-  mode="tags"
-  :searchable="true"
-  :createTag="true"
-  :options="[
-    { value: 'batman', label: 'Batman' },
-    { value: 'robin', label: 'Robin' },
-    { value: 'joker', label: 'Joker' },
-  ]"
-/>
-  </div>
-             <div class="form-group">.
-                 <label for="exampleFormControlInputprice">Ingridient warning</label>
-                 <select v-model="allergy_warning" class="form-control p-4" multiple>
-                     <option value="alcohol">-select-</option>
-                     <option value="alcohol">Alcohol free</option>
-                     <option value="cheese">Cheese</option>
-                     <option value="caffeine">Caffeine</option>
-                     <option value="chocolate">Chocolate</option>
-                 </select>
+        </div>
+            <div class="form-group">.
+                <label for="exampleFormControlInputprice">Ingridient warning</label>
+                <select v-model="allergy_warning" class="form-control p-4" multiple>
+                    <option value="alcohol">-select-</option>
+                    <option value="alcohol">Alcohol free</option>
+                    <option value="cheese">Cheese</option>
+                    <option value="caffeine">Caffeine</option>
+                    <option value="chocolate">Chocolate</option>
+                </select>
             </div>
             <div class="pt-3 pb-1 pl-5 border-bottom">
                 Lables
@@ -95,7 +84,7 @@
                         <span clas='col-xs-8'>  Mark item as hot </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="p-2" name="is_new" v-model="form.is_new" :checked="form.is_new">
+                                <input type="checkbox" class="p-2" name="is_new" v-model="form.is_hot" :checked="form.is_hot">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -125,7 +114,7 @@
                         <span clas='col-xs-8'>  Mark item as special presentation </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" v-model="form.is_signiture" :checked="form.is_special_presentation">
+                                <input type="checkbox" class="" v-model="form.is_special_presentation" :checked="form.is_special_presentation">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -145,8 +134,8 @@
                     </div>
                 </div>
             </div>  
-            <div class="modal-footer text-center mx-auto">
-                <button type="submit" class="btn primary-btn "   >Save </button>
+            <div class="text-center ">
+                <button type="submit" class="btn primary-btn mr-2 "   >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>

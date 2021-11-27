@@ -21,7 +21,7 @@
     <!-- ----------------------------middle---------------------------------------- -->
     <div> 
         <div class="middle-header">
-            <div class="res-name"> 
+            <div class="res-name p-0"> 
                 <RestaurantName class="" />
             </div>
             <div class="other-icons"> 

@@ -14,32 +14,32 @@
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body fade-in">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQrCode(this.restaurant.id)"> <a data-toggle="tab" href="#mobile" class="btn card m-1" >Mobile</a> </li>
-                        <li > <a data-toggle="tab" href="#tables" class="btn card m-1">Tables</a> </li>
+                        <li class="active " @click="generateQrCode(this.restaurant.id)"> <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
+                        <li > <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
                     </ul>
              
                     <div class="tab-content">
                         <!-- mobile qr code  -->
-                        <div id="mobile" class="tab-pane fade in active py-3">
+                        <div id="mobile" class="tab-pane fade-in active pt-3">
                              <small> Mobile</small>
-                             <div class="qrcode container"> 
+                             <div class="d-flex justify-content-center align-items-center"> 
                                 <vue-qrcode :value="this.qrCode" :options="{ width: 150 }"></vue-qrcode>
                             </div>
                             <p>
                                 <small class="text-muted"> Click the link to open</small> <br>
-                                Link: <a :href="this.qrCode" target="_blank"> {{this.qrCode}}</a> 
+                                Link: &nbsp; &nbsp;<a :href="this.qrCode" target="_blank"> {{this.qrCode}}</a> 
                             </p>
-                            <p class="w-50 mx-auto my-2 p-3">
-                                <button type="button" class="btn btn-danger float-right" data-bs-dismiss="modal">Cancel</button>
+                            <p class="d-flex justify-content-center align-items-center p-2">
+                                <button type="button" class="btn btn-danger float-right " data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
                         <!-- tables qr code  -->
-                        <div id="tables" class="tab-pane fade">
+                        <div id="tables" class="tab-pane fade-in">
                             <small> Tables</small>
-                           <div class="qrcode container">                               
+                           <div class="d-flex justify-content-center align-items-center">                               
                                 <vue-qrcode
                                     :value="this.tables_qr_code_link"
                                     :options="{
@@ -64,12 +64,13 @@
                                     <input type="number" min="1" max="50" disabled  class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no">
                                 </div> 
                                 
-                            <p class="row align-items-center  mx-auto my-2 p-2">
-                                <button type="button" class="btn btn-primary col-sm-2 m-1"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)" >Generate</button>
-                                <button type="button" disabled class="btn btn-primary col-sm-2 m-1" v-else  >Generate</button>
-                                <button type="button" disabled class="btn btn-success col-sm-3 m-1 row" data-bs-dismiss="modal"> <i class="bi bi-printer"></i> Print</button>
-                                <button type="button" class="btn btn-danger col-sm-2 m-1" data-bs-dismiss="modal">Cancel</button>
-                            </p>
+                            <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2">
+                                 <button type="button" class="btn btn-primary col-sm-3 m-1 row"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)"> Generate</button>
+                                 <button type="button" disabled class="btn btn-primary col-sm-3 m-1 row"  v-else> Generate</button>
+                                <button type="button" disabled class="btn btn-success col-sm-3 m-1 row" data-bs-dismiss="modal"> Print</button>
+                                <button type="button"  class="btn btn-danger col-sm-3 m-1 row" data-bs-dismiss="modal"> Cancel</button>
+
+                            </div>
                         </div>
                     </div>
                 </div>      

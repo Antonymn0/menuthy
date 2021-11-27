@@ -1,11 +1,11 @@
 <template>
-<div class=" parent-div px-2 shadow">
-    <div class="arrow-left p-0 m-0 shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<div class=" parent-div  shadow">
+    <div class="arrow-left p-0 m-0 shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">       
         <i class="bi bi-justify-left"></i>
     </div>
     <div class=" logo-part">
-        <div class="logo text-center pt-5">
-             <img :src="'/images/' + this.restaurant.image" v-if="this.restaurant.image" class=""  alt="restaurant-logo" style="width:100px; height:100px;">
+        <div class="logo text-center ">
+            <img :src="'/images/' + this.restaurant.image" v-if="this.restaurant.image" class=""  alt="restaurant-logo" style="width:100px; height:100px;">
             <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="width:100px; height:100px">
             <p class="p-2">
                <span v-if="this.restaurant.description !== null"> {{this.restaurant.description}}</span>
@@ -13,6 +13,7 @@
             </p>
         </div>
     </div>
+
     <!-- -------------------------------------------------------------------------- -->
 
     <!-- image slider -->
@@ -211,14 +212,7 @@ export default {
 
 
 <style lang="scss" >
-@import "../../../sass/app.scss"; +
-
-
-
- .logo img,  .logo p {
-    justify-content: center;
-}
-
+@import "../../../sass/app.scss"; 
 
 .parent-div{
     width:45rem;
@@ -226,6 +220,16 @@ export default {
     margin:auto;
     border-right: 1px solid grey;
     overflow-y:scroll;
+    padding-left:1rem ;
+    padding-right:.5rem ;
+    padding-top: 0;
+}
+
+ .logo img,  .logo p {
+    justify-content: center;
+}
+.logo-part{
+    top:-1rem;
 }
 
 .carousel-div{
@@ -233,6 +237,8 @@ export default {
 }
 .carousel__prev, .carousel__next {
     background-color: $orange !important;
+    margin: .3rem;
+    top:3.9rem;
 }
 
 .carousel__prev svg path, .carousel__next svg path , .nav-link, .menu-name, .carousel__icon{
@@ -248,7 +254,7 @@ export default {
  overflow: hidden;
 }
 .img-div img {
- height: 130px;
+ height: 150px;
  max-height: 100%;
  width:100%;
 }
@@ -263,7 +269,7 @@ export default {
 }
 
 .elements-div{
-    width:24%;
+    width:30%;
     float:left;
     padding: .2rem;
     text-align: center;
@@ -285,7 +291,7 @@ export default {
     min-height:50px;         
     width: 100%;
     max-width:100%;
-    height:20vh;
+    height:25vh;
     max-height:100%;
 }
 .text-div{
@@ -376,13 +382,16 @@ export default {
    .parent-div{
     width:100vw;
      border-right: none;
+     padding-left:.2rem;
+     padding-right:.2rem;
     }
     .inner-carousel-div {
         width:100%;
         padding: .1rem;
+
     }
  .arrow-left {
-     left:1rem;
+     left:.2rem;
  }
     
 
@@ -425,7 +434,7 @@ export default {
         min-height:50px;         
         width: 100%;
         max-width:100%;
-        height:150px;
+        height:100px;
         max-height:100%;
     }
     .text-div{
@@ -458,7 +467,7 @@ export default {
 }
 
 /* media queries */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 400px) {
    .elements-div{
         width:95%;
         float:left;

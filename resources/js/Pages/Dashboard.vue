@@ -13,7 +13,7 @@
                     <p>
                         Create new menus, add or edit your items and sections in your menus
                     </p>
-                    <a href="/menus" class="btn btn-danger mx-auto text-center"> Menus</a>
+                    <a href="/menus" class="btn btn-lg btn-danger mx-auto text-center"> Menus</a>
                 </div>
             </div>
             <div class="card shadow  fade-in">
@@ -24,7 +24,7 @@
                     <p>
                         Design your menu to reflect your business and your brand
                     </p>
-                    <a href="" class="btn btn-primary">Design</a>
+                    <a href="" class="btn btn-lg btn-primary">Design</a>
                 </div>
             </div> 
 

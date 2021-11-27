@@ -1,7 +1,7 @@
 <template>
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
-        <a class="btn btn-lg btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn text-white btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
          <small > <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span> &nbsp; <i class="bi bi-caret-down float-right pt-2 "></i>  </small> 
            
         </a>

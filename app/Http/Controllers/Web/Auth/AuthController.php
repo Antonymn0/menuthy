@@ -19,7 +19,6 @@ class AuthController extends Controller
     }
 
 
-
     //redirect users
     public function redirectUser(){
         $user = Auth::user();

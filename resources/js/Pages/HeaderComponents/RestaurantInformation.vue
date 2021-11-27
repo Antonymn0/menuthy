@@ -22,6 +22,10 @@
                         </div>
                     
                         <div class="form-group">
+                            <label for="maneu-name">Description</label>
+                            <textarea  v-model="this.form.description" class="form-control p-3" id="" cols="10" rows="5" placeholer="Description"></textarea>
+                        </div>
+                        <div class="form-group">
                             <label for="maneu-name">Address</label>
                             <textarea  v-model="form.address" class="form-control p-3" id="" cols="10" rows="5">Address here</textarea>
                         </div>
@@ -107,7 +111,7 @@
                                 </div>
                             </div>
                         </div>                         
-                        <div class=" w-50 p-2 mx-auto">
+                        <div class="d-flex justify-content-center">
                           <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
@@ -139,6 +143,7 @@ export default {
                 address:'',
                 country:'',
                 city:'',
+                description:'  ',
                 restaurant_phone_number:'',
                 restaurant_email:null,
                 website:'',
@@ -194,6 +199,7 @@ export default {
                 form_data.append('restaurant_name', this.form.restaurant_name);
                 form_data.append('user_id', this.form.user_id);
                 form_data.append('address', this.form.address);
+                form_data.append('description', this.form.description);
                 form_data.append('country', this.form.country);
                 form_data.append('city', this.form.city);
                 form_data.append('restaurant_phone_number', this.form.restaurant_phone_number);

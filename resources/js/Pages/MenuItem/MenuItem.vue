@@ -14,7 +14,7 @@
               
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(menuItem) in menuItems" :key="menuItem.id">  
-                <div class="card p-1  text-center fade-in ">
+                <div class="shadow  text-center fade-in " style="border-radius:15px; overflow:hidden;">
                     <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
@@ -183,8 +183,9 @@ export default {
     margin: .5rem .1rem;
 }
 .menu-dots{
-    position: absolute;
-    right: 5px;
+    position: relative;
+    right: -6.5rem;
+    top: -.5rem;
     padding: 5px;
 }
 

@@ -45,7 +45,7 @@ class ValidateRestaurant extends FormRequest
             'offer_accomodation' => [ 'integer'],
             'slang' => [ 'string'],
             'image' => 'image|mimes:jpeg,jpg,png,gif|max:2048',
-            'description' => [ 'string'],
+            'description' => [ 'string', 'nullable'],
             'avatar' => [ 'string'],
             
         ];

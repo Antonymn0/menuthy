@@ -1,88 +1,90 @@
 <template>
-    <div class="logo p-2">
+    <div class="d-flex justify-content-between align-items-center">
              <a class="p-3" href="/">
-                <img src="/images/menuthy_logo_i.jpg" class="rounded m-0" width="200"  alt="menuthy-logo">
+                <img src="/images/menuthy_logo_i.jpg" class="" width="200"  alt="menuthy-logo">
             </a>
-<button class="btn  m-2 mr-5 border float-right"><a href="/login" class="text-dark "> Go to login</a></button>  
-        
+            <button class="button mr-4" style="max-width:8rem;"><a href="/login" class="text-white "> Go to login</a></button>         
     </div>
 
-    <div class="login-block border">
-        <form action="" enctype="multipart/form-data" @submit.prevent="submitForm()">
-            <h1>Tell us about your business</h1>
-            <div class="p-2">
+    <div class="login-block shadow">
+        <form action="" class="" enctype="multipart/form-data" @submit.prevent="submitForm()">        
+            <h1 pt-1>Tell us about your business</h1>
+            <div class="pb-1">
                 <label for="restaurnat_name">Business name</label>
                 <input type="text"  placeholder="Business name" id="resturant_nane" v-model="form.restaurant_name"/>
-                <small class="text-danger">  {{this.errors.restaurant_name}}</small>
+                <small class="text-danger text-center">  {{this.errors.restaurant_name}}</small>
             </div>
             <div class="row"> 
                 <div class="col-sm-6">
-                    <div class="form-group">
+                    <div class="fpb-1">
                         <label for="type">Restaurant type</label>
                         <input type="text" class=" "  placeholder="Restaurant type" id="type" v-model="form.type"/>
-                        <small class="text-danger">  {{this.errors.type}}</small>
+                        <small class="text-danger text-center">  {{this.errors.type}}</small>
                     </div>
                 </div>
                
                     <div class="col-sm-6">    
-                        <div class="form-group">
+                        <div class="fpb-1">
                             <label for="timezone">Timezone</label>
                             <select class="form-select" aria-label="Default select example" v-model="form.timezone" id="timezone">
                                 <option  >Select time zone</option>
                                 <option v-bind="this.item" v-for="item in timeZones" :key="item">{{item}}</option>
-                                <small class="text-danger">  {{this.errors.timezone}}</small>
+                                <small class="text-danger text-center">  {{this.errors.timezone}}</small>
                             </select>
                         </div>
                     </div>
                   
             </div>
-            <div class="p-2">            
-                <div class=" py-0 my-0" style="overflow:hidden">
+            <div class="">            
+                <div class="pb-1 " style="overflow:hidden">
                 <label for="full_name">County & City</label> 
                     <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  style="max-height:20px; max-width:90% !important;"/>  
-            <small class="text-danger">  {{this.errors.selecteCountry}}</small> <small class="text-danger">  {{this.errors.selectedCity}}</small>
+                     <small class="text-danger text-center">  {{this.errors.selecteCountry}}</small> <small class="text-danger">  {{this.errors.selectedCity}}</small>
                 </div>
             </div>
             
 
             <div>
-                <h1 class="mt-2">A little info about yourself</h1>
-                <div class="p-2">
+                <h1 class="mt-5">A little info about yourself</h1>
+                <div class="pb-1">
                     <label for="full_name">Full name</label>
                     <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" />
-                    <small class="text-danger">  {{this.errors.full_name}}</small>
+                    <small class="text-danger text-center">  {{this.errors.full_name}}</small>
                 </div>
-                <div class="p-2">
+                <div class="pb-1">
                     <label for="email">Email</label>
-                    <input type="email"  placeholder="Email" id="email" v-model="form.email"/>
-                    <small class="text-danger">  {{this.errors.email}}</small>
+                    <input type="email"  placeholder="Email" id="email" v-model="form.email" />
+                    <small class="text-danger text-center">  {{this.errors.email}}</small>
                 </div>      
                 
                 
                 <div class="row">
                     <div class="col-sm-6">
-                    <div class="form-group">
+                    <div class="pb-1">
                         <label for="password">Password</label>
                         <input type="password"  placeholder="Password" id="password" v-model="form.password"/>
-                        <small class="text-danger">  {{this.errors.password}}</small>
+                        <small class="text-danger text-center">  {{this.errors.password}}</small>
                     </div>
                     </div>
                     <div class="col-sm-6">
-                    <div class="form-group">
+                    <div class="pb-1">
                         <label for="confirm_password">Confirm password</label>
                         <input type="password"  placeholder="Confirm password" id="confirm_password" v-model="form.confirm_password" />
-                        <small class="text-danger">  {{this.errors.confirm_password}}</small>  
+                        <small class="text-danger text-center">  {{this.errors.confirm_password}}</small>  
                     </div>
                     </div>
                 </div>            
-            </div>  
-            <div class="d-flex align-content-ceneter">
-               <button type="submit" class="m-2">Register</button>
-               <button class="btn btn-secondary m-2"> <a href="/login" class="text-white"> Cancel </a></button>  
-            </div>      
-           
-        </form>
-    </div>
+            </div> 
+              
+
+            <div class="d-flex align-content-center justify-content-center pt-2">
+               <button type="submit" class="m-2 button" style="max-width:8rem;">Register</button>
+                <a href="/login" class="text-white button m-2 text-center pt-2" style="max-width:8rem;"> Cancel </a>
+            </div> 
+             </form>    
+           </div>
+        
+   
 </template>
 
 <script>
@@ -145,7 +147,7 @@ export default {
     },
     methods:{
         submitForm() {
-            this.validateForm();
+            this.validateForm();;
             if(Object.keys(this.errors).length) return;
             console.log('No errors in the form...');
             var user_data = new FormData();
@@ -162,9 +164,9 @@ export default {
                     console.log(response.data);
                 } 
             })
-            .catch( error => {
-                    this.$swal('Failed create user!');
-                    console.log(error.response);                    
+            .catch( error => {                 
+                    this.errors.email = error.response.data.errors.email[0];
+                    console.log(error.response.data.errors);                    
                 });
         },
 
@@ -190,6 +192,7 @@ export default {
                 console.log(error.response);                    
             });
         },
+
         validateForm(){
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;
                 else delete this.errors.restaurant_name;  
@@ -230,7 +233,25 @@ export default {
     font-family: Montserrat;
     }
     
+.countries-cities{
+    height:1rem !important;
+    max-height:1rem !important;
+    justify-content: space-between!important;
+    padding:20px;
+}
+.countries-cities .select-box{
+    border-radius: 15px;
+    max-width:49%!important;
+    min-width:100px!important;
 
+}
+.countries-cities .select-box select {
+    border-radius: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    max-width: 49%;
+
+}
     
     .login-block {
     width: 50%;
@@ -259,13 +280,11 @@ export default {
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 15px;
     font-family: Montserrat;
-    padding: 0 20px 0 50px;
+    padding-left: .7rem;
     outline: none;
     }
-    
- 
     
 
     .login-block input#password:focus {
@@ -278,18 +297,18 @@ export default {
     }
     
     .login-block button, .button {
-    width: 100%;
-    height: 40px;
-    background: #ff656c;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #e15960;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    font-family: Montserrat;
-    outline: none;
-    cursor: pointer;
+        width: 100%;
+        height: 40px;
+        background: #ff656c;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #e15960;
+        color: #fff;
+        font-weight: bold;
+        font-size: 14px;
+        font-family: Montserrat;
+        outline: none;
+        cursor: pointer;
     }
     
     .login-block button:hover {

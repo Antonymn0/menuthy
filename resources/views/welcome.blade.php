@@ -13,14 +13,12 @@
                         Serve Inovitavely
                     </h6>
                 </div>
-                
-
                 <div class="form-group row mb-0">
-                    <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-sm btn-primary mr-2">
-                            <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </button> or
-                        <a href="/register" class="btn brn-sm btn-warning ml-2">Register</a>
+                    <div class="col-md-8 offset-md-4">                     
+                            
+                        
+                        <a href="/login" class="btn btn-lg btn-primary pr-4 pl-4 ml-2">Login</a>   or    
+                        <a href="/register" class="btn btn-lg btn-warning ml-2">Register</a>
                         <br />                               
                     </div>
                 </div>                
