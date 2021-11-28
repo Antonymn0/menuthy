@@ -21,16 +21,17 @@
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
                         <a :href="'/menu-items/' + subMenu.id">
-                             <img v-if = "subMenu.image  " :src="'/images/'+subMenu.image"  class="img-fluid" style="height:27vh; width:100%; object-fit: cover;"/>                       
+                             <img v-if = "subMenu.image  " :src="subMenu.image"  class="img-fluid" style="height:27vh; width:100%; object-fit: cover;"/>                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:12rem; color:#999; "></i>
                         </a> 
 
                         <editSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
                     </div>
                     <div class="row m-1 p-1 w-100">
-                        <h4 class="p-0" style="width:75%; float:left">
+                        <h4 class="p-0 text-center" style="">
                             {{subMenu.sub_menu_name}}
                         </h4>
+                        </div>
                         <div class=" custom-control custom-switch" style="width:25%; float:right">
                             <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
                                 <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'" @click="togglePublish(subMenu.id, 'false')" >
@@ -38,9 +39,11 @@
                                 <span class="slider round"></span>
                             </label>
                         </div>
-                    </div>                   
-                    <!-- <p> {{subMenu.sub_menu.length}} items  </p> -->
-                    <p>  {{  formatDate(subMenu.created_at)}}   </p>                                       
+                                       
+                    <p> 
+ 
+                      <span class="small text-center"> {{  formatDate(subMenu.created_at)}} </span>  
+                     </p>                                       
                 </div>
             </div>     
         
@@ -171,10 +174,11 @@ export default {
     
 /* The switch - the box around the slider */
 .switch {
-  position: absolute;
-  right:0;
-  top:0;
-  display: inline-block;
+  position: relative;
+  left:18.3rem;
+  top:-2.5rem;
+  margin-left:auto;
+  margin-right:auto;
   width: 36px;
   height: 22px;
 }

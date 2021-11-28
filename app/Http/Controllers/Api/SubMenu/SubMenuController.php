@@ -36,11 +36,9 @@ class SubMenuController extends Controller
     {  
          $data = $request->validated(); 
         if($request->hasFile('image')){  
-            $file = $request->file('image') ;
-            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
-            $destinationPath = public_path().'/images' ;
-            $file->move($destinationPath,$fileName);
-        $path = $fileName ;
+            $path = $request->file('image')->store('images', 's3'); // send image to AWS S3         
+            \Storage::disk('s3')->setVisibility($path, 'public'); // set file visibility to public
+            $path = \Storage::disk('s3')->url($path);  // create file path
         $data['image'] = $path;
         } 
 
@@ -114,11 +112,9 @@ class SubMenuController extends Controller
     {
          $data = $request->validated(); 
         if($request->hasFile('image')){  
-            $file = $request->file('image') ;
-            $fileName = now()->timestamp . $file->getClientOriginalName()  ;
-            $destinationPath = public_path().'/images' ;
-            $file->move($destinationPath,$fileName);
-        $path = $fileName ;
+            $path = $request->file('image')->store('images', 's3'); // send image to AWS S3         
+            \Storage::disk('s3')->setVisibility($path, 'public'); // set file visibility to public
+            $path = \Storage::disk('s3')->url($path);  // create file path
         $data['image'] = $path;
         } 
 

@@ -27,9 +27,6 @@ class MenuController extends Controller
         return Inertia::render('Menus/Menus',['menus' =>  $menus, 'restaurant_id' => $restaurant->id] );
     }
 
-
-
-
     /**
      * Display the specified resource.
      *

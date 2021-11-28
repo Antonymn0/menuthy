@@ -5,8 +5,8 @@
     </div>
     <div class=" logo-part">
         <div class="logo text-center ">
-                <img :src="'/images/' + this.restaurant.image" class="shadow" v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
-                <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="width:100px; height:100px">
+                <img :src=" this.restaurant.image" class="shadow" v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
+                <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
             
             <p class="p-2">
                <span v-if="this.restaurant.description !== null"> {{this.restaurant.description}}</span>
@@ -24,10 +24,10 @@
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
                         <div class="inner-carousel-div" v-if="sub_menu.published !== null">                            
                             <div class=" img-div shadow" v-if="sub_menu.image !== null">
-                               <a href="#"> <img :src="'/images/' + sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
+                               <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
                             <div class=" img-div" v-else>
-                               <a href="#"> <img :src="'/images/' + sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
+                               <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
                             <h5 class="pt-1">
                                 {{sub_menu.sub_menu_name}}
@@ -61,7 +61,7 @@
         <div class="elements-div shadow mb-2" v-if="menu_item.publish== 'true'" >
             <div class="shadow inner-elements-div " style="background-size:cover">
                 <div class="image-div" style="background-size:cover">
-                    <img :src="'/images/' + menu_item.image" alt="menu-image" >
+                    <img :src="menu_item.image" alt="menu-image" >
                 </div>
                 <div class="text-div">
                     <p class="ribbon d-flex justify-content-between align-items-center ">
@@ -81,7 +81,7 @@
                         </p>
                 </div>
                 <div class="image-div2" >
-                   <img :src="'/images/' + menu_item.image" alt="menu-image" >
+                   <img :src="menu_item.image" alt="menu-image" >
                 </div>
             </div>
         </div>

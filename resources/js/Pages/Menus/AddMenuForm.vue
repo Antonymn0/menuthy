@@ -10,7 +10,7 @@
                         </button>
                     </div>
     <div class="modal-body">
-        <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
+        <form action="/upload"  enctype="multipart/form-data" @submit.prevent = "submitForm()">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Menu name</label>
                 <input type="text" v-model="form.menu_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
@@ -19,7 +19,7 @@
             <div class="form-group">
                 <input type="hidden" v-model="form.restaurant_id"  class="form-control p-4" id="exampleFormControlInput1" name="restaurant_id" placeholder="restaurant id.">
             </div>
-        
+        <input type="hidden" name="_token" :value="csrf"> 
             <div class="form-group">
                 <label for="maneu-name">Description</label>
                 <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5"></textarea>
@@ -27,10 +27,10 @@
             </div>
              <div class="form-group">
                  <label for="file1">Image <small>(Optional)</small></label>
-                <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
+                <input type="file"   class="form-control p-4" id="file1" name="image" placeholder="Image upload" @change="fileUpload">
             </div>
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn "   >Save </button>
+                <button type="submit" class="btn primary-btn mr-2"   >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>
@@ -57,6 +57,7 @@ export default defineComponent({
             },
             errors:{ },
             success:'',
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
         }
      },
     methods:{
@@ -78,8 +79,7 @@ export default defineComponent({
                     } 
                 })
             .catch( error => {
-                this.failed= true;
-                this.failed_message = 'Failed! Operation not successful. Please try again!';
+                this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },

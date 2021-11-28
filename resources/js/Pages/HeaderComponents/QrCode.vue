@@ -15,7 +15,7 @@
             <div class="modal-body fade-in">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQrCode(this.restaurant.id)"> <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
+                        <li class="active " > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
                         <li > <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
                     </ul>
              
@@ -31,7 +31,8 @@
                                 Link: &nbsp; &nbsp;<a :href="this.qrCode" target="_blank"> {{this.qrCode}}</a> 
                             </p>
                             <p class="d-flex justify-content-center align-items-center p-2">
-                                <button type="button" class="btn btn-danger float-right " data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success mr-2" @click="generateQrCode(this.restaurant.id)">Generate</button>
+                                <button type="button" class="btn btn-danger pr-3 pl-3" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
                         <!-- tables qr code  -->

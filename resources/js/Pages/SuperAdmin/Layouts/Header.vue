@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-white">
+    <div class="navbar-white top-navbar">
     <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-dark">
 
@@ -88,3 +88,14 @@ export default {
     },
 }
 </script>
+
+<style>
+
+
+/* media queries */
+@media only screen and (max-width: 900px) {
+  .top-navbar{
+      display:none;
+  }
+}
+</style>

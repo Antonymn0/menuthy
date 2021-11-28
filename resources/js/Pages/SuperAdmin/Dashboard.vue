@@ -11,9 +11,9 @@
     </div>
 
       <!-- ----------------------------------------- -->
-    <div class="col-md-8 px-3 pt-3">
+    <div class="col-md-8 px-3 pt-3 web-dash">
         <div class=" row panel">
-                <div class="col-md-3 ">
+                <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-success">
                        <h5>
                            All clients
@@ -23,7 +23,7 @@
                        </p>
                     </div>
                     </div>
-                    <div class="col-md-3 ">
+                    <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-primary">
                        <h5>
                            Master clients
@@ -33,7 +33,7 @@
                        </p>
                     </div>
                     </div>
-                    <div class="col-md-3 ">
+                    <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-warning">
                        <h5>
                            On trial
@@ -43,7 +43,7 @@
                        </p>
                     </div>
                     </div>
-                    <div class="col-md-3 ">
+                    <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-muted">
                        <h5>
                            Inactive
@@ -131,3 +131,12 @@ export default {
     }
 }
 </script>
+
+<style>
+/* media queries */
+@media only screen and (max-width: 900px) {
+  .web-dash{
+      display:none;
+  }
+}
+</style>

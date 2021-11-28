@@ -26,7 +26,7 @@
                         </ul>
                        
                         <p>
-                             <img v-if = "menuItem.image != null "  :src="'/images/' + menuItem.image"  class="img-fluid" style="height:25vh; width:100%;"/>                       
+                             <img v-if = "menuItem.image != null "  :src="menuItem.image"  class="img-fluid" style="height:25vh; width:100%;"/>                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </p>                       
                     </div>
