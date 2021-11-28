@@ -1,6 +1,6 @@
 <template>
-    <div class="p-0 m-0 col-sm-2">
-        <div class="m-3 pr-3">
+    <div class="">
+        <div class="">
            
             <!-- edit User ProfileInformation modal -->
         <div class="modal fade " id="profile" tabindex="-1" role="dialog" aria-labelledby="profileLabel" aria-hidden="true">

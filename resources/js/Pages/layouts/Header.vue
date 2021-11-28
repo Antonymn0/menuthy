@@ -1,17 +1,16 @@
 <template >
     <!-- --------- components ------ -->
-    
-            <RestaurantInformation />            
-            <MobilePreview />
-            <QrCode />
-             <MobileNav />
-             <TrialExpiryNotification /> 
-            <SubscriptionExpiryNotification />  
-            <Profile />
+   
+        <RestaurantInformation />            
+        <MobilePreview />
+        <QrCode />
+        <MobileNav />
+        <TrialExpiryNotification /> 
+        <SubscriptionExpiryNotification />  
+        <Profile />
         
+   
 <!-- --------------header---------------------------- -->
-
-
 <div class="parent-header bg-dark ">
     <div class=""> 
          <a href="/dashboard">
@@ -22,7 +21,7 @@
     <div> 
         <div class="middle-header">
             <div class="res-name p-0"> 
-                <RestaurantName class="" />
+                <RestaurantName  />
             </div>
             <div class="other-icons"> 
                 <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >

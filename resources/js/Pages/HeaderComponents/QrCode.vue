@@ -1,9 +1,7 @@
 <template>
     <div>
              <!-- Button trigger modal -->
-        <a href="" class="" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
-            <i class="bi bi-qr-code text-white"></i>
-        </a>
+        <!-- <a href="" class="" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">   <i class="bi bi-qr-code text-white"></i>   </a> -->
 
         <!-- Modal -->
         <div class="modal fade m-2" id="exampleModalqrCode" tabindex="-1" aria-labelledby="exampleModalqrCodeLabel" aria-hidden="true">

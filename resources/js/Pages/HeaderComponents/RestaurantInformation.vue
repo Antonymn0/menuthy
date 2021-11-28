@@ -1,7 +1,7 @@
 <template>
     <div class="p-0 m-0 col-sm-2">
         <div class="m-3 pr-3">
-            <a href="#"  data-toggle="modal" data-target="#exampleModalEditRestaurant" > <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i></a>
+            <!-- <a href="#"  data-toggle="modal" data-target="#exampleModalEditRestaurant" > <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i></a> -->
             
             <!-- edit restaurant Information modal -->
         <div class="modal fade " id="exampleModalEditRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditRestaurantLabel" aria-hidden="true">
@@ -134,8 +134,8 @@ export default {
     props:['restaurant', 'user'],
     data() {
         return{
-            // restaurant:window.authRestaurant,
-            // user: window.authRestaurant,
+            restaurant:window.authRestaurant,
+            user: window.authRestaurant,
             form:{
                 restaurant_name: '',
                user_id:'' ,
