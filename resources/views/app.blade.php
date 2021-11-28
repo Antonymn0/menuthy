@@ -215,7 +215,7 @@ animation-duration: 1s;
      //mobile burger menu script
      /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
     function openNav() {
-    document.getElementById("mySidenav").style.width = "50%";
+    document.getElementById("mySidenav").style.width = "70%";
     document.getElementById("main").style.marginLeft = "250px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }
