@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput2">Photo</label>
-                        <input type="file" class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included" @change="fileUpload">
+                        <input type="file" required class="form-control p-4" id="exampleFormControlInput2" placeholder="VAT Included" @change="fileUpload">
                     </div> 
                      <div class="row custom-control p-3  custom-switch  ">
                         <span clas='col-xs-8'>  Publish </span>

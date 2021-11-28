@@ -37,7 +37,7 @@
     <div class=""> 
          <a class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <span class=" pr-1">{{authUser.first_name}} </span>  
-            <img  v-if="authUser.image"  :src="'/images/' + authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
+            <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
             <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
         </a>
         <ul class="dropdown-menu pb-0 mb-0" aria-labelledby="navbarDropdown">

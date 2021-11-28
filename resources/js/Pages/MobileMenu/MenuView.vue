@@ -5,7 +5,7 @@
     </div>
     <div class=" logo-part">
         <div class="logo text-center ">
-                <img :src=" this.restaurant.image" class="shadow" v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
+                <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
                 <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
             
             <p class="p-2">

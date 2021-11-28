@@ -39,8 +39,9 @@
                 <div class="pb-1 " style="overflow:hidden">
                 <label for="full_name">County & City</label> 
                     <vueCountriesCities @country='selectedCountry = $event' @city='selectedCity = $event'  style="max-height:20px; max-width:90% !important;"/>  
-                     <small class="text-danger text-center">  {{this.errors.selecteCountry}}</small> <small class="text-danger">  {{this.errors.selectedCity}}</small>
-                </div>
+                  </div>  
+                   <small class="text-danger text-center">  {{this.errors.selecteCountry}}</small> <small class="text-danger">  {{this.errors.selectedCity}}</small>
+                
             </div>
             
 
