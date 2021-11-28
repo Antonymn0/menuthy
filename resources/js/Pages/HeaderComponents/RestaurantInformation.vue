@@ -1,6 +1,6 @@
 <template>
-    <div class="p-0 m-0 col-sm-2">
-        <div class="m-3 pr-3">
+    <div class="">
+        <div class="">
             <!-- <a href="#"  data-toggle="modal" data-target="#exampleModalEditRestaurant" > <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i></a> -->
             
             <!-- edit restaurant Information modal -->
