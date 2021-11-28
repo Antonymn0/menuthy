@@ -12,7 +12,7 @@
     <div class="modal-body">
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Item name</label>
+                <label for="exampleFormControlInput1">Item name*</label>
                 <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                  <small class="text-danger"> {{this.errors.menu_item_name }} </small>
             </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="maneu-name">Ingredients</label>
-                <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
+                <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="5" rows="3"></textarea>              
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInputprice">Carlories</label>
@@ -48,17 +48,18 @@
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInputprice">Food Origin</label>
-                <input type="text"   class="form-control p-4" v-model="form.origin" id="exampleFormControlInputprice"  placeholder="carlories" >
+                <input type="text"   class="form-control p-4" v-model="form.origin" id="exampleFormControlInputprice"  placeholder="origin" >
             </div>
              <div class="form-group">
-                 <label for="exampleFormControlInputprice">Image </label>
-                <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
+                 <label for="exampleFormControlInputprice">Image* </label>
+                <input type="file"   class="form-control p-4" required id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
+                 <small class="text-danger"> {{this.errors.image }} </small>
             </div>
            <div>
         </div>
-            <div class="form-group">.
-                <label for="exampleFormControlInputprice">Ingridient warning</label>
-                <select v-model="allergy_warning" class="form-control p-4" multiple>
+            <div class="form-group">
+                <label for="exampleFormControlInputprice">Allergy warning</label>
+                <select v-model="allergy_warning" class="form-control p-4" >
                     <option value="alcohol">-select-</option>
                     <option value="alcohol">Alcohol free</option>
                     <option value="cheese">Cheese</option>
@@ -169,7 +170,7 @@ props:['sub_menu'],
                 publish:true, 
                 discount:1,
                 price:1,
-                image:'',
+                image:false,
                 origin:'',
                 allergy_warning:{ },               
             },           
@@ -198,7 +199,7 @@ props:['sub_menu'],
             axios.post('/api/menu-item', form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success, Item added!');
+                this.$swal('Success!');
                 this.$inertia.reload();
                 } 
             })
@@ -224,6 +225,10 @@ props:['sub_menu'],
 
             if(!this.form.sub_menu_id) this.errors.sub_menu_id = 'Sub menu id field is required' ;
             else  delete this.errors.menu_id;
+
+            if(!this.form.image) this.errors.image = 'Image is required' ;
+            else  delete this.errors.image;
+
             this.form = { ...this.form, na:'track'};
             console.log(this.errors); 
         },

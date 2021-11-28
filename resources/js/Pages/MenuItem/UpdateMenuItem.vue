@@ -205,12 +205,12 @@ components: { Multiselect },
             axios.post('/api/menu-item/'+ this.menuItem.id , form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success, Item updated!');
+                this.$swal('Success!');
                 this.$inertia.reload();
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, Item not added!');
+               this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },
