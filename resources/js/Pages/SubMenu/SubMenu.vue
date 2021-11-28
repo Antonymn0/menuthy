@@ -3,15 +3,15 @@
     <Topnavbar />
     
     <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
-        <p class="mt-4 small"> Menu <i class="bi bi-chevron-right p-0"></i>  Section  </p>
+         <p class="mt-4 small"> <small> Menu <i class="bi bi-chevron-right p-0 m-0"></i>  Section </small>  </p>
         <h3> Sections</h3>
         <p class="mt-4"> A list of sections under {{this.menu.menu_name.toUpperCase()}} menu</p>  
 
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
                
-                <div class=" pb-1 text-center fade-in shadow" style="border-radius:15px;overflow:hidden">
-                    <div class="p-3 cursor-pointer" style="background-color:#efeff3; cursor: pointer;">                        
+                 <div class="card p-0 text-center fade-in borderless " style="border-radius:15px;overflow:hidden">
+                     <div class=" cursor-pointer" style="background-color:#efeff3; cursor: pointer; background-size:cover">                     
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
@@ -162,10 +162,10 @@ export default {
         margin: .5rem .1rem;
     }
     .menu-dots{
-       position: relative;
-        right: -13.5rem;
-        top: -9rem;
-        padding: 5px;
+      position: absolute;
+    top:.5rem;
+    right: 5px;
+    padding: 5px;
     }
 
     

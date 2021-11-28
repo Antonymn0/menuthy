@@ -1,6 +1,5 @@
 <template >
-    <!-- --------- components ------ -->
-   
+    <!-- --------- components ------ -->   
         <RestaurantInformation />            
         <MobilePreview />
         <QrCode />
@@ -8,7 +7,6 @@
         <TrialExpiryNotification /> 
         <SubscriptionExpiryNotification />  
         <Profile />
-        
    
 <!-- --------------header---------------------------- -->
 <div class="parent-header bg-dark ">

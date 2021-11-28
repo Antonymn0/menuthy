@@ -5,8 +5,9 @@
     </div>
     <div class=" logo-part">
         <div class="logo text-center ">
-            <img :src="'/images/' + this.restaurant.image" v-if="this.restaurant.image" class=""  alt="restaurant-logo" style="width:100px; height:100px;">
-            <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="width:100px; height:100px">
+                <img :src="'/images/' + this.restaurant.image" class="shadow" v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
+                <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="width:100px; height:100px">
+            
             <p class="p-2">
                <span v-if="this.restaurant.description !== null"> {{this.restaurant.description}}</span>
                <span v-else> Hotel description</span> 
@@ -22,7 +23,7 @@
             <carousel :items-to-show="3">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
                         <div class="inner-carousel-div" v-if="sub_menu.published !== null">                            
-                            <div class=" img-div" v-if="sub_menu.image !== null">
+                            <div class=" img-div shadow" v-if="sub_menu.image !== null">
                                <a href="#"> <img :src="'/images/' + sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
                             <div class=" img-div" v-else>
@@ -44,12 +45,12 @@
 
     <!-- ---------------------------------------------------------- -->
     
-    <div class=" title-part mx-auto title">
+    <div class=" title-part mx-auto title pb-1">
         <h3>
             {{menu_name}}
         </h3>
         <p v-if="menu_name.description">
-            {{menu_name}}
+            {{menu_name.description}}
         </p>
     </div>
 
@@ -57,9 +58,9 @@
         <!-- menu items / dishes -->
     <div class="parent-conatiner  text-muted" v-if="this.menu_items.length "> 
         <div class="" v-for="menu_item in menu_items" :key="menu_item.id" >
-        <div class="elements-div" v-if="menu_item.publish== 'true'">
-            <div class="shadow inner-elements-div ">
-                <div class="image-div">
+        <div class="elements-div shadow mb-2" v-if="menu_item.publish== 'true'" >
+            <div class="shadow inner-elements-div " style="background-size:cover">
+                <div class="image-div" style="background-size:cover">
                     <img :src="'/images/' + menu_item.image" alt="menu-image" >
                 </div>
 
@@ -81,7 +82,7 @@
                         </p>
                 </div>
 
-                <div class="image-div2">
+                <div class="image-div2" >
                    <img :src="'/images/' + menu_item.image" alt="menu-image" >
                 </div>
             </div>
@@ -223,6 +224,7 @@ export default {
     padding-left:1rem ;
     padding-right:.5rem ;
     padding-top: 0;
+    display:table;
 }
 
  .logo img,  .logo p {
@@ -269,7 +271,7 @@ export default {
 }
 
 .elements-div{
-    width:30%;
+    width:33%;
     float:left;
     padding: .2rem;
     text-align: center;
@@ -280,7 +282,7 @@ export default {
 }
 .image-div{
     width:100%;
-    height: auto;
+    min-height: 100%;
     overflow:hidden;
     border-radius: 15px 15px 0 0;
 }
@@ -381,9 +383,11 @@ export default {
 @media only screen and (max-width: 900px) {
    .parent-div{
     width:100vw;
+    height:auto;
+    max-height: 100px;
      border-right: none;
-     padding-left:.2rem;
-     padding-right:.2rem;
+     padding-left:.5rem;
+     padding-right:.5rem;
     }
     .inner-carousel-div {
         width:100%;
@@ -393,7 +397,10 @@ export default {
  .arrow-left {
      left:.2rem;
  }
-    
+    .img-div  {
+    height:100px;
+    max-height:100%;
+    }
 
     .elements-div{
         width:99%;       
@@ -402,6 +409,7 @@ export default {
         border-radius: 15px;
         display: flex;
         align-items: center;
+        display:table-cell;
     }
      .inner-elements-div{
         width:100%;
@@ -423,18 +431,18 @@ export default {
         display:block;
     }
      .image-div2{
-         display:block;
+         background-size:cover;
         width:30%;
-        height:100%;
-        float:right;
+        max-height:100%;
+        display:block;
         overflow:hidden;
         border-radius: 0 15px 15px 0;
     }
     .image-div2 img{
-        min-height:50px;         
+        height:150px;
+        // min-height:50px;         
         width: 100%;
-        max-width:100%;
-        height:100px;
+        // max-width:100%;
         max-height:100%;
     }
     .text-div{
@@ -467,7 +475,7 @@ export default {
 }
 
 /* media queries */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 300px) {
    .elements-div{
         width:95%;
         float:left;

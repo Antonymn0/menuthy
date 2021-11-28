@@ -184,7 +184,6 @@ export default {
             .then( response => {
                 if(response.status == 201){
                     window.location.href = '/login';
-                    this.$swal(' Restaurant Succesful!');
                 }
             })
             .catch( error => {

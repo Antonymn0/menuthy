@@ -1,7 +1,6 @@
 <template>
     <Header />
-    <Topnavbar />
-  
+    <Topnavbar />  
         
         <div class="row pr-0 px-3 ml-2" >
             <div class="p-2 mt-5 ml-3">
@@ -10,7 +9,7 @@
             </div>
             
             <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  
-                <div class="card p-0 text-center fade-in borderless " style="border-radius:15px;overflow:hidden">
+                <div class="card p-0 text-center fade-in borderless shadow" style="position: relative; border-radius:15px;overflow:hidden">
                     <div class=" cursor-pointer" style="background-color:#efeff3; cursor: pointer; background-size:cover">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
@@ -32,23 +31,23 @@
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; height:250px; color:#999; "></i>
                         </a>                       
                     </div>
-                    <div class=""> 
-                    <div class="row m-1 p-1 w-100">
-                        <h4 class="p-0" style="width:75%; float:left">
+                    <div class=" custom-control custom-switch" style="width:25%; float:right; ">
+                        <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
+                            <input type="checkbox" class="" checked v-if="menu.published == 'true'" @click="togglePublish(menu.id, 'false')" >
+                            <input type="checkbox" class=""  v-else  @click="togglePublish(menu.id, 'true')">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <div class="pb-1"> 
+                        <h4 class="p-0 m-0" >
                             {{menu.menu_name}}
                         </h4>
-                        <div class=" custom-control custom-switch" style="width:25%; float:right; ">
-                            <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
-                                <input type="checkbox" class="" checked v-if="menu.published == 'true'" @click="togglePublish(menu.id, 'false')" >
-                                <input type="checkbox" class=""  v-else  @click="togglePublish(menu.id, 'true')">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>                    
-                    <p >{{menu.sub_menu.length }} items  </p>
-                    <p>  {{  formatDate(menu.created_at)}}  </p>                                      
+                        <p class="py-1 m-0">{{menu.sub_menu.length }} items  </p> 
+                        <p class="p-0 m-0">  {{  formatDate(menu.created_at)}}  </p>  
+                    </div>
                 </div>
-                </div>
+                
                   
             </div>              
            
@@ -188,8 +187,10 @@ export default {
 /* The switch - the box around the slider */
 .switch {
   position: absolute;
-  right:0;
-  top:0;
+  margin-left:auto;
+  margin-right:auto;
+  right:-15rem;
+  top:.3rem;
   display: inline-block;
   width: 36px;
   height: 22px;
