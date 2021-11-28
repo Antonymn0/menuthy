@@ -21,7 +21,7 @@
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
                         <a :href="'/menu-items/' + subMenu.id">
-                             <img v-if = "subMenu.image  " :src="'/images/'+subMenu.image"  class="img-fluid" style="height:27vh; width:100%;"/>                       
+                             <img v-if = "subMenu.image  " :src="'/images/'+subMenu.image"  class="img-fluid" style="height:27vh; width:100%; object-fit: cover;"/>                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:12rem; color:#999; "></i>
                         </a> 
 

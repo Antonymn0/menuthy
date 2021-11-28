@@ -63,7 +63,6 @@
                 <div class="image-div" style="background-size:cover">
                     <img :src="'/images/' + menu_item.image" alt="menu-image" >
                 </div>
-
                 <div class="text-div">
                     <p class="ribbon d-flex justify-content-between align-items-center ">
                         <span class="time text-dark "> <i class="bi bi-alarm p-2 my-auto  "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
@@ -81,7 +80,6 @@
                         <span class="time text-default pl-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                         </p>
                 </div>
-
                 <div class="image-div2" >
                    <img :src="'/images/' + menu_item.image" alt="menu-image" >
                 </div>
@@ -256,9 +254,10 @@ export default {
  overflow: hidden;
 }
 .img-div img {
- height: 150px;
- max-height: 100%;
- width:100%;
+    object-fit: cover;
+    height: 150px;
+    max-height: 100%;
+    width:100%;
 }
 
 .title-part h3, .title-part p{
@@ -287,6 +286,7 @@ export default {
     border-radius: 15px 15px 0 0;
 }
 .image-div2{
+    object-fit: cover;
    display:none;
 }
 .image-div img{
@@ -295,6 +295,7 @@ export default {
     max-width:100%;
     height:25vh;
     max-height:100%;
+    object-fit: cover;
 }
 .text-div{
     position:relative;
@@ -446,6 +447,7 @@ export default {
         border-radius: 0 15px 15px 0;
     }
     .image-div2 img{
+        object-fit: cover;
         height:150px;
         // min-height:50px;         
         width: 100%;
