@@ -140,8 +140,8 @@
                 </div>
 
             </div>  
-            <div class="modal-footer text-center mx-auto">
-                <button type="submit" class="btn primary-btn "  @click="submitForm()" >Save </button>
+            <div class=" text-center mx-auto">
+                <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()" >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>

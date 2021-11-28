@@ -65,9 +65,9 @@
                 </div>
 
                 <div class="text-div">
-                    <p class="ribbon d-flex justify-content-between ">
-                        <span class="time text-white pl-2"> <i class="bi bi-alarm pr-2 text-white "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
-                        <span class="price bold"> <b> ${{menu_item.price}}</b> </span>
+                    <p class="ribbon d-flex justify-content-between align-items-center ">
+                        <span class="time text-dark "> <i class="bi bi-alarm p-2 my-auto  "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="price bold "> <b> ${{menu_item.price}}000</b> </span>
                     </p>
                     <h4 class="title">
                     <span>  {{menu_item.menu_item_name}} </span> 
@@ -307,16 +307,23 @@ export default {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    top:-1.2rem;
+    top:-1.5rem;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.459);
     margin-bottom: 0;
 }
 .ribbon .price{
     background-color: white;
+    padding:3px;
     padding-left:8px;
     padding-right:8px;
     color:$orange; 
+}
+.ribbon .time{
+    padding:3px;
+    padding-left:8px;
+    padding-right:8px;
+
 }
 .title{
     padding-top:.5rem;
@@ -466,7 +473,7 @@ export default {
 
     }
     .modal-content{
-        top:10rem;
+        top:1rem;
         width:100%;
         margin-left:auto;
         margin-right:auto; 

@@ -58,8 +58,8 @@
                             <input type="hidden" class="form-control p-4" v-model="form.menu_id" name="resaturant_id" required>
                         </div>
                     </div>                         
-                    <div class="modal-footer w-50  mx-auto">
-                        <input type="submit" class="btn primary-btn " value="Save" @click="submitForm()" data-dismiss="modal">
+                    <div class="text-center mx-auto ">
+                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" data-dismiss="modal">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form> 

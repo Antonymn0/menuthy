@@ -7,6 +7,7 @@
         <TrialExpiryNotification /> 
         <SubscriptionExpiryNotification />  
         <Profile />
+
    
 <!-- --------------header---------------------------- -->
 <div class="parent-header bg-dark ">

@@ -137,5 +137,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.modal, modal-dialogue, .modal-content {
+    width:100%;
+    margin-right:3rem;
+}
 </style>

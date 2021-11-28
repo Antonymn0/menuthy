@@ -14,7 +14,6 @@
 @import '~sweetalert2/src/variables';
 
 $swal2-background: #fff;
-$swal2-confirmButton: #e3342f;
-$swal2-cancelButton: #f30400;
+$swal2-confirm-button-background-color: #e60804;
 
 @import '~sweetalert2/src/sweetalert2';

@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>  
-            <div class="text-center ">
+            <div class="text-center mx-auto ">
                 <button type="submit" class="btn primary-btn mr-2 "   >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

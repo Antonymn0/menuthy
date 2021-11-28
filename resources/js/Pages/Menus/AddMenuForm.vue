@@ -29,7 +29,7 @@
                  <label for="file1">Image <small>(Optional)</small></label>
                 <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
             </div>
-            <div class="modal-footer text-center mx-auto">
+            <div class=" text-center mx-auto">
                 <button type="submit" class="btn primary-btn "   >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
