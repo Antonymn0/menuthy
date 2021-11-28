@@ -88,7 +88,7 @@
         </div>
     </div>
     <div v-else>
-        <p class="text-muted text-center pt-5 mt-2"> Menu empty</p>
+        <p class="text-muted text-center pt-5 mt-2"> No items listed under this menu.</p>
     </div>
 
 <!-- ---------------------------------------------- -->
@@ -123,7 +123,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 export default {
   name: 'App',
 
-  props:['menus', 'subMenus', 'menuItems', 'user'],
+  props:['menus', 'subMenus', 'menuItems', 'user', 'restaurant'],
 
   components: {
     Carousel,
@@ -135,7 +135,6 @@ export default {
       return{
           blur:'',
           restaurant_name:'',
-          restaurant:'',
           menu_items:'',
           menu_name:'',
           single_menu_item:'',
@@ -201,9 +200,9 @@ export default {
   mounted(){
         this.menu_items = this.menuItems;
         this.User= this.user;
-         this.restaurant_name = window.authRestaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();
-         this.restaurant= window.authRestaurant;
+         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();
          console.log(this.user);
+         console.log('restaurant is', this.restaurant);
   }
  
 };

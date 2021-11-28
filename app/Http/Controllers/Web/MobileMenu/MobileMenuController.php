@@ -39,7 +39,8 @@ class MobileMenuController extends Controller
                         'menus'=>$menus,
                         'subMenus'=>$subMenus,
                         'menuItems'=>$menuItems,
-                        'user'=> $user,
+                        'user'=> $user['user'],
+                        'restaurant'=> $user['restaurant'],
                         ]);
                 }
             }
@@ -51,14 +52,6 @@ class MobileMenuController extends Controller
                     'user'=> $user,
                     ]);
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -127,7 +120,7 @@ class MobileMenuController extends Controller
                     //pass table number to user object if isset() true
                     if(isset($table_number)) $user->table_number = $table_number;  
 
-                    return $user;
+                    return ['user' =>$user, 'restaurant' => $restaurant];
                }
             } 
 

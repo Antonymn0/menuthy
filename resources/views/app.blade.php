@@ -172,6 +172,9 @@ animation-duration: 1s;
 100% { top:0px;}
 }
 
+.dropdown-menu{
+    z-index: 5;
+}
 </style>
 
 
