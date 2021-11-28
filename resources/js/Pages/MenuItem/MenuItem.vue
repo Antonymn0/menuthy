@@ -30,25 +30,26 @@
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </p>                       
                     </div>
-                    <div class="row m-1 p-1 w-100">
-                        <h4 class="p-0 " style="width:70%; float:left">
-                            {{menuItem.menu_item_name}}
-                        </h4>
+                    <div>                    
                         <!-- switch -->
-                        <div class=" custom-control custom-switch" style="width:20%; float:right">
+                        <div class=" custom-control custom-switch" >
                             <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
                                <input type="checkbox" class="" checked v-if="menuItem.publish == 'true'" @click="togglePublish(menuItem.id, 'false')" >
                                 <input type="checkbox" class=""  v-else  @click="togglePublish(menuItem.id, 'true')">
                                 <span class="slider round"></span>
-                            </label>
-                            
+                            </label>                            
                         </div>
-                    </div>                    
+
+                        <h4 class="p-0 " >
+                            {{menuItem.menu_item_name}}
+                        </h4>
+                                       
                     <p> Price:  {{menuItem.price}}  </p>
                     <p data-toggle="tooltip" data-placement="left" title="Preparation time">
-                          <i class="bi bi-alarm text-danger" ></i> 
+                        <i class="bi bi-alarm text-danger" ></i> 
                         {{menuItem.preparation_time}}  mins 
                     </p>  
+                    </div>
                         <!-- pass menuItem as prop to child --> 
                       <UpdateMenuItem :menuItem = 'menuItem' />                             
                 </div>       
@@ -177,6 +178,7 @@ export default {
    color: #fff;
 }
 .menu-card{
+    position:relative;
     width:24%;
     height:auto;
     max-width:98%;
@@ -194,7 +196,9 @@ export default {
   position: absolute;
   right:0;
   top:0;
-  display: inline-block;
+  margin-top:.5rem;
+  margin-right:auto;
+  margin-left:auto;
   width: 36px;
   height: 22px;
 }

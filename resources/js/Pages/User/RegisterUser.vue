@@ -44,7 +44,9 @@
                 
             </div>
             
-
+<div>
+    <country-select />
+</div>
             <div>
                 <h1 class="mt-5">A little info about yourself</h1>
                 <div class="pb-1">
@@ -107,6 +109,7 @@ export default {
                confirm_password:'',
                       
             },
+            
              selectedCountry: '',
              selectedCity: '',
             errors:{},

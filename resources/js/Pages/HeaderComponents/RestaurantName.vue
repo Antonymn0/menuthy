@@ -2,7 +2,10 @@
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
         <a class="btn text-white btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-         <small > <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span> &nbsp; <i class="bi bi-caret-down float-right pt-2 "></i>  </small> 
+         <small class="d-flex align-items-center btn btn-danger" style="border-radius:20px;"> 
+             <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
+              &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
+               </small> 
            
         </a>
         <div class="dropdown-menu rounded ribbon modal-lg" aria-labelledby="navbarDropdown" style="width:90%; margin:auto">                
@@ -70,8 +73,8 @@ export default {
      .restaurant-btn{
          color: $primary-button;        
      }
-     .restaurant-btn:hover{
-         background-color: $primary-button;  
+     .restaurant-btn small:hover{
+         background-color: rgb(255, 0, 0);  
          color:#fff;
          border-radius: 50px;      
      }

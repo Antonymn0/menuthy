@@ -9,7 +9,7 @@
             </div>
             
             <div class="menu-card p-0  p-1" v-for="(menu) in menus" :key="menu.id">  
-                <div class="card p-0 text-center fade-in borderless shadow" style="position: relative; border-radius:15px;overflow:hidden">
+                <div class="card p-0 pb-1 text-center fade-in borderless shadow" style="position: relative; border-radius:15px;overflow:hidden">
                     <div class=" cursor-pointer" style="background-color:#efeff3; cursor: pointer; background-size:cover">                       
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
@@ -31,14 +31,13 @@
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; height:250px; color:#999; "></i>
                         </a>                       
                     </div>
-                    <div class=" custom-control custom-switch" style="width:25%; float:right; ">
+                    <div class=" custom-control custom-switch" >
                         <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
                             <input type="checkbox" class="" checked v-if="menu.published == 'true'" @click="togglePublish(menu.id, 'false')" >
                             <input type="checkbox" class=""  v-else  @click="togglePublish(menu.id, 'true')">
                             <span class="slider round"></span>
                         </label>
                     </div>
-
                     <div class="pb-1"> 
                         <h4 class="p-0 m-0" >
                             {{menu.menu_name}}
@@ -47,8 +46,6 @@
                         <p class="p-0 m-0">  {{  formatDate(menu.created_at)}}  </p>  
                     </div>
                 </div>
-                
-                  
             </div>              
            
                 <!-- add new menu box  -->
@@ -187,10 +184,12 @@ export default {
 /* The switch - the box around the slider */
 .switch {
   position: absolute;
+  margin-top:.5rem;
   margin-left:auto;
-  margin-right:auto;
-  right:-15rem;
-  top:.3rem;
+  margin-right:.3rem;
+  right:0;
+  top:0;
+  z-index: 3;
   display: inline-block;
   width: 36px;
   height: 22px;
