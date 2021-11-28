@@ -19,7 +19,7 @@
 
         </div>
         
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center table-responsive">
                 <a href="/dashboard" class="btn  btn-primary  m-2 "><i class="bi bi-chevron-left "></i> Dashboard</a> <br/>
               <a href="#" class="btn  btn-success m-2 " @click="refreshOrders()"> <i class="bi bi-arrow-repeat "></i>Refresh </a>           
             <a href="#" class="btn btn-primary m-2" @click="fetchOrders('today')">All Today</a>
@@ -65,6 +65,16 @@
                     </tr>                
                     
                 </tbody>
+                <tbody>
+                    <tr class="p-2">
+                        <td colspan="7" class="text-right border-right">
+                           <b> Total orders</b> 
+                        </td>
+                        <td class="text-center">
+                            {{this.current_orders.total}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
              <Pagination :data="this.current_orders" />
         </div>
@@ -90,9 +100,7 @@ export default {
        }
    },
    methods:{
-        increment(){
-            this.counter = this.counter++;
-        },
+
         markOrder(id, value){
              axios.get('/api/order/mark/' + id + '/' + value)
             .then( response => {
@@ -111,12 +119,12 @@ export default {
                 axios.get('/api/order/mark/' + id + '/' + value)
                 .then( response => {
                 if( response.status = 200){
-                    // console.log(response.data);
+
                     } 
                 })
                 .catch( error => {
                     this.$swal('Error,  failed to update!');                
-                    // console.log(error.response.data.errors);                    
+                 
                 });
             }
         },
@@ -126,12 +134,12 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.current_orders = response.data.data;
-                // console.log(response.data);
+
                 } 
             })
             .catch( error => {
                 this.$swal('Error,  failed to fetch orders!');                
-                // console.log(error.response.data.errors);                    
+                   
             });
         },
 
@@ -139,9 +147,6 @@ export default {
             axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {
             if( response.status = 200){
-                // console.log('refreshing orders');
-                // console.log(response.data.data.data);
-
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
@@ -151,13 +156,12 @@ export default {
                     } 
                 });
                 this.current_orders = response.data.data;                
-                
                 } 
             })
             .catch( error => {
                 this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
                 this.$swal('Error,  failed to refresh orders!');                
-                // console.log(error.response.data.errors);                    
+                console.log(error.response.data.errors);                    
             });
         },
         muteAudio(){
@@ -169,7 +173,7 @@ export default {
         // this.refreshOrdersInterval = setInterval(this.refreshOrders, 1000);  //refresh orders every 7 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
-        // console.log(this.orders);
+        console.log(this.orders);
     }
 }
 </script>

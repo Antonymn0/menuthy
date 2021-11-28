@@ -8,10 +8,14 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                  
-                    <div class="collapse navbar-collapse p-1" id="navbarSupportedContent">
-                         <a class="navbar-brand" href="/admin">Super admin</a> <br>
-                    <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                    <div class="collapse navbar-collapse p-1" id="navbarSupportedContent">                    
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">                           
+                            <li class="nav-item">
+                               <a class="nav-link" href="/admin">Super admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard">Dashboard</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/menus">Menus</a>
                             </li>

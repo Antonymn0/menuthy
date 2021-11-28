@@ -19,7 +19,7 @@
             <div class="card shadow  fade-in">
                 <div class="card-body">
                     <h3>
-                        Change your theme
+                        Change  theme
                     </h3>
                     <p>
                         Design your menu to reflect your business and your brand
@@ -78,7 +78,7 @@
         <div class="row feedback px-2  my-2">
             <div class="card shadow card p-2 mt-2 fade-in">
                <div class=" ">
-                <h4>   Recent orders <span class="float-right btn small primary-btn-color"> All oders</span>        </h4>
+                <h4>   Recent orders <span class="float-right btn small primary-btn-color border rounded"> <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white"> All oders</a> </span>        </h4>
                 <div class="table-responsive">
                     <table class="table table-sm table-hover table-striped">
                         <thead>

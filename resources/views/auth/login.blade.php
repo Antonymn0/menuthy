@@ -49,7 +49,7 @@
     }
 </style>
 
-<div class="d-flex align-items-center justify-content-center">
+<div class="d-flex align-items-center justify-content-center mx-2">
 <div class="card border shadow p-3" style="width:400px;">
         <form method="POST" action="{{ route('login') }}">
             @csrf

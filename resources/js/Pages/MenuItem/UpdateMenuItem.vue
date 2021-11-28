@@ -257,7 +257,6 @@ components: { Multiselect },
         this.form.publish =  this.menuItem.publish; 
         this.form.discount =  this.menuItem.discount;
         this.form.price =  this.menuItem.price;
-        this.form.image =  this.menuItem.image;
         this.form.allergy_warning = {...this.menuItem.alergy_warning };  
     }
 }
