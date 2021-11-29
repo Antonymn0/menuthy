@@ -42,11 +42,11 @@ class trialPeriodExpireryReminder extends Command
      */
     public function handle()
     {
-      $users =  DB::table('users')->where('registration_status', 'trial')->get();
+        $users =  DB::table('users')->where('registration_status', 'trial')->get();
 
-            foreach($users as $user){
-                Mail::to($user->email)->send(new TrialPeriodExpiryRemider($user));
-            }
+        foreach($users as $user){
+            Mail::to($user->email)->send(new TrialPeriodExpiryRemider($user));
+        }
 
         echo $users;
     }

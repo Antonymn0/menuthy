@@ -44,7 +44,7 @@
                             {{menuItem.menu_item_name}}
                         </h4>
                                        
-                    <p> Price:  {{menuItem.price}}  </p>
+                    <p> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
                     <p data-toggle="tooltip" data-placement="left" title="Preparation time">
                         <i class="bi bi-alarm text-danger" ></i> 
                         {{menuItem.preparation_time}}  mins 
@@ -96,7 +96,8 @@ export default {
  props:['menuItems', 'menu'],
  data(){
      return{
-        user: window.User,
+        user: '',
+        restaurant: '',
         success:'',
         pageErrors:'', 
      }     
@@ -132,7 +133,6 @@ export default {
         duplicateMenuItem(id){
             axios.get('/api/menu-item/duplicate/' + id )
             .then( response => {
-                // console.log(response);
                 this.$swal('Success,  duplicated!');
                 this.$inertia.reload();
             })
@@ -144,7 +144,7 @@ export default {
         togglePublish(id, state){
             axios.get('/api/menu-item/toggle-publish/' + id + '/' + state)
             .then( response => {
-                // console.log(response);
+               
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');
@@ -154,11 +154,9 @@ export default {
 
   },
    mounted(){
-        // console.log('menuItems is: ',this.menuItems);
-        // console.log('menu is : ',this.menu);
-        // for(var pair of this.menuItems) {
-        // console.log(pair); 
-        // }
+        this.user = window.authUser;
+        this.restaurant = window.authRestaurant;
+
     },
    
    

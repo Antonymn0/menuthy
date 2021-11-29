@@ -37,13 +37,13 @@ export default {
 <style lang="scss" scoped>
 /* The alert message box */
 .alert {
-  padding: 20px;
+  padding: 30px;
   background-color: #eee9e8; /* Red */
   color: rgb(97, 91, 91);
   margin-bottom: 15px;
   z-index: 5;
   position: absolute;
-  top:1rem;
+  top:-5rem;
   right:0;
   width:80%;  
 }
@@ -62,5 +62,15 @@ export default {
 /* When moving the mouse over the close button */
 .closebtn:hover {
   color: black;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 600px) {
+ .alert{
+   width:100%;
+   top:0;
+   margin-top:6rem;
+ }
 }
 </style>

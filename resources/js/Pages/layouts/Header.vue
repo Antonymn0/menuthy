@@ -4,8 +4,7 @@
         <MobilePreview />
         <QrCode />
         <MobileNav />
-        <TrialExpiryNotification /> 
-        <SubscriptionExpiryNotification />  
+       
         <Profile />
    
 <!-- --------------header---------------------------- -->
@@ -72,8 +71,7 @@ import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
 import Profile from "../Profile/Profile";
-import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
-import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
+
 
 export default {
     data(){
@@ -85,8 +83,7 @@ export default {
     components:{
         RestaurantName,
         RestaurantInformation,
-        SubscriptionExpiryNotification, 
-        TrialExpiryNotification,
+       
         MobilePreview,
         Profile,
         MobileNav,

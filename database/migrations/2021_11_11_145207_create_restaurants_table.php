@@ -20,6 +20,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('country')->nullable();
             $table->string('restaurant_type')->nullable();
             $table->string('city')->nullable();
+            $table->string('currency')->nullable();
             $table->string('address')->nullable();
             $table->string('restaurant_phone_number')->nullable();
             $table->string('restaurant_email')->nullable();

@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\PaymentLinkEmail;
 use Illuminate\Support\Facades\Mail;
 
-class emailVerifiedListener
+class emailVerifiedListener implements shouldQueue
 {
     public  $user;
     /**
@@ -30,6 +30,6 @@ class emailVerifiedListener
     public function handle(emailVerified $event)
     {
         //send payment link
-        // Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
+        Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
     }
 }

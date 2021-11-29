@@ -6,20 +6,20 @@
     <div class=" logo-part">
         <div class="logo text-center ">
                 <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
-                <img src="/storage/hotel_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
+                <img src="https://menuthy.s3.us-east-2.amazonaws.com/images/E5kKph64spYB22pjBXIP5IFigG9zYls7I1T9Wvc6.png" v-else alt="" style="min-width:100px; height:100px">
             
             <p class="p-2">
-               <span v-if="this.restaurant.description !== null"> {{this.restaurant.description}}</span>
-               <span v-else> Hotel description</span> 
+               <span v-if="this.restaurant.restaurant_name !== null"> {{this.restaurant.restaurant_name}}</span>
+               <span v-else> Hotel name</span> 
             </p>
         </div>
     </div>
 
     <!-- -------------------------------------------------------------------------- -->
-
+<div v-if="this.menus.length">
     <!-- image slider -->
     <div class=" carousel-div">
-    <div v-if="this.menus.length" :class="blur"> 
+    <div v-if="this.subMenus.length" :class="blur"> 
             <carousel :items-to-show="3">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
                         <div class="inner-carousel-div" v-if="sub_menu.published !== null">                            
@@ -66,11 +66,11 @@
                 <div class="text-div">
                     <p class="ribbon d-flex justify-content-between align-items-center ">
                         <span class="time text-dark "> <i class="bi bi-alarm p-2 my-auto  "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
-                        <span class="price bold "> <b> ${{menu_item.price}}000</b> </span>
+                        <span class="price bold "> <b>  {{this.restaurant.currency}} {{menu_item.price}}</b> </span>
                     </p>
                     <h4 class="title">
                     <span>  {{menu_item.menu_item_name}} </span> 
-                    <span class="price float-right pr-3"> ${{menu_item.price}}</span>
+                    <span class="price float-right pr-3 bold"> {{this.restaurant.currency}} {{menu_item.price}}</span>
                     </h4>
                     <p class="description">
                        {{menu_item.description}}
@@ -90,7 +90,10 @@
     <div v-else>
         <p class="text-muted text-center pt-5 mt-2"> No items listed under this menu.</p>
     </div>
-
+</div>
+<div v-else class="text-muted text-center mt-5 pt-5">
+    This restaurant has no published menu.
+</div>
 <!-- ---------------------------------------------- -->
   <!--menu pop up Modal -->
         <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -202,7 +205,7 @@ export default {
         this.User= this.user;
          this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();
          console.log(this.user);
-         console.log('restaurant is', this.restaurant);
+         console.log('restaurant is', this.user.restaurant);
   }
  
 };
@@ -237,8 +240,10 @@ export default {
 .carousel__prev, .carousel__next {
     background-color: $orange !important;
     margin: .3rem;
-    top:3.9rem;
+    margin-right:.3rem;
+    top:4rem;
 }
+
 
 .carousel__prev svg path, .carousel__next svg path , .nav-link, .menu-name, .carousel__icon{
     color:#fff !important;
@@ -484,6 +489,11 @@ export default {
 
 /* media queries */
 @media only screen and (max-width: 300px) {
+    .carousel__prev, .carousel__next {
+        background-color: $orange !important;
+        margin: .3rem;
+        top:2.5rem;
+    }
    .elements-div{
         width:95%;
         float:left;

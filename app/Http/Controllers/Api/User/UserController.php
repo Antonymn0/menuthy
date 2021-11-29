@@ -12,9 +12,12 @@ use App\Http\Requests\User\UpdateUser;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Utilities;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
+    public $trial_days = 15;   // set user trial period
+
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +45,8 @@ class UserController extends Controller
 
         $user_data = Utilities::createNamesFromFullName($data);
         $user_data['password']  = Hash::make($data['password']);
+        $user_data['registration_status'] = 'trial';     // register user on trial by default
+        $user_data['trial_expiry'] = $this->trialDays($this->trial_days);
 
         $user= User::create($user_data);
         event(new userCreated($user));
@@ -140,6 +145,12 @@ class UserController extends Controller
             'message' => 'User parmanently deleted!',
             'data' => $user
         ], 200);
+    }
+
+    // return trial date function
+    public function trialDays($days){
+
+        return Carbon::now()->addDays($days);
     }
     
 }

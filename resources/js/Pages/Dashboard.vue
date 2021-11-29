@@ -1,7 +1,9 @@
 <template>
 
-<Header />
-<Topnavbar />
+    <Header />
+    <Topnavbar />
+    <TrialExpiryNotification /> 
+    <SubscriptionExpiryNotification /> 
 
     <div class="  mb-3  mx-1 slide-down">
         <div class=" top-cards  px-1 pt-4">
@@ -152,6 +154,8 @@
 import Header from "./layouts/Header";
 import Topnavbar from "./layouts/Topnavbar";
 import Footer from "./layouts/Footer";
+import TrialExpiryNotification from "./Notifications/TrialExpiryNotification";
+import SubscriptionExpiryNotification from "./Notifications/SubscriptionExpiryNotification";
 
 export default {
   props: {
@@ -161,7 +165,9 @@ export default {
   components: {
   Header,
   Topnavbar,
-   Footer
+   Footer,
+    SubscriptionExpiryNotification, 
+    TrialExpiryNotification,
 
   },
 };

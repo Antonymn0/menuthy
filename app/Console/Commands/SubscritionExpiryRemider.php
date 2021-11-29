@@ -4,9 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use App\Mail\SubscriptionExpiryRemider;
+use App\Mail\SubscriptionExpiryReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SubscritionExpiryRemider extends Command
 {
@@ -47,7 +48,7 @@ class SubscritionExpiryRemider extends Command
         $users =  DB::table('users')->whereBetween('registration_expiry', [$from, $to])->get();
 
         foreach($users as $user){
-            Mail::to($user->email)->send(new SubscriptionexpiryReminder($user));
+            Mail::to($user->email)->send(new SubscriptionExpiryReminder($user));
         }
     }
 }

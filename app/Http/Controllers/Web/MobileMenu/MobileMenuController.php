@@ -49,7 +49,8 @@ class MobileMenuController extends Controller
                     'menus'=>[],
                     'subMenus'=>[],
                     'menuItems'=>[],
-                    'user'=> $user,
+                    'user'=> $user['user'],
+                     'restaurant'=> $user['restaurant'],
                     ]);
     }
 

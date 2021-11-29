@@ -25,6 +25,7 @@ class Restaurant extends Model
         'user_id',
         'country',
         'city',
+        'currency',
         'timezone',
         'website',
         'facebook',
