@@ -9,13 +9,13 @@
    
 <!-- --------------header---------------------------- -->
 <div class="parent-header bg-dark ">
-    <div class=""> 
+    <div class="main-right"> 
          <a href="/dashboard">
             <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:200px; height:auto; "> 
         </a>
-    </div>
+    
     <!-- ----------------------------middle---------------------------------------- -->
-    <div> 
+    <div class="float-right"> 
         <div class="middle-header">
             <div class="res-name p-0"> 
                 <RestaurantName  />
@@ -32,9 +32,11 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
          <a class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span> <i class="bi bi-bell-fill text-white mr-3" style="font-size:18px"></i></span>
             <span class=" pr-1">{{authUser.first_name}} </span>  
             <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
             <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
@@ -112,6 +114,9 @@ export default {
     align-items: center;
     justify-content:space-between;
     border-bottom: 1px solid rgba(39, 39, 39, 0.63);
+}
+.main-right{
+    width:40%;
 }
 .middle-header{
     display:flex; 

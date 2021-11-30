@@ -1,7 +1,6 @@
 <template >
     <div class="top-navbar browser-menu">
         <p>
-
             <nav class="navbar navbar-expand-lg py-0 navbar-dark bg-dark ">
                 <div class="container-fluid">
                     <button class="navbar-toggler pull-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,6 +86,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.browser-menu{
+        background: #262734;
+}
     ul li{
         padding:.8rem;
         font-size: 14pt;;

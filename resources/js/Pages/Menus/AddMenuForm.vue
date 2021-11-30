@@ -56,12 +56,13 @@ export default defineComponent({
                 image:'',
             },
             errors:{ },
+            swal_timer:5000,
             success:'',
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
         }
      },
     methods:{
-        submitForm () {
+        submitForm () {          
             this.validateForm();
             if(this.errors.length > 0) return;
             console.log('no errors...');

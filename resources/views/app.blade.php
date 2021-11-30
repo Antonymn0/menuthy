@@ -26,7 +26,7 @@
 
 <style>
     body {
-        color:#212529;
+        color:#9699a2;
         background-color: #fff;
     }
     .primary-btn-color{

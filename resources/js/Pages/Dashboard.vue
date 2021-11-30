@@ -5,35 +5,35 @@
     <TrialExpiryNotification /> 
     <SubscriptionExpiryNotification /> 
 
-    <div class="  mb-3  mx-1 slide-down">
-        <div class=" top-cards  px-1 pt-4">
-            <div class="card shadow fade-in ">
-                <div class="card-body">
-                    <h3>
+    <div class="  mb-3  mx-auto slide-down">
+        <div class="row top-cards mx-auto shadow mt-5 pt-4">
+            <div class=" col-md-3 fade-in ">
+                <div class="card-body border-right edit-menu">
+                    <h3 style="">
                         Edit your menu
                     </h3>
                     <p>
                         Create new menus, add or edit your items and sections in your menus
                     </p>
-                    <a href="/menus" class="btn btn-lg btn-danger mx-auto text-center"> Menus</a>
+                    <a href="/menus" class="btn btn-lg  mx-auto text-center"> Menus</a>
                 </div>
             </div>
-            <div class="card shadow  fade-in">
-                <div class="card-body">
-                    <h3>
+            <div class=" col-md-3 fade-in">
+                <div class="card-body border-right change-theme">
+                    <h3 >
                         Change  theme
                     </h3>
                     <p>
                         Design your menu to reflect your business and your brand
                     </p>
-                    <a href="" class="btn btn-lg btn-primary">Design</a>
+                    <a href="" class="btn btn-lg ">Design</a>
                 </div>
             </div> 
 
         
-            <div class="card shadow  fade-in ">
-                <div class="card-body">
-                    <h3>
+            <div class="  col-md-3 fade-in ">
+                <div class="card-body border-right settings">
+                    <h3 >
                         Menu settings
                     </h3>
                     <p>
@@ -42,9 +42,9 @@
                     <a href="" class="btn btn-lg btn-danger"> Settings</a>
                 </div>
             </div> 
-            <div class="card shadow fade-in ">
-                <div class="card-body">
-                    <h3>
+            <div class=" col-md-3 fade-in ">
+                <div class="card-body  integrations">
+                    <h3 >
                         Integrations
                     </h3>
                     <p>
@@ -56,8 +56,8 @@
         </div>
 
         <!-- banner section -->
-        <div class=" banner row justify-content-center px-4 py-5 " >
-            <div class="card shadow page-banner px-3 py-5 text-white fade-in">            
+        <div class=" banner row justify-content-center mx-1 py-5 " >
+            <div class="card  page-banner px-3 py-5 text-white fade-in">            
                 <div class="col-xs-8 ">          
                     <h2>
                         Try our contactless online ordering solution!
@@ -77,67 +77,21 @@
         </div>
 
         <!-- feedback and recent orders section  -->
-        <div class="row feedback px-2  my-2">
-            <div class="card shadow card p-2 mt-2 fade-in">
+        <div class="row feedback px-2 py-3 feedback-recent my-2">
+            <div class=" shadow col-md-6 p-2 mt-2 fade-in">
                <div class=" ">
-                <h4>   Recent orders <span class="float-right btn small primary-btn-color border rounded"> <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white"> All oders</a> </span>        </h4>
+                <h4>   Recent orders <span class="float-right btn small primary-btn-color border "> <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white"> All oders</a> </span>        </h4>
                 <div class="table-responsive">
-                    <table class="table table-sm table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                
                 </div>
                 </div>
             </div>
 
-            <div class=" card shadow  p-2 mt-2 ">
+            <div class="  shadow col-md-6 p-2 mt-2 ">
                 <div class="  ">
                     <h4> Feedback  <span class="float-right small btn primary-btn-color">All feedback</span>        </h4>
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover table-striped">
-                            <thead>
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                     
                     </div>
                 </div>
             </div>
@@ -176,26 +130,129 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/app.scss";
 
+.slide-down{
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
+
 .top-cards {
-    display: table;
+    color: #9699a2;
     flex-direction: row;
     width:100%;
+
 }
-.top-cards .card{
-    display: table-cell;
-    margin:.09rem;
+.top-cards h2{
+        font-weight: 600;
+}
+.top-cards .fade-in{
+    float:left;
 }
 .feedback .card{
     width:49%;
 }
 
+.edit-menu h3{
+    color:#d1120c;
+}
+.edit-menu a{  
+    background: #d1120c;   
+    color: #ffffff;    
+}
+.top-cards p{
+    padding-bottom:2.5rem;
+    
+}
+.top-cards a{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 19px;
+     border: none;
+    border-radius: 4px;
+      min-width: 100px;
+    padding: 10px;
+    height: 40px;
+   
+  
+}
+.edit-menu a:hover{
+    background: #ffffff;
+    border: 1px solid #d1120c;
+    color: #d1120c;
+}
+.change-theme a{
+    min-width: 100px;
+    padding: 10px;
+    height: 40px;
+    background: #2f4d6e;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 19px;
+}
+.change-theme a:hover{
+    background: #ffffff;
+    border: 1px solid #2f4d6e;
+    color: #2f4d6e;;
+}
+.change-theme h3{
+    color: #2f4d6e;;
+}
+
+.settings a:hover{
+    background: #ffffff;
+    border: 1px solid #f3950e;
+    color: #f3950e;
+}
+.settings h3{
+    color: #f3950e;
+}
+
+.settings a{  
+    background: #f3950e;  
+    color: #ffffff;    
+}
+.integrations a{  
+    background: #43ab92; 
+    color: #ffffff;    
+}
+
+.integrations a:hover{
+    background: #ffffff;
+    border: 1px solid #43ab92; 
+    color: #43ab92; 
+}
+.integrations h3{
+    color: #43ab92; 
+}
+
+.feedback-recent h4{
+    font-size: 1.1rem;
+}
+.feedback-recent .btn{
+    color: #fff;
+    background-color: #d1120c;
+    border-color: #d1120c;
+    border-radius: 60px;
+}
+.feedback-recent .btn:hover{
+    color: #fff;
+    background-color: #ff0800;
+    border-color: #ff0800;
+}
+
 
 /* media queries */
 @media only screen and (max-width: 900px) {
-  .top-cards .card{
-        display: block;
-        width: 48%;
-        float:left;
+  .top-cards .card-body{
+      border-right:none !important;
 }
 .feedback .card{
     width:98%;

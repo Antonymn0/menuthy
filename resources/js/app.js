@@ -18,7 +18,9 @@ import BootstrapVue3 from "bootstrap-vue-3";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 
-// in your entrypoint
+
+import swal from "sweetalert2";
+window.Swal = swal;
 
 
 const el = document.getElementById("app");

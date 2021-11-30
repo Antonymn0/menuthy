@@ -1,8 +1,8 @@
 <template>
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
-        <a class="btn text-white btn-default restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-         <small class="d-flex align-items-center btn btn-danger" style="border-radius:20px;"> 
+        <a class="btn  restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+         <small class="d-flex align-items-center  " > 
              <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
               &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
                </small> 
@@ -68,21 +68,22 @@ export default {
 <style lang="scss" scoped>
 @import "../../../sass/app.scss";
 
- .restaurant{
 
-     .restaurant-btn{
-         color: $primary-button;        
+     .restaurant-btn {
+         color: #d0211c;        
      }
-     .restaurant-btn small:hover{
-         background-color: rgb(255, 0, 0);  
+     
+
+     .restaurant-btn:hover{
+         background-color: #D0211C;  
          color:#fff;
          border-radius: 50px;      
      }
-     .ribbon{
+ 
          .res-top{
              width:20%;
              
          }
-     }
- }
+     
+ 
 </style>
