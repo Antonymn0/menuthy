@@ -28,7 +28,7 @@
                         </a>
                         <editSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
                     </div>
-                    <div class="pl-3">
+                    <div class="pl-3 pt-2">
                         <div class="d-flex align-items-center pb-0 mb-0  justify-content-between">
                              <p class="m-0 text-left w-80 float-left" style=""> {{subMenu.sub_menu_name}} </p>                               
                             
@@ -152,6 +152,9 @@ export default {
 .parent-div{
     font-size:1.2rem;
     width:80%;
+    font-family:poppins;
+    font-weight:400;
+    color:#585858;
 }
     .primary-btn{
         background-color: $primary-button;

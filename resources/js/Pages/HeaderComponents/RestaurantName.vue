@@ -1,7 +1,7 @@
 <template>
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
-        <a class="btn  restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn ml-5 restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
          <small class="d-flex align-items-center  " > 
              <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
               &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
@@ -69,16 +69,18 @@ export default {
 @import "../../../sass/app.scss";
 
 
-     .restaurant-btn {
-         color: #d0211c; 
-                font-size: 1rem;
-                font-weight: 300;
+     .restaurant-btn:hover {
+         color: #fcfcfc; 
+        font-size: 1.1rem;
+        font-weight: 300;
+         background-color:  #d41b14; 
      }
      
 
-     .restaurant-btn:hover{
-         background-color: #D0211C;  
+     .restaurant-btn{
+         background-color:  #c40a04;
          color:#fff;
+         font-size: 1rem;
          border-radius: 50px;      
      }
  

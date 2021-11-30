@@ -37,7 +37,7 @@
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
          <a style="font-size: 1rem;font-weight: 300;" class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span> <i class="bi bi-bell-fill text-white mr-3" style="font-size: 1rem;font-weight: 300;"></i></span>
+            <span> <a href="#"> <i class="bi bi-bell-fill text-muted mr-5" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
             <span class=" pr-1">{{authUser.first_name}} {{authUser.last_name}}</span>  
             <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
             <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>

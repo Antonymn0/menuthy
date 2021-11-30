@@ -30,7 +30,7 @@
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </p>                       
                     </div>
-                    <div class="pl-3">                    
+                    <div class="pl-3 pt-2">                    
                        <div class="d-flex align-items-center">
                             <p class="p-0 text-left m-0 lead" style="width:80%">
                                 {{menuItem.menu_item_name}}
@@ -44,10 +44,7 @@
                                 <span class="slider round"></span>
                             </label>                            
                         </div>
-                       </div>
-
-                       
-                                       
+                       </div>         
                     <p class="text-left pt-0 mb-0"> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
                     <p class="text-left" data-toggle="tooltip" data-placement="left" title="Preparation time">
                         <i class="bi bi-alarm text-danger" ></i> 
@@ -56,10 +53,8 @@
                     </div>
                         <!-- pass menuItem as prop to child --> 
                       <UpdateMenuItem :menuItem = 'menuItem' />                             
-                </div>       
-  
-            </div>              
-           
+                </div>  
+            </div>  
                 <!-- add new menu box  -->
              <div class="menu-card p-0  p-1  align-middle rounded">  
                 <div class=" p-2  text-center " style="border: 2px dashed #999; ">
@@ -174,6 +169,8 @@ export default {
 .parent-container{
         width:85%;
         font-family: poppins;
+        font-weight:400;
+        color:#585858;
 }
 
 .primary-btn{
