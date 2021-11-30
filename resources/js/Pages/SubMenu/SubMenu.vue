@@ -1,8 +1,10 @@
 <template>
     <Header />
     <Topnavbar />
+    <div class="parent-div mx-auto">
+
     
-    <div class="main-sub-menu p-5  mb-5" v-if="this.subMenus">   
+    <div class="main-sub-menu  mb-5" v-if="this.subMenus">   
          <p class="mt-4 small"> <small> Menu <i class="bi bi-chevron-right p-0 m-0"></i>  Section </small>  </p>
         <h3> Sections</h3>
         <p class="mt-4"> A list of sections under {{this.menu.menu_name.toUpperCase()}} menu</p>  
@@ -26,20 +28,20 @@
                         </a>
                         <editSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
                     </div>
-                    <div>
-                        <div class=" custom-control custom-switch " >
-                            <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
-                                <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'" @click="togglePublish(subMenu.id, 'false')" >
-                                <input type="checkbox" class=""  v-else  @click="togglePublish(subMenu.id, 'true')">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    
-                        <h4 class="p-0 text-center" style="">
-                        {{subMenu.sub_menu_name}}
-                        </h4>                                                  
-                        <p>  
-                        <span class="small text-center"> {{  formatDate(subMenu.created_at)}} </span>  
+                    <div class="pl-3">
+                        <div class="d-flex align-items-center pb-0 mb-0  justify-content-between">
+                             <p class="p-0 text-left w-80 float-left" style=""> {{subMenu.sub_menu_name}} </p>                               
+                            
+                            <div class=" custom-control custom-switch " >
+                                <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
+                                    <input type="checkbox" class="" checked v-if="subMenu.publish == 'true'" @click="togglePublish(subMenu.id, 'false')" >
+                                    <input type="checkbox" class=""  v-else  @click="togglePublish(subMenu.id, 'true')">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>                                                                   
+                        <p class="text-left ">  
+                            <span class="small text-center"> {{  formatDate(subMenu.created_at)}} </span>  
                         </p> 
                     </div>                      
                                                         
@@ -63,7 +65,7 @@
     <div v-else>
         empty
     </div>
-
+</div>
     <Footer />
 </template>
 
@@ -107,10 +109,10 @@ export default {
             });
         },
         duplicateSubMenu(id){
+            Swal.showLoading();
               axios.get('/api/sub-menu/duplicate/' + id )
             .then( response => {
-                // console.log(response);
-                this.$swal('Success,  duplicated!');
+                Swal.close();
                 this.$inertia.reload();
             })
             .catch(error=>{
@@ -147,16 +149,17 @@ export default {
 <style scoped lang="scss">
 @import "../../../sass/app.scss";
 
-.main-sub-menu{
+.parent-div{
     font-size:1.2rem;
-
+    width:80%;
+}
     .primary-btn{
         background-color: $primary-button;
         color: #fff;
     }
     .btn:hover, .btn:active{
         background-color: #e6034b;
-    color: #fff;
+        color: #fff;
     }
     .menu-card{
         position:relative;
@@ -174,10 +177,14 @@ export default {
 
     
 /* The switch - the box around the slider */
+.custom-switch{
+    width:2rem;
+    float:right;
+}
 .switch {
   position: absolute;
   right:0;
-  top:0;
+  top:-.8rem;
   margin-top:.3rem;
   margin-bottom:.2rem;
   width: 36px;
@@ -255,6 +262,6 @@ input:checked + .slider:before {
         width:100%;
     }
     }
-}
+
 
 </style>

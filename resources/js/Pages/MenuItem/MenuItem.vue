@@ -1,7 +1,7 @@
 <template>
     <Header />
     <Topnavbar />    
-    <div class=" p-5  mb-5">   
+    <div class=" p-5 parent-container mx-auto mb-5">   
         <div class="badge bg-success " v-if="success">
             {{success}}
         </div>
@@ -25,27 +25,31 @@
                             <li><a class="dropdown-item" href="#" @click="deleteMenuItem(menuItem.id)">Delete</a></li>                 
                         </ul>
                        
-                        <p>
+                        <p class="m-0 p-0">
                              <img v-if = "menuItem.image != null "  :src="menuItem.image"  class="img-fluid" style="height:25vh; width:100%; background-size:cover"/>                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:11rem; color:#999; "></i>
                         </p>                       
                     </div>
-                    <div>                    
-                        <!-- switch -->
-                        <div class=" custom-control custom-switch" >
+                    <div class="pl-3">                    
+                       <div class="d-flex align-items-center">
+                            <p class="p-0 text-left m-0 lead" style="width:80%">
+                                {{menuItem.menu_item_name}}
+                            </p>
+
+                             <!-- switch -->
+                        <div class=" custom-control custom-switch"  >
                             <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
                                <input type="checkbox" class="" checked v-if="menuItem.publish == 'true'" @click="togglePublish(menuItem.id, 'false')" >
                                 <input type="checkbox" class=""  v-else  @click="togglePublish(menuItem.id, 'true')">
                                 <span class="slider round"></span>
                             </label>                            
                         </div>
+                       </div>
 
-                        <h4 class="p-0 " >
-                            {{menuItem.menu_item_name}}
-                        </h4>
+                       
                                        
-                    <p> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
-                    <p data-toggle="tooltip" data-placement="left" title="Preparation time">
+                    <p class="text-left pt-0 mb-0"> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
+                    <p class="text-left" data-toggle="tooltip" data-placement="left" title="Preparation time">
                         <i class="bi bi-alarm text-danger" ></i> 
                         {{menuItem.preparation_time}}  mins 
                     </p>  
@@ -131,9 +135,10 @@ export default {
             });
         },
         duplicateMenuItem(id){
+            Swal.showLoading();
             axios.get('/api/menu-item/duplicate/' + id )
             .then( response => {
-                this.$swal('Success,  duplicated!');
+                this.$swal('Success');
                 this.$inertia.reload();
             })
             .catch(error=>{
@@ -166,6 +171,11 @@ export default {
 <style scoped lang="scss">
 @import "../../../sass/app.scss";
 
+.parent-container{
+        width:85%;
+        font-family: poppins;
+}
+
 .primary-btn{
     background-color: #e6034b;
     color: #fff;
@@ -190,11 +200,14 @@ export default {
 }
 
 /* The switch - the box around the slider */
+.custom-switch{
+    width:2rem;
+    float:right;
+}
 .switch {
   position: absolute;
-  right:0;
+  right:-.5rem;
   top:0;
-  margin-top:.5rem;
   margin-right:auto;
   margin-left:auto;
   width: 36px;

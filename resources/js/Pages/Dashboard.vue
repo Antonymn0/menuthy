@@ -78,7 +78,7 @@
 
         <!-- feedback and recent orders section  -->
         <div class="row feedback px-2 py-3 feedback-recent my-2">
-            <div class=" shadow col-md-6 p-2 mt-2 fade-in">
+            <div class=" shadow col-md-6 p-3 mt-2 fade-in">
                <div class=" ">
                 <h4>   Recent orders <span class="float-right btn small primary-btn-color border "> <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white"> All oders</a> </span>        </h4>
                 <div class="table-responsive">
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="  shadow col-md-6 p-2 mt-2 ">
+            <div class="  shadow col-md-6 p-3 mt-2 ">
                 <div class="  ">
                     <h4> Feedback  <span class="float-right small btn primary-btn-color">All feedback</span>        </h4>
                     <div class="table-responsive">
@@ -141,7 +141,10 @@ export default {
     color: #9699a2;
     flex-direction: row;
     width:100%;
-
+}
+.top-cards p {
+    font-size: 1rem;
+    font-weight: 300;
 }
 .top-cards h2{
         font-weight: 600;

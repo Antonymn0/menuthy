@@ -28,6 +28,7 @@
     body {
         color:#9699a2;
         background-color: #fff;
+        font-family: poppins;
     }
     .primary-btn-color{
         background-color: #e6034b;

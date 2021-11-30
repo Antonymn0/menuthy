@@ -70,7 +70,9 @@ export default {
 
 
      .restaurant-btn {
-         color: #d0211c;        
+         color: #d0211c; 
+                font-size: 1rem;
+                font-weight: 300;
      }
      
 

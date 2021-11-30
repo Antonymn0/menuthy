@@ -8,10 +8,11 @@
         <Profile />
    
 <!-- --------------header---------------------------- -->
-<div class="parent-header bg-dark ">
-    <div class="main-right"> 
-         <a href="/dashboard">
-            <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:200px; height:auto; "> 
+<div class="parent-header  px-5">
+
+    <div class="main-right "> 
+         <a href="/dashboard" >
+            <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:250px; height:auto; "> 
         </a>
     
     <!-- ----------------------------middle---------------------------------------- -->
@@ -35,9 +36,9 @@
     </div>
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
-         <a class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span> <i class="bi bi-bell-fill text-white mr-3" style="font-size:18px"></i></span>
-            <span class=" pr-1">{{authUser.first_name}} </span>  
+         <a style="font-size: 1rem;font-weight: 300;" class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span> <i class="bi bi-bell-fill text-white mr-3" style="font-size: 1rem;font-weight: 300;"></i></span>
+            <span class=" pr-1">{{authUser.first_name}} {{authUser.last_name}}</span>  
             <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
             <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
         </a>
@@ -59,6 +60,7 @@
             </li>
         </ul> 
     </div>
+
     <!-- -------------------------------------------------------------------------- -->
 </div>
 
@@ -109,12 +111,18 @@ export default {
 @import "../../../sass/app.scss";
 
 .parent-header{
+    background: #2c2d3a;
     height:120px;
     display:flex;
     align-items: center;
     justify-content:space-between;
     border-bottom: 1px solid rgba(39, 39, 39, 0.63);
 }
+  
+.dropdown-menu:hover .dropdown-item:hover{
+     display: block; 
+
+     }
 .main-right{
     width:40%;
 }

@@ -111,11 +111,12 @@ export default defineComponent({
                 for(var pair of form_data.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                     }
+             Swal.showLoading();        
             axios.post('/api/sub-menu', form_data)
             .then( response => {
             if( response.status = 201){
                 console.log('responce: ',response);
-                this.$swal('Success, Sub menu added!');
+                this.$swal('Success');
                 this.$inertia.reload();
                 } 
             })
