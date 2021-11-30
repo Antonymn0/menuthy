@@ -24,11 +24,11 @@
                         <div id="mobile" class="tab-pane fade-in active pt-3">
                              <small> Mobile</small>
                              <div class="d-flex justify-content-center align-items-center"> 
-                                <vue-qrcode :value="this.qrCode" :options="{ width: 180 }"></vue-qrcode>
+                                <vue-qrcode :value="this.qrCode" :options="{ width: 200 }"></vue-qrcode>
                             </div>
-                            <p>
+                            <p class="text-center py-2">
                                 <small class="text-muted"> Click the link to open</small> <br>
-                                Link: &nbsp; &nbsp;<a :href="this.qrCode" target="_blank"> menuthy/{{this.restaurant.restaurant_name}}</a> 
+                              <a :href="this.qrCode" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                             </p>
                             <p class="d-flex justify-content-center align-items-center p-2">                                
                                 <button type="button" class="btn btn-danger pr-3 pl-3" data-bs-dismiss="modal">Cancel</button>

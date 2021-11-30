@@ -1,13 +1,11 @@
 <template>
 
  <div>
-        <!-- <a href="#"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a> -->
-       
          <!--  mobile preview modal modal -->
         <div class="modal fade  " id="exampleModalEditmobileMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalEditmobileMenuLabel" aria-hidden="true">
            
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg " role="document">
+                <div class="modal-content ">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="">Mobile  preview</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -71,5 +69,10 @@ data(){
 </script>
 
 <style lang="scss" scoped>
+
+.modal-dialog{
+  float:right !important;
+  width:50rem;
+}
 
 </style>

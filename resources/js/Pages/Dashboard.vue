@@ -1,10 +1,10 @@
 <template>
-
+<div class=""> 
     <Header />
     <Topnavbar />
     <TrialExpiryNotification /> 
     <SubscriptionExpiryNotification /> 
-
+</div>
     <div class="  mb-3  mx-auto slide-down">
         <div class="row top-cards mx-auto shadow mt-5 pt-4">
             <div class=" col-md-3 fade-in ">
@@ -56,13 +56,13 @@
         </div>
 
         <!-- banner section -->
-        <div class=" banner row justify-content-center mx-1 py-5 " >
-            <div class="card  page-banner px-3 py-5 text-white fade-in">            
-                <div class="col-xs-8 ">          
-                    <h2>
+        <div class=" banner row justify-content-center px-3 py-5 " >
+            <div class=" row page-banner px-3 pt-2 text-white fade-in ">            
+                <div class="col-sm-8 float-left my-auto py-4">          
+                    <h1  style="font-size: 2.5rem;">
                         Try our contactless online ordering solution!
-                    </h2>
-                    <p>
+                    </h1>
+                    <p style=" max-width: 470px;">
                         Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
                         QR Menu for a contactless dine-in experience.
                           
@@ -70,8 +70,8 @@
                    <a href="#" class="p-2 btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm border rounded">Copy link</span> </a>
                
                 </div>
-                <div class="col-xs-4">
-                    <img src="" alt="">
+                <div class="col-sm-4 float-right">
+                    <img src="/images/banner.png" alt="" class="float-right img-fluid">
                 </div>
             </div>
         </div>
@@ -79,20 +79,24 @@
         <!-- feedback and recent orders section  -->
         <div class="row feedback px-2 py-3 feedback-recent my-2">
             <div class=" shadow col-md-6 p-3 mt-2 fade-in">
-               <div class=" ">
-                <h4>   Recent orders <span class="float-right btn small primary-btn-color border "> <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white"> All oders</a> </span>        </h4>
-                <div class="table-responsive">
-                
-                </div>
+               <div class="pb-6 ">
+                   <div class="px-3 py-3 border-bottom">
+                     <h3>   Recent orders <span class="float-right  "> <a href="#" class="text-muted"> <i class="bi bi-arrow-repeat"></i> </a>   </span>   </h3>
+                    </div>
+                    <p class="py-5">
+                         <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white btn float-right primary-btn-color"> All oders</a>
+                    </p>
                 </div>
             </div>
 
             <div class="  shadow col-md-6 p-3 mt-2 ">
-                <div class="  ">
-                    <h4> Feedback  <span class="float-right small btn primary-btn-color">All feedback</span>        </h4>
-                    <div class="table-responsive">
-                     
+                <div class="pb-5">                    
+                    <div class="px-3 py-3 border-bottom">
+                        <h3> Feedback    <a href="#" class="text-muted">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </h3>
                     </div>
+                    <p class="py-5"> 
+                        <span class="float-right small btn primary-btn-color "> All feedback </span> 
+                    </p>
                 </div>
             </div>
         </div>
@@ -129,6 +133,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../sass/app.scss";
+
+h3{
+    font-family:roboto;
+    font-weight:500;
+        color: #575962;
+    font-size: 1.1rem;
+}
 
 .slide-down{
     width:90%;
@@ -249,6 +260,9 @@ export default {
     color: #fff;
     background-color: #ff0800;
     border-color: #ff0800;
+}
+.page-banner img{
+   margin-bottom:0;
 }
 
 

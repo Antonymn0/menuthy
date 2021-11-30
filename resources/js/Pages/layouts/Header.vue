@@ -111,6 +111,7 @@ export default {
 @import "../../../sass/app.scss";
 
 .parent-header{
+
     background: #2c2d3a;
     height:120px;
     display:flex;

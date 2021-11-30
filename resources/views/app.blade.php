@@ -29,7 +29,9 @@
         color:#9699a2;
         background-color: #fff;
         font-family: poppins;
+        font-weight:300;
     }
+
     .primary-btn-color{
         background-color: #e6034b;
         border-color: #e6034b;

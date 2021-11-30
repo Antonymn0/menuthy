@@ -1,5 +1,5 @@
 <template >
-    <div class="top-navbar browser-menu">
+    <div class="top-navbar browser-menu ">
         <p>
             <nav class="navbar navbar-expand-lg py-0  ">
                 <div class="container-fluid">
@@ -87,6 +87,7 @@ export default {
 <style scoped lang="scss">
 .browser-menu{
     background: #262734;
+
 }
 
 .browser-menu a{

@@ -2,7 +2,7 @@
     <Header />
     <Topnavbar />  
         
-        <div class="row pr-0 px-3 ml-2" >
+        <div class="row pr-0 px-5 mx-2" >
             <div class="p-2 mt-5 ml-3">
                 <h3> Main menu</h3>
                 <p> A list of main menus in your restaurant</p>

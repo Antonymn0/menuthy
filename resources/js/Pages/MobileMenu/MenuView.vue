@@ -219,7 +219,6 @@ export default {
     width:45rem;
     height:100vh;
     margin:auto;
-    border-right: 1px solid grey;
     overflow-y:scroll;
     padding-left:1rem ;
     padding-right:.5rem ;
@@ -271,12 +270,13 @@ export default {
 .parent-container{
     width:90%;
     margin: auto;
+
 }
 
 .elements-div{
-    width:33%;
+    width:24%;
     float:left;
-    padding: .2rem;
+    padding: .3rem;
     text-align: center;
     border-radius: 15px;
 }

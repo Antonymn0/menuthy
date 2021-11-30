@@ -206,7 +206,7 @@ export default {
 }
 .switch {
   position: absolute;
-  right:-.5rem;
+  right:0;
   top:0;
   margin-right:auto;
   margin-left:auto;
