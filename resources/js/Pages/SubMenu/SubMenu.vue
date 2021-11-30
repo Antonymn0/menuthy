@@ -30,7 +30,7 @@
                     </div>
                     <div class="pl-3">
                         <div class="d-flex align-items-center pb-0 mb-0  justify-content-between">
-                             <p class="p-0 text-left w-80 float-left" style=""> {{subMenu.sub_menu_name}} </p>                               
+                             <p class="m-0 text-left w-80 float-left" style=""> {{subMenu.sub_menu_name}} </p>                               
                             
                             <div class=" custom-control custom-switch " >
                                 <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
@@ -184,7 +184,7 @@ export default {
 .switch {
   position: absolute;
   right:0;
-  top:-.8rem;
+  top:0;
   margin-top:.3rem;
   margin-bottom:.2rem;
   width: 36px;

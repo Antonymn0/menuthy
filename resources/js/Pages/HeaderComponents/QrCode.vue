@@ -15,7 +15,7 @@
             <div class="modal-body fade-in">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
+                        <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
                         <li > <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
                     </ul>
              
@@ -24,14 +24,13 @@
                         <div id="mobile" class="tab-pane fade-in active pt-3">
                              <small> Mobile</small>
                              <div class="d-flex justify-content-center align-items-center"> 
-                                <vue-qrcode :value="this.qrCode" :options="{ width: 150 }"></vue-qrcode>
+                                <vue-qrcode :value="this.qrCode" :options="{ width: 180 }"></vue-qrcode>
                             </div>
                             <p>
                                 <small class="text-muted"> Click the link to open</small> <br>
-                                Link: &nbsp; &nbsp;<a :href="this.qrCode" target="_blank"> {{this.qrCode}}</a> 
+                                Link: &nbsp; &nbsp;<a :href="this.qrCode" target="_blank"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                             </p>
-                            <p class="d-flex justify-content-center align-items-center p-2">
-                                <button type="button" class="btn btn-success mr-2" @click="generateQrCode(this.restaurant.id)">Generate</button>
+                            <p class="d-flex justify-content-center align-items-center p-2">                                
                                 <button type="button" class="btn btn-danger pr-3 pl-3" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
@@ -52,7 +51,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Link</label>
-                                    <input type="text" disabled class="form-control p-4" v-model="this.tables_qr_code_link" id="exampleFormControlInput2" placeholder="Link">
+                                    <input type="text" disabled class="form-control p-4" :value=" 'menuthy/' + this.restaurant.restaurant_name + '/menu' " id="exampleFormControlInput2" placeholder="Link">
                                 </div> 
                                 <div class="form-group" v-if="this.user.package_type !== null">
                                     <label for="exampleFormControlInput2">Enter table number <small class="text-muted">(max: {{this.max_package_tables}} )</small></label>
@@ -132,6 +131,7 @@ export default {
     },
     mounted(){
         this.max_package_tables= window.authUser.tables;
+        this.qrCode = this.generateQrCode(this.restaurant.id);
     }
     
 }

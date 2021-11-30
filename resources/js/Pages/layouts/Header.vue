@@ -11,13 +11,13 @@
 <div class="parent-header  px-5">
 
     <div class="main-right "> 
-         <a href="/dashboard" >
+         <a href="/dashboard" class="float-left" >
             <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:250px; height:auto; "> 
         </a>
     
     <!-- ----------------------------middle---------------------------------------- -->
-    <div class="float-right"> 
-        <div class="middle-header">
+    <div class="float-left"> 
+        <div class="middle-header float-left">
             <div class="res-name p-0"> 
                 <RestaurantName  />
             </div>
@@ -124,7 +124,7 @@ export default {
 
      }
 .main-right{
-    width:40%;
+    width:65%;
 }
 .middle-header{
     display:flex; 
