@@ -135,9 +135,9 @@ export default {
 @import "../../sass/app.scss";
 
 h3{
-    font-family:roboto;
+    font-family:poppins;
     font-weight:500;
-        color: #575962;
+    color: #575962;
     font-size: 1.1rem;
 }
 

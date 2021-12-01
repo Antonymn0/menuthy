@@ -1,9 +1,9 @@
 <template>
-<div class=" parent-div  shadow">
+<div class=" parent-div mt-0 shadow">
     <div class="arrow-left p-0 m-0 shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">       
         <i class="bi bi-justify-left"></i>
     </div>
-    <div class=" logo-part">
+    <div class="mt-0 logo-part">
         <div class="logo text-center ">
                 <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
                 <img src="https://menuthy.s3.us-east-2.amazonaws.com/images/E5kKph64spYB22pjBXIP5IFigG9zYls7I1T9Wvc6.png" v-else alt="" style="min-width:100px; height:100px">
@@ -23,19 +23,19 @@
             <carousel :items-to-show="3">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id">
                         <div class="inner-carousel-div" v-if="sub_menu.published !== null">                            
-                            <div class=" img-div shadow" v-if="sub_menu.image !== null">
+                            <div class=" img-div shadow mr-1" v-if="sub_menu.image !== null">
                                <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
-                            <div class=" img-div" v-else>
+                            <div class=" img-div m-1" v-else>
                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
-                            <h5 class="pt-1">
+                            <h5 class="pt-1" style="font-size:10pt; font-wight:400;">
                                 {{sub_menu.sub_menu_name}}
                             </h5>
                         </div>
                     </slide>
                     <template #addons>
-                        <div class="mx-2">
+                        <div class="mx-3">
                             <navigation />
                         </div>            
                 </template>
@@ -47,7 +47,7 @@
     
     <div class=" title-part mx-auto title pb-1">
         <h3>
-            {{menu_name}}
+            {{menu_name}} <br>
         </h3>
         <p v-if="menu_name.description">
             {{menu_name.description}}
@@ -58,19 +58,20 @@
         <!-- menu items / dishes -->
     <div class="parent-conatiner  text-muted" v-if="this.menu_items.length "> 
         <div class="" v-for="menu_item in menu_items" :key="menu_item.id" >
-        <div class="elements-div shadow mb-2" v-if="menu_item.publish== 'true'" >
+        <div class="elements-div mb-1 p-2 " v-if="menu_item.publish== 'true'" >
             <div class="shadow inner-elements-div " style="background-size:cover">
                 <div class="image-div" style="background-size:cover">
                     <img :src="menu_item.image" alt="menu-image" >
                 </div>
                 <div class="text-div">
-                    <p class="ribbon d-flex justify-content-between align-items-center ">
+                    <p class="ribbon d-flex justify-content-between align-items-center ">                        
                         <span class="time text-dark "> <i class="bi bi-alarm p-2 my-auto  "></i>  <small>{{menu_item.preparation_time}} mins </small> </span>
                         <span class="price bold "> <b>  {{this.restaurant.currency}} {{menu_item.price}}</b> </span>
                     </p>
                     <h4 class="title">
-                    <span>  {{menu_item.menu_item_name}} </span> 
-                    <span class="price float-right pr-3 bold"> {{this.restaurant.currency}} {{menu_item.price}}</span>
+                        <span class="price float-right pr-3 bold"> {{this.restaurant.currency}} {{menu_item.price}}</span>
+                        <span>  {{menu_item.menu_item_name}} </span> 
+                   
                     </h4>
                     <p class="description">
                        {{menu_item.description}}
@@ -224,6 +225,8 @@ export default {
     padding-right:.5rem ;
     padding-top: 0;
     display:table;
+    font-size: 10pt;
+    font-weight: 600;
 }
 
  .logo img,  .logo p {
@@ -266,6 +269,11 @@ export default {
 .title-part h3, .title-part p{
     display: flex;
     justify-content: center;
+    font-size:.10pt;
+}
+
+.title-part p, .title{
+    font-size:12pt;
 }
 .parent-container{
     width:90%;
@@ -274,9 +282,8 @@ export default {
 }
 
 .elements-div{
-    width:24%;
+    width:25%;
     float:left;
-    padding: .3rem;
     text-align: center;
     border-radius: 15px;
 }
@@ -312,7 +319,7 @@ export default {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    top:-1.5rem;
+    top:-1.2rem;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.459);
     margin-bottom: 0;
@@ -436,11 +443,13 @@ export default {
     }
     .title .price{
     display:block;
+    font-size:10pt;
     float:right;
     color: $orange;
     }
     .description{
         display:block;
+        font-size:9pt;
     }
      .image-div2{
          background-size:cover;
@@ -452,10 +461,8 @@ export default {
     }
     .image-div2 img{
         object-fit: cover;
-        height:150px;
-        // min-height:50px;         
+        height:120px;       
         width: 100%;
-        // max-width:100%;
         max-height:100%;
     }
     .text-div{
@@ -500,6 +507,7 @@ export default {
         padding: .5rem;
         text-align: center;
         border-radius: 15px;
+        font-size:10pt;
     }
     .image-div{
         display:block;

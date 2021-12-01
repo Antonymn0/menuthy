@@ -50,7 +50,7 @@
                         <label for="timezone">Currency</label>
                         <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
                             <option value="#" selected> -Select currency-</option>
-                            <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} &#1547;</option>
+                            <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>
                         </select>
                         <small class="text-danger text-center">  {{this.errors.currency}}</small>
                     </div>
