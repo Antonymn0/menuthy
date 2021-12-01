@@ -75,4 +75,6 @@ data(){
   width:50rem;
 }
 
+
+
 </style>
