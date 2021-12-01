@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         //  $schedule->command('SendTrialExpiryNotification:TrialPeriodNotification')->daily()
         //                         ->appendOutputTo('scheduler.log');
         //  $schedule->command('subscriptionExpiry:reminder')->daily()
-        //                         ->appendOutputTo('scheduler.log');
+        //                           ->appendOutputTo('scheduler.log');
     }
 
     /**
