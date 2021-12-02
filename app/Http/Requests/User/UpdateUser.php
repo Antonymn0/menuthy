@@ -25,18 +25,17 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-            'full_name'=>['required','max:255'],
-            'first_name'=>['string','max:255'],
-            'middle_name'=>['string','max:255'],
-            'last_name'=>['string','max:255'],
+            'first_name'=>['required','max:255'],
+            'middle_name'=>['nullable', 'string','max:255'],
+            'last_name'=>['required','string','max:255'],
             'user_name'=>['string','max:255'],
             'email'=>['required', 'string','max:255','email',  Rule::unique('users')->ignore($this->user)],
-            'phone'=>['required', 'string',  Rule::unique('users')->ignore($this->user)],
+            'phone'=>['nullable', 'string',  Rule::unique('users')->ignore($this->user)],
             'registration_status' => ['string'],
             'package_type' => ['date'],
             'trial_expiry' => ['date'],
             'registration_expiry' => ['date'],
-            'address'=>['string','max:255'],
+            'address'=>['string','max:255','nullable'],
             'biography'=>['string', 'max:255'],            
             'dob'=> ['date'],
             'city'=> ['string', 'max:255'],           

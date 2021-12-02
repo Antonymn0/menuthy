@@ -8,7 +8,9 @@
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-         <p class="mt-4 small">Menu <i class="bi bi-chevron-right p-0 m-0"></i>  Section <i class="bi bi-chevron-right p-0 m-0"></i> Items</p>
+        <p class="text-right m-0"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></p>
+           
+         <p class="mt-4 small"> <a href="/menus">Menu </a>  <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#" onclick="history.back()"> Section </a> <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#"> Items</a> </p>
         <h3 class="mt-4"> Items  </h3>
         {{menu.sub_menu_name.toUpperCase()}}
               

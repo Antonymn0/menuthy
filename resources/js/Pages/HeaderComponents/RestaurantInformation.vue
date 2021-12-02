@@ -8,13 +8,13 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title text-center" id="">Update Restaurant Info</h3>
+                    <h3 class="modal-title text-center" id="">Update Restaurant Infomation</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body py-2 px-3">
-                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm(2)">
+                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm()">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Restaurant  name</label>
                             <input type="text" class="form-control p-4"  v-model="form.restaurant_name" id="exampleFormControlInput" placeholder="Restaurant name here...">
@@ -72,15 +72,15 @@
                             <div class="form-group col-md-6">
                                 <label for="exampleFormControlInput2">Timezone</label>
                                 <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
-                                    <option selected >Select time zone</option>
+                                    <option selected >{{form.timezone}}</option>
                                     <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
                                 </select>
                             </div> 
                              <div class="pb-1 col-md-6">
                                 <label for="timezone">Currency</label>
                                 <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
-                                    <option value="#" selected> -Select currency-</option>
-                                    <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} &#1547;</option>
+                                    <option value="#" selected> {{form.currency}}</option>
+                                    <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>
                                 </select>
                                 <small class="text-danger text-center">  {{this.errors.currency}}</small>
                             </div>
@@ -151,15 +151,16 @@ export default {
                 address:'',
                 country:'',
                 city:'',
-                description:'  ',
+                description:'',
                 restaurant_phone_number:'',
-                restaurant_email:null,
+                restaurant_email:'',
                 website:'',
                 timezone:'',
                 facebook:'',
                 instagram:'',
                 twitter:'',
-                youtube:''
+                youtube:'',
+                currency:''
             },            
             errors:{},
              timeZones:[
@@ -819,9 +820,8 @@ export default {
                 form_data.append('twitter', this.form.twitter); 
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
-                for(var pair of form_data.entries()) {
-                    // console.log(pair[0]+ ', '+ pair[1]); 
-                    }
+                $('#addFlashModal').modal('hide');
+                Swal.showLoading();
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {
             if( response.status = 200){
@@ -866,6 +866,7 @@ export default {
         this.form.restaurant_email = window.authRestaurant.restaurant_email;
         this.form.website = window.authRestaurant.website;
         this.form.timezone = window.authRestaurant.timezone;
+        this.form.description = window.authRestaurant.description;
         this.form.facebook = window.authRestaurant.facebook;
         this.form.twitter = window.authRestaurant.twitter;
         this.form.instagram = window.authRestaurant.instagram;

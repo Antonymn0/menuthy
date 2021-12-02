@@ -6,7 +6,7 @@
     <div class="mt-0 logo-part">
         <div class="logo text-center ">
                 <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" style="width:100px; height:100px;">
-                <img src="https://menuthy.s3.us-east-2.amazonaws.com/images/E5kKph64spYB22pjBXIP5IFigG9zYls7I1T9Wvc6.png" v-else alt="" style="min-width:100px; height:100px">
+                <img src="/images/restaurant_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
             
             <p class="p-2">
                <span v-if="this.restaurant.restaurant_name !== null"> {{this.restaurant.restaurant_name}}</span>
@@ -85,16 +85,19 @@
                    <img :src="menu_item.image" alt="menu-image" >
                 </div>
             </div>
-        </div>
-        </div>
-    </div>
+        </div>        
+        </div>       
+    </div> 
+    
     <div v-else>
         <p class="text-muted text-center pt-5 mt-2"> No items listed under this menu.</p>
     </div>
+   
 </div>
 <div v-else class="text-muted text-center mt-5 pt-5">
     This restaurant has no published menu.
 </div>
+
 <!-- ---------------------------------------------- -->
   <!--menu pop up Modal -->
         <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -114,7 +117,13 @@
             </div>
         </div>
         </div>
-
+        <div class="mt-3">
+            <div class="" style="min-height:10rem;">
+                <p class="text-center b py-4 mt-4"> Powered by: Menuthy</p>
+            </div>
+            
+        </div>
+ 
 </div>
 
 </template>

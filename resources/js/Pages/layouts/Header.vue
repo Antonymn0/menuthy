@@ -1,5 +1,7 @@
 <template >
-    <!-- --------- components ------ -->   
+    <!-- --------- components ------ -->  
+         <TrialExpiryNotification /> 
+         <SubscriptionExpiryNotification /> 
         <RestaurantInformation />            
         <MobilePreview />
         <QrCode />
@@ -36,15 +38,18 @@
     </div>
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
-         <a style="font-size: 1rem;font-weight: 300;" class=" user-div text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span> <a href="#"> <i class="bi bi-bell-fill text-muted mr-5" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
-            <span class=" pr-1">{{authUser.first_name}} {{authUser.last_name}}</span>  
-            <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
-            <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
-        </a>
-        <ul class="dropdown-menu pb-0 mb-0" aria-labelledby="navbarDropdown">
-            <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >Profile</a></li>
-                
+        <p class="d-flex justify-content-center align-items-center"> 
+         <span class="float-left"> <a href="#"> <i class="bi bi-bell-fill text-white mr-4" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
+           
+                <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+                    <span class=" pr-1">{{authUser.first_name}} </span>  
+                    <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
+                    <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
+                </a> 
+             
+           
+        <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
+            <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >Profile</a></li>                
             <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li class="dropdown-item  border-top px-2">
@@ -59,6 +64,7 @@
                 </form>                     
             </li>
         </ul> 
+        </p>
     </div>
 
     <!-- -------------------------------------------------------------------------- -->
@@ -75,6 +81,8 @@ import MobilePreview from "../HeaderComponents/MobilePreview";
 import QrCode from "../HeaderComponents/QrCode";
 import MobileNav from "../HeaderComponents/MobileNav";
 import Profile from "../Profile/Profile";
+import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
+import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
 
 
 export default {
@@ -87,7 +95,8 @@ export default {
     components:{
         RestaurantName,
         RestaurantInformation,
-       
+       SubscriptionExpiryNotification, 
+        TrialExpiryNotification,
         MobilePreview,
         Profile,
         MobileNav,

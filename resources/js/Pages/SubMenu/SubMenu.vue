@@ -5,7 +5,13 @@
 
     
     <div class="main-sub-menu  mb-5" v-if="this.subMenus">   
-         <p class="mt-4 small"> <small> Menu <i class="bi bi-chevron-right p-0 m-0"></i>  Section </small>  </p>
+         <p class="mt-4 small d-flex justify-content-between"> 
+            <span>
+                <small><a href="/menus">Menu </a>  <i class="bi bi-chevron-right p-0 m-0"></i> 
+                <a href="#"> Section</a>  </small>
+            </span> 
+            <span> <a href="/menus" class="btn btn-danger"><i class="bi bi-chevron-left"></i> Back</a></span>
+         </p>
         <h3> Sections</h3>
         <p class="mt-4"> A list of sections under {{this.menu.menu_name.toUpperCase()}} menu</p>  
 

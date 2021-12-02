@@ -1,9 +1,9 @@
 <template>
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center px-5">
              <a class="p-3" href="/">
-                <img src="/images/menuthy_logo_i.jpg" class="" width="200"  alt="menuthy-logo">
+                <img src="/images/menuthy_logo.svg" class="" width="60%"  alt="menuthy-logo">
             </a>
-            <button class="button mr-4" style="max-width:8rem;"><a href="/login" class="text-white "> Go to login</a></button>         
+            <button class="button " style="max-width:8rem;"><a href="/login" class="text-white "> Go to login</a></button>         
     </div>
 
     <div class="login-block shadow">
@@ -122,7 +122,7 @@ export default {
                currency:'',
                 selectedCountry: '',      
             },
-            
+            regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
              
              selectedCity: '',
             errors:{},
@@ -990,12 +990,9 @@ export default {
                 user_data.append('email', this.form.email);
                 user_data.append('password', this.form.password);
                 user_data.append('password_again', this.form.password_again);
-                user_data.append('package_type', 'master');
-            Swal.fire({
-                timer: this.swal_timer,
-                didOpen: () => Swal.showLoading(),    
-            })
-                  Swal.showLoading();
+                user_data.append('package_type', 'master');          
+                
+                Swal.showLoading(),    
 
             axios.post('api/user', user_data)
             .then( response => {
@@ -1004,8 +1001,9 @@ export default {
                     console.log(response.data);
                 } 
             })
-            .catch( error => {                 
-                    this.errors.email = error.response.data.errors.email[0];
+            .catch( error => {  
+                 if(this.status = 422)   this.errors.email = error.response.data.errors.email[0]; 
+                    new Swal({ title: "Eror", timer: 2000});                                                                                      
                     console.log(error.response.data.errors);                    
                 });
         },
@@ -1019,10 +1017,15 @@ export default {
                 restaurant_data.append('currency', this.form.currency);
                 restaurant_data.append('user_id', user_id); // append user id to restaurant
 
-            // register restaurant after user is successful
+            // register restaurant if user user is successful
             axios.post('api/restaurant', restaurant_data)
             .then( response => {
                 if(response.status == 201){
+                    new Swal({
+                         title: "Success", 
+                         timer: 3000,
+                         text:"Redirecting to login..."
+                         });
                     window.location.href = '/login';
                 }
             })
@@ -1031,8 +1034,9 @@ export default {
                 console.log(error.response);                    
             });
         },
-
+     
         validateForm(){
+            
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;
                 else delete this.errors.restaurant_name;  
 
@@ -1052,7 +1056,10 @@ export default {
                 else delete this.errors.full_name;  
 
             if(!this.form.email) this.errors.email = 'This field is required!' ;
-                else delete this.errors.email;
+            else delete this.errors.email;
+
+            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+             else delete this.errors.email;
 
             if(!this.form.password) this.errors.password = 'This field is required!' ;
                 else delete this.errors.password;  
@@ -1127,7 +1134,7 @@ export default {
     
 
     .login-block input#password:focus {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background: #fff 20px bottom no-repeat;
     background-size: 16px 80px;
     }
     

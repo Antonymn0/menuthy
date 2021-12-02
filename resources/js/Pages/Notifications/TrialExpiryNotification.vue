@@ -1,9 +1,9 @@
 <template>
-<div class="d-flex justify-content-center" style="position:relative">
-  <div class="alert mx-auto ml-2 fade-in" v-if="this.trialExpiryDate !== null">
+<div class="text-center mb-0" >
+  <div class="alert mx-auto bg-danger mb-0 fade-in" v-if="this.trialExpiryDate !== null">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to 
-      <a href="#">Subscribe</a>
+    <span class="text-white">   Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to </span>
+      <a href="#" class=" btn-secondary btn ml-2">Subscribe</a>
   </div>
 </div>
 </template>
@@ -39,15 +39,12 @@ export default {
 <style lang="scss" scoped>
 /* The alert message box */
 .alert {
-  padding: 30px;
+  padding: 20px;
   background-color: #eee9e8; /* Red */
   color: rgb(97, 91, 91);
-  margin-bottom: 15px;
-  z-index: 5;
-  position: absolute;
-  top:-5rem;
-  right:0;
-  width:80%;  
+  width:100%;  
+  position:sticky;
+  top:0;
 }
 
 /* The close button */
@@ -71,8 +68,8 @@ export default {
 @media only screen and (max-width: 600px) {
  .alert{
    width:100%;
-   top:0;
-   margin-top:6rem;
+
+
  }
 }
 </style>

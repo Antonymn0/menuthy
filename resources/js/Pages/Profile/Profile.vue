@@ -1,26 +1,25 @@
 <template>
     <div class="">
-        <div class="">
-           
+        <div class="">           
             <!-- edit User ProfileInformation modal -->
         <div class="modal fade " id="profile" tabindex="-1" role="dialog" aria-labelledby="profileLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title text-center" id="">Update Profile Info</h3>
+                    <h3 class="modal-title text-center" id="">Update Profile Infomation</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body py-2 px-3">
-                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm(2)">
+                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm()">
                       
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">First name*</label>
                                     <input type="text" v-model="form.first_name"  class="form-control p-4" id="exampleFormControlInput2" placeholder="First name">
-                                    {{this.errors.first_name}}
+                                   <small class="text-danger">{{this.errors.first_name}} </small> 
                                 </div> 
                             </div>
                             <div class="col-sm-6">
@@ -35,12 +34,12 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Last name*</label>
                                     <input type="text" v-model="form.last_name" class="form-control p-4" id="exampleFormControlInput2" placeholder="Last name">
-                                    {{this.errors.last_name}}
+                                   <small class="text-danger">{{this.errors.last_name}} </small> 
                                 </div> 
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">Email</label>
+                                    <label for="exampleFormControlInput2">Email*</label>
                                     <input type="email" v-model="form.email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 
@@ -66,7 +65,7 @@
                         </div>
                                        
                         <div class=" d-flex justify-content-center align-items-ceneter p-3">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" data-dismiss="modal">Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
@@ -96,7 +95,7 @@ export default {
                 first_name:'',
                 middle_name:'',
                 last_name:'',
-                email: null,
+                email: '',
                 phone:'',
                 country:'',
                 timezone:'',

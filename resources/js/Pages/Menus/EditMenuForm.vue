@@ -112,13 +112,12 @@ export default defineComponent({
 @import "../../../sass/app.scss";
 
     .primary-btn{
-        background-color: #e6034b;
-        color: #fff;
-        }
-
+    background-color: $primary-button;
+    color: #fff;
+    }
     .btn:hover, .btn:active{
-            background-color: #e6034b;
+        background-color: $primary-button;
         color: #fff;
-        }
+    }
   
 </style>

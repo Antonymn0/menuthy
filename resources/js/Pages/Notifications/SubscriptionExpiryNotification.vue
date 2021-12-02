@@ -1,8 +1,8 @@
 <template>
-<div style="position:relative"> 
-  <div class="alert mx-auto ml-2 fade-in" v-if="this.registrationExpiryDate != null">
+<div > 
+  <div class="alert mx-auto bg-danger mb-0 ml-2 fade-in" v-if="this.registrationExpiryDate != null">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}</span> Click this  <a href="#">Link</a> to extend your subscription  
+      Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}</span> Click this  <a href="#" class="btn btn-secondary">Button</a> to extend your subscription. 
   </div>
 </div>
 </template>
@@ -30,8 +30,7 @@ export default {
         },
     },
     mounted(){
-        setTimeout(this.updateDate(), 10000);
-        
+        setTimeout(this.updateDate(), 10000);       
         
     }
 }
@@ -41,16 +40,12 @@ export default {
 <style lang="scss" scoped>
 /* The alert message box */
 .alert {
-  position: absolute;
-  padding: 20px;
+  padding: 15px;
   background-color: #eee9e8; /* Red */
   color: rgb(97, 91, 91);
-  margin-bottom: 15px;
-  z-index: 5;
-  top:-5rem;
-  right:0;
-  width:80%;
-  
+  width:100%;  
+  position:sticky;
+  top:0;
 }
 
 /* The close button */
@@ -64,10 +59,18 @@ export default {
   cursor: pointer;
   transition: 0.3s;
 }
-
 /* When moving the mouse over the close button */
 .closebtn:hover {
   color: black;
 }
 
+/* media queries */
+
+@media only screen and (max-width: 600px) {
+ .alert{
+   width:100%;
+
+
+ }
+}
 </style>

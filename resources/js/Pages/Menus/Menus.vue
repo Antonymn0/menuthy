@@ -3,7 +3,9 @@
     <Topnavbar />  
         
         <div class="row pr-0 px-5 mx-2" >
-            <div class="p-2 mt-5 ml-3">
+             <div class="p-2 mt-5 ml-3">
+                 <p class="text-right m-0"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></p>
+           
                 <h3> Main menu</h3>
                 <p> A list of main menus in your restaurant</p>
             </div>
@@ -38,8 +40,8 @@
                             <span class="slider round"></span>
                         </label>
                     </div>
-                    <div class="pb-1"> 
-                        <h4 class="p-0 m-0" >
+                    <div class="pb-1 pl-3 text-left"> 
+                        <h4 class="p-0 m-0 " >
                             {{menu.menu_name}}
                         </h4>
                         <p class="py-1 m-0">{{menu.sub_menu.length }} items  </p> 
@@ -159,14 +161,13 @@ export default {
 <style scoped lang="scss">
 @import "../../../sass/app.scss";
 .primary-btn{
-    background-color: #e6034b;
+    background-color: $primary-button;
     color: #fff;
-}
-
-.btn:hover, .btn:active{
-    background-color: #e6034b;
-   color: #fff;
-}
+    }
+    .btn:hover, .btn:active{
+        background-color: $primary-button;
+        color: #fff;
+    }
 .menu-card{
     width:24%;
     height:auto;
@@ -187,7 +188,7 @@ export default {
 /* The switch - the box around the slider */
 .switch {
   position: absolute;
-  margin-top:.5rem;
+  margin-top:1.1rem;
   margin-left:auto;
   margin-right:.3rem;
   right:0;

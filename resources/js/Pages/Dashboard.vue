@@ -2,10 +2,9 @@
 <div class=""> 
     <Header />
     <Topnavbar />
-    <TrialExpiryNotification /> 
-    <SubscriptionExpiryNotification /> 
+
 </div>
-    <div class="  mb-3  mx-auto slide-down">
+    <div class="  mb-1  mx-auto slide-down">
         <div class="row top-cards mx-auto shadow mt-5 pt-4">
             <div class=" col-md-3 fade-in ">
                 <div class="card-body border-right edit-menu">
@@ -77,24 +76,24 @@
         </div>
 
         <!-- feedback and recent orders section  -->
-        <div class="row feedback px-2 py-3 feedback-recent my-2">
-            <div class=" shadow col-md-6 p-3 mt-2 fade-in">
+        <div class="row feedback px-2 py-2 feedback-recent ">
+            <div class=" shadow col-md-6 1 p-3 mt-2 fade-in">
                <div class="pb-6 ">
-                   <div class="px-3 py-3 border-bottom">
+                   <div class="px-3 py-3  border-bottom">
                      <h3>   Recent orders <span class="float-right  "> <a href="#" class="text-muted"> <i class="bi bi-arrow-repeat"></i> </a>   </span>   </h3>
                     </div>
-                    <p class="py-5">
+                    <p class="py-3">
                          <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white btn float-right primary-btn-color"> All oders</a>
                     </p>
                 </div>
             </div>
 
             <div class="  shadow col-md-6 p-3 mt-2 ">
-                <div class="pb-5">                    
+                <div class="pb-2">                    
                     <div class="px-3 py-3 border-bottom">
                         <h3> Feedback    <a href="#" class="text-muted">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </h3>
                     </div>
-                    <p class="py-5"> 
+                    <p class="py-3"> 
                         <span class="float-right small btn primary-btn-color "> All feedback </span> 
                     </p>
                 </div>
