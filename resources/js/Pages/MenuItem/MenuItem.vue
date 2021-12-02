@@ -46,7 +46,10 @@
                                 <span class="slider round"></span>
                             </label>                            
                         </div>
-                       </div>         
+                       </div>  
+                       <p class="text-left py-2 mb-0">
+                           {{menuItem.description}}
+                        </p>       
                     <p class="text-left pt-0 mb-0"> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
                     <p class="text-left" data-toggle="tooltip" data-placement="left" title="Preparation time">
                         <i class="bi bi-alarm text-danger" ></i> 
@@ -122,7 +125,7 @@ export default {
             axios.delete('/api/menu-item/' + id)
             .then( response => {
             if( response.status = 200){
-                this.$swal('Success, Item deleted!');
+                 new Swal({ title: "Success!",timer: 1800  });
                 this.$inertia.reload();
                 }                
             })
@@ -135,7 +138,7 @@ export default {
             Swal.showLoading();
             axios.get('/api/menu-item/duplicate/' + id )
             .then( response => {
-                this.$swal('Success');
+                 new Swal({ title: "Success!",timer: 1800  });
                 this.$inertia.reload();
             })
             .catch(error=>{

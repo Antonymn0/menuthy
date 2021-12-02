@@ -13,7 +13,7 @@
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Item name*</label>
-                <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
+                <input type="text" maxlength="30" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                  <small class="text-danger"> {{this.errors.menu_item_name }} </small>
             </div>
             <div class="form-group">
@@ -22,7 +22,7 @@
         
             <div class="form-group">
                 <label for="maneu-name">Description</label>
-                <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                <textarea name="description" v-model="form.description" class="form-control p-3" id="" maxlength="50" cols="10" rows="5" placeholder="Describe the menu" required></textarea>
                  <small class="text-danger"> {{ this.errors.description}} </small>
             </div>
              <div class="row"> 
@@ -67,7 +67,7 @@
                 <label for="exampleFormControlInputimage">Image*</label>
                 <div class="image-preview mx-auto p-0 m-0 text-center">
                     <img :src="form.img_preview" alt="" >  <br>
-                    <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                    <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload" required>
                 </div>    
                 <small class="text-danger"> {{this.errors.image }} </small>              
            </div>
@@ -176,7 +176,7 @@ props:['sub_menu'],
                 publish:true, 
                 discount:1,
                 price:1,
-                image:false,
+                image:'',
                 origin:'',
                 allergy_warning:{ }, 
                 img_preview:'',              
@@ -187,7 +187,7 @@ props:['sub_menu'],
     methods:{
         submitForm () {
             this.validateForm();
-            if(Object.keys(this.errors).lenngth > 0) return;
+            if(Object.keys(this.errors).lenngth) return;
             console.log('No errors in the form...');
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
@@ -207,7 +207,7 @@ props:['sub_menu'],
             axios.post('/api/menu-item', form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success!');
+                 new Swal({ title: "Success!",timer: 1800  });
                 this.$inertia.reload();
                 } 
             })
@@ -234,7 +234,7 @@ props:['sub_menu'],
             if(!this.form.sub_menu_id) this.errors.sub_menu_id = 'Sub menu id field is required' ;
             else  delete this.errors.menu_id;
 
-            if(!this.form.image) this.errors.image = 'Image is required' ;
+            if(!this.form.image)  this.errors.image = 'Image is required' ;        
             else  delete this.errors.image;
 
             this.form = { ...this.form, na:'track'};

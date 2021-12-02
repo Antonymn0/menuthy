@@ -14,13 +14,13 @@
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Item name</label>
-                            <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
+                            <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" maxlength="30" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                             <small class="text-danger"> {{this.errors.menu_item_name }} </small>
                         </div>                        
                     
                         <div class="form-group">
                             <label for="maneu-name">Description</label>
-                            <textarea name="description" v-model="form.desciption" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                            <textarea name="description" v-model="form.description" class="form-control p-3" maxlength="50" id="" cols="10" rows="5" required placeholder="Describe the menu"></textarea>
                             <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>
                         
@@ -199,10 +199,11 @@ components: { Multiselect },
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 form_data.append('_method', 'PUT');
                 if(this.form.image) form_data.append('image', this.form.image);
+                Swal.showLoading();
             axios.post('/api/menu-item/'+ this.menuItem.id , form_data)
             .then( response => {
             if( response.status = 201){
-                this.$swal('Success!');
+                 new Swal({ title: "Success!",timer: 1800  });
                 this.$inertia.reload();
                 } 
             })
@@ -213,12 +214,14 @@ components: { Multiselect },
         },
 
         validateForm () {
-            if(this.form.menu_item_name == ''){
-                this.errors.menu_item_name = 'This field is required' ;
-                return;
-            }
+            if(this.form.menu_item_name == '')this.errors.menu_item_name = 'This field is required' ;             
+               else delete this.errors.menu_item_name;
+           
             if(!this.form.price) this.errors.price = 'Price field is required' ;
             else delete this.errors.price;
+
+            if(!this.form.description) this.errors.description = 'Description field is required' ;
+            else delete this.errors.description;
 
             if(!this.form.preparation_time) this.errors.preparation_time = 'preparation_time field is required' ;
             else delete this.errors.preparation_time;

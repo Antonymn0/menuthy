@@ -63,7 +63,7 @@
                         </div>
                     </div>                         
                     <div class="text-center mx-auto">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" data-dismiss="modal">
+                        <input type="submit" class="btn primary-btn mr-2" value="Save" >
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form> 
