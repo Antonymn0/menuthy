@@ -1,9 +1,9 @@
 <template>
-<div class="text-center mb-0" >
-  <div class="alert mx-auto bg-danger mb-0 fade-in" v-if="this.trialExpiryDate !== null">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    <span class="text-white">   Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this link to </span>
-      <a href="#" class=" btn-secondary btn ml-2">Subscribe</a>
+<div class=" mb-0" >
+  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpiryDate !== null">
+    <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
+    <span class="mr-5">   Your Trial period will expire on <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this button to </span>
+      <a href="#" class=" btn-danger float-right btn mr-5">Subscribe</a>
   </div>
 </div>
 </template>
@@ -41,7 +41,7 @@ export default {
 .alert {
   padding: 20px;
   background-color: #eee9e8; /* Red */
-  color: rgb(97, 91, 91);
+  color: rgb(223, 37, 37);
   width:100%;  
   position:sticky;
   top:0;
@@ -57,6 +57,7 @@ export default {
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
+  display:table;
 }
 /* When moving the mouse over the close button */
 .closebtn:hover {

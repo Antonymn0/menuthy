@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="maneu-name">Address</label>
-                            <textarea  v-model="form.address" class="form-control p-3" id="" cols="10" rows="5">Address here</textarea>
+                            <input v-model="form.address" class="form-control p-3" id="">
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -58,9 +58,13 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="p-2">
-                            <label for="file1">Image <small>(Optional)</small></label>
-                            <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
+                       <div class="mx-auto p-2">
+                            <label for="exampleFormControlInputimage">Image*</label>
+                            <div class="image-preview mx-auto p-0 m-0 text-center">
+                                <img :src="form.img_preview" alt="" >  <br>
+                                <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                            </div>    
+                            <small class="text-danger"> {{this.errors.image }} </small>              
                         </div>
                         <div class="">
                             <div class="form-group">
@@ -160,7 +164,8 @@ export default {
                 instagram:'',
                 twitter:'',
                 youtube:'',
-                currency:''
+                currency:'',
+                img_preview:''
             },            
             errors:{},
              timeZones:[
@@ -820,12 +825,12 @@ export default {
                 form_data.append('twitter', this.form.twitter); 
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
-                $('#addFlashModal').modal('hide');
+                $('#exampleModalEditRestaurant').modal('hide');
                 Swal.showLoading();
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {
             if( response.status = 200){
-                this.$swal('Update successful!');
+                new Swal({ title: "Success!",timer: 1800  });
                 // console.log(response);
                 } 
             })
@@ -836,7 +841,9 @@ export default {
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
-        },
+            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
+            console.log(URL.createObjectURL(event.currentTarget.files[0]));
+        }, 
 
         validateForm () {
 
@@ -859,18 +866,19 @@ export default {
         this.form.restaurant_name = window.authRestaurant.restaurant_name;
         this.form.user_id = window.authUser.id;
         this.form.restaurant_id = window.authRestaurant.id;
-        this.form.address = window.authRestaurant.address;
-        this.form.country = window.authRestaurant.country;
-        this.form.city = window.authRestaurant.city;
-        this.form.restaurant_phone_number = window.authRestaurant.restaurant_phone_number;
-        this.form.restaurant_email = window.authRestaurant.restaurant_email;
-        this.form.website = window.authRestaurant.website;
-        this.form.timezone = window.authRestaurant.timezone;
-        this.form.description = window.authRestaurant.description;
-        this.form.facebook = window.authRestaurant.facebook;
-        this.form.twitter = window.authRestaurant.twitter;
-        this.form.instagram = window.authRestaurant.instagram;
-        this.form.youtube = window.authRestaurant.youtube;
+
+        if(window.authRestaurant.address !== 'null') this.form.address = window.authRestaurant.address;
+        if(window.authRestaurant.city !== 'null') this.form.country = window.authRestaurant.country;
+        if(window.authRestaurant.city !== 'null') this.form.city = window.authRestaurant.city;
+        if(window.authRestaurant.restaurant_phone_number !== 'null') this.form.restaurant_phone_number = window.authRestaurant.restaurant_phone_number;
+        if(window.authRestaurant.restaurant_email !== 'null') this.form.restaurant_email = window.authRestaurant.restaurant_email;
+        if(window.authRestaurant.website !== 'null') this.form.website = window.authRestaurant.website;
+        if(window.authRestaurant.timezone !== 'null') this.form.timezone = window.authRestaurant.timezone;
+        if(window.authRestaurant.description !== 'null')this.form.description = window.authRestaurant.description;
+        if(  window.authRestaurant.facebook !== 'null') this.form.facebook = window.authRestaurant.facebook;
+        if(window.authRestaurant.twitter !== 'null') this.form.twitter = window.authRestaurant.twitter;
+        if(window.authRestaurant.instagram !== 'null') this.form.instagram = window.authRestaurant.instagram;
+        if(window.authRestaurant.youtube !== 'null') this.form.youtube = window.authRestaurant.youtube;
     }
     
 }
@@ -903,6 +911,21 @@ export default {
     h3{
         color: $primary-button;
     }
+    .image-preview{
+        border-radius: 15px;
+        border: 1px dashed gainsboro;
+        min-height:8rem;
+        padding-top:1rem;
+    }
+    .image-preview img{
+        margin-top: 5px;
+        min-height:7rem; 
+        max-height: 10rem;
+        min-width:7rem;
+        max-width:10rem;
+        border-radius:15px;
+    }
+
     /* media quesries */
     @media only screen and (max-width: 900px) {
     .menu-card{

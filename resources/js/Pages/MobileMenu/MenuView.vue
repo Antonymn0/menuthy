@@ -58,7 +58,7 @@
         <!-- menu items / dishes -->
     <div class="parent-conatiner  text-muted" v-if="this.menu_items.length "> 
         <div class="" v-for="menu_item in menu_items" :key="menu_item.id" >
-        <div class="elements-div mb-1 p-2 " v-if="menu_item.publish== 'true'" >
+        <div class="elements-div mb-1 p-1 " v-if="menu_item.publish== 'true'" >
             <div class="shadow inner-elements-div " style="background-size:cover">
                 <div class="image-div" style="background-size:cover">
                     <img :src="menu_item.image" alt="menu-image" >
@@ -271,7 +271,8 @@ export default {
 .img-div img {
     object-fit: cover;
     height: 150px;
-    max-height: 100%;
+    max-height: 150px;
+    max-height: 150%;
     width:100%;
 }
 

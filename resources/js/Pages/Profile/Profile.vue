@@ -12,7 +12,7 @@
                     </button>
                 </div>
                 <div class="modal-body py-2 px-3">
-                    <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm()">
+                    <form action="#" enctype="multipart/form-data" ref="form" @submit.prevent="submitForm()">
                       
                         <div class="row">
                             <div class="col-sm-6">
@@ -40,7 +40,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Email*</label>
-                                    <input type="email" v-model="form.email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
+                                    <input type="email" v-model="form.email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" @input="this.validateEmail()">
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 
                             </div>
@@ -59,13 +59,17 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="p-2">
-                            <label for="file1">Image <small>(Optional)</small></label>
-                            <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
+                        <div class="mx-auto p-2">
+                            <label for="exampleFormControlInputimage">Image*</label>
+                            <div class="image-preview mx-auto p-0 m-0 text-center">
+                                <img :src="form.img_preview" alt="" >  <br>
+                                <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                            </div>    
+                            <small class="text-danger"> {{this.errors.image }} </small>              
                         </div>
                                        
                         <div class=" d-flex justify-content-center align-items-ceneter p-3">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" data-dismiss="modal">Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="$emit('close')">Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
@@ -102,7 +106,9 @@ export default {
                 city:'',
                 address:'',
                 image:'',
-            },            
+                img_preview:''
+            }, 
+                regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,       
             errors:{},
              timeZones:[
                   'GMT	Greenwich Mean Time	GMT',
@@ -161,14 +167,14 @@ export default {
                
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
-                for(var pair of form_data.entries()) {
-                    // console.log(pair[0]+ ', '+ pair[1]); 
-                    }
+               
+                Swal.showLoading();
             axios.post('/api/user/' + this.form.user_id, form_data)
             .then( response => {
             if( response.status = 200){
-                this.$swal('Update successful!');
-                // console.log(response);
+                this.$refs.form.reset();
+                new Swal({ title: "Success!",timer: 1800  });
+                   
                 } 
             })
             .catch( error => {
@@ -178,8 +184,13 @@ export default {
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
+            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
+            console.log(URL.createObjectURL(event.currentTarget.files[0]));
+        }, 
+        validateEmail(){
+            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+             else delete this.errors.email;
         },
-
         validateForm () {
 
             if(!this.form.first_name) this.errors.first_name = 'First name field is required' ;
@@ -205,15 +216,16 @@ export default {
     },
     mounted(){
         this.form.user_id = window.authUser.id;
-        this.form.first_name = window.authUser.first_name;
-        this.form.middle_name = window.authUser.middle_name;
-        this.form.last_name = window.authUser.last_name;
-        this.form.email = window.authUser.email;
-        this.form.phone = window.authUser.phone;
-        this.form.address = window.authUser.address;
-        this.form.country = window.authUser.country;
-        this.form.timezone = window.authUser.timezone;
-        this.form.city = window.authUser.city;
+
+        if( window.authUser.first_name !== 'null') this.form.first_name = window.authUser.first_name;
+        if(window.authUser.middle_name !== 'null')this.form.middle_name = window.authUser.middle_name;
+        if(window.authUser.last_name !== 'null') this.form.last_name = window.authUser.last_name;
+        if(window.authUser.email !== 'null') this.form.email = window.authUser.email;
+        if(window.authUser.phone !== 'null') this.form.phone = window.authUser.phone;
+        if(window.authUser.address !== 'null') this.form.address = window.authUser.address;
+        if(window.authUser.country !== 'null') this.form.country = window.authUser.country;
+        if(window.authUser.timezone !== 'null') this.form.timezone = window.authUser.timezone;
+       if(window.authUser.city !== 'null') this.form.city = window.authUser.city;
         
     }
     
@@ -245,6 +257,20 @@ export default {
 
     h3{
         color: $primary-button;
+    }
+     .image-preview{
+        border-radius: 15px;
+        border: 1px dashed gainsboro;
+        min-height:8rem;
+        padding-top:1rem;
+    }
+    .image-preview img{
+        margin-top: 5px;
+        min-height:7rem; 
+        max-height: 10rem;
+        min-width:7rem;
+        max-width:10rem;
+        border-radius:15px;
     }
     /* media quesries */
     @media only screen and (max-width: 900px) {

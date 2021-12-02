@@ -2,13 +2,15 @@
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
         <a class="btn ml-5 restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-         <small class="d-flex align-items-center  " > 
-             <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
-              &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
-               </small> 
+            <small class="d-flex align-items-center  " > 
+                <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
+                &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
+            </small> 
            
         </a>
-        <div class="dropdown-menu rounded ribbon modal-lg" aria-labelledby="navbarDropdown" style="width:90%; margin:auto">                
+       
+        <div class="dropdown-menu rounded ribbon " aria-labelledby="navbarDropdown" style="width:90%; margin:auto"> 
+            <div class="ribbon-outer">                
             <div class="row  justify-content-center p-2 bg-danger menu-bar rounded px-2 m-0 mb-3">  
                         <!-- toggle edit restaurant modal  -->
                 <a href="#" class="res-top" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
@@ -37,6 +39,8 @@
             </div>
            </div>
         </div>
+        </div>
+       
      </div>
 </div>
      
@@ -89,11 +93,17 @@ export default {
              
          }
 
-        @media only screen and (min-width: 650px) {
-             .menu-bar{
-                 display:none;
-             }
-         }
+     .ribbon-outer{
+                display:none;
+            }
+    .ribbon{height:0px}
+
+    @media only screen and (max-width: 950px) {
+            .ribbon-outer{
+                display:block;
+            }
+            .ribbon{height:auto}
+        }
      
  
 </style>

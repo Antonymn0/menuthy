@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-between align-items-center px-5">
+    <div class="d-flex justify-content-between align-items-center px-5 parent">
              <a class="p-3" href="/">
                 <img src="/images/menuthy_logo.svg" class="" width="60%"  alt="menuthy-logo">
             </a>
@@ -61,7 +61,7 @@
     <country-select />
 </div>
             <div>
-                <h1 class="mt-5">A little info about yourself</h1>
+                <h4 class="mt-5">A little info about yourself</h4>
                 <div class="pb-1">
                     <label for="full_name">Full name</label>
                     <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" />
@@ -69,7 +69,7 @@
                 </div>
                 <div class="pb-1">
                     <label for="email">Email</label>
-                    <input type="email"  placeholder="Email" id="email" v-model="form.email" />
+                    <input type="email"  placeholder="Email" id="email" v-model="form.email" @input="this.validateEmail()"/>
                     <small class="text-danger text-center">  {{this.errors.email}}</small>
                 </div>    
                               
@@ -84,7 +84,7 @@
                     <div class="col-sm-6">
                     <div class="pb-1">
                         <label for="confirm_password">Confirm password</label>
-                        <input type="password"  placeholder="Confirm password" id="confirm_password" v-model="form.confirm_password" />
+                        <input type="password"  placeholder="Confirm password" id="confirm_password" v-model="form.confirm_password" @input="confirmPassword()" />
                         <small class="text-danger text-center">  {{this.errors.confirm_password}}</small>  
                     </div>
                     </div>
@@ -1034,9 +1034,15 @@ export default {
                 console.log(error.response);                    
             });
         },
-     
-        validateForm(){
-            
+        validateEmail(){
+            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+             else delete this.errors.email;
+        },
+        confirmPassword(){
+            if(this.form.password !== this.form.confirm_password) this.errors.confirm_password = 'Password does not match!' ;
+                else delete this.errors.confirm_password; 
+        },
+        validateForm(){            
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;
                 else delete this.errors.restaurant_name;  
 
@@ -1075,10 +1081,9 @@ export default {
 </script>
 
 <style scoped>
-    body {
+  .parent{
     font-family: Montserrat;
-    }
-    
+  }
 .countries-cities{
     height:1rem !important;
     max-height:1rem !important;
@@ -1089,7 +1094,6 @@ export default {
     border-radius: 15px;
     max-width:49%!important;
     min-width:100px!important;
-
 }
 .countries-cities .select-box select {
     border-radius: 15px;
@@ -1109,11 +1113,14 @@ export default {
     margin-bottom: 2rem;
 
     }
-    
+    h4{
+        color: rgb(228, 107, 107);
+        text-align: center;
+    }
     .login-block h1 {
     text-align: center;
     color: rgb(228, 107, 107);
-    font-size: 20px;
+    font-size: 28px;
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 20px;
@@ -1130,12 +1137,11 @@ export default {
     font-family: Montserrat;
     padding-left: .7rem;
     outline: none;
-    }
-    
+    }    
 
     .login-block input#password:focus {
-    background: #fff 20px bottom no-repeat;
-    background-size: 16px 80px;
+        background: #fff 20px bottom no-repeat;
+        background-size: 16px 80px;
     }
     
     .login-block input:active, .login-block input:focus .login-block select:focus{
