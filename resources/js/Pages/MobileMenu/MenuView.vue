@@ -405,7 +405,6 @@ h4{
     position:absolute;
     height:auto;
     top:20%;
-    left:20%;
     margin-left:auto;
     margin-right:auto;
     max-height:500px;
@@ -414,6 +413,7 @@ h4{
     border-radius:15px;
     overflow:hidden;
     background:rgb(224, 222, 222);
+    transition: transform .5s ease;
 
 }
 .pop-up-img img{
