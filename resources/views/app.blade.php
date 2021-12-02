@@ -225,7 +225,21 @@ animation-duration: 1s;
     document.getElementById("main").style.marginLeft = "250px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }
+
+    // side bar feedback
+    function openFeedBack() {
+        document.getElementById("feedBack1").style.width = "35%";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
     
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeFeedBack() {
+    document.getElementById("feedBack1").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.body.style.backgroundColor = "white";
+    }
+
     /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
     function closeNav() {
     document.getElementById("mySidenav").style.width = "0";

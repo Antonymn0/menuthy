@@ -6,6 +6,7 @@
         <MobilePreview />
         <QrCode />
         <MobileNav />
+        <Feedback />
        
         <Profile />
    
@@ -39,7 +40,7 @@
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
         <p class="d-flex justify-content-center align-items-center"> 
-         <span class="float-left"> <a href="#"> <i class="bi bi-bell-fill text-white mr-4" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
+         <span class="float-left"> <a href="#" onclick="openFeedBack()"> <i class="bi bi-bell-fill text-white mr-4" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
            
                 <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
                     <span class=" pr-1">{{authUser.first_name}} </span>  
@@ -83,6 +84,7 @@ import MobileNav from "../HeaderComponents/MobileNav";
 import Profile from "../Profile/Profile";
 import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
 import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
+import Feedback from "../Feedback/Feedback";
 
 
 export default {
@@ -101,6 +103,7 @@ export default {
         Profile,
         MobileNav,
         QrCode,
+        Feedback,
     },
     created() {
         // console.log(this.authUser);
