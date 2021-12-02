@@ -24,17 +24,19 @@
                             <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="exampleFormControlInputprice">Price</label>
-                            <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInputfile">Discount</label>
-                            <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInputprice">Peparation time</label>
-                            <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
+                         <div class="row"> 
+                            <div class="form-group col-md-4 ">
+                                <label for="exampleFormControlInputprice">Price</label>
+                                <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <label for="exampleFormControlInputfile">Discount</label>
+                                <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <label for="exampleFormControlInputprice">Peparation time</label>
+                                <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="maneu-name">Ingredients</label>
@@ -44,26 +46,20 @@
                             <label for="exampleFormControlInputprice">Carlories</label>
                             <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInputprice">Image </label>
-                            <input type="file"   class="form-control p-4"  id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
-                        </div>
+                        <div class="mx-auto p-2">
+                            <label for="exampleFormControlInputimage">Image*</label>
+                            <div class="image-preview mx-auto p-0 m-0 text-center">
+                                <img :src="form.img_preview" alt="" style="min-height:7rem; min-width:7rem; border-radius:15px;">  <br>
+
+                                 <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                            </div>    
+                            <small class="text-danger"> {{this.errors.image }} </small>              
+                         </div>
                     <div>
-<Multiselect
-  v-model="value"
-  mode="tags"
-  :searchable="true"
-  :createTag="true"
-  :options="[
-    { value: 'batman', label: 'Batman' },
-    { value: 'robin', label: 'Robin' },
-    { value: 'joker', label: 'Joker' },
-  ]"
-/>
-  </div>
-             <div class="form-group">.
+              </div>
+             <div class="form-group">
                  <label for="exampleFormControlInputprice">Ingridient warning</label>
-                 <select v-model="allergy_warning" class="form-control p-4" multiple>
+                 <select v-model="allergy_warning" class="form-control p-4" >
                      <option value="alcohol">-select-</option>
                      <option value="alcohol">Alcohol free</option>
                      <option value="cheese">Cheese</option>
@@ -177,7 +173,8 @@ components: { Multiselect },
                 discount: '',
                 price: '',
                 image: '',
-                allergy_warning:'',               
+                allergy_warning:'', 
+                img_preview:''        
             },
            
             errors:{},
@@ -236,6 +233,8 @@ components: { Multiselect },
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
+            this.form.img_preview = URL.createObjectURL(event.target.files[0]);
+            console.log(URL.createObjectURL(event.target.files[0]));
         },
         logInput(){
             console.log(this.form.menu_item_name);
@@ -274,5 +273,19 @@ components: { Multiselect },
     .btn:hover, .btn:active{
         background-color: $primary-button;
         color: #fff;
+    }
+    .image-preview{
+        border-radius: 15px;
+        border: 1px dashed gainsboro;
+        min-height:8rem;
+        padding-top:1rem;
+    }
+    .image-preview img{
+        margin-top: 5px;
+        min-height:7rem; 
+        max-height: 10rem;
+        min-width:7rem;
+        max-width:10rem;
+        border-radius:15px;
     }
 </style>

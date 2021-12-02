@@ -25,39 +25,35 @@
                 <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
                  <small class="text-danger"> {{ this.errors.description}} </small>
             </div>
-             
-             <div class="form-group">.
-                 <label for="exampleFormControlInputprice">Price</label>
-                <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
-            </div>
-            <div class="form-group">
-                 <label for="exampleFormControlInputfile">Discount</label>
-                <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
-            </div>
-             <div class="form-group">.
-                 <label for="exampleFormControlInputprice">Peparation time</label>
-                <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
+             <div class="row"> 
+                <div class="form-group col-md-4 ">
+                    <label for="exampleFormControlInputprice">Price</label>
+                    <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
+                </div>
+                <div class="form-group col-md-4 ">
+                    <label for="exampleFormControlInputfile">Discount</label>
+                    <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
+                </div>
+                <div class="form-group col-md-4 ">
+                    <label for="exampleFormControlInputprice">Peparation time</label>
+                    <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
+                </div>
             </div>
             <div class="form-group">
                 <label for="maneu-name">Ingredients</label>
                 <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="5" rows="3"></textarea>              
             </div>
-             <div class="form-group">
+             <div class="row">
+             <div class="form-group col-md-6">
                 <label for="exampleFormControlInputprice">Carlories</label>
                 <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
             </div>
-             <div class="form-group">
+             <div class="form-group col-md-6">
                 <label for="exampleFormControlInputprice">Food Origin</label>
                 <input type="text"   class="form-control p-4" v-model="form.origin" id="exampleFormControlInputprice"  placeholder="origin" >
             </div>
-             <div class="form-group">
-                 <label for="exampleFormControlInputprice">Image* </label>
-                <input type="file"   class="form-control p-4" required id="exampleFormControlInputprice"  placeholder="Preparation time" @change="fileUpload">
-                 <small class="text-danger"> {{this.errors.image }} </small>
             </div>
-           <div>
-        </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label for="exampleFormControlInputprice">Allergy warning</label>
                 <select v-model="allergy_warning" class="form-control p-4" >
                     <option value="alcohol">-select-</option>
@@ -67,13 +63,23 @@
                     <option value="chocolate">Chocolate</option>
                 </select>
             </div>
-            <div class="pt-3 pb-1 pl-5 border-bottom">
+            <div class="mx-auto p-2">
+                <label for="exampleFormControlInputimage">Image*</label>
+                <div class="image-preview mx-auto p-0 m-0 text-center">
+                    <img :src="form.img_preview" alt="" >  <br>
+                    <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                </div>    
+                <small class="text-danger"> {{this.errors.image }} </small>              
+           </div>
+       
+           
+            <h5 class="pt-3 pb-1 pl-5 border-bottom">
                 Lables
-            </div>
+            </h5>
             <div class=" row p-2">
                 <div class="col-md-6 ">
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as new </span>
+                    <span clas='col-xs-8'>  Mark item as new </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="p-2" name="is_new" v-model="form.is_new" :checked="form.is_new">
@@ -172,7 +178,8 @@ props:['sub_menu'],
                 price:1,
                 image:false,
                 origin:'',
-                allergy_warning:{ },               
+                allergy_warning:{ }, 
+                img_preview:'',              
             },           
             errors:{ l:''},
         }
@@ -196,6 +203,7 @@ props:['sub_menu'],
                 form_data.append('origin', this.form.origin);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
+                Swal.showLoading();
             axios.post('/api/menu-item', form_data)
             .then( response => {
             if( response.status = 201){
@@ -234,6 +242,8 @@ props:['sub_menu'],
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
+            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
+            console.log(URL.createObjectURL(event.currentTarget.files[0]));
         },
         logInput(){
             console.log(this.form.menu_item_name);
@@ -259,5 +269,19 @@ props:['sub_menu'],
     .btn:hover, .btn:active{
         background-color: $primary-button;
         color: #fff;
+    }
+    .image-preview{
+        border-radius: 15px;
+        border: 1px dashed gainsboro;
+        min-height:8rem;
+        padding-top:1rem;
+    }
+    .image-preview img{
+        margin-top: 5px;
+        min-height:7rem; 
+        max-height: 10rem;
+        min-width:7rem;
+        max-width:10rem;
+        border-radius:15px;
     }
 </style>

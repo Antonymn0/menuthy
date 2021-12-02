@@ -25,9 +25,13 @@
                         <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
                         
                     </div>
-                     <div class="form-group">
-                    <label for="file1">Image <small>(Optional)</small></label>
-                        <input type="file"   class="form-control p-4" id="file1" name="file" placeholder="Image upload" @change="fileUpload">
+                      <div class="mx-auto p-2">
+                        <label for="exampleFormControlInputimage">Image*</label>
+                        <div class="image-preview mx-auto p-0 m-0 text-center">
+                            <img :src="form.img_preview" alt="" >  <br>
+                            <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                        </div>    
+                        <small class="text-danger"> {{this.errors.image }} </small>              
                     </div>
                     <div class="text-center mx-auto">
                         <button type="submit" class="btn primary-btn mr-2">Save </button>
@@ -55,6 +59,7 @@ export default defineComponent({
                 restaurant_id: '',
                 description: '',
                 image:'',
+                img_preview:''
             },
             errors:{             
             },
@@ -88,6 +93,8 @@ export default defineComponent({
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
+            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
+            console.log(URL.createObjectURL(event.currentTarget.files[0]));
         },
         validateForm () {
             if(!this.form.menu_name) this.errors.menu_name = 'This field is required' ;
@@ -118,6 +125,20 @@ export default defineComponent({
     .btn:hover, .btn:active{
         background-color: $primary-button;
         color: #fff;
+    }
+    .image-preview{
+        border-radius: 15px;
+        border: 1px dashed gainsboro;
+        min-height:8rem;
+        padding-top:1rem;
+    }
+    .image-preview img{
+        margin-top: 5px;
+        min-height:7rem; 
+        max-height: 10rem;
+        min-width:7rem;
+        max-width:10rem;
+        border-radius:15px;
     }
   
 </style>
