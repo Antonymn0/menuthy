@@ -142,7 +142,7 @@
                 </div>
             </div>  
             <div class="text-center mx-auto ">
-                <button type="submit" class="btn primary-btn mr-2 "   >Save </button>
+                <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()" data-dismiss="modal" >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>
@@ -203,7 +203,8 @@ props:['sub_menu'],
                 form_data.append('origin', this.form.origin);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
-                Swal.showLoading();
+
+            Swal.showLoading();
             axios.post('/api/menu-item', form_data)
             .then( response => {
             if( response.status = 201){

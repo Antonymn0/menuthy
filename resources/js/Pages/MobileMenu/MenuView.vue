@@ -63,23 +63,23 @@
                 <div class="pl-3 py-3 w-100">
                     
                     <div class="title ">                        
-                        <span class="price w-50 pr-3 py-2 text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> 
-                        <span class="w-50"> <h4> {{menu_item.menu_item_name}} </h4> </span>            
+                        <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> 
+                        <span class=""> <h5> {{menu_item.menu_item_name}} </h5> </span>            
                     </div>
-                    <p v-if="menu_item.description !== 'null'">{{menu_item.description}}</p>
+                    <p v-if="menu_item.description !== 'null'" class="mb-1">{{menu_item.description}}</p>
 
                     <!-- radio buttons -->
-                    <div class="py-4"> 
+                    <div class=" radio-btns"> 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="dine in">
-                            <label class="form-check-label" for="inlineRadio1">Dine in</label>
+                            <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" :id="menu_item.id" value="dine in">
+                            <label class="form-check-label" for="inlineRadio1"> Dine in</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio2" value="take away">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="menu_item.id" value="take away">
                             <label class="form-check-label" for="inlineRadio2">Take away</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio3" value="pick up" >
+                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="menu_item.id" value="pick up" >
                             <label class="form-check-label" for="inlineRadio3">Pick up</label>
                         </div>
                         <small class="text-danger"> {{this.errors.order_type}}</small>
@@ -144,19 +144,19 @@
                         <h4 class="">
                             {{this.menu_item.menu_item_name}}   
                         </h4> 
-                        <p class="" v-if="menu_item.description !== 'null'">{{this.menu_item.description}}  </p>
+                        <p class="description mb-0" v-if="menu_item.description !== 'null'">{{this.menu_item.description}}  </p>
                        <!-- radio buttons -->
-                        <div class="pt-1 pb-3"> 
+                        <div class="pt-1 pb-3 radio-btns"> 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="dine in">
+                                <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" :id="'r1' +  menu_item.id" value="dine in">
                                 <label class="form-check-label" for="inlineRadio1">Dine in</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio2" value="take away">
+                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="'r2' + menu_item.id" value="take away">
                                 <label class="form-check-label" for="inlineRadio2">Take away</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio3" value="pick up" >
+                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="'r3' + menu_item.id" value="pick up" >
                                 <label class="form-check-label" for="inlineRadio3">Pick up</label>
                             </div>
                             <small class="text-danger"> {{this.errors.order_type}}</small>
@@ -262,7 +262,7 @@ export default {
             form_data.append('order_type', this.order_type);
             if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
             if(!this.User.table_number) form_data.append('table_number', 1);
-            console.log(...form_data);
+
             if(confirm("Place order?")){
                 axios.post('/api/order', form_data)
                     .then( response => {
@@ -302,8 +302,8 @@ export default {
 // parent div 
 .parent-div{
     color: #585858;
-    font-family: poppins;
-    background-color: #fff;
+    font-family: poppins !important;
+    background-color: #fff !important;
     min-height:100vh;
     width:42rem;
     max-width:100%;
@@ -337,9 +337,7 @@ export default {
     color:rgba(220, 20, 60, 0.205);
 }
 
-h4{
-    color:$orange;
-}
+
 // slider div 
 .slider-div{
     margin-left:.5rem;
@@ -394,6 +392,13 @@ h4{
     padding-right:5px;
     
 }
+h5{
+    // color:$orange;
+    font-weight:500;
+}
+.description{
+font-weight:300;
+}
 .title{
    min-width:100%;
 
@@ -403,8 +408,6 @@ h4{
     float:right;
     color: $orange;
     font-weight:400;
-
-
 }
 
 .order-btn a{
@@ -472,7 +475,12 @@ input[type='radio']:after {
         border: 3px solid $orange;
     }
 
-
+.radio-btns{
+    padding: 5px;
+}
+.radio-btns label{
+    font-size:8pt;
+}
 
 
 
@@ -499,9 +507,10 @@ input[type='radio']:after {
 
 }
 .pop-up-img img{
-    width:350px;
+    min-width:350px;
     max-width:350px;
     max-height:250px;
+    min-height:250px;
     object-fit: cover;
 }
 .back-btn{

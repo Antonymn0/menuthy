@@ -76,6 +76,7 @@ export default defineComponent({
                 form_data.append('restaurant_id', this.form.restaurant_id);
                 form_data.append('description', this.form.description);
                 if(this.form.image) form_data.append('image', this.form.image);
+                Swal.showLoading();
             axios.post('/api/menu', form_data)
             .then( response => {
                 if( response.status = 201){               

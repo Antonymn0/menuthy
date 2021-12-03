@@ -34,7 +34,7 @@
                         <small class="text-danger"> {{this.errors.image }} </small>              
                     </div>
                     <div class="text-center mx-auto">
-                        <button type="submit" class="btn primary-btn mr-2">Save </button>
+                        <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" data-dismiss="modal">Save </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -76,8 +76,8 @@ export default defineComponent({
                 form_data.append('description', this.form.description);
                 form_data.append('_method', 'PUT');
                 if(this.form.image) form_data.append('image', this.form.image);
-                console.log(...form_data);
-            console.log(form_data);
+
+              Swal.showLoading();
             axios.post('/api/menu/' + this.form.menu_id, form_data)
             .then( response => {
             if( response.status = 200){

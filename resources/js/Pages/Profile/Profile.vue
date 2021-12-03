@@ -69,7 +69,7 @@
                         </div>
                                        
                         <div class=" d-flex justify-content-center align-items-ceneter p-3">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="$emit('close')">Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="submitForm()" data-dismiss="modal">Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>

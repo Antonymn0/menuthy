@@ -124,7 +124,7 @@
                             </div>
                         </div>                         
                         <div class="d-flex justify-content-center">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="submitForm()" data-dismiss="modal">Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
@@ -825,7 +825,7 @@ export default {
                 form_data.append('twitter', this.form.twitter); 
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
-                $('#exampleModalEditRestaurant').modal('hide');
+
                 Swal.showLoading();
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {

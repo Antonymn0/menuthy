@@ -118,10 +118,10 @@ export default {
                 }                
             });
         },
-        duplicateMenu(id){            
+        duplicateMenu(id){   
+             Swal.showLoading();
             axios.get('/api/menu/duplicate/' + id )
-            .then( response => {
-                // console.log(response);
+            .then( response => {              
                 this.$swal('Success,  duplicated!');
                 this.$inertia.reload();
             })
@@ -130,16 +130,14 @@ export default {
                 console.log(error);
             });
         },
-        openUpdateModal(event){
-                // console.log(event.currentTarget.firstChild);
+        openUpdateModal(event){               
                 $('.modal').attr('id', newId);
                 $('UpdateModal').modal('show');
                 event.currentTarget.firstChild;
         } ,  
         togglePublish(id, state){
             axios.get('/api/menu/toggle-publish/' + id + '/' + state)
-            .then( response => {
-                // console.log(response);
+            .then( response => {              
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');

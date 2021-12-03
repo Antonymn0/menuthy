@@ -13,7 +13,7 @@
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name</label>
-                        <input type="text" class="form-control p-4" name="sub_menu_name" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
+                        <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="15" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
                     </div>
                 
                     <div class="form-group">
@@ -113,9 +113,7 @@ export default defineComponent({
                 form_data.append('is_new', this.form.is_new);
                 form_data.append('publish', this.form.publish);
                 if(this.form.image) form_data.append('image', this.form.image);
-                for(var pair of form_data.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                    }
+             
              Swal.showLoading();        
             axios.post('/api/sub-menu', form_data)
             .then( response => {

@@ -63,7 +63,7 @@
                         </div>
                     </div>                         
                     <div class="text-center mx-auto">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" >
+                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" data-dismiss="modal" >
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form> 
@@ -114,9 +114,7 @@ export default defineComponent({
                 form_data.append('publish', this.form.publish);
                 form_data.append('_method', 'PUT');
                 if(this.form.image) form_data.append('image', this.form.image);
-                for(var pair of form_data.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                    }
+               Swal.showLoading();
             axios.post('/api/sub-menu/' + this.subMenu.id, form_data)
             .then( response => {
             if( response.status = 201){

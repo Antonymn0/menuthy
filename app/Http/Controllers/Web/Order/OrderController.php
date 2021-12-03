@@ -143,6 +143,7 @@ public function printOrders($restaurant_id){
                     ->whereBetween('created_at', [$startDate, $endDate])
                     ->orderBy('created_at','DESC')
                     ->get(); 
+        if(!count($orders) ) return 'No orders to print';
 
         $pdf = PDF::loadView('pdf.ordersPDF', compact('orders', 'restaurant'));
         return $pdf->stream('pdf.ordersPDF');
