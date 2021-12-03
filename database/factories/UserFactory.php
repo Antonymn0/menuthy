@@ -33,7 +33,7 @@ class UserFactory extends Factory
         'suspended_by'=> $this->faker-> randomDigit(),
         'email_verified_at' => now(),
         'gender'=> $this->faker-> randomDigit(),
-        'regn_status'=> $this->faker-> randomDigit(),
+        'registration_status'=> $this->faker-> randomDigit(),
         'suspended_by'=> $this->faker->randomDigit(),
         'avatar'=> $this->faker->url(),
         'deleted_at'=> null,

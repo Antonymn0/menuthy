@@ -992,7 +992,7 @@ export default {
                 user_data.append('password_again', this.form.password_again);
                 user_data.append('package_type', 'master');          
                 
-                Swal.showLoading(),    
+                //Swal.showLoading(),    
 
             axios.post('api/user', user_data)
             .then( response => {
@@ -1002,12 +1002,12 @@ export default {
                 } 
             })
             .catch( error => {  
+                console.log(error.response.data); 
                  if(this.status = 422) {
-                     console.log(error.response.data.errors);  
-                     if(error.response.data.errors) this.errors.email = error.response.data.errors;
-                      }
+                     if(this.errors.email) this.errors.email = error.response.data.errors.email[0];
+                    }
                     new Swal({ title: "Eror", timer: 2000});                                                                                      
-                                      
+                                       
                 });
         },
 

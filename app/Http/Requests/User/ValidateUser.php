@@ -26,10 +26,10 @@ class ValidateUser extends FormRequest
     {
         return [
             'full_name'=>['required','max:255'],
-            'user_name'=>['string','max:255'],
+            'user_name'=>['nullable','string','max:255'],
             'email'=>['required', 'string','max:255','email',  Rule::unique('users')->ignore($this->user)],
             'password' => ['required','min:4'],
-            'package_type' => ['string'],
+            'package_type' => ['nullable','string'],
             
         ];
     }
