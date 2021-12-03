@@ -3,7 +3,7 @@
 
 <div class="parent-nav bg-dark px-4 py-2">
     <div class="logo">
-        <img src="/images/artboard.png" alt="menuthy-logo" class="img-fluid">
+        <img src="/images/white_logo.svg" alt="menuthy-logo" class="img-fluid" style="width:180px; height:90px;">
     </div>
     <div>
         <RestaurantName /> 
@@ -113,10 +113,6 @@ export default {
  .parent-nav{
      display:none;
  }
-.logo img{
-    width:40px;
-    height:40px;
-}
 
 
    
