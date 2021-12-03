@@ -1003,10 +1003,11 @@ export default {
             })
             .catch( error => {  
                  if(this.status = 422) {
+                     console.log(error.response.data.errors);  
                      if(error.response.data.errors.email) this.errors.email = error.response.data.errors;
                       }
                     new Swal({ title: "Eror", timer: 2000});                                                                                      
-                    console.log(error.response.data.errors);                    
+                                      
                 });
         },
 
