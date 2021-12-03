@@ -996,17 +996,20 @@ export default {
 
             axios.post('api/user', user_data)
             .then( response => {
-                if( response.status = 201){                
+                if( response.status == 201){                
                     this.storeRestaurant(response.data.data.id); // pass user id to restaurant
                     console.log(response.data);
                 } 
             })
             .catch( error => {  
                 console.log(error.response.data); 
-                 if(this.status = 422) {
-                     if(this.errors.email) this.errors.email = error.response.data.errors.email[0];
+                 if(error.response.status == 422) {
+                     if(error.response.data.errors.email){
+                         this.errors.email = error.response.data.errors.email[0];
+                         return;
+                     } 
                     }
-                    new Swal({ title: "Eror", timer: 2000});                                                                                      
+              new Swal({ title: "Error", timer: 2000});                                                                                      
                                        
                 });
         },
