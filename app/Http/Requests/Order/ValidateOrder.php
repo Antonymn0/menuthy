@@ -32,6 +32,7 @@ class ValidateOrder extends FormRequest
         'restaurant_id' =>['required', 'integer' ],
         'is_take_away' =>[ 'string'],
         'is_inhouse' =>[ 'string'],
+        'order_type' =>['required', 'string'],
         'price' =>['required', 'regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
         'preparation_time' =>['required', 'integer'],
         'status' =>['required', 'string'],

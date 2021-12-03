@@ -15,7 +15,9 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+   // print orders route 
+    Route::get('/{restaurant_id}/orders/print', [App\Http\Controllers\Web\Order\OrderController::class, 'printOrders']);
+    
 /////////// PUBLIC ROUTES  ///////////////
 Route::get('/', function () {
     return view('welcome');
@@ -66,6 +68,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/{restaurant_name}/orders/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('orders');
     Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
     Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
+    Route::get('/orders/{restaurant_id}/type/{order_type}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTypes']);
+    Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
+    Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
+
+ 
 
 });
 

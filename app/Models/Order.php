@@ -26,6 +26,7 @@ class Order extends Model
         'is_take_away',
         'is_inhouse',
         'price',
+        'order_type',
         'preparation_time',
         'status',
         'table_number',

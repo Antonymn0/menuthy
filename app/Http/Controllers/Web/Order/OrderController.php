@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\Restaurant;
 use Carbon\Carbon;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -53,9 +55,10 @@ class OrderController extends Controller
      */
     public function fetchOrders($restaurant_id, $search_term)
     {         
-          // fetch today orders 
+          // fetch aal today orders 
         if($search_term == 'today'){
-             $orders = Order::whereDate('created_at', Carbon::today())
+             $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                            ->whereDate('created_at', Carbon::today())
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15));   
 
@@ -68,7 +71,8 @@ class OrderController extends Controller
         else{
 
             // fetch orders according to provided search term 
-            $orders = Order::WHERE('status', $search_term)
+            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                            -> WHERE('status', $search_term)
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15)); 
                 return response()->json([
@@ -81,59 +85,69 @@ class OrderController extends Controller
        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+ // fetch order types depending on the search term
+public function fetchOrderTypes($restaurant_id, $order_type){
+        // fetch orders according to provided search term 
+       
+            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                        ->WHERE('order_type', $order_type)
+                        ->orderBy('created_at','DESC')
+                        ->paginate(ENV('API_PAGINATION', 15)); 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+                return response()->json([
+                    'success' => true,
+                   'message' => 'A list of order types',
+                   'data' => $orders,           
+               ]); 
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+ // fetch order types depending on the table
+public function fetchOrderTables($restaurant_id, $table_no){
+        // fetch orders according to provided search term 
+       
+            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                        ->WHERE('table_number', $table_no)
+                        ->orderBy('created_at','DESC')
+                        ->paginate(ENV('API_PAGINATION', 15)); 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+                return response()->json([
+                    'success' => true,
+                   'message' => 'A list of orders by tables',
+                   'data' => $orders,           
+               ]); 
+}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+ // fetch orders depending on the date
+public function fetchOrderBydate($restaurant_id, $date){
+        // fetch orders according to provided date       
+            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                        ->whereDate('created_at', $date)
+                        ->orderBy('created_at','DESC')
+                        ->paginate(ENV('API_PAGINATION', 15)); 
+
+                return response()->json([
+                    'success' => true,
+                   'message' => 'A list of orders by date',
+                   'data' => $orders,           
+               ]); 
+}
+
+ // print orders depending on the date
+public function printOrders($restaurant_id){
+        $restaurant= Restaurant::where('id', $restaurant_id)->first();
+
+        $startDate = Carbon::now()->subDays(7);
+        $endDate = Carbon::now();
+
+        $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->orderBy('created_at','DESC')
+                    ->get(); 
+
+        $pdf = PDF::loadView('pdf.ordersPDF', compact('orders', 'restaurant'));
+        return $pdf->stream('pdf.ordersPDF');
+
+}
+  
+
 }

@@ -67,6 +67,23 @@
                         <span class="w-50"> <h4> {{menu_item.menu_item_name}} </h4> </span>            
                     </div>
                     <p v-if="menu_item.description !== 'null'">{{menu_item.description}}</p>
+
+                    <!-- radio buttons -->
+                    <div class="py-4"> 
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="dine in">
+                            <label class="form-check-label" for="inlineRadio1">Dine in</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio2" value="take away">
+                            <label class="form-check-label" for="inlineRadio2">Take away</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio3" value="pick up" >
+                            <label class="form-check-label" for="inlineRadio3">Pick up</label>
+                        </div>
+                        <small class="text-danger"> {{this.errors.order_type}}</small>
+                    </div>
                     <p class="order-btn">
                         <span  v-if="this.User.package_type != null"> <a href="#" class="p-2" @click="placeOrder(menu_item)">Order</a></span> 
                         <span class="time text-default pl-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
@@ -127,8 +144,23 @@
                         <h4 class="">
                             {{this.menu_item.menu_item_name}}   
                         </h4> 
-                        <p class="" v-if="menu_item.description !== 'null'">{{this.menu_item.description}} hhhhhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhhhhhhh hhhhhhhhhhhhhhhhhhhhhh </p>
-                       
+                        <p class="" v-if="menu_item.description !== 'null'">{{this.menu_item.description}}  </p>
+                       <!-- radio buttons -->
+                        <div class="pt-1 pb-3"> 
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="dine in">
+                                <label class="form-check-label" for="inlineRadio1">Dine in</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio2" value="take away">
+                                <label class="form-check-label" for="inlineRadio2">Take away</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" id="inlineRadio3" value="pick up" >
+                                <label class="form-check-label" for="inlineRadio3">Pick up</label>
+                            </div>
+                            <small class="text-danger"> {{this.errors.order_type}}</small>
+                        </div>
                         <p class="order-btn mx-auto">
                             <span  v-if="this.User.package_type != null"> <a href="#" class="p-2" @click="placeOrder(menu_item)">Order now</a></span> 
                             
@@ -174,6 +206,8 @@ export default {
           show_single_menu_item:false,
           is_take_away:false,
           popupVisible:false,
+          order_type:'dine in',
+          errors:{},
           User:{},
       }
   },
@@ -212,6 +246,9 @@ export default {
             });
       },
       placeOrder(menu_item){
+          this.validateOrderType();
+          if(Object.keys(this.errors).lenngth) return;
+
           var form_data = new FormData();
             form_data.append('menu_item_name', menu_item.menu_item_name);
             form_data.append('menu_item_type', menu_item.menu_item_name);
@@ -222,28 +259,36 @@ export default {
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
+            form_data.append('order_type', this.order_type);
             if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
             if(!this.User.table_number) form_data.append('table_number', 1);
-            // console.log(typeof(menu_item.price));
+            console.log(...form_data);
+            if(confirm("Place order?")){
+                axios.post('/api/order', form_data)
+                    .then( response => {
+                        if( response.status = 201){
+                            this.$swal( 'Order placed!'); 
+                            // console.log(response.data);
+                            } 
+                        })
+                    .catch( error => {
+                        this.$swal('Error, Order failed!');                
+                        console.log(error.response.data.errors);                    
+                    });
+            }
+      },
+      validateOrderType(){
+          if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select an order type';
+          else delete this.errors.order_type;
 
-          axios.post('/api/order', form_data)
-            .then( response => {
-                if( response.status = 201){
-                    this.$swal( 'Order placed!'); 
-                    // console.log(response.data);
-                    } 
-                })
-            .catch( error => {
-                this.$swal('Error, Order failed!');                
-                console.log(error.response.data.errors);                    
-            });
+          console.log(this.order_type);
+
       },
   },
   mounted(){
         this.menu_items = this.menuItems;
         this.User= this.user;
-         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();
-        
+         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();        
   }
  
 };
@@ -398,6 +443,39 @@ h4{
     border-radius:7px;
     font-size:1.2rem;
 }
+
+input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #e9e7e367;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid rgb(248, 211, 108);
+    }
+
+    input[type='radio']:checked:after {
+        width: 17px;
+        height: 17px;
+        border-radius: 15px;
+        top: -2px;
+        left: 0;
+        position: relative;
+        background-color: $orange;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 3px solid $orange;
+    }
+
+
+
+
+
 .parent-popup{
     background:#fff;
 }
@@ -405,6 +483,9 @@ h4{
     position:absolute;
     height:auto;
     top:20%;
+     display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left:auto;
     margin-right:auto;
     max-height:500px;
@@ -414,6 +495,7 @@ h4{
     overflow:hidden;
     background:rgb(224, 222, 222);
     transition: transform .5s ease;
+   
 
 }
 .pop-up-img img{

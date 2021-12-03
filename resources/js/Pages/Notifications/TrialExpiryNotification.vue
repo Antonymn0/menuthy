@@ -39,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 /* The alert message box */
 .alert {
-  padding: 20px;
+  padding: 15px;
   background-color: #eee9e8; /* Red */
   color: rgb(223, 37, 37);
   width:100%;  

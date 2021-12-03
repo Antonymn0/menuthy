@@ -10,8 +10,8 @@
             </h2>
             <p class="col-md-6 text-right">
                 <a href="#" class="btn btn-danger"> <i class="fa fa-arrow-circle-o-up pr-2 pl-2"></i> Export daily report</a>
-                <a href="#" class="btn text-white px-2 mx-3" style="background-color: #36a3f7;"> <i class="fa fa-arrow-circle-o-up pr-2"></i>Export </a>
-                <a href="#" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Reload</a>
+                <a :href="'/' + this.authRestaurant.id + '/orders/print'" class="btn text-white px-2 mx-3" style="background-color: #36a3f7;" @click="this.showLoading()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export </a>
+                <a href="#" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
             </p>
         </div>
         <div>
@@ -30,16 +30,17 @@
                      <select id="status" class="form-control" v-model="select_status" @change="fetchOrders(this.select_status)"> 
                         <option value="today"> All </option>
                         <option value="recieved"> Open </option>
-                        <option value="complete"> Closed </option>
+                        <option value="completed"> Closed </option>
+                        <option value="canceled"> Canceled </option>
                      </select>
                 </div>
                  <div class="forn-group p-2">
-                     <label for="mode"> Order mode:</label>
-                     <select id="mode" class="form-control"  v-model="select_status" @change="fetchOrders(this.select_status)"> 
-                        <option value="today"> All </option>
-                        <option value="dine-in"> Dine in </option>
-                        <option value="is_take_away"> Take away </option>
-                        <option value="pick_up"> Pick up </option>
+                     <label for="mode"> Order type:</label>
+                     <select id="mode" class="form-control"  v-model="select_status" @change="fetchOrderTypes(this.select_status)"> 
+                        <option value="all"> All </option>
+                        <option value="dine in"> Dine in </option>
+                        <option value="take away"> Take away </option>
+                        <option value="pick up"> Pick up </option>
                      </select>
                 </div>
             </div>
@@ -47,12 +48,18 @@
             <div class="col-md-4">
                  <div class="forn-group p-2">
                      <label for="date"> Update time </label>
-                    <input type="date" name="" id="date" class="form-control">
+                    <input type="date" name="" id="date" class="form-control" v-model="this.date" @change="fetchOrderBydate(this.date)">
                 </div>
                  <div class="forn-group p-2">
                      <label for="tables"> Tables</label>
-                     <select id="tables" class="form-control" v-model="select_status" @change="fetchOrders(this.select_status)"> 
-                        <option value="today"> All </option>
+                     <select id="tables" class="form-control" v-model="select_status" @change="fetchOrderTables(this.select_status)"> 
+                        <option value="all"> All </option>
+                        <option value="1"> Table 1 </option>
+                        <option value="2"> Table 2 </option>
+                        <option value="3"> Table 3 </option>
+                        <option value="4"> Table 4 </option>
+                        <option value="5"> Table 5 </option>
+                        <option value="6"> Table 6 </option>
                         
                      </select>
                 </div>
@@ -90,7 +97,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Time</th>
                         <th scope="col">Table</th>
-                        <th scope="col">Take away</th>
+                        <th scope="col">Type</th>
                     <th scope="col">Action</th>                    </tr>
                 </thead>
                 <tbody v-for="(order, index) in this.current_orders.data" :key="order.id" >
@@ -105,7 +112,7 @@
                         <td>{{order.preparation_time}}</td>
                         <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
                         <td v-else>1</td>
-                        <td>{{order.is_take_away}}</td>
+                        <td>{{order.order_type}}</td>
                         <td class=" mx-auto text-center m-1" v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
                             <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'completed')">Complete</a>
@@ -155,12 +162,12 @@ export default {
             current_orders:'',
             counter:0,
             authRestaurant:{},
-            refreshOrdersInterval:setInterval(this.refreshOrders, 10000), //refresh orders every 7 seconds on load
+            refreshOrdersInterval:'',
             select_status:'',
+            date:''
        }
    },
    methods:{
-
         markOrder(id, value){
              axios.get('/api/order/mark/' + id + '/' + value)
             .then( response => {
@@ -193,11 +200,68 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.current_orders = response.data.data;
-
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
                 } 
             })
             .catch( error => {
-                this.$swal('Error,  failed to fetch orders!');                
+                new Swal({
+                    title:'Error,  failed to fetch orders!',
+                    timer:2000
+                });                
+                   
+            });
+        },
+        fetchOrderTypes(order_type){
+            if(order_type == 'all'){ this.refreshOrders(); return;}
+            axios.get('/orders/'+ this.authRestaurant.id + '/type/' + order_type)
+            .then( response => {
+            if( response.status = 200){
+                this.current_orders = response.data.data;
+                console.log(response.data.data);
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+                } 
+            })
+            .catch( error => {
+                new Swal({
+                    title:'Error,  failed to fetch orders!',
+                    timer:2000
+                });                
+                   
+            });
+        },
+        fetchOrderTables(table_no){
+            if(table_no == 'all'){ this.refreshOrders(); return;}
+            axios.get('/orders/'+ this.authRestaurant.id + '/tables/' + table_no)
+            .then( response => {
+            if( response.status = 200){
+                this.current_orders = response.data.data;
+                console.log(response.data.data);
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+                } 
+            })
+            .catch( error => {
+                new Swal({
+                    title:'Error,  failed to fetch orders!',
+                    timer:2000
+                });                
+                   
+            });
+        },
+        fetchOrderBydate(date){
+            console.log(this.date);
+            axios.get('/orders/'+ this.authRestaurant.id + '/date/' + date)
+            .then( response => {
+            if( response.status = 200){
+                this.current_orders = response.data.data;
+                console.log(response.data.data);
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+                } 
+            })
+            .catch( error => {
+                new Swal({
+                    title:'Error,  failed to fetch orders!',
+                    timer:2000
+                });                
                    
             });
         },
@@ -206,6 +270,8 @@ export default {
             axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {
             if( response.status = 200){
+            this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+             this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
@@ -219,17 +285,23 @@ export default {
             })
             .catch( error => {
                 this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
-                this.$swal('Error,  failed to refresh orders!');                
+                new Swal({
+                    title:'Error,  failed to fetch orders!',
+                    timer:1500,
+                });              
                 console.log(error.response.data.errors);                    
             });
         },
         muteAudio(){
             // this.$refs.audio.mute();
-        }
+        },
+        showLoading(){            
+            Swal.showLoading();
+        },        
    },
 
     mounted(){
-        // this.refreshOrdersInterval = setInterval(this.refreshOrders, 1000);  //refresh orders every 7 seconds on load
+        this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);  //refresh orders every 10 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
         console.log(this.orders);

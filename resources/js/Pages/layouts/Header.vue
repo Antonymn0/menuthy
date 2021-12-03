@@ -26,12 +26,37 @@
             </div>
             <div class="other-icons"> 
                 <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
-                    <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i>
+                    <i class="bi bi-gear-fill text-white recent-link" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info">
+                        <span class="hovercard">
+                            <span class="tooltiptext">
+                            Update restaurant information.
+                            </span>
+                        </span>
+                    </i>
                 </a>
-                <a href="#" class="p-1"> <i class="bi bi-lightning-fill text-white"></i></a> 
-                <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
+                <a href="#" class="p-1"> <i class="bi bi-lightning-fill text-white recent-link">
+                    <span class="hovercard">
+                    <span class="tooltiptext">
+                    Publish saved changes to device.
+                    </span>
+                </span>
+                    </i>
+                    </a> 
+                <a href="#" class="p-1 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
+                        <span class="hovercard">
+                            <span class="tooltiptext">
+                            Preview your menu.
+                            </span>
+                        </span>
+                    </i></a>
                 <a href="" class="p-1" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
-                    <i class="bi bi-qr-code text-white"></i>
+                    <i class="bi bi-qr-code text-white recent-link">
+                        <span class="hovercard">
+                            <span class="tooltiptext">
+                            Display Qr code for logging in into mobile menu.
+                            </span>
+                        </span>
+                    </i>
                 </a>
             </div>
         </div>
@@ -40,14 +65,23 @@
     <!-- ----------------------------------------user--------------------------------------------- -->
     <div class=""> 
         <p class="d-flex justify-content-center align-items-center"> 
-         <span class="float-left"> <a href="#" onclick="openFeedBack()"> <i class="bi bi-bell-fill text-white mr-4" style="font-size: 1rem;font-weight: 300;"></i> </a> </span>
-           
-                <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
-                    <span class=" pr-1">{{authUser.first_name}} </span>  
-                    <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle" style="width:50px; height:50px;">
-                    <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
-                </a> 
-             
+          
+        <!-- tootip + tooltip -->
+         <span class="float-left ">
+             <a href="#" class="" onclick="openFeedBack()">
+              <i class="bi bi-bell-fill text-white mr-5 recent-link" style="font-size: 1rem;font-weight: 300;">              
+                <span class="hovercard">
+                    <span class="tooltiptext">
+                    Track orders, requests and feedback.
+                    </span>
+                </span></i>  
+            </a> 
+          </span>           
+            <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+                <span class=" mr-3">{{authUser.first_name}} </span>  
+                <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px;">
+                <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
+            </a>             
            
         <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
             <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >Profile</a></li>                
@@ -147,6 +181,40 @@ export default {
 .user-div{
     display:flex; 
     align-items: center;
+}
+
+//tooltip
+.recent-link {
+  position: relative;
+
+}
+.hovercard { 
+  position: absolute; 
+  display:none;
+  opacity: 0; 
+  z-index: 5;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+}
+
+.recent-link:hover .hovercard { 
+    display:block;
+  opacity: 1; 
+  transition: 0.5s;
+  transition-delay: 0.1s;
+}
+.tooltiptext {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  background-color: #fff;
+  padding: 18px; 
+  border-radius: 5px; 
+  color: rgb(102, 100, 100); 
+  line-height: 15px;
+  transition: 1s;
+  width: 200px;
 }
 
 

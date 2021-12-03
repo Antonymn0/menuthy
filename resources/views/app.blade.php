@@ -183,7 +183,7 @@ animation-duration: 1s;
 
 </head>
 
-<body class="font-sans antialiased" >
+<body class=" " >
 
 
     @if(Auth::check())
