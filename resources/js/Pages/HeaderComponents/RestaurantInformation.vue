@@ -74,14 +74,14 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="exampleFormControlInput2">Timezone</label>
+                                <label for="exampleFormControlInput2">Timezone <small class="text-muted">{{form.timezone}} </small></label>
                                 <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
                                     <option selected >{{form.timezone}}</option>
                                     <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
                                 </select>
                             </div> 
                              <div class="pb-1 col-md-6">
-                                <label for="timezone">Currency</label>
+                                <label for="timezone">Currency <small class="text-muted">{{form.currency}} </small></label>
                                 <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
                                     <option value="#" selected> {{form.currency}}</option>
                                     <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>
@@ -874,6 +874,7 @@ export default {
         if(window.authRestaurant.restaurant_email !== 'null') this.form.restaurant_email = window.authRestaurant.restaurant_email;
         if(window.authRestaurant.website !== 'null') this.form.website = window.authRestaurant.website;
         if(window.authRestaurant.timezone !== 'null') this.form.timezone = window.authRestaurant.timezone;
+        if(window.authRestaurant.currency !== 'null') this.form.currency = window.authRestaurant.currency;
         if(window.authRestaurant.description !== 'null')this.form.description = window.authRestaurant.description;
         if(  window.authRestaurant.facebook !== 'null') this.form.facebook = window.authRestaurant.facebook;
         if(window.authRestaurant.twitter !== 'null') this.form.twitter = window.authRestaurant.twitter;
