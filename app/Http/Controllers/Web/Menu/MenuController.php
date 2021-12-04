@@ -28,7 +28,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display main menus resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

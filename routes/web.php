@@ -22,17 +22,23 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return view('welcome');
 });
+ // show vuejs user register form
+   Route::get('register', function () { 
+     return Inertia::render('User/RegisterUser');
+      })->name('register');
+
 
    // main mobile menu view route (via qr code)
    Route::get('/{restaurant_name}/menu/{restaurant_id}/{menu_id?}/{table_number?}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMainMenu'])->name('mobile menu');
    
    // mobile sub-menus route (via qr code)
    Route::get('/{restaurant_name}/sub-menu/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getSubMenus'])->name('mobile menu');
+  
+   // get main menus route
+   Route::get('/{restaurant_name}/main-menu/{menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getOneMainMenu'])->name('get main mobile menu');
    
-   // show vuejs user register form
-   Route::get('register', function () { 
-     return Inertia::render('User/RegisterUser');
-      })->name('register');
+
+  
 
 
 /////////// PROTECTED ROUTES /////

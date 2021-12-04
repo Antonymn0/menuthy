@@ -27,6 +27,7 @@ class Order extends Model
         'is_inhouse',
         'price',
         'order_type',
+        'order_for',
         'preparation_time',
         'status',
         'table_number',

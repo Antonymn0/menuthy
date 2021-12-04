@@ -97,6 +97,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Time</th>
                         <th scope="col">Table</th>
+                        <th scope="col">Order for</th>
                         <th scope="col">Type</th>
                     <th scope="col">Action</th>                    </tr>
                 </thead>
@@ -112,6 +113,7 @@
                         <td>{{order.preparation_time}}</td>
                         <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
                         <td v-else>1</td>
+                        <td>{{order.order_for}}</td>
                         <td>{{order.order_type}}</td>
                         <td class=" mx-auto text-center m-1" v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>

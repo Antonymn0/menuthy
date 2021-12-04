@@ -15,7 +15,7 @@ class MobileMenuController extends Controller
 {
 
     /**
-     * Initialy display a listing of menus on mobile menu.
+     * Initialy display a listing of menus on mobile/tablet menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,11 +50,44 @@ class MobileMenuController extends Controller
                     'subMenus'=>[],
                     'menuItems'=>[],
                     'user'=> $user['user'],
-                     'restaurant'=> $user['restaurant'],
+                    'restaurant'=> $user['restaurant'],
                     ]);
     }
 
 
+/**
+ * get a single main menu with the sub mneus and menu items
+ */
+public function getOneMainMenu($restaurant_name, $menu_id){
+             $menu = Menu::WHERE('id', $menu_id)->first();
+                
+             $user = $this->makeSafeUser($menu->restaurant_id, $table_number=null);
+
+             $menus = Menu::WHERE('restaurant_id',$menu->restaurant_id )->get();
+             
+             if(isset($menu)){
+                  $subMenus  = SubMenu::WHERE('menu_id',$menu->id)->get();
+                  if(count($subMenus)){
+                      $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
+                      
+                      return Inertia::render('MobileMenu/MenuView')->with([
+                        'menus'=>$menus,
+                        'subMenus'=>$subMenus,
+                        'menuItems'=>$menuItems,
+                        'user'=> $user['user'],
+                        'restaurant'=> $user['restaurant'],
+                        ]);
+                  }
+             }
+              // else return empty array 
+         return Inertia::render('MobileMenu/MenuView')->with([
+                    'menus'=>$menus,
+                    'subMenus'=>[],
+                    'menuItems'=>[],
+                    'user'=> $user['user'],
+                     'restaurant'=> $user['restaurant'],
+                    ]);
+}
 
     /**
      * when a user clicks on a main menu link he gets a list of sub menus back 

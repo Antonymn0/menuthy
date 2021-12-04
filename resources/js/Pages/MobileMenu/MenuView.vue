@@ -17,6 +17,7 @@
 
 
     <!-- ------------------------------------------------------------ -->
+
     <div class="slider-div">
         <div v-if="this.subMenus.length" :class="blur" class="inner-shadow inner-right-shadow"> 
             <carousel :items-to-show="3.5">
@@ -29,7 +30,7 @@
                                 <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
                             
-                            <h5 class="p-2" >
+                            <h5 class="px-2 my-3" >
                                 {{sub_menu.sub_menu_name}}
                             </h5>
                         </div>
@@ -41,26 +42,26 @@
                 </template>
             </carousel>
         </div>
+
+        
     </div>
 
 
     <!-- ----------------------------------------------------------- -->
     <div class=" text-center align-items-center py-2">
-        <h4> <b> {{this.menu_name}} </b> </h4>
+        <h5> <b> {{this.menu_name}} </b> </h5>
         <p v-if="this.description"> {{this.description}} </p>
     </div>
 
  
     <!-- --------------------------------------------------- -->
-    <div v-if="menu_items.length"> 
+    <div v-if="menu_items.length" class="m-1"> 
         
     <div class="items-div"  v-for="menu_item in menu_items" :key="menu_item.id">
-        <div class=" items-div-inner my-2 shadow" >
-            <div class="img-div "> 
-               <a href="#" @click="togglepopUp(menu_item)"> <img :src="menu_item.image" alt="menu-image" ></a> 
-             </div>
+        <div class="row items-div-inner my-2 shadow" >
+            
             <div class="text-div">
-                <div class="pl-3 py-3 w-100">
+                <div class="pl-3 pt-3 w-100 inner-items-div">
                     
                     <div class="title ">                        
                         <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> 
@@ -71,25 +72,36 @@
                     <!-- radio buttons -->
                     <div class=" radio-btns"> 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" :id="menu_item.id" value="dine in">
-                            <label class="form-check-label" for="inlineRadio1"> Dine in</label>
+                            <input class="form-check-input" checked v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="menu_item.id" value="take away">
-                            <label class="form-check-label" for="inlineRadio2">Take away</label>
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
+                            <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="menu_item.id" value="pick up" >
-                            <label class="form-check-label" for="inlineRadio3">Pick up</label>
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
                         </div>
                         <small class="text-danger"> {{this.errors.order_type}}</small>
                     </div>
                     <p class="order-btn">
-                        <span  v-if="this.User.package_type != null"> <a href="#" class="p-2" @click="placeOrder(menu_item)">Order</a></span> 
-                        <span class="time text-default pl-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span  v-if="this.User.package_type != null" class="button">
+                        
+                             <a href="#" class="p-2 mx-3"  @click="togglepopUp(menu_item)"> Order </a>
+                             
+                           
+                        </span> 
+
+                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Open</a></span>
+
+                        <span class="time text-default float-right pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                      </p>
                 </div>    
-            </div>            
+            </div>  
+                 <div class="img-div "> 
+               <a href="#" @click="togglepopUp(menu_item)"> <img :src="menu_item.image" alt="menu-image" ></a> 
+             </div>     
         </div>
 
 
@@ -97,7 +109,7 @@
         
     </div>
     <div v-else class="text-center py-5">
-        No items listed in this menu
+        No items listed in this category
     </div>
     <div class=" py-3 text-danger d-flex justify-content-center align-items-center">
         <p>
@@ -116,9 +128,9 @@
                 <h4 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel" style="color:rgb(241, 103, 48);">Main Menu</h4>
             </div>
             <div class="modal-body">
-                <ul  v-for="(sub_menu) in subMenus" :key="sub_menu.id" class="list-unstyled px-5">
-                     <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" @click="fetchMenuItems(sub_menu.id)" >  
-                        <a class="dropdown-item p-2" href="#"    > {{sub_menu.sub_menu_name}} </a> 
+                <ul  v-for="(menu) in menus" :key="menu.id" class="list-unstyled px-5">
+                     <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" >  
+                        <a class="dropdown-item p-2" href="#"   @click="fetchMenus( menu.id)"  > {{menu.menu_name}} </a> 
                     </li>
                 </ul>
             </div>
@@ -145,25 +157,28 @@
                             {{this.menu_item.menu_item_name}}   
                         </h4> 
                         <p class="description mb-0" v-if="menu_item.description !== 'null'">{{this.menu_item.description}}  </p>
-                       <!-- radio buttons -->
-                        <div class="pt-1 pb-3 radio-btns"> 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" checked v-model="this.order_type" type="radio" name="inlineRadioOptions" :id="'r1' +  menu_item.id" value="dine in">
-                                <label class="form-check-label" for="inlineRadio1">Dine in</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="'r2' + menu_item.id" value="take away">
-                                <label class="form-check-label" for="inlineRadio2">Take away</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" v-model="this.order_type" name="inlineRadioOptions" :id="'r3' + menu_item.id" value="pick up" >
-                                <label class="form-check-label" for="inlineRadio3">Pick up</label>
-                            </div>
-                            <small class="text-danger"> {{this.errors.order_type}}</small>
+
+                        <!-- radio buttons -->
+                    <div class=" radio-btns-popup py-1"> 
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" checked v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
+                            <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
+                        </div>
+                        <small class="text-danger"> {{this.errors.order_type}}</small>
+                    </div>
                         <p class="order-btn mx-auto">
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2" @click="placeOrder(menu_item)">Order now</a></span> 
+                            <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="placeOrder(menu_item)">Order for {{order_amount}}</a></span> 
                             
+                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i>
                         </p>
                     </div>
                 </div>
@@ -197,6 +212,7 @@ export default {
       return{
           blur:'',
           menu_item:'',
+          order_amount:1,
           restaurant_name:'',
           menu_items:'',
           menu_name:'',
@@ -212,6 +228,10 @@ export default {
       }
   },
   methods:{
+     orderFor(number){
+         this.order_amount += number;
+         if(this.order_amount < 1)this.order_amount = 1;
+     },
       togglepopUp(menu_item){
           this.popupVisible = !this.popupVisible;
          if(this.blur == '') this.blur = 'blur';
@@ -228,6 +248,12 @@ export default {
           this.show_menus_list = !this.show_menus_list;
           this.show_single_menu_item = !this.show_single_menu_item;
           this.blur = this.blur == 'blur-background' ? '' : 'blur-background';
+      },
+      fetchMenus( menu_id){
+          Swal.showLoading();
+          this.$inertia.visit('/' + this.restaurant_name + '/main-menu/' + menu_id);
+         Swal.close()
+        
       },
       fetchMenuItems( sub_menu_id){
           Swal.showLoading();
@@ -260,10 +286,11 @@ export default {
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
             form_data.append('order_type', this.order_type);
+            form_data.append('order_for', this.order_amount);
             if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
             if(!this.User.table_number) form_data.append('table_number', 1);
 
-            if(confirm("Place order?")){
+            if(confirm("Place this order for "+ this.order_amount + ' people?')){
                 axios.post('/api/order', form_data)
                     .then( response => {
                         if( response.status = 201){
@@ -297,7 +324,7 @@ export default {
 
 <style lang="scss" >
 @import "../../../sass/app.scss"; 
-
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 // parent div 
 .parent-div{
@@ -311,6 +338,7 @@ export default {
 }
 
 .header-div img{
+    object-fit:cover;
     width:100px;
     height:100px;
     display: block;
@@ -340,19 +368,21 @@ export default {
 
 // slider div 
 .slider-div{
-    margin-left:.5rem;
-    margin-right:.5rem;
+//
 }
 
 .carausel-item{
     display:table-cell;
-    margin-left:5px;
-    margin-right:5px;
+    padding:.2rem;
     overflow:hidden;
+   max-height: 80%;;
 }
 .slider-div img{
-    width:120px;
-    height:120px;
+    object-fit:cover;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;
     border-radius: 10px;;
 }
  .carousel__prev, .carousel__next {
@@ -367,7 +397,7 @@ export default {
 
 // items div
 .items-div{
-    padding-left: 10px;
+    margin-left: .5rem;
     padding-right: 10px;
 }
 .items-div-inner{
@@ -381,7 +411,7 @@ export default {
     margin-bottom:auto;
 }
 .img-div img{
-
+object-fit: cover;
     width:100%;
     height:150px;
 }
@@ -410,6 +440,7 @@ font-weight:300;
     font-weight:400;
 }
 
+// order btn
 .order-btn a{
     background-color: $orange;
     border: none;
@@ -420,7 +451,20 @@ font-weight:300;
     text-decoration: none;
     font-size: 16px;
 }
-
+.order-btn .button{
+        display:inline-block;
+    }
+.order-btn .open{
+        display:none;
+    }
+.order-btn i{
+    font-size: 1.3rem;
+    cursor:pointer;
+}
+.order-btn i:hover{
+    font-size: 1.3rem;
+    cursor:pointer;
+}
 .inner-shadow {
     box-shadow: inset -5rem 0 0 0 #fff;
 }
@@ -447,6 +491,8 @@ font-weight:300;
     font-size:1.2rem;
 }
 
+
+//radio btns
 input[type='radio']:after {
         width: 15px;
         height: 15px;
@@ -538,6 +584,57 @@ input[type='radio']:after {
 
 
 
+/* media quesries */
+@media only screen and (max-width: 600px) {
+  .img-div{
+vertical-align:middle;
+padding:.2rem;
+
+}
+  .img-div img{
+      max-height:100px;
+      width:200px;
+     max-width:100%;
+
+}
+}
+
+/* media quesries */
+@media only screen and (max-width: 450px) {
+    .parent-div{
+   padding:1rem;
+   overflow:hidden;
+}
+.items-div{
+    width:100%;
+    padding:0;
+    margin:0;
+}
+.items-div-inner{
+    width:100%;
+    padding:.5rem;
+    margin:0;
+}
+.text-div{
+    padding-left:5px;
+}
+  .radio-btns{
+    display:none;
+    }
+    .order-btn{
+        padding-top:10px;
+    }
+    .order-btn .button{
+        display:none;
+    }
+    .order-btn .open{
+        display:inline-block;
+    }
+    .inner-items-div{
+        padding-left: 0 !important;
+    }
+
+}
 
 
 
@@ -545,344 +642,4 @@ input[type='radio']:after {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// .parent-div{
-//     width:45rem;
-//     height:100vh;
-//     margin:auto;
-//     overflow-y:scroll;
-//     padding-left:1rem ;
-//     padding-right:.5rem ;
-//     padding-top: 0;
-//     display:table;
-//     font-size: 10pt;
-//     font-weight: 600;
-// }
-
-//  .logo img,  .logo p {
-//     justify-content: center;
-// }
-// .logo-part{
-//     top:-1rem;
-// }
-
-// .carousel-div{
-//     padding-bottom:1rem;
-// }
-// .carousel__prev, .carousel__next {
-//     background-color: $orange !important;
-//     margin: .3rem;
-//     margin-right:.3rem;
-//     top:4rem;
-// }
-
-
-// .carousel__prev svg path, .carousel__next svg path , .nav-link, .menu-name, .carousel__icon{
-//     color:#fff !important;
-// }
-
-// .inner-carousel-div {
-//  width:100%;
-//  padding: .2rem;
-// }
-// .img-div  {
-//  border-radius: 20px;
-//  overflow: hidden;
-// }
-// .img-div img {
-//     object-fit: cover;
-//     height: 150px;
-//     max-height: 100%;
-//     width:100%;
-// }
-
-// .title-part h3, .title-part p{
-//     display: flex;
-//     justify-content: center;
-//     font-size:.10pt;
-// }
-
-// .title-part p, .title{
-//     font-size:12pt;
-// }
-// .parent-container{
-//     width:90%;
-//     margin: auto;
-
-// }
-
-// .elements-div{
-//     width:25%;
-//     float:left;
-//     text-align: center;
-//     border-radius: 15px;
-// }
-// .inner-elements-div{
-//     border-radius: 15px;
-// }
-// .image-div{
-//     width:100%;
-//     min-height: 100%;
-//     overflow:hidden;
-//     border-radius: 15px 15px 0 0;
-// }
-// .image-div2{
-//     object-fit: cover;
-//    display:none;
-// }
-// .image-div img{
-//     min-height:50px;         
-//     width: 100%;
-//     max-width:100%;
-//     height:25vh;
-//     max-height:100%;
-//     object-fit: cover;
-// }
-// .text-div{
-//     position:relative;
-//     padding-bottom: .2rem;;
-//     padding-top: .2rem;;
-// }
-
-// .ribbon{
-//     width:100%;
-//     position: absolute;
-//     margin-left: auto;
-//     margin-right: auto;
-//     top:-1.2rem;
-//     z-index: 2;
-//     background-color: rgba(255, 255, 255, 0.459);
-//     margin-bottom: 0;
-// }
-// .ribbon .price{
-//     background-color: white;
-//     padding:3px;
-//     padding-left:8px;
-//     padding-right:8px;
-//     color:$orange; 
-// }
-// .ribbon .time{
-//     padding:3px;
-//     padding-left:8px;
-//     padding-right:8px;
-
-// }
-// .title{
-//     padding-top:.5rem;
-// }
-// .title .price{
-//     display:none;
-// }
-// .description{
-//     display: none;
-// }
-// .order-btn a{
-//     background-color: $orange;
-//     border: none;
-//     color: white;
-//     padding: 5px 10px;
-//     border-radius: 7px;;
-//     text-align: center;
-//     text-decoration: none;
-//     font-size: 16px;
-// }
-// .order-btn a:hover{
-//       background-color: #ff2b0698; 
-// }
-// .order-btn .time{
-//     display:none;
-// }
-
-// .arrow-left {
-//     font-size:20pt;
-//     position: relative;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 50px;
-//     height: 50px;
-//     top:5rem;
-//     cursor: pointer;
-//     transition: all .5s ease-in-out;
-//     border: 2px solid rgb(231, 223, 223); 
-//     border-radius: 10px;
-//     z-index: 5;
-//     }
-// .arrow-left:hover{
-//         border: 3px solid rgb(236, 233, 233); 
-//         color:rgba(220, 20, 60, 0.205);
-//     }
-// .arrow-left:active {
-//     padding: 0;
-//     margin: 0;
-//     opacity: 1;
-//     transition: 0s;
-//     color:#fff;
-//     background-color:rgba(194, 48, 48, 0.466);
-//     }
-// .modal-content{
-//     width:50%;
-//     margin-left:auto;
-//     margin-right:auto; 
-//     align-content:middle;
-// }
-
-
-// /* media queries */
-// @media only screen and (max-width: 900px) {
-//    .parent-div{
-//     width:100vw;
-//     height:auto;
-//     max-height: 100px;
-//      border-right: none;
-//      padding-left:.5rem;
-//      padding-right:.5rem;
-//     }
-//     .inner-carousel-div {
-//         width:100%;
-//         padding: .1rem;
-
-//     }
-//  .arrow-left {
-//      left:.2rem;
-//  }
-//     .img-div  {
-//     height:100px;
-//     max-height:100%;
-//     }
-
-//     .elements-div{
-//         width:99%;       
-//         text-align: center;
-//         margin-bottom: .5rem;
-//         border-radius: 15px;
-//         display: flex;
-//         align-items: center;
-//         display:table-cell;
-//     }
-//      .inner-elements-div{
-//         width:100%;
-        
-//     }
-//     .image-div{
-//        display: none;
-//     }
-   
-//     .ribbon{
-//         display:none !important;
-//     }
-//     .title .price{
-//     display:block;
-//     font-size:10pt;
-//     float:right;
-//     color: $orange;
-//     }
-//     .description{
-//         display:block;
-//         font-size:9pt;
-//     }
-//      .image-div2{
-//          background-size:cover;
-//         width:30%;
-//         max-height:100%;
-//         display:block;
-//         overflow:hidden;
-//         border-radius: 0 15px 15px 0;
-//     }
-//     .image-div2 img{
-//         object-fit: cover;
-//         height:120px;       
-//         width: 100%;
-//         max-height:100%;
-//     }
-//     .text-div{
-//         width:70%;
-//         float:left;
-//         margin-top:2%;
-//         margin-bottom:auto;
-//         padding-left:1rem;
-//         text-align: left;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//     }
-
-//     .order-btn {
-
-//         float:left;
-//     }
-//     .order-btn .time{
-//         display:inline-block;
-
-//     }
-//     .modal-content{
-//         top:1rem;
-//         width:100%;
-//         margin-left:auto;
-//         margin-right:auto; 
-//         align-content:middle;
-//     }
-// }
-
-// /* media queries */
-// @media only screen and (max-width: 300px) {
-//     .carousel__prev, .carousel__next {
-//         background-color: $orange !important;
-//         margin: .3rem;
-//         top:2.5rem;
-//     }
-//    .elements-div{
-//         width:95%;
-//         float:left;
-//         padding: .5rem;
-//         text-align: center;
-//         border-radius: 15px;
-//         font-size:10pt;
-//     }
-//     .image-div{
-//         display:block;
-//         width:100%;
-//         height:30vh;
-//         overflow:hidden;
-//         border-radius: 15px 15px 0 0;
-//     }
-//     .image-div2{
-//         display:none;
-//     }
-//     .text-div{
-//         width:100%;
-//     }
-//     .image-div img{
-//         min-height:100px;         
-//         width: 100%;
-//         max-width:100%;
-//         height:30vh;
-//         // max-height:100%;
-//     }
-//     .description{
-//         display: block;
-//     }
-//     .order-btn{
-//         text-align:center;
-//     }
-// }
-
-// </style>
+</style>

@@ -25,6 +25,7 @@ class OrderFactory extends Factory
             'restaurant_id' => $this->faker->randomFloat(1,0),
             'preparation_time' =>5,
             'status' => $this->faker->randomElement(['recieved', 'processing', 'complete','canceled']),
+            'order_for' => $this->faker->randomElement([1, 2, 3,4]),
             'order_type' => $this->faker->randomElement(['dine in', 'take away', 'pick up']),
             'accompaniments' => $this->faker->sentence(),
             'avatar' => $this->faker->url() ,

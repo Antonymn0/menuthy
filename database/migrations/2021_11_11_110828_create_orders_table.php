@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('menu_item_type')->nullable();
             $table->string('is_take_away')->nullable();
             $table->string('order_type')->nullable();
+            $table->integer('order_for')->nullable();
             $table->string('is_inhouse')->nullable();
             $table->text('accompaniments')->nullable();
             $table->timestamp('deleted_at')->nullable();
