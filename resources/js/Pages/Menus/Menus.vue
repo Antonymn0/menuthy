@@ -175,6 +175,13 @@ export default {
     font-weight:400;
     color:#585858;
 }
+.menu-card img{
+    object-fit:cover;
+    width:200px;
+    height:200px;
+    max-height:100%;
+    max-width:100%;
+    }
 .menu-dots{
     position: absolute;
     top:.5rem;

@@ -4,15 +4,15 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title text-center" id="exampleModalLabel">Add new menu</h3>
+                        <h3 class="modal-title text-center " id="exampleModalLabel">Add new menu</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-    <div class="modal-body">
+                    </div> 
+    <div class="modal-body p-5">
         <form action="/upload"  enctype="multipart/form-data" @submit.prevent = "submitForm()">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Menu name</label>
+                <label for="exampleFormControlInput1" >Menu name</label>
                 <input type="text" v-model="form.menu_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
                  <small class="text-danger"> {{ errors.menu_name}} </small>
             </div>
@@ -34,7 +34,7 @@
                 <small class="text-danger"> {{this.errors.image }} </small>              
             </div>
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn mr-2"   >Save </button>
+                <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" data-dismiss="modal" >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>

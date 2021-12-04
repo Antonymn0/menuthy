@@ -29,11 +29,11 @@
                             <div class=" " v-else>
                                 <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
                             </div>
-                            
-                            <h5 class="px-2 my-3" >
+
+                            <h5 class="px-1 my-3" >
                                 {{sub_menu.sub_menu_name}}
-                            </h5>
-                        </div>
+                            </h5>                           
+                        </div> 
                     </slide>
                     <template #addons>
                         <div class="">
@@ -341,6 +341,8 @@ export default {
     object-fit:cover;
     width:100px;
     height:100px;
+    min-height:100px;
+    min-width:100px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -383,8 +385,8 @@ export default {
 }
 .slider-div img{
     object-fit:cover;
-    width:auto;
-    height:auto;
+    width:180px;
+    height:120px;
     max-width:100%;
     max-height:100%;
     border-radius: 10px;;
@@ -393,7 +395,7 @@ export default {
     background-color: $orange !important;
     margin: .3rem;
     margin-right:.3rem;
-    top:4rem;
+    top:3.5rem;
 }
 .carousel__prev svg path, .carousel__next svg path , .nav-link, .menu-name, .carousel__icon{
     color:#fff !important;
@@ -608,6 +610,18 @@ padding:.2rem;
     .parent-div{
    padding:1rem;
    overflow:hidden;
+}
+.carousel__prev, .carousel__next {
+    background-color: $orange !important;
+    margin: .3rem;
+    margin-right:.3rem;
+    top:2.3rem;
+}
+.slider-div img{
+    width:150px;
+    height:80px;
+    max-width:100%;
+    max-height:100%;
 }
 .items-div{
     width:100%;

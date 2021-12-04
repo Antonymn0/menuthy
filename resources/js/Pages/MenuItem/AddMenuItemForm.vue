@@ -9,7 +9,7 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-    <div class="modal-body">
+    <div class="modal-body p-5">
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Item name*</label>
@@ -170,9 +170,9 @@ props:['sub_menu'],
                 allergy_warning:'', 
                 is_new:false, 
                 is_veg:false, 
-                is_hot:true, 
+                is_hot:false, 
                 is_signiture:false, 
-                is_special_presentation:true, 
+                is_special_presentation:false, 
                 publish:true, 
                 discount:1,
                 price:1,

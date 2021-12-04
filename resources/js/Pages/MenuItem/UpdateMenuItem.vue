@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-5">
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Item name</label>

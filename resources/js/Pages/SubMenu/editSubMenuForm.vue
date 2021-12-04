@@ -4,12 +4,12 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title text-center" :id="'updateModal'+ subMenu.id + 'Label'">Update menu</h3>
+                    <h3 class="modal-title text-center" :id="'updateModal'+ subMenu.id + 'Label'">Update section</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>           
-            <div class="modal-body">
+            <div class="modal-body p-5">
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name</label>
@@ -119,12 +119,12 @@ export default defineComponent({
             .then( response => {
             if( response.status = 201){
                 console.log('responce: ',response);
-                this.$swal('Success, Sub menu updated!');
+                this.$swal('Success!');
                 this.$inertia.reload();
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, Sub menu not added!');
+               this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },

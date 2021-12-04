@@ -42,8 +42,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Survey forms</a></li>
                                 <li><a class="dropdown-item" href="#">Survey results</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                
                             </ul>
                             </li>
                              <li class="nav-item">
@@ -89,14 +88,15 @@ export default {
 
 .browser-menu{
     // background: #262734;
-font-family: Poppins ;
-font-size:.1rem;
+    font-family: Poppins ;
+    font-size: 1.07rem;
 }
 
 .browser-menu a{
     text-decoration:none;
     color: #9699a2;
     font-family: Poppins ;
+    font-size: 1.07rem;
 
 }
 .browser-menu .navbar{
@@ -105,6 +105,7 @@ font-size:.1rem;
     text-decoration:none;
     color: #9699a2;
     font-family: Poppins ;
+    font-size: 1.07rem;
 }
 
 .navbar .nav-item:hover .dropdown-menu{
@@ -116,7 +117,10 @@ font-size:.1rem;
     color:rgb(224, 220, 220) !important;
 }
 
-
+.dropdown-item{
+    font-family: Poppins !important;
+    font-size:1rem !important;
+}
     ul li{
         padding:.8rem;
         font-size: 14pt;

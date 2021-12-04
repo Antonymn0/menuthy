@@ -194,6 +194,13 @@ export default {
     max-width:98%;
     margin: .5rem .1rem;
 }
+.menu-card img{
+    object-fit:cover;
+    width:200px;
+    height:200px;
+    max-height:100%;
+    max-width:100%;
+}
 .menu-dots{
    position: absolute;
     top:.5rem;

@@ -45,7 +45,8 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-                        </div>                                                                   
+                        </div> 
+                        <p class="text-left mb-0 py-1" style="font-size:.9rem;">{{subMenu.description}}</p>                                                                  
                         <p class="text-left ">  
                             <span class="small text-center"> {{  formatDate(subMenu.created_at)}} </span>  
                         </p> 
@@ -176,6 +177,13 @@ export default {
         height:auto;
         max-width:98%;
         margin: .5rem .1rem;
+    }
+    .menu-card img{
+        object-fit:cover;
+       width:200px;
+       height:200px;
+       max-height:100%;
+       max-width:100%;
     }
     .menu-dots{
       position: absolute;

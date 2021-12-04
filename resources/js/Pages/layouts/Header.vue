@@ -34,15 +34,8 @@
                         </span>
                     </i>
                 </a>
-                <a href="#" class="p-1"> <i class="bi bi-lightning-fill text-white recent-link">
-                    <span class="hovercard">
-                    <span class="tooltiptext">
-                    Publish saved changes to device.
-                    </span>
-                </span>
-                    </i>
-                    </a> 
-                <a href="#" class="p-1 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
+             
+                <a href="#" class="py-1 px-2 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
                         <span class="hovercard">
                             <span class="tooltiptext">
                             Preview your menu.
@@ -158,7 +151,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .parent-header{
-font-family: Poppins !important;
+font-family: Poppins ;
     background: #2c2d3a;
     height:120px;
     display:flex;
@@ -202,20 +195,24 @@ font-family: Poppins !important;
 .recent-link:hover .hovercard { 
     display:block;
   opacity: 1; 
-  transition: 0.5s;
+  transition: 0.5s;  
   transition-delay: 0.1s;
 }
 .tooltiptext {
+font-family: Poppins !important;
   display: flex; 
   flex-direction: column; 
   justify-content: flex-start; 
   background-color: #fff;
-  padding: 18px; 
-  border-radius: 5px; 
+  padding: 13px; 
+  text-align: center;
+  font-weight: bold;
+  font-style: normal;
+  border-radius:35px;
   color: rgb(102, 100, 100); 
-  line-height: 15px;
+  line-height: 18px;
   transition: 1s;
-  width: 200px;
+  width: 180px;
 }
 
 

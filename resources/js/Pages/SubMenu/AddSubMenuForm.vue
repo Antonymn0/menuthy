@@ -9,7 +9,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>           
-            <div class="modal-body">
+            <div class="modal-body p-5">
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name</label>
@@ -87,9 +87,9 @@ export default defineComponent({
                 restaurant_id: 0,
                 menu_id:0,
                 description:'',
-                is_new:true,
-                is_signiture: true,
-                publish: false,
+                is_new:false,
+                is_signiture: false,
+                publish: true,
                 image:'',
                 img_preview:''
             },
@@ -124,7 +124,7 @@ export default defineComponent({
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, Sub menu not added!');
+               this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },

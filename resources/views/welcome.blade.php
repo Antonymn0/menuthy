@@ -17,8 +17,8 @@
                     <div class="col-md-8 offset-md-4">                     
                             
                         
-                        <a href="/login" class="btn btn-lg btn-danger pr-4 pl-4 ml-2">Login</a>   or    
-                        <a href="/register" class="btn btn-lg btn-danger ml-2">Register</a>
+                        <a href="/login" class="btn px-2 btn-danger pr-4 pl-4 ml-2">Login</a>   or    
+                        <a href="/register" class="btn px-2 btn-danger ml-2">Register</a>
                         <br />                               
                     </div>
                 </div>                
