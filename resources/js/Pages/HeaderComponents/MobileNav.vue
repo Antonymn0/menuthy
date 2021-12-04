@@ -139,10 +139,11 @@ export default {
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 18px;
   color: #818181;
   display: block;
   transition: 0.3s;
+  font-family: Poppins ;
 }
 
 /* When you mouse over the navigation links, change their color */

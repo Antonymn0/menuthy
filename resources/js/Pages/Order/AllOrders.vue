@@ -3,7 +3,7 @@
   <Header />
     <Topnavbar /> 
 
-    <div class="parent-div m-1  mx-auto">       
+    <div class="parent-div m-1 pt-2 mx-auto">       
         <div class=" row p-3">            
             <h2 class="col-md-6 ">
                Orders
@@ -77,15 +77,7 @@
            
 
         </div>
-        
-        <!-- <div class="d-flex justify-content-center table-responsive">
-                <a href="/dashboard" class="btn  btn-primary  m-2 "><i class="bi bi-chevron-left "></i> Dashboard</a> <br/>
-              <a href="#" class="btn  btn-success m-2 " @click="refreshOrders()"> <i class="bi bi-arrow-repeat "></i>Refresh </a>           
-            <a href="#" class="btn btn-primary m-2" @click="fetchOrders('today')">All Today</a>
-            <a href="#" class="btn btn-success m-2" @click="fetchOrders('completed')">Completed</a>
-            <a href="#" class="btn btn-danger m-2" @click="fetchOrders('canceled')">Canceled</a>
-            
-        </div> -->
+
 
         <div class="p-2 table-responsive" >        
             <table class="table table-light table-borderless bg-white table-hover  align-middle" style="overflow:scroll">

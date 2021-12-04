@@ -88,14 +88,15 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .browser-menu{
-    background: #262734;
-font-family: Poppins !important;
-font-size:1rem;
+    // background: #262734;
+font-family: Poppins ;
+font-size:.1rem;
 }
 
 .browser-menu a{
     text-decoration:none;
     color: #9699a2;
+    font-family: Poppins ;
 
 }
 .browser-menu .navbar{
