@@ -86,14 +86,17 @@ export default {
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+
 .browser-menu{
     background: #262734;
-
+font-family: Poppins !important;
+font-size:1rem;
 }
 
 .browser-menu a{
     text-decoration:none;
     color: #9699a2;
+
 }
 .browser-menu .navbar{
     padding-left:2.3rem;

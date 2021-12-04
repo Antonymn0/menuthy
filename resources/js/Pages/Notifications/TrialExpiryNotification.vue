@@ -37,8 +37,11 @@ export default {
 
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 /* The alert message box */
 .alert {
+  font-family: Poppins ;
   padding: 15px;
   background-color: #eee9e8; /* Red */
   color: rgb(223, 37, 37);
