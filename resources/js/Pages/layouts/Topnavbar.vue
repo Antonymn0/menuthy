@@ -85,6 +85,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 .browser-menu{
     background: #262734;
 
@@ -99,6 +100,7 @@ export default {
     width:80%;
     text-decoration:none;
     color: #9699a2;
+    font-family: Poppins ;
 }
 
 .navbar .nav-item:hover .dropdown-menu{
@@ -107,7 +109,7 @@ export default {
      }
 
 .active{
-    color:#fff !important;
+    color:rgb(224, 220, 220) !important;
 }
 
 

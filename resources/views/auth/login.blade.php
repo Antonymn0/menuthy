@@ -2,12 +2,12 @@
 
 @section('content')    
 
-<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <style>
     body {
 
 
-        font-family: Montserrat;
+        font-family: Poppins;
     }
 
 
@@ -39,7 +39,6 @@
         font-weight: bold;
         text-transform: uppercase;
         font-size: 14px;
-        font-family: Montserrat;
         outline: none;
         cursor: pointer;
     }

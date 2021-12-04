@@ -88,14 +88,14 @@
                     <p class="order-btn">
                         <span  v-if="this.User.package_type != null" class="button">
                         
-                             <a href="#" class="p-2 mx-3"  @click="togglepopUp(menu_item)"> Order </a>
+                             <a href="#" class="p-2 mr-3"  @click="togglepopUp(menu_item)"> Order </a>
                              
                            
                         </span> 
 
                         <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Open</a></span>
 
-                        <span class="time text-default float-right pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="time text-default  pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                      </p>
                 </div>    
             </div>  
@@ -375,7 +375,11 @@ export default {
     display:table-cell;
     padding:.2rem;
     overflow:hidden;
+    font-size:1rem;
    max-height: 80%;;
+}
+.carausel-item h5{
+    font-size:.9rem; 
 }
 .slider-div img{
     object-fit:cover;

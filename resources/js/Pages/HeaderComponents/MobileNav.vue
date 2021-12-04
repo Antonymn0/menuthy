@@ -109,6 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
  .parent-nav{
      display:none;
@@ -162,6 +163,8 @@ export default {
 //media querries
 @media screen and (max-width: 950px) {
  .parent-nav{
+     font-family:Poppins;
+     color:#9699a2;
     display:flex;
     align-items: center;
     justify-content:space-between;

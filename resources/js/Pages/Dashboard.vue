@@ -66,7 +66,7 @@
                         QR Menu for a contactless dine-in experience.
                           
                     </p>
-                   <a href="#" class="p-2 btn btn-lg bg-white "> https://fndn.mn/antony-restaurant <span class="btn btn-sm border rounded">Copy link</span> </a>
+                   <a href="#" class="p-2 btn btn-lg bg-white "> https://menuthy.com/restaurant<span class="btn btn-sm border rounded">Copy link</span> </a>
                
                 </div>
                 <div class="col-sm-4 float-right">

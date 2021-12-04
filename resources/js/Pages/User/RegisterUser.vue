@@ -3,7 +3,7 @@
              <a class="p-3" href="/">
                 <img src="/images/menuthy_logo.svg" class="" width="60%"  alt="menuthy-logo">
             </a>
-            <button class="button " style="max-width:8rem;"><a href="/login" class="text-white "> Go to login</a></button>         
+            <button class="button " style="max-width:8rem;"><a href="/login" class="text-white "> Go to Login</a></button>         
     </div>
 
     <div class="login-block shadow">
@@ -17,7 +17,7 @@
             <div class="row"> 
                 <div class="col-sm-6">
                     <div class="fpb-1">
-                        <label for="type">Restaurant type</label>
+                        <label for="type">Restaurant type <small class="text-muted">(indian cousines, chinese etc..)</small></label>
                         <input type="text" class=" "  placeholder="Restaurant type" id="type" v-model="form.type"/>
                         <small class="text-danger text-center">  {{this.errors.type}}</small>
                     </div>
@@ -61,7 +61,7 @@
     <country-select />
 </div>
             <div>
-                <h4 class="mt-5">A little info about yourself</h4>
+                <h4 class="mt-5">A LITTLE INFO ABOUT  YOURSELF</h4>
                 <div class="pb-1">
                     <label for="full_name">Full name</label>
                     <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" />
@@ -1087,8 +1087,11 @@ export default {
 </script>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
   .parent{
-    font-family: Montserrat;
+    font-family: Poppins !important;
   }
 .countries-cities{
     height:1rem !important;
@@ -1140,7 +1143,7 @@ export default {
     border: 1px solid #ccc;
     margin-bottom: 5px;
     font-size: 15px;
-    font-family: Montserrat;
+
     padding-left: .7rem;
     outline: none;
     }    
@@ -1164,7 +1167,7 @@ export default {
         color: #fff;
         font-weight: bold;
         font-size: 14px;
-        font-family: Montserrat;
+
         outline: none;
         cursor: pointer;
     }
