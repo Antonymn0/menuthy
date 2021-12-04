@@ -71,42 +71,44 @@
 
                     <!-- radio buttons -->
                     <div class=" radio-btns"> 
+                        <form action="#">
+
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" checked v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                            <input class="form-check-input"   type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
+                            <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
                             <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
+                            <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
                             <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
                         </div>
                         <small class="text-danger"> {{this.errors.order_type}}</small>
+                        </form>
                     </div>
                     <p class="order-btn">
                         <span  v-if="this.User.package_type != null" class="button">
                         
-                             <a href="#" class="p-2 mr-3"  @click="togglepopUp(menu_item)"> Order </a>
-                             
+                            <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order for 1</a></span> 
+                            
+                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i>
                            
                         </span> 
 
                         <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Open</a></span>
 
-                        <span class="time text-default  pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="time text-default float-right pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                      </p>
                 </div>    
             </div>  
                  <div class="img-div "> 
-               <a href="#" @click="togglepopUp(menu_item)"> <img :src="menu_item.image" alt="menu-image" ></a> 
+               <a href="#"> <img :src="menu_item.image" alt="menu-image" ></a> 
              </div>     
         </div>
-
-
-        </div>
-        
+        </div>        
     </div>
     <div v-else class="text-center py-5">
         No items listed in this category
@@ -140,12 +142,16 @@
     </div> 
 </div>
 
- <!-- final pop up -->
-      
-            <div class="pop-up  shadow p-1" v-if="popupVisible">
+ <!-- final pop up --> 
+<!-- Modal -->
+<div class="modal fade mx-auto text-center" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="width:auto;">
+
+         <div class="pop-up  shadow p-1" >
                 <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
                     <div class="pop-up-img">
-                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp"> <i class="bi bi-arrow-left"> </i></span>
+                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left" @click="togglepopUp"> </i></span>
                         <img :src="this.menu_item.image" alt="menu-image" >
                     </div>
                     <div class=" ribbon "> 
@@ -174,7 +180,7 @@
                         </div>
                         <small class="text-danger"> {{this.errors.order_type}}</small>
                     </div>
-                        <p class="order-btn mx-auto">
+                        <p class="order-btn mt-2 mx-auto">
                             <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
                             <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="placeOrder(menu_item)">Order for {{order_amount}}</a></span> 
                             
@@ -183,7 +189,12 @@
                     </div>
                 </div>
             </div>
-           
+         </div>
+  </div>
+</div>   
+      
+     
+  
 
 <!-- ---------------------------------- -->
 </div>
@@ -233,11 +244,11 @@ export default {
          if(this.order_amount < 1)this.order_amount = 1;
      },
       togglepopUp(menu_item){
-          this.popupVisible = !this.popupVisible;
+        
          if(this.blur == '') this.blur = 'blur';
          else this.blur = '';
          this.menu_item = menu_item;
-         console.log(this.blur);
+         this.order_amount = 1;
       },
       updateMenuName(sub_menu){
             this.menu_name= sub_menu.sub_menu_name;
@@ -369,9 +380,7 @@ export default {
 
 
 // slider div 
-.slider-div{
-//
-}
+
 
 .carausel-item{
     display:table-cell;
@@ -457,6 +466,22 @@ font-weight:300;
     text-decoration: none;
     font-size: 16px;
 }
+.order-btn a:hover{
+    background-color: rgb(255, 136, 0);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.order-btn a:active{
+    background-color: rgb(255, 136, 0);
+    border: none;
+    color: white;
+    padding: 4px 9px;
+    border-radius: 10px;
+    font-size: 16px;
+}
 .order-btn .button{
         display:inline-block;
     }
@@ -468,7 +493,7 @@ font-weight:300;
     cursor:pointer;
 }
 .order-btn i:hover{
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     cursor:pointer;
 }
 .inner-shadow {
@@ -537,13 +562,18 @@ input[type='radio']:after {
 
 
 .parent-popup{
-    background:#fff;
+    background:black;
+    width:100vw;
+    height:100vh;
+    position:relative;
 }
 .pop-up{
-    position:absolute;
+    position:relative;
     height:auto;
-    top:20%;
-     display: flex;
+
+    margin-right:auto;
+    margin-left:auto;
+
     justify-content: center;
     align-items: center;
     margin-left:auto;
