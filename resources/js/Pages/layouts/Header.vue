@@ -155,9 +155,10 @@ export default {
 
 <style lang='scss'>
 @import "../../../sass/app.scss";
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .parent-header{
-
+font-family: Poppins !important;
     background: #2c2d3a;
     height:120px;
     display:flex;
