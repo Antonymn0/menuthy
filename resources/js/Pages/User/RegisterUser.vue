@@ -1020,6 +1020,7 @@ export default {
             })
             .catch( error => {  
                 console.log(error.response.data); 
+                Swal.close();
                  if(error.response.status == 422) {
                      if(error.response.data.errors.email){
                          this.errors.email = error.response.data.errors.email[0];
