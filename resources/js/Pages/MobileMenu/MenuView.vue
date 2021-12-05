@@ -422,6 +422,7 @@ export default {
     overflow:hidden;
 }
 .img-div{
+    object-fit:cover;
     width:30%;
     float:right;
     margin-top:auto;
@@ -429,7 +430,7 @@ export default {
 }
 .img-div img{
     object-fit: cover;
-    width:100px;
+    width:150px;
     max-width:100%;
     height:140px;
     max-height:100%;
@@ -593,6 +594,7 @@ input[type='radio']:after {
 
 }
 .pop-up-img img{
+    object-fit: cover;
     min-width:350px;
     max-width:350px;
     max-height:250px;
