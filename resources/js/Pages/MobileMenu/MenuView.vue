@@ -429,7 +429,7 @@ export default {
 }
 .img-div img{
     object-fit: cover;
-    width:140px;
+    width:100px;
     max-width:100%;
     height:140px;
     max-height:100%;
