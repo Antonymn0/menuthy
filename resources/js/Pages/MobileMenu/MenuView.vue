@@ -307,7 +307,7 @@ export default {
             if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
             if(!this.User.table_number) form_data.append('table_number', 1);
 
-            if(confirm("Place a " + this.order_type + " order for "+ this.order_amount + ' people?')){
+            if(window.confirm("Place a " + this.order_type + " order for "+ this.order_amount + ' people?')){
                 axios.post('/api/order', form_data)
                     .then( response => {
                         if( response.status = 201){
