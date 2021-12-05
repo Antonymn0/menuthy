@@ -31,6 +31,6 @@ class emailVerifiedListener implements shouldQueue
     public function handle(emailVerified $event)
     {dd('verifying...');
         //send payment link
-        Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
+        // Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
     }
 }
