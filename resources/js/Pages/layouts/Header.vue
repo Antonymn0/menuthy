@@ -70,7 +70,7 @@
                 </span></i>  
             </a> 
           </span>           
-            <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+            <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
                 <span class=" mr-3">{{authUser.first_name}} </span>  
                 <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px;">
                 <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>

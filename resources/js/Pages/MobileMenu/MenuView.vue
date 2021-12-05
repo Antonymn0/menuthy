@@ -104,9 +104,9 @@
                            
                         </span> 
 
-                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Oder</a></span>
+                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Oder</a></span>
 
-                        <span class="time text-default float-right pr-3"> <small><i class="bi bi-alarm pl-1 text-danger text-right"></i>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
                      </p>
                 </div>    
             </div>  
@@ -565,20 +565,11 @@ input[type='radio']:after {
 }
 
 
-
-.parent-popup{
-    background:black;
-    width:100vw;
-    height:100vh;
-    position:relative;
-}
 .pop-up{
     position:relative;
     height:auto;
-
     margin-right:auto;
     margin-left:auto;
-
     justify-content: center;
     align-items: center;
     margin-left:auto;

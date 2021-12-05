@@ -80,7 +80,7 @@ export default defineComponent({
             axios.post('/api/menu', form_data)
             .then( response => {
                 if( response.status = 201){               
-                    this.$swal('Success, Menu created!');
+                    this.$swal('Success!');
                     this.$inertia.reload();
                     this.modalShow = false;
                     } 
