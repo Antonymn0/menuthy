@@ -97,14 +97,14 @@
                             <small class="text-danger"> {{this.errors.order_type}}</small>
                         </form>
                     </div>
-                    <p class="order-btn">
+                    <p class="order-btn pt-2 mt-3">
                         <span  v-if="this.User.package_type != null" class="button">                  
                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 mt-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order</a></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order</a></span> 
                            
                         </span> 
 
-                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Oder</a></span>
+                        <span class="open ">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Oder</a></span>
 
                         <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
                      </p>
