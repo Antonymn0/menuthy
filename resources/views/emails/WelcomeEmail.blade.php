@@ -8,7 +8,7 @@ We help our clients run digital services in their restaurants.
 We offer complete end to end solutions from displaying qr code menus to ordering all the way to accepting payments.
 Click the link below to watch orientation videos.
 
-@component('mail::button', ['url' => 'http://menuthy.herokuapp.com/'])
+@component('mail::button', ['url' => url('/dashboard')])
 See videos
 @endcomponent
 

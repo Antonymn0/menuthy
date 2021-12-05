@@ -1,8 +1,8 @@
 <template>
 <div > 
-  <div class="alert mx-auto bg-danger mb-0 ml-2 fade-in" v-if="this.registrationExpiryDate != null">
+  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.registrationExpiryDate != null">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}</span> Click this  <a href="#" class="btn btn-secondary">Button</a> to extend your subscription. 
+   <span class="mr-2 pl-4">   Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}.</span> Click here to:  <a href="#" class=" btn-danger ml-2 btn">extend your subscription</a>  . </span>
   </div>
 </div>
 </template>
@@ -24,7 +24,6 @@ export default {
             }
         },
         updateDate(){
-            let expDate = window.authUser.registration_expiry;
           this.registrationExpiryDate = window.authUser.registration_expiry;
                  
         },
@@ -36,13 +35,15 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 /* The alert message box */
 .alert {
+  font-family: Poppins ;
   padding: 15px;
   background-color: #eee9e8; /* Red */
-  color: rgb(97, 91, 91);
+  color: rgb(223, 37, 37);
   width:100%;  
   position:sticky;
   top:0;
@@ -58,6 +59,7 @@ export default {
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
+  display:table;
 }
 /* When moving the mouse over the close button */
 .closebtn:hover {

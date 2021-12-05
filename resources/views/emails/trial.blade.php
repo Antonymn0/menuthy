@@ -5,7 +5,7 @@ Please click the button below to purchase a package and enjoy our unlimited serv
 
 
 
-@component('mail::button', ['url' => 'menuthy.com'])
+@component('mail::button', ['url' => url('/dashboard')])
 Purchase
 @endcomponent
 
