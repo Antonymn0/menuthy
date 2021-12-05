@@ -106,7 +106,7 @@
 
                         <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Oder</a></span>
 
-                        <span class="time text-default float-right pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                        <span class="time text-default float-right pr-3"> <small><i class="bi bi-alarm pl-1 text-danger text-right"></i>{{menu_item.preparation_time}} mins </small> </span>
                      </p>
                 </div>    
             </div>  

@@ -122,7 +122,7 @@ export default {
              Swal.showLoading();
             axios.get('/api/menu/duplicate/' + id )
             .then( response => {              
-                this.$swal('Success,  duplicated!');
+                this.$swal('Success!');
                 this.$inertia.reload();
             })
             .catch(error=>{
