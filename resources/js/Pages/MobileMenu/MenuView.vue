@@ -32,7 +32,7 @@
         <div v-if="this.subMenus.length" :class="blur" class="inner-shadow inner-right-shadow"> 
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
-                        <div class="carausel-item " v-if="sub_menu.published !== null" >                            
+                        <div class="carausel-item mx-1 " v-if="sub_menu.published !== null" >                            
                             <div class="" v-if="sub_menu.image !== null" onclick="toggleActivemenuClass()">
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
                             </div>
@@ -80,31 +80,27 @@
                     <p v-if="menu_item.description !== 'null'" class="mb-1">{{menu_item.description}}</p>
 
                     <!-- radio buttons -->
-                    <div class=" radio-btns"> 
+                    <div class=" radio-btns mb-2"> 
                         <form action="#">
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input"   type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
-                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
-                            <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
-                        </div>
-                        <small class="text-danger"> {{this.errors.order_type}}</small>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"   type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                                <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
+                                <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
+                                <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
+                            </div>
+                            <small class="text-danger"> {{this.errors.order_type}}</small>
                         </form>
                     </div>
                     <p class="order-btn">
-                        <span  v-if="this.User.package_type != null" class="button">
-                        
-                            <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i> -->
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order for 1</a></span> 
+                        <span  v-if="this.User.package_type != null" class="button">                  
                             
-                            <!-- <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 mt-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order</a></span> 
                            
                         </span> 
 
@@ -388,8 +384,6 @@ export default {
 
 
 // slider div 
-
-
 .carausel-item{
     display:table-cell;
     padding:.3rem;
@@ -434,10 +428,11 @@ export default {
     margin-bottom:auto;
 }
 .img-div img{
-object-fit: cover;
-    width:100%;
+    object-fit: cover;
+    width:140px;
     max-width:100%;
     height:140px;
+    max-height:100%;
 }
 .text-div{
     width:70%;
@@ -562,7 +557,7 @@ input[type='radio']:after {
     }
 
 .radio-btns{
-    padding: 5px;
+    padding: 5px 0;
 }
 .radio-btns label{
     font-size:8pt;

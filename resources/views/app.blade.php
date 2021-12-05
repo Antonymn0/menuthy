@@ -198,11 +198,7 @@ animation-duration: 1s;
        
         @inertia
         @routes 
-   
     @else
-
-
-
         <script>
             // else auth user null
             window.authUser=null;
