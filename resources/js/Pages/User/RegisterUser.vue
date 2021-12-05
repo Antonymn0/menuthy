@@ -1026,6 +1026,7 @@ export default {
                          return;
                      } 
                     }
+                    console.log(error.response); 
               new Swal({ title: "Error", timer: 2000});                                                                                      
                                        
                 });
