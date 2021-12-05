@@ -32,7 +32,7 @@ class EmailVerificationController extends Controller
                  'registration_status'=> 'trial',
                  'trial_expiry'=> $this->trialDays($this->trial_days),
                  ]);
-            event(new EmailVerified($user));
+           event(new EmailVerified($user));
             return redirect()->intended('/dashboard')
             ->with(['success', 'Your email has been succesfully verified!']);
         } 

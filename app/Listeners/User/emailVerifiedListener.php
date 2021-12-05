@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class emailVerifiedListener implements shouldQueue
 {
-    public  $user;
+  
     /**
      * Create the event listener.
      *
@@ -29,8 +29,8 @@ class emailVerifiedListener implements shouldQueue
      * @return void
      */
     public function handle(emailVerified $event)
-    {dd('verifying...');
+    {
         //send payment link
-        // Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
+        Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
     }
 }

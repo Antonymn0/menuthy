@@ -36,8 +36,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
          // email verified event events
-        \App\Events\User\emailVerified::class => [
-            \App\Listeners\User\emailVerifiedListener::class,
+        'App\Events\User\emailVerified' => [
+            'App\Listeners\User\emailVerifiedListener'
         ],
 
          // order events

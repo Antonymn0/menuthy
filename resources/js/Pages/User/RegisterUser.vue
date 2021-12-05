@@ -1009,7 +1009,7 @@ export default {
                 user_data.append('password_again', this.form.password_again);
                 user_data.append('package_type', 'master');          
                 
-                //Swal.showLoading(),    
+                Swal.showLoading(),    
 
             axios.post('api/user', user_data)
             .then( response => {
