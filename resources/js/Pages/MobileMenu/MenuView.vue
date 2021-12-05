@@ -1,4 +1,14 @@
 <template>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 
 
 <div class="parent-div mx-auto shadow px-1 ">
@@ -18,20 +28,20 @@
 
     <!-- ------------------------------------------------------------ -->
 
-    <div class="slider-div">
+    <div class="slider-div" id="slider-div">
         <div v-if="this.subMenus.length" :class="blur" class="inner-shadow inner-right-shadow"> 
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
-                        <div class="carausel-item " v-if="sub_menu.published !== null">                            
-                            <div class="" v-if="sub_menu.image !== null">
+                        <div class="carausel-item " v-if="sub_menu.published !== null" >                            
+                            <div class="" v-if="sub_menu.image !== null" onclick="toggleActivemenuClass()">
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
                             </div>
-                            <div class=" " v-else>
-                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu.sub_menu_name)]" alt="" class="shadow"> </a> 
+                            <div class=" " v-else onclick="toggleActivemenuClass()">
+                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
                             </div>
 
-                            <h5 class="px-1 my-3" >
-                                {{sub_menu.sub_menu_name}}
+                            <h5 class="px-1 my-3 " >
+                                <span class="h5">{{sub_menu.sub_menu_name}} </span>
                             </h5>                           
                         </div> 
                     </slide>
@@ -91,14 +101,14 @@
                     <p class="order-btn">
                         <span  v-if="this.User.package_type != null" class="button">
                         
-                            <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
+                            <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i> -->
                             <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order for 1</a></span> 
                             
-                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i>
+                            <!-- <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
                            
                         </span> 
 
-                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Open</a></span>
+                        <span class="open pt-2">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" >Oder</a></span>
 
                         <span class="time text-default float-right pr-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                      </p>
@@ -151,7 +161,7 @@
          <div class="pop-up  shadow p-1" >
                 <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
                     <div class="pop-up-img">
-                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left" @click="togglepopUp"> </i></span>
+                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left"  > </i></span>
                         <img :src="this.menu_item.image" alt="menu-image" >
                     </div>
                     <div class=" ribbon "> 
@@ -200,6 +210,8 @@
 </div>
 
 
+</body>
+</html>
 
 </template>
 
@@ -243,10 +255,9 @@ export default {
          this.order_amount += number;
          if(this.order_amount < 1)this.order_amount = 1;
      },
-      togglepopUp(menu_item){
-        
+      togglepopUp(menu_item){        
          if(this.blur == '') this.blur = 'blur';
-         else this.blur = '';
+         if(this.blur == 'blur') this.blur = '';
          this.menu_item = menu_item;
          this.order_amount = 1;
       },
@@ -272,7 +283,6 @@ export default {
            axios.get('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id)
             .then( response => {
             if( response.status = 200){
-                console.log(response);
                 this.menu_items = response.data.data;
                 Swal.close();
                 } 
@@ -301,7 +311,7 @@ export default {
             if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
             if(!this.User.table_number) form_data.append('table_number', 1);
 
-            if(confirm("Place this order for "+ this.order_amount + ' people?')){
+            if(confirm("Place a " + this.order_type + " order for "+ this.order_amount + ' people?')){
                 axios.post('/api/order', form_data)
                     .then( response => {
                         if( response.status = 201){
@@ -318,8 +328,6 @@ export default {
       validateOrderType(){
           if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select an order type';
           else delete this.errors.order_type;
-
-          console.log(this.order_type);
 
       },
   },
@@ -384,7 +392,7 @@ export default {
 
 .carausel-item{
     display:table-cell;
-    padding:.2rem;
+    padding:.3rem;
     overflow:hidden;
     font-size:1rem;
    max-height: 80%;;
@@ -398,7 +406,7 @@ export default {
     height:120px;
     max-width:100%;
     max-height:100%;
-    border-radius: 10px;;
+    border-radius: 5px;;
 }
  .carousel__prev, .carousel__next {
     background-color: $orange !important;
@@ -428,7 +436,8 @@ export default {
 .img-div img{
 object-fit: cover;
     width:100%;
-    height:150px;
+    max-width:100%;
+    height:140px;
 }
 .text-div{
     width:70%;
@@ -618,6 +627,12 @@ input[type='radio']:after {
     filter: blur(12px);
 }
 
+.active{
+    border-bottom: 4px solid $orange;
+    width:auto;
+    padding-bottom: 5px;
+    border-radius:5px;
+}
 
 
 /* media quesries */

@@ -235,19 +235,36 @@ animation-duration: 1s;
     
     /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
     function closeFeedBack() {
-    document.getElementById("feedBack1").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
+        document.getElementById("feedBack1").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
     }
 
     /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
     function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
     }
 
-
+// add active class to element
+function toggleActiveClass(){
+    var btnContainer = document.getElementById("nav-bar");
+    var btns = btnContainer.getElementsByClassName("nav-link");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");       
+    }
+    event.target.classList.add("active") ;
+}
+// add active class to tablet and mobile menu elements
+function toggleActivemenuClass(){
+    var activeClass = document.getElementsByClassName('h5');
+    for(var i=0; i< activeClass.length; i++){
+        activeClass[i].classList.remove("active");
+    }
+   var current = event.target.parentElement.parentElement.parentElement;
+   current.getElementsByClassName("h5")[0].classList.add("active") ;   
+}
  </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"

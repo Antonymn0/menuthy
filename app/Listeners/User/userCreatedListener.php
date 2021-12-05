@@ -13,15 +13,16 @@ class userCreatedListener implements shouldQueue
 {
 
     
+     public  $user;
     /**
-     * Create a new event instance.
+     * Create the event listener.
      *
-     * @param $user
      * @return void
      */
     public function __construct()
     {
-
+         
+        
     }
 
 

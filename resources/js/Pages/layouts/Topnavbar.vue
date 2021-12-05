@@ -1,7 +1,7 @@
 <template >
     <div class="top-navbar browser-menu ">
         <p>
-            <nav class="navbar navbar-expand-lg py-0  ">
+            <nav class="navbar navbar-expand-lg py-0 " id="nav-bar" onclick="toggleActiveClass()">
                 <div class="container-fluid">
                     <button class="navbar-toggler pull-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -24,9 +24,7 @@
                                  </a>
                             <ul class="dropdown-menu pr-3 ml-0 pl-0" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Orders</a></li>
-                                <!-- <li><a class="dropdown-item" href="#"><i class="bi bi-record-circle pr-1"></i>Tables</a></li>
-                                <li><a class="dropdown-item" href="#"> <i class="bi bi-people pr-1"></i>Waiters</a></li> -->
-                               
+                                
                             </ul>
                             </li>
                              <li class="nav-item">
@@ -95,8 +93,8 @@ export default {
 .browser-menu a{
     text-decoration:none;
     color: #9699a2;
-    font-family: Poppins ;
-    font-size: 1.07rem;
+    font-family: Poppins !important;
+    font-size: 1rem;
 
 }
 .browser-menu .navbar{
@@ -104,13 +102,13 @@ export default {
     width:80%;
     text-decoration:none;
     color: #9699a2;
-    font-family: Poppins ;
-    font-size: 1.07rem;
+    font-family: Poppins !important;
+    font-size: 1rem;
 }
 
 .navbar .nav-item:hover .dropdown-menu{
      display: block; 
-
+font-size:1rem !important;
      }
 
 .active{
@@ -124,7 +122,7 @@ export default {
     ul li{
         padding:.8rem;
         font-size: 14pt;
-    }
+    } 
     ul li a:hover{
         color:#fff;
     }

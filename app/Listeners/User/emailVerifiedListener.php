@@ -19,6 +19,7 @@ class emailVerifiedListener implements shouldQueue
     public function __construct()
     {
         
+        
     }
 
     /**
@@ -28,7 +29,7 @@ class emailVerifiedListener implements shouldQueue
      * @return void
      */
     public function handle(emailVerified $event)
-    {
+    {dd('verifying...');
         //send payment link
         Mail::to($event->user->email)->send(new PaymentLinkEmail($event->user));
     }

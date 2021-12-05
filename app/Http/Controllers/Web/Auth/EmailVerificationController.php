@@ -24,10 +24,11 @@ class EmailVerificationController extends Controller
     //         'email' => ['required', 'string', 'email', 'max:255'],            
     //     ]);        
 
-        if($user = User::Where('email', $email)->first()) {
+        if(isset($email)) {
+            
+            $user = User::Where('email', $email)->first();
             $user->update([
                  'email_verified_at' => now(),
-                 'registration_status'=> 'trial',
                  'registration_status'=> 'trial',
                  'trial_expiry'=> $this->trialDays($this->trial_days),
                  ]);

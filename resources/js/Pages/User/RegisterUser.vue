@@ -1,4 +1,19 @@
 <template>
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+    <title>Menuthy</title>
+
+
+
+</head>
+
+<body class=" " >
     <div class="d-flex justify-content-between align-items-center px-5 parent">
              <a class="p-3" href="/">
                 <img src="/images/menuthy_logo.svg" class="" width="60%"  alt="menuthy-logo">
@@ -97,7 +112,9 @@
             </div> 
              </form>    
            </div>
-        
+       
+</body>
+</html>
    
 </template>
 
@@ -1184,7 +1201,9 @@ export default {
 /* media queries */
     @media only screen and (max-width: 700px) {
         .login-block{
-            width:98%;
+            width:97%;
+            margin-right:auto;
+            margin-left:auto;
         }
     }
 

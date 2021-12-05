@@ -15,7 +15,7 @@
 
     <div class="main-right "> 
          <a href="/dashboard" class="float-left" >
-            <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid pl-4" alt="image-logo" style="width:250px; height:auto; "> 
+            <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid " alt="image-logo" style="width:250px; height:auto; "> 
         </a>
     
     <!-- ----------------------------middle---------------------------------------- -->
@@ -151,7 +151,8 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .parent-header{
-font-family: Poppins ;
+    font-family: Poppins !important;
+    font-size: 1rem;
     background: #2c2d3a;
     height:120px;
     display:flex;
@@ -168,11 +169,13 @@ font-family: Poppins ;
     width:65%;
 }
 .middle-header{
+    font-size: 1rem;
     display:flex; 
     align-items: center;
     justify-content:flex-start;
 }
 .user-div{
+    font-size: 1rem;
     display:flex; 
     align-items: center;
 }
