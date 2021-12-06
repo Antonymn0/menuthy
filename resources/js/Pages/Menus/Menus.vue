@@ -42,7 +42,7 @@
                     </div>
                     <div class="pb-1 pl-3 text-left"> 
                         <h4 class="p-0 m-0 " >
-                            {{menu.menu_name}}
+                            {{capitalize(menu.menu_name)}}
                         </h4>
                         <p class="py-1 m-0">{{menu.sub_menu.length }} items  </p> 
                         <p class="p-0 m-0">  {{  formatDate(menu.created_at)}}  </p>  
@@ -103,6 +103,9 @@ export default {
 
   },
   methods:{
+      capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        },
         formatDate(date){
             if (date) {
                 return moment(String(date)).format('ll ');

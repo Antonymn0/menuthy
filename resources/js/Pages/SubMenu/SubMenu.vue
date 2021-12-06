@@ -36,7 +36,7 @@
                     </div>
                     <div class="pl-3 pt-2">
                         <div class="d-flex align-items-center pb-0 mb-0  justify-content-between">
-                             <p class="m-0 text-left w-80 float-left" style=""> {{subMenu.sub_menu_name}} </p>                               
+                             <p class="m-0 text-left w-80 float-left" style=""> {{capitalize(subMenu.sub_menu_name)}} </p>                               
                             
                             <div class=" custom-control custom-switch " >
                                 <label class="switch" data-toggle="tooltip" data-placement="left" title="Publish">
@@ -46,7 +46,7 @@
                                 </label>
                             </div>
                         </div> 
-                        <p class="text-left mb-0 py-1" style="font-size:.9rem;">{{subMenu.description}}</p>                                                                  
+                        <p class="text-left mb-0 py-1" style="font-size:.9rem;" v-if="subMenu.description ">{{capitalize(subMenu.description)}}</p>                                                                  
                         <p class="text-left ">  
                             <span class="small text-center"> {{  formatDate(subMenu.created_at)}} </span>  
                         </p> 
@@ -105,6 +105,9 @@ export default {
       }
   },
   methods:{
+      capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        },
       deleteSubMenu( id){
             if (!confirm('Are you sure want to delete this section?')) return;
             axios.delete('/api/sub-menu/' + id)

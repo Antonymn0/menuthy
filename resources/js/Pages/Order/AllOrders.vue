@@ -97,16 +97,16 @@
                     <tr>
                         <th scope="row">{{index}}</th>
                         <td>{{order.order_number}}</td>
-                        <td>{{order.menu_item_name}}</td>
-                        <td v-if="order.status == 'recieved'" class="">{{order.status}}</td>
-                        <td v-if="order.status == 'canceled'" class="text-danger">{{order.status}}</td>
-                        <td v-if="order.status == 'processing'" class="text-warning">{{order.status}}</td>
-                        <td v-if="order.status == 'completed'" class="text-muted">{{order.status}}</td>
+                        <td>{{capitalize(order.menu_item_name)}}</td>
+                        <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                        <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
+                        <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td>{{order.preparation_time}}</td>
                         <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
                         <td v-else>1</td>
                         <td>{{order.order_for}}</td>
-                        <td>{{order.order_type}}</td>
+                        <td>{{capitalize(order.order_type)}}</td>
                         <td class=" mx-auto text-center m-1" v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
                             <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'completed')">Complete</a>
@@ -162,6 +162,9 @@ export default {
        }
    },
    methods:{
+        capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        },
         markOrder(id, value){
              axios.get('/api/order/mark/' + id + '/' + value)
             .then( response => {

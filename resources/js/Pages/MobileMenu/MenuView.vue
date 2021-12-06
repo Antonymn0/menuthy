@@ -20,7 +20,7 @@
         <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" >
         <img src="/images/restaurant_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
         <p class="p-2 text-center">
-               <span v-if="this.restaurant.restaurant_name !== null"> {{this.restaurant.restaurant_name}}</span>
+               <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
                <span v-else> Hotel name</span> 
             </p>
     </div>
@@ -33,7 +33,7 @@
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
                         <div class="carausel-item mx-1 " v-if="sub_menu.published !== null" >                            
-                            <div class="" v-if="sub_menu.image !== null" onclick="toggleActivemenuClass()">
+                            <div class="" v-if="sub_menu.image " onclick="toggleActivemenuClass()">
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
                             <div class=" " v-else onclick="toggleActivemenuClass()">
@@ -41,7 +41,7 @@
                             </div>
 
                             <p class="px-1 my-3 " >
-                                <span class="h5">{{sub_menu.sub_menu_name}} </span>
+                                <span class="h5">{{capitalize(sub_menu.sub_menu_name ) }} </span>
                             </p>                           
                         </div> 
                     </slide>
@@ -59,7 +59,7 @@
 
     <!-- ----------------------------------------------------------- -->
     <div class=" text-center align-items-center py-2">
-        <h5> <b> {{this.menu_name}} </b> </h5>
+        <h5> <b> {{ capitalize( this.menu_name) }} </b> </h5>
         <p v-if="this.description"> {{this.description}} </p>
     </div>
 
@@ -75,9 +75,9 @@
                     
                     <div class="title ">                        
                         <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> 
-                        <span class=""> <h5> {{menu_item.menu_item_name}} </h5> </span>            
+                        <span class=""> <h5> {{ capitalize(menu_item.menu_item_name) }} </h5> </span>            
                     </div>
-                    <p v-if="menu_item.description !== 'null'" class="mb-1">{{menu_item.description}}</p>
+                    <p v-if="menu_item.description !== 'null'" class="mb-1">{{ capitalize(menu_item.description) }}</p>
 
                     <!-- radio buttons -->
                     <div class=" radio-btns mb-1"> 
@@ -133,12 +133,12 @@
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
             <div class="modal-content shadow" style="">
             <div class="modal-header">
-                <h4 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel" style="color:rgb(241, 103, 48);">Main Menu</h4>
+                <h4 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel" style="color:rgb(241, 103, 48);">Main menu</h4>
             </div>
             <div class="modal-body">
                 <ul  v-for="(menu) in menus" :key="menu.id" class="list-unstyled px-5">
                      <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" >  
-                        <a class="dropdown-item p-2" href="#"   @click="fetchMenus( menu.id)"  > {{menu.menu_name}} </a> 
+                        <a class="dropdown-item p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
                     </li>
                 </ul>
             </div>
@@ -165,10 +165,10 @@
                         <span class=" ribon-price float-right">{{this.restaurant.currency}} {{this.menu_item.price}} </span>
                     </div>
                     <div class="pop-up-text  py-2">
-                        <h4 class="">
-                            {{this.menu_item.menu_item_name}}   
+                        <h4 class="" v-if="this.menu_item.menu_item_name">
+                            {{ capitalize(this.menu_item.menu_item_name) }}   
                         </h4> 
-                        <p class="description mb-0" v-if="menu_item.description !== 'null'">{{this.menu_item.description}}  </p>
+                        <p class="description mb-0" v-if="menu_item.description ">{{ capitalize(this.menu_item.description) }}  </p>
 
                         <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1"> 
@@ -247,10 +247,14 @@ export default {
       }
   },
   methods:{
+      
      orderFor(number){
          this.order_amount += number;
          if(this.order_amount < 1)this.order_amount = 1;
      },
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        },
       togglepopUp(menu_item){        
          if(this.blur == '') this.blur = 'blur';
          if(this.blur == 'blur') this.blur = '';
@@ -391,9 +395,7 @@ export default {
     font-size:1rem;
    max-height: 80%;;
 }
-.carausel-item h5{
-    font-size:.9rem; 
-}
+
 .slider-div img{
     object-fit:cover;
     width:180px;

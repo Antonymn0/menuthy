@@ -235,7 +235,7 @@ props:['sub_menu'],
             if(!this.form.sub_menu_id) this.errors.sub_menu_id = 'Sub menu id field is required' ;
             else  delete this.errors.menu_id;
 
-            if(!this.form.image)  this.errors.image = 'Image is required' ;        
+            if(this.form.image == '')  this.errors.image = 'Image is required' ;        
             else  delete this.errors.image;
 
             this.form = { ...this.form, na:'track'};

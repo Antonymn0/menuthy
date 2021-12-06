@@ -35,7 +35,7 @@
                     <div class="pl-3 pt-2">                    
                        <div class="d-flex align-items-center">
                             <p class="p-0 text-left m-0 lead" style="width:80%">
-                                {{menuItem.menu_item_name}}
+                                {{capitalize( menuItem.menu_item_name)}}
                             </p>
 
                              <!-- switch -->
@@ -47,8 +47,8 @@
                             </label>                            
                         </div>
                        </div>  
-                       <p class="text-left py-2 mb-0">
-                           {{menuItem.description}}
+                       <p class="text-left py-2 mb-0" v-if="menuItem.description">
+                           {{capitalize(menuItem.description)}}
                         </p>       
                     <p class="text-left pt-0 mb-0"> Price: {{this.restaurant.currency}} {{menuItem.price}}  </p>
                     <p class="text-left" data-toggle="tooltip" data-placement="left" title="Preparation time">
@@ -115,6 +115,9 @@ export default {
 
   },
   methods:{
+      capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        },
         formatDate(date){
             if (date) {
                 return moment(String(date)).format('ll ');

@@ -86,7 +86,7 @@ export default defineComponent({
                 sub_menu_name:'menu 1',
                 restaurant_id: 0,
                 menu_id:0,
-                description:'',
+                description:null,
                 is_new:false,
                 is_signiture: false,
                 publish: true,
