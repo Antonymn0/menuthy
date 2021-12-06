@@ -138,7 +138,7 @@
             <div class="modal-body">
                 <ul  v-for="(menu) in menus" :key="menu.id" class="list-unstyled px-5">
                      <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" >  
-                        <a class="dropdown-item p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
+                        <a class="menu-list p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
                     </li>
                 </ul>
             </div>
@@ -623,7 +623,36 @@ input[type='radio']:after {
     padding-bottom: 5px;
     border-radius:5px;
 }
+.menu-list{
+    text-decoration: none;
+    display:flex;
+    justify-content: center; 
+    padding:10px;   
+    min-width: 100%;
+    color:#9699a2;
+    }
 
+.menu-list:hover{
+    text-decoration: none;
+    background:rgba(241, 138, 2, 0.993);
+    color:#fff;
+    }
+.menu-list:active{
+    background:rgba(221, 134, 20, 0.993);
+        color:#fff ;
+    }
+    .modal ul li{
+        padding:0;
+        color:#9699a2;
+    }
+    .modal ul li:hover{
+        background:rgba(241, 138, 2, 0.993);
+        color:#fff ;
+    }
+    .modal ul li:active{
+        background:rgba(221, 134, 20, 0.993);
+        color:#fff ;
+    }
 
 /* media quesries */
 @media only screen and (max-width: 600px) {
