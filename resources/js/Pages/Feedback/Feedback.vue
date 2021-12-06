@@ -13,7 +13,7 @@
                 </div>
                 <div v-if="current_orders.length">
                     <div class="table-responsive px-4 py-4 text-muted">
-                        <h6 class="text-muted py-2"> Recent orders today <span> <a href="#" class="text-muted pr-5" @click="fetchOrders('today')"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </span></h6>
+                        <h6 class="text-muted py-2 d-flex"> <span> Recent orders today </span> <span> <a href="#" class="text-muted pr-1 float-right text-right" @click="fetchOrders('today')"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </span></h6>
                         <table class="table table-sm table-hover text-muted">
                             <thead class="border-top-none">
                                 <tr class="p-2"> 
@@ -97,7 +97,9 @@ export default {
 @import "../../../sass/app.scss";
 
 
-
+h5{
+    cursor:pointer;
+}
 .parent-nav{
     color:#9699a2 !important;
     font-family:poppins;
