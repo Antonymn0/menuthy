@@ -445,7 +445,7 @@ export default {
 .h5{
     // color:$orange;
     font-weight:500;
-    font-size: .8rem;
+    font-size: .8rem; 
 }
 .description{
 font-weight:300;
