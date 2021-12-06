@@ -107,7 +107,7 @@
                         <td v-else>1</td>
                         <td>{{order.order_for}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
-                        <td class=" mx-auto text-center m-1" v-if="order.status != 'canceled'">
+                        <td class=" mx-auto text-center m-1 border-bottom" v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-warning btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a> <br>
                             <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'completed')">Complete</a>
                             <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
