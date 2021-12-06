@@ -37,7 +37,7 @@
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
                             <div class=" " v-else onclick="toggleActivemenuClass()">
-                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" class="shadow"> </a> 
+                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
 
                             <p class="px-1 my-3 " >
@@ -80,7 +80,7 @@
                     <p v-if="menu_item.description !== 'null'" class="mb-1">{{menu_item.description}}</p>
 
                     <!-- radio buttons -->
-                    <div class=" radio-btns mb-2"> 
+                    <div class=" radio-btns mb-1"> 
                         <form action="#">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input"   type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">

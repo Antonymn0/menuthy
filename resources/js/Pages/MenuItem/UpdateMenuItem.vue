@@ -14,13 +14,13 @@
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Item name</label>
-                            <input type="text" @input="logInput" v-model="form.menu_item_name" class="form-control p-4" maxlength="30" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
+                            <input type="text" @input="logInput" v-model="form.menu_item_name" maxlength="25" class="form-control p-4"  id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                             <small class="text-danger"> {{this.errors.menu_item_name }} </small>
                         </div>                        
                     
                         <div class="form-group">
                             <label for="maneu-name">Description</label>
-                            <textarea name="description" v-model="form.description" class="form-control p-3" maxlength="50" id="" cols="10" rows="5" required placeholder="Describe the menu"></textarea>
+                            <textarea name="description" v-model="form.description" maxlength="40" class="form-control p-3"  id="" cols="10" rows="5" required placeholder="Describe the menu"></textarea>
                             <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>
                         
