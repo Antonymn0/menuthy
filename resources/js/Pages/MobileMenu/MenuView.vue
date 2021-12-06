@@ -302,7 +302,7 @@ export default {
             form_data.append('is_take_away', this.is_take_away);
             form_data.append('order_number', Date.now());
             form_data.append('menu_item_id', menu_item.id);
-            form_data.append('restaurant_id', window.authRestaurant.id);
+            form_data.append('restaurant_id', this.restaurant.id);
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
