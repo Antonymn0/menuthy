@@ -29,15 +29,15 @@
     <!-- ------------------------------------------------------------ -->
 
     <div class="slider-div" id="slider-div">
-        <div v-if="this.subMenus.length" :class="blur" class="inner-shadow inner-right-shadow"> 
+        <div v-if="this.subMenus.length" :class="blur" > 
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
                         <div class="carausel-item mx-1 " v-if="sub_menu.published !== null" >                            
                             <div class="" v-if="sub_menu.image !== null" onclick="toggleActivemenuClass()">
-                                <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
+                                <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
                             <div class=" " v-else onclick="toggleActivemenuClass()">
-                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
+                                <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" class="shadow"> </a> 
                             </div>
 
                             <p class="px-1 my-3 " >
@@ -97,7 +97,7 @@
                             <small class="text-danger"> {{this.errors.order_type}}</small>
                         </form>
                     </div>
-                    <p class="order-btn pt-2 mt-3">
+                    <p class="order-btn pt-2 mt-1">
                         <span  v-if="this.User.package_type != null" class="button">                  
                             
                             <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order</a></span> 
@@ -445,7 +445,7 @@ export default {
 .h5{
     // color:$orange;
     font-weight:500;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 .description{
 font-weight:300;
