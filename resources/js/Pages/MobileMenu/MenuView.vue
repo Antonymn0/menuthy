@@ -11,7 +11,7 @@
     
 
 
-<div class="parent-div mx-auto shadow px-1 ">
+<div class="parent-div mx-auto shadow px-1 bg-white">
     <div :class="this.blur"> 
     <div class="header-div">
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
@@ -40,9 +40,9 @@
                                 <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="" class="shadow"> </a> 
                             </div>
 
-                            <h5 class="px-1 my-3 " >
+                            <p class="px-1 my-3 " >
                                 <span class="h5">{{sub_menu.sub_menu_name}} </span>
-                            </h5>                           
+                            </p>                           
                         </div> 
                     </slide>
                     <template #addons>
@@ -65,10 +65,10 @@
 
  
     <!-- --------------------------------------------------- -->
-    <div v-if="menu_items.length" class="m-1"> 
+    <div v-if="menu_items.length" class="px-3"> 
         
-    <div class="items-div"  v-for="menu_item in menu_items" :key="menu_item.id">
-        <div class="row items-div-inner my-2 shadow" >
+    <div class="items-div "  v-for="menu_item in menu_items" :key="menu_item.id">
+        <div class="row items-div-inner my-2 shadow border" >
             
             <div class="text-div">
                 <div class="pl-3 pt-3 w-100 inner-items-div">
@@ -111,7 +111,7 @@
                 </div>    
             </div>  
                  <div class="img-div "> 
-               <a href="#"> <img :src="menu_item.image" alt="menu-image" ></a> 
+               <a href="#"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
         </div>        
@@ -119,7 +119,7 @@
     <div v-else class="text-center py-5">
         No items listed in this category
     </div>
-    <div class=" py-3 text-danger d-flex justify-content-center align-items-center">
+    <div class=" py-4 text-danger d-flex justify-content-center align-items-center">
         <p>
             Powered by: <b> Menuthy</b> 
         </p>
@@ -442,9 +442,10 @@ export default {
     padding-right:5px;
     
 }
-h5{
+.h5{
     // color:$orange;
     font-weight:500;
+    font-size: 1rem;
 }
 .description{
 font-weight:300;
@@ -580,8 +581,7 @@ input[type='radio']:after {
     border-radius:15px;
     overflow:hidden;
     background:rgb(224, 222, 222);
-    transition: transform .5s ease;
-   
+    transition: transform .5s ease;  
 
 }
 .pop-up-img img{
@@ -686,10 +686,6 @@ padding:.2rem;
     }
 
 }
-
-
-
-
 
 
 

@@ -39,7 +39,8 @@ Route::get('/', function () {
    
 
   
-
+ // verify email route
+    Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
 
 /////////// PROTECTED ROUTES /////
 Route::middleware(['auth'])->group(function () { 
@@ -48,8 +49,7 @@ Route::middleware(['auth'])->group(function () {
     // redict users after authentication
     Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
 
-    // verify email route
-    Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
+   
        
     //logout route
     Route::post('/logout','Web\Auth\AuthController@logout');
