@@ -169,7 +169,7 @@ export default {
         getSuspendedClients(users){
             let suspended =0;
             users.forEach((user) => { 
-                if(user.deleted_at !== 'null') suspended +=1;
+                if(user.deleted_at !== null) suspended +=1;
             });
             return suspended;           
         },
