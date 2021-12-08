@@ -12,7 +12,7 @@
       <!-- ----------------------------------------- -->
     <div class=" pt-4 p-0 web-dash">
         <h3> Dashboard</h3>
-        <div class=" row panel mx-1">
+        <div class=" row panel ">
                 <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-success">
                        <h5>
@@ -179,6 +179,7 @@ export default {
             .then( response => {
                 if( response.status == 200){
                     this.$inertia.reload();
+                    new Swal({ title: "Success!",timer: 1800  });                    
                     } 
             })
             .catch( error => {
@@ -212,10 +213,7 @@ export default {
                     this.title = 'Suspended clients';
                     this.current_users = null;  // unset current users                    
                     var data =response.data.data.data;
-                    var data =response.data.data.data;
-                    this.current_users = data;            
-                    console.log('users', this.current_users);
-                    new Swal({ title: "Success!",timer: 1800  });
+                    this.current_users = data;   
                     } 
             })
             .catch( error => {
