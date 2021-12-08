@@ -12,7 +12,7 @@
       <!-- ----------------------------------------- -->
     <div class=" pt-4 p-0 web-dash">
         <h3> Dashboard</h3>
-        <div class=" row panel ">
+        <div class=" row panel mx-1">
                 <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-success">
                        <h5>
@@ -178,8 +178,6 @@ export default {
             axios.delete('/api/user/'+ user_id)
             .then( response => {
                 if( response.status == 200){
-                    console.log('responce: ',response);
-                    new Swal({ title: "Success!",timer: 1800  });
                     this.$inertia.reload();
                     } 
             })
