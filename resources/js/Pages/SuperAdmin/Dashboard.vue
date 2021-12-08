@@ -12,7 +12,7 @@
       <!-- ----------------------------------------- -->
     <div class=" pt-4 p-0 web-dash">
         <h3> Dashboard</h3>
-        <div class=" row panel ">
+        <div class=" row panel mx-2 ">
                 <div class="col-md-3 p-1">
                     <div class="d-flex align-content-center align-items-center card shadow p-2 text-success">
                        <h5>
