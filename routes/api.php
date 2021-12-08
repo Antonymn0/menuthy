@@ -29,6 +29,8 @@ if (App::environment('production')) {
   Route::get('user/parmanently-delete/{id}','Api\User\UserController@parmanentlyDelete');
   // Restore user
    Route::get('user/restore/{id}','Api\User\UserController@restoreUser');
+  // Deleted users
+   Route::get('users/deleted','Api\User\UserController@deletedusers');
 
     // Orders API routes
   Route::apiResource('order','Api\Order\OrderController');

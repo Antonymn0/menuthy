@@ -115,6 +115,22 @@ class UserController extends Controller
     }
 
      /**
+     * get deleted users from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deletedUsers( )
+    {
+        $user = User::onlyTrashed()->paginate(env('API_PAGINATION', 10));; 
+        return response()->json([
+            'success'=> true, 
+            'message'=>'User restored', 
+            'data'=>$user],  200);
+    }
+
+     /**
      * Restore the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
