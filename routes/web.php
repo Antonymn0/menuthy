@@ -84,6 +84,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
     Route::get('admin/client-portal',[App\Http\Controllers\Web\Admin\AdminController::class, 'clientsPortal'])->name('super-admin');
     Route::get('/users/deleted',[App\Http\Controllers\Web\Admin\AdminController::class, 'getDeletedUsers'])->name('deleted-users');
+    Route::get('admin/orders',[App\Http\Controllers\Web\Admin\OrdersController::class, 'getAllOrders'])->name('admin-orders');
+    
+    Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
+    Route::get('/search-orders/transaction/{transaction_id}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchTransactionId'])->name('search-transaction-id');
+
   });  
     
 

@@ -20,6 +20,7 @@ class OrderFactory extends Factory
             'is_take_away' => $this->faker->randomdigit(),
             'order_number' => 2568,
             'table_number' => 25,
+            'transaction_id' => '26525dd5d2dk',
             'is_inhouse' => $this->faker->randomdigit(),
             'price' => $this->faker->randomFloat(1,0),
             'restaurant_id' => $this->faker->randomFloat(1,0),

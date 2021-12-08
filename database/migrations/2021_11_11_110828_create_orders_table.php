@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
              $table->double('price')->required();
             $table->integer('preparation_time')->required();
             $table->string('status')->required();
+            $table->string('transaction_id')->required();
             $table->string('restaurant_id')->required();
             $table->integer('menu_item_id')->required();
             $table->integer('table_number')->required();

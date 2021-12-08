@@ -20,7 +20,8 @@ class OrderController extends Controller
      */
     public function index($restaurant_name, $restaurant_id)
     {
-        $orders = Order::whereDate('created_at', Carbon::today())
+        $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                        ->whereDate('created_at', Carbon::today())
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15));
 
@@ -36,7 +37,8 @@ class OrderController extends Controller
      */
     public function refreshOrders($restaurant_name, $restaurant_id)
     {
-        $orders = Order::whereDate('created_at', Carbon::today())
+        $orders = Order::WHERE('restaurant_id', $restaurant_id)
+                        -> whereDate('created_at', Carbon::today())
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15));
 

@@ -89,7 +89,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Time</th>
                         <th scope="col">Table</th>
-                        <th scope="col">Order for</th>
+                        <th scope="col">No/pcs</th>
                         <th scope="col">Type</th>
                     <th scope="col">Action</th>                    </tr>
                 </thead>

@@ -22,6 +22,7 @@ class Order extends Model
         'menu_item_type',
         'menu_item_id',
         'restaurant_id',
+        'transaction_id',
         'order_number',
         'is_take_away',
         'is_inhouse',

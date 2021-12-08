@@ -303,6 +303,7 @@ export default {
             form_data.append('order_number', Date.now());
             form_data.append('menu_item_id', menu_item.id);
             form_data.append('restaurant_id', this.restaurant.id);
+            form_data.append('transaction_id', 'HYHJ58d8d');
             form_data.append('preparation_time', menu_item.preparation_time);
             form_data.append('price', menu_item.price);
             form_data.append('status', 'recieved');
@@ -447,7 +448,7 @@ export default {
 .h5{
     // color:$orange;
     font-weight:500;
-    font-size: .75rem; 
+    font-size: 1rem; 
 }
 .description{
 font-weight:300;

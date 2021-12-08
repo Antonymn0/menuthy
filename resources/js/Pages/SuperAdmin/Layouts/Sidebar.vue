@@ -1,47 +1,46 @@
 <template>
     <div class="d-flex pt-5  flex-column sidebar-nav text-muted flex-shrink-0 mr-0 pr-0 bg-white shadow" >
      
-      <ul class="nav nav-pills flex-column mb-auto m-0 p-0">
+      <ul class="nav nav-pills flex-column mb-auto  m-0 p-0">
         <li class="text-center">  
            <a href="/" class="  text-decoration-none  text-muted text-center mx-auto ">  
             <span v-if="authUser.image !== null "> <img    :src="authUser.image"  alt="profile-image" class="rounded-circle m-0 p-0" style="width:50px; height:50px;">  </span>  
             <span v-else><i class="bi bi-person-circle " style="font-size:2.5rem;"></i>  </span> <br>
             <span  class="pt-0 mt-0"> <small v-if="this.authUser.first_name">  {{this.authUser.first_name}} </small> </span>
-          </a>
-           
+          </a>      
         </li>
         <li class="pl-5 pt-4">
           <h4> Admin panel</h4> 
           
         </li>
         <hr class="p-0 m-0">
-        <li>
-          <a href="/admin" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+        <li class="pl-4 ">
+          <a href="/admin" class="nav-link link-dark">            
             Dashboard
           </a>
         </li>
-        <li>
-          <a href="/admin/client-portal" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            Clients portal
-          </a>
+       <li class="dropdown pl-4">           
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Client portal
+                  </a>
+            <ul class="dropdown-menu  ml-2 pl-0" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href='/admin/orders'> <i class="bi bi-cart-check pr-1"></i> Orders</a></li>
+                <li><a class="dropdown-item" href='#'><i class="bi bi-upc-scan"></i> View scans</a></li>
+                <li><a class="dropdown-item" href='#'> <i class="bi bi-collection"></i> Categories</a></li>
+            </ul>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+        <li class="pl-4 ">
+          <a href="#" class="nav-link link-dark">  
             View scans
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        <li class="pl-4 ">
+          <a href="#" class="nav-link link-dark">            
             Inbox
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link link-dark" data-toggle="modal" data-target="#profile">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        <li class="pl-4 ">
+          <a href="#" class="nav-link link-dark" data-toggle="modal" data-target="#profile">            
             Admin profile
           </a>
         </li>
@@ -101,16 +100,14 @@ export default {
           font-family: poppins;
     }
     ul li {
-      margin-left: auto;
-      margin-right: auto;
-        width:100%;
+     
+        
         color:#9699a2;
         font-family: poppins;
     }
     ul li a{
-      margin-left: auto;
-      margin-right: auto;
-        width:100% !important;
+ 
+       
         color:#9699a2;
         font-family: poppins;
     }
