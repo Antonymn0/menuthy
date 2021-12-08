@@ -31,15 +31,21 @@ class AdminController extends Controller
        return Inertia::render('SuperAdmin/Clients/Portal');
     }
 
-    /**
-     * Store a newly created resource in storage.
+    
+     /**
+     * get deleted users from storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function getDeletedUsers( )
     {
-        //
+        $user = User::with('getRestaurant')->onlyTrashed()->paginate(env('API_PAGINATION', 10));; 
+        return response()->json([
+            'success'=> true, 
+            'message'=>'User restored', 
+            'data'=>$user],  200);
     }
 
     /**

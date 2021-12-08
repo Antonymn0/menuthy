@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">Email</label>
+                                    <label for="exampleFormControlInput2">Business Email</label>
                                     <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 

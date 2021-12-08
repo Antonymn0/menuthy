@@ -1,11 +1,12 @@
 <template>
-    <div class="d-flex pt-2  flex-column sidebar-nav text-muted flex-shrink-0 mr-0 pr-0 bg-white shadow" >
+    <div class="d-flex pt-5  flex-column sidebar-nav text-muted flex-shrink-0 mr-0 pr-0 bg-white shadow" >
      
       <ul class="nav nav-pills flex-column mb-auto m-0 p-0">
         <li class="text-center">  
-           <a href="/" class="  text-decoration-none  text-muted  mx-auto ">  
-            <span><i class="bi bi-person-circle " style="font-size:2.5rem;"></i>  </span> <br>
-            <span class="pt-0 mt-0"> <small>  {{this.authUser.first_name}} </small> </span>
+           <a href="/" class="  text-decoration-none  text-muted text-center mx-auto ">  
+            <span v-if="authUser.image !== 'null' "> <img    :src="authUser.image"  alt="profile-image" class="rounded-circle m-0 p-0" style="width:50px; height:50px;">  </span>  
+            <span v-else><i class="bi bi-person-circle " style="font-size:2.5rem;"></i>  </span> <br>
+            <span  class="pt-0 mt-0"> <small v-if="this.authUser.first_name">  {{this.authUser.first_name}} </small> </span>
           </a>
            
         </li>
@@ -38,6 +39,12 @@
             Inbox
           </a>
         </li>
+        <li>
+          <a href="#" class="nav-link link-dark" data-toggle="modal" data-target="#profile">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+            Admin profile
+          </a>
+        </li>
       </ul>
       <hr>
       <div class="dropdown d-flex align-items-center pl-5 pb-3">
@@ -57,16 +64,26 @@
             </li>
       </ul>
     </div>
+
+    <!-- ---------------components------------------ -->
+    <Profile />
   </div>
 </template>
+
 <script>
+import Profile from "../../Profile/Profile";
 export default {
+  components:{
+    Profile,
+  },
+
   data () {
     return{
          authUser: window.authUser,
     }
   },
   mounted(){
+
     
   }
 }
@@ -83,8 +100,17 @@ export default {
           height:100vh;
           font-family: poppins;
     }
-    ul li a{
+    ul li {
+      margin-left: auto;
+      margin-right: auto;
         width:100%;
+        color:#9699a2;
+        font-family: poppins;
+    }
+    ul li a{
+      margin-left: auto;
+      margin-right: auto;
+        width:100% !important;
         color:#9699a2;
         font-family: poppins;
     }

@@ -69,25 +69,33 @@
                             <th scope="col"> Email</th>
                             <th scope="col">Business name</th>
                             <th scope="col">Business Email</th>
-                            <th scope="col">Address</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">City</th>
                             <th scope="col">Package </th>
                             <th scope="col">Expriry </th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody v-if="this.current_users ">
+                    <tbody v-if="this.current_users && this.current_users !== undefined ">
                         <tr v-for="(user, index) in this.current_users" :key="index" class="border-bottom">
                             <th scope="row"> {{index}} </th>
                                 <td> {{user.first_name}} {{user.last_name}} </td>
                                 <td> {{user.email}} </td>
                                 <td> {{user.get_restaurant[0].restaurant_name}} </td>
                                 <td> {{user.get_restaurant[0].restaurant_email}} </td>
-                                <td> {{user.get_restaurant[0].address}} </td>
+                                <td> {{user.get_restaurant[0].country}} </td>
+                                <td> {{user.get_restaurant[0].city}} </td>
                                 <td> {{user.package_type}} </td>
-                                <td> {{user.registration_expiry}} </td>
+                                <td v-if="user.registration_status == 'master' "> {{user.registration_expiry}} </td>
+                                <td v-if="user.registration_status == 'trial' "> {{user.trial_expiry}} </td>
+                                <td v-else></td>
+                                <td v-if="user.reason"> 
+                                    Reason suspended:
+                                    {{user.reason}} 
+                                    </td>
                                 <td >  
-                                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Suspend" @click="suspendUser(user.id)"> <i class="bi bi-x-circle"></i></a>
-                                    <a href="#" class="btn btn-success btn-sm m-1"  data-bs-toggle="tooltip" data-bs-placement="left" title="Restore" @click="restoreUser(user.id)"> <i class="bi bi-arrow-counterclockwise"></i> </a>
+                                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Suspend" @click="suspendUser(user.id)" v-if="user.deleted_at == null"> <i class="bi bi-x-circle"></i></a>
+                                    <a href="#" class="btn btn-success btn-sm m-1"  data-bs-toggle="tooltip" data-bs-placement="left" title="Restore" @click="restoreUser(user.id)" v-if="user.deleted_at !== null"> <i class="bi bi-arrow-counterclockwise"></i> </a>
                                 </td>
                         </tr>                       
                     </tbody>
@@ -97,6 +105,13 @@
                             <th scope="row" colspan="8" class="lead text-muted text-center py-5"> No records to show</th>
                                
                         </tr>                       
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="9">
+                                <Pagination :data="this.users"/>
+                            </td>                            
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -116,12 +131,14 @@
 import Header from './Layouts/Header';
 import Sidebar from './Layouts/Sidebar';
 import Footer from './Layouts/Footer';
+import Pagination from '../Pagination/Pagination';
 export default {
     props:['users'],
     components:{
         Header,
         Sidebar,
         Footer,
+        Pagination
     },
     data(){
         return{
@@ -183,23 +200,19 @@ export default {
             this.current_users =[]; // unset current users
             this.users.data.forEach((user)=> {
                 if(user.registration_status == 'trial') this.current_users.push(user);
-                this.title = ' Clients on-trial' ;
-                
+                this.title = ' Clients on-trial' ;                
             });
         },
         viewSuspendedClients(){
-             axios.get('/api/users/deleted')
+             axios.get('/users/deleted')
             .then( response => {
                 if( response.status == 200){
-                    this.current_users = null;  // unset current users
                     this.title = 'Suspended clients';
+                    this.current_users = null;  // unset current users                    
                     var data =response.data.data.data;
-                    data.forEach((user)=>{
-                        console.log(user);
-                        // this.current_users.push(user);
-                    });
-
-                    console.log('responce: ',this.current_users);
+                    var data =response.data.data.data;
+                    this.current_users = data;            
+                    console.log('users', this.current_users);
                     new Swal({ title: "Success!",timer: 1800  });
                     } 
             })
@@ -211,7 +224,7 @@ export default {
     },
     mounted(){
         this.current_users = this.users.data;
-        console.log(this.users.data);
+        console.log(this.current_users);
     }
 }
 </script>

@@ -79,15 +79,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
 
  
-
-});
-
-
 //-------------------------------SUPER ADMIN ROUTES -------------------------- //////
 
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
     Route::get('admin/client-portal',[App\Http\Controllers\Web\Admin\AdminController::class, 'clientsPortal'])->name('super-admin');
-    
+    Route::get('/users/deleted',[App\Http\Controllers\Web\Admin\AdminController::class, 'getDeletedUsers'])->name('deleted-users');
+  });  
     
 
 
