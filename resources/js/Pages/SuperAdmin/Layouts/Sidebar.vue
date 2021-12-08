@@ -48,9 +48,9 @@
       </ul>
       <hr>
       <div class="dropdown d-flex align-items-center pl-5 pb-3">
-        <a href="#" class=" link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+        <a href="#" class=" link-dark text-decoration-none text-dark dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+         
+          <strong> {{this.authUser.first_name}}</strong>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
           <li class="dropdown-item  border-top px-2">
