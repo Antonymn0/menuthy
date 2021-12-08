@@ -4,7 +4,7 @@
       <ul class="nav nav-pills flex-column mb-auto m-0 p-0">
         <li class="text-center">  
            <a href="/" class="  text-decoration-none  text-muted text-center mx-auto ">  
-            <span v-if="authUser.image !== 'null' "> <img    :src="authUser.image"  alt="profile-image" class="rounded-circle m-0 p-0" style="width:50px; height:50px;">  </span>  
+            <span v-if="authUser.image !== null "> <img    :src="authUser.image"  alt="profile-image" class="rounded-circle m-0 p-0" style="width:50px; height:50px;">  </span>  
             <span v-else><i class="bi bi-person-circle " style="font-size:2.5rem;"></i>  </span> <br>
             <span  class="pt-0 mt-0"> <small v-if="this.authUser.first_name">  {{this.authUser.first_name}} </small> </span>
           </a>

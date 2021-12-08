@@ -81,10 +81,10 @@
                             <th scope="row"> {{index}} </th>
                                 <td> {{user.first_name}} {{user.last_name}} </td>
                                 <td> {{user.email}} </td>
-                                <td> {{user.get_restaurant[0].restaurant_name}} </td>
-                                <td> {{user.get_restaurant[0].restaurant_email}} </td>
-                                <td> {{user.get_restaurant[0].country}} </td>
-                                <td> {{user.get_restaurant[0].city}} </td>
+                                <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].restaurant_name}} </td>
+                                <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].restaurant_email}} </td>
+                                <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].country}} </td>
+                                <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].city}} </td>
                                 <td> {{user.package_type}} </td>
                                 <td v-if="user.registration_status == 'master' "> {{user.registration_expiry}} </td>
                                 <td v-if="user.registration_status == 'trial' "> {{user.trial_expiry}} </td>
