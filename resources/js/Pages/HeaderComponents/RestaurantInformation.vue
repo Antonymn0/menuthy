@@ -53,7 +53,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Business Email</label>
-                                    <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com">
+                                    <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" required>
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 
                             </div>
@@ -118,8 +118,7 @@
                                         <label for="exampleFormControlInput2">Instagram</label>
                                         <i class="bi bi-instagram p-2"></i>
                                         <input type="text" v-model="form.instagram" class="form-control p-4" name="instagram" id="exampleFormControlInput2" placeholder="Instagram">
-                                    </div> 
-                                    
+                                    </div>                                     
                                 </div>
                             </div>
                         </div>                         
@@ -835,6 +834,12 @@ export default {
                 } 
             })
             .catch( error => {
+                Swal.close();
+                if(error.response.status == 422) {
+                    if(error.response.data.errors.email){
+                        this.errors.email = error.response.data.errors.email[0];
+                        return;                    } 
+                }
                this.$swal('Failed to update!');
                 console.log(error.response);                    
             });

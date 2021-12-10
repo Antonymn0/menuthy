@@ -25,12 +25,12 @@
                   </a>
             <ul class="dropdown-menu  ml-2 pl-0" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href='/admin/orders'> <i class="bi bi-cart-check pr-1"></i> Orders</a></li>
-                <li><a class="dropdown-item" href='#'><i class="bi bi-upc-scan"></i> View scans</a></li>
+                <li><a class="dropdown-item" href='/admin-qr-code-scans'><i class="bi bi-upc-scan"></i> View scans</a></li>
                 <li><a class="dropdown-item" href='#'> <i class="bi bi-collection"></i> Categories</a></li>
             </ul>
         </li>
         <li class="pl-4 ">
-          <a href="#" class="nav-link link-dark">  
+          <a href="/admin-qr-code-scans" class="nav-link link-dark">  
             View scans
           </a>
         </li>

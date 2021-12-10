@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\QrCodeScan;
 
 class Restaurant extends Model
 {
@@ -71,10 +72,15 @@ class Restaurant extends Model
         return $this->hasMany(Menu::class,'restaurant_id', 'id');
     }
 
-     // eloquent <relation
+     // eloquent relation
     //gets menu items
     public function User(){
         return $this->belongsTo(User::class,'user_id', 'id');
+    }
+     // eloquent relation
+    //gets menu items
+    public function QrCodeScans(){
+        return $this->hasOne(QrCodeScan::class,'restaurant_id', 'id');
     }
 }
 

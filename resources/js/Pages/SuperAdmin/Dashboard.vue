@@ -246,6 +246,10 @@ export default {
       font-family: poppins;
   }
 
+  .panel .card:hover{
+      border:1px solid ;
+  }
+
 
 
 /* media queries */

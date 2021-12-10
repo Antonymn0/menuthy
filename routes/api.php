@@ -123,7 +123,10 @@ if (App::environment('production')) {
 
   // mobile menu items route
     Route::get('/{restaurant_name}/menu-item/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMenuItems'])->name('mobile menu');
-
+  
+  // Qr code scans route
+    Route::get('/qr-code-scan/{restaurant_id}',[App\Http\Controllers\Api\QrCodeScan\QrCodeScanController::class, 'countQrCodeScan'])->name('qr-code-scan');
+  
   
 
 Route::fallback(function() {

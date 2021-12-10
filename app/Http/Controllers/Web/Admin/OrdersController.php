@@ -17,8 +17,7 @@ class OrdersController extends Controller
      */
     public function getAllOrders()
     {
-         $orders = Order::whereDate('created_at', Carbon::today())
-                        ->orderBy('created_at','DESC')
+         $orders = Order::orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15));
 
         return Inertia::render('SuperAdmin/Orders/AllOrders')->with([

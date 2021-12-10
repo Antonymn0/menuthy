@@ -14,10 +14,9 @@
                     </h6>
                 </div>
                 <div class="form-group row mb-0">
-                    <div class="col-md-8 offset-md-4">                     
+                    <div class="col-md-8 offset-md-4">     
                             
-                        
-                        <a href="/login" class="btn px-2 btn-danger pr-4 pl-4 ml-2">Login</a>   or    
+                        <a href="/login" class="btn px-2 btn-danger pr-4 pl-4 ml-2">Login</a>     or      
                         <a href="/register" class="btn px-2 btn-danger ml-2 px-3">Register</a>
                         <br />                               
                     </div>

@@ -20,3 +20,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+div a{
+    cursor:pointer;
+}
+</style>

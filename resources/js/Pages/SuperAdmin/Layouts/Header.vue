@@ -19,7 +19,7 @@
 
         <!-- Right -->
         <ul class="navbar-nav ml-auto align-items-center">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#!" class="nav-link navbar-link-2 waves-effect">
               <span class="badge badge-pill red">1</span>
             
@@ -45,7 +45,7 @@
             <a href="#!" class="nav-link waves-effect">
               Contact
             </a>
-          </li>
+          </li> -->
           <li class=" px-2">
                     <form action="/logout" method="POST" enctype="multipart/form-data">
                         <div class="ml-2">

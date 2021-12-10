@@ -89,6 +89,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
     Route::get('/search-orders/transaction/{transaction_id}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchTransactionId'])->name('search-transaction-id');
 
+  // Qr code scans route
+    Route::get('/admin-qr-code-scans', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'allScans'])->name('all-qr-code-scans');
+  // Qr code scans search by name route route
+    Route::get('/admin-qrscansearch/{restaurant_name}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByName'])->name('all-scans-by-name');
+  // Qr code scans search by email route route
+    Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
+
   });  
     
 

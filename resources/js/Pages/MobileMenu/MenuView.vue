@@ -244,6 +244,8 @@ export default {
           order_type:'dine in',
           errors:{},
           User:{},
+          client_IP:'',
+          pre_flight_cors_flag:true,  // flag to prevent sending api request twice
       }
   },
   methods:{
@@ -329,13 +331,59 @@ export default {
       validateOrderType(){
           if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select an order type';
           else delete this.errors.order_type;
-
       },
+       getCookie() {
+            var current_cookie = document.cookie;
+            // return current_cookie.includes('qr_code_scans=');
+        }
+   
   },
   mounted(){
         this.menu_items = this.menuItems;
         this.User= this.user;
-         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();        
+        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();            
+
+                // initialize coockies for qr scan counting - expires in 6hrs
+            var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
+            var cookie_obj = {
+                'name':'qr_code_scans',
+                'website' : 'menuthy',
+                'restaurant_name' : this.restaurant.restaurant_name,
+                'restaurant_id' : this.restaurant.id,
+                'scan_counted' : false,
+                }  
+
+                // check if coockie exists first, if it doesnt create one              
+            var isset_cookie = document.cookie.includes('qr_code_scans');
+            if(!isset_cookie){
+                document.cookie = JSON.stringify(cookie_obj) + ';' + 'expires=' + expiry_time + ';';
+                console.log('coockie created');
+            }
+            if(isset_cookie){                          
+                var old_cookie = document.cookie.split(';');
+                var newcookie = JSON.parse(old_cookie[0]);
+                console.log(document.cookie);
+                // see if restaurant is registered in the cookie 
+                if(newcookie.restaurant_id == this.restaurant.id && newcookie.scan_counted == true) return; // if restaurant is in the cookie dont count the scan
+                else{  
+                    axios.get('/api/qr-code-scan/'  + this.restaurant.id)
+                    .then( response => {
+                        if( response.status = 200){
+                            newcookie.scan_counted = true;
+                            document.cookie =  JSON.stringify(newcookie)+ ';' + 'expires=' + expiry_time;
+                            console.log(document.cookie);
+                            console.log(newcookie);
+                        } 
+                    })
+                    .catch( error => {
+                        this.$swal('Failed record scan!');                
+                        console.log(error.response);                    
+                    });
+
+                    console.log('Coockie uupdated and scan counted'); 
+                }
+            }
+          
   }
  
 };

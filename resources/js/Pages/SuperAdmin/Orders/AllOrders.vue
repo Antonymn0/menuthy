@@ -1,7 +1,7 @@
 <template>
 
   <Header />
-<div class="row ">
+<div class="row parent-div">
     <div class="sidebar p-0 m-0">
         <Sidebar />
     </div>
@@ -24,6 +24,7 @@
                     <p class="example  rounded" >
                         <input type="text" class=" " placeholder="Search.." v-model="order_no">
                         <button  class=" rounded" @click="searchOrderNo(this.order_no)"><i class="fa fa-search"></i></button>
+                        <small class="text-center text-danger"> {{this.errors.order_no}}</small>
                     </p>
                 </div>
                   <div class="form-group col ">
@@ -31,6 +32,7 @@
                     <p class="example  rounded" >
                         <input type="text" class=" " placeholder="Search.." v-model="transaction_id">
                         <button  class=" rounded" @click="searchTransactionId(this.transaction_id)"><i class="fa fa-search"></i></button>
+                        <small class="text-center text-danger"> {{this.errors.transaction_id}}</small>
                     </p>
                 </div>
             </div>        
@@ -61,6 +63,7 @@
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                     
                         <td>{{formatDate(order.created_at)}}</td>
                         <td>{{order.order_for}}</td>
                      
@@ -129,33 +132,7 @@ export default {
                 return moment(String(date)).format('lll');
             }
         },
-        markOrder(id, value){
-             axios.get('/api/order/mark/' + id + '/' + value)
-            .then( response => {
-            if( response.status = 200){
-                console.log(response.data);
-                } 
-            })
-            .catch( error => {
-                this.$swal('Error,  failed to update!');                
-                console.log(error.response.data.errors);                    
-            });
-        },
-        cancelOrder(id, value){
-            if(confirm("Are you sure you want to cancel this order?"))
-            {            
-                axios.get('/api/order/mark/' + id + '/' + value)
-                .then( response => {
-                if( response.status = 200){
-
-                    } 
-                })
-                .catch( error => {
-                    this.$swal('Error,  failed to update!');                
-                 
-                });
-            }
-        },
+       
         fetchOrders(search_term){
             axios.get('/orders/'+ this.authRestaurant.id + '/' + search_term)
             .then( response => {
@@ -190,24 +167,7 @@ export default {
                    
             });
         },
-        fetchOrderTables(table_no){
-            if(table_no == 'all'){ this.refreshOrders(); return;}
-            axios.get('/orders/'+ this.authRestaurant.id + '/tables/' + table_no)
-            .then( response => {
-            if( response.status = 200){
-                this.current_orders = response.data.data;
-                console.log(response.data.data);
-                
-                } 
-            })
-            .catch( error => {
-                new Swal({
-                    title:'Error,  failed to fetch orders!',
-                    timer:2000
-                });                
-                   
-            });
-        },
+     
         fetchOrderBydate(date){
             console.log(this.date);
             axios.get('/orders/'+ this.authRestaurant.id + '/date/' + date)
@@ -227,16 +187,24 @@ export default {
             });
         },
         searchOrderNo(order_no){
+            this.errors = {};
+            this.current_orders = [];
             console.log(order_no);
              axios.get('/search-orders/' + order_no)
             .then( response => {
             if( response.status == 200){
+                console.log(response.data.data);
+                if(!response.data.data.length){
+                    this.errors.order_no = "No results found";
+                    return;
+                }
                 this.title = 'Results';
-                this.current_orders = response.data;
-               console.log(response.data)
+                this.current_orders=response.data;
+               console.log(response.data);
                 } 
             })
             .catch( error => {
+                this.errors.order_no = "No results found";
                 console.log(error); 
                 new Swal({
                     title:'Error,  failed to fetch orders!',
@@ -245,15 +213,22 @@ export default {
             });
         },
         searchTransactionId(transaction_id){
+            this.errors = {};
+            this.current_orders = [];
              axios.get('/search-orders/transaction/' + transaction_id)
             .then( response => {
             if( response.status == 200){
+                 if(!response.data.data.length){
+                    this.errors.transaction_id = "No results found";
+                    return;
+                }
                 this.title = 'Results';
                 this.current_orders = response.data;
                console.log(response.data)
                 } 
             })
             .catch( error => {
+                this.errors.transaction_id = "No results found";
                 console.log(error); 
                 new Swal({
                     title:'Error,  failed to fetch orders!',
@@ -264,6 +239,7 @@ export default {
         showLoading(){            
             Swal.showLoading();
         }, 
+
         refreshOrders(){
             axios.get( '/api/order')
             .then( response => {
@@ -291,11 +267,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 .parent-div{
-    font-family:poppins;
+    font-family:poppins !important;
     font-weight:400;
     color:#9699a2;
-    width:90%;
+
 }
 .daily-report{
     display:inline;
