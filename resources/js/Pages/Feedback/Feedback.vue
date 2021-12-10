@@ -1,19 +1,18 @@
 <template>
 
-
-<div class="parent-nav " style="height:0;">
- 
+<div class="parent-nav shadow " style="height:0;"> 
     <div>
         <span onclick="openFeedBack()"></span>
-        <div id="feedBack1" class="sidenav">
+        <div id="feedBack1" class="sidenav shadow">
             <a href="javascript:void(0)" class="closebtn" onclick="closeFeedBack()">&times;</a>
                 <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom">
                    <h5 class="pr-4 orders mb-0" @click="fetchOrders('today')">Orders </h5> 
-                    <h5 class="feedback" @click="fetchFeedback()"> Feedback</h5>
+                    <h5 class="feedback pr-4 mb-0" @click="fetchFeedback()"> Feedback</h5>
+                    <h5 class="feedback pr-4 mb-0" @click="fetchQrScans()"> Qr scans</h5>
                 </div>
                 <div v-if="current_orders.length">
                     <div class="table-responsive px-4 py-4 text-muted">
-                        <h6 class="text-muted py-2 d-flex"> <span> Recent orders today </span> <span> <a href="#" class="text-muted pr-1 float-right text-right" @click="fetchOrders('today')"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </span></h6>
+                        <h6 class="text-muted py-2 d-flex justify-content-between align-items-center"> <span> Recent orders today </span> <span> <a href="#" class="text-muted pr-1 float-right text-right" @click="fetchOrders('today')"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right" style="font-size:1rem"></i> </a>  </span></h6>
                         <table class="table table-sm table-hover text-muted">
                             <thead class="border-top-none">
                                 <tr class="p-2"> 
@@ -42,9 +41,91 @@
                     </div>
                        
                 </div>
-                <div v-else class="text-muted my-auto py-5 pt-5 text-center">
+                <div v-if="qrscans !== '' ">
+                    <div class="table-responsive px-4 py-4 text-muted">
+                        <h6 class="text-muted py-2 d-flex justify-content-between align-items-center"> <span> Qr scans  </span> <span> <a href="#" class="text-muted pr-1  float-right text-right"  @click="fetchQrScans()"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right" style="font-size:1rem"></i> </a>  </span></h6>
+                        <table class="table table-sm table-hover text-muted">
+                            <thead class="border-top-none">
+                                <tr class="p-2"> 
+                                    <th scope="col">  Period</th>
+                                    <th scope="col"> No of  scans </th>                                
+                                </tr>
+                                <tr>
+                                    <td> This week</td>
+                                    <td> {{ this.getThisWeekScans(qrscans.qr_code_scans) }}</td>
+                                </tr>
+                                <tr>
+                                    <td> Last 4 weeks</td>
+                                    <td> {{ this.getLast4WeeksScans(qrscans.qr_code_scans) }}</td>
+                                </tr>
+                               <div class="pt-4 pb-1">
+                                   <p class=" text-center mb-0 lead">Monthly scans </p>
+                               </div>
+                                <tr> 
+                                    <td> January</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week1 + qrscans.qr_code_scans.week2 + qrscans.qr_code_scans.week3 + qrscans.qr_code_scans.week4 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> Feburuary</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week5 + qrscans.qr_code_scans.week6 + qrscans.qr_code_scans.week7 + qrscans.qr_code_scans.week8 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> March</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week9 + qrscans.qr_code_scans.week10 + qrscans.qr_code_scans.week11 + qrscans.qr_code_scans.week12 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> April</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week13 + qrscans.qr_code_scans.week14 + qrscans.qr_code_scans.week15 + qrscans.qr_code_scans.week16 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> May</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week17 + qrscans.qr_code_scans.week18 + qrscans.qr_code_scans.week19 + qrscans.qr_code_scans.week20 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> June</td>
+                                     <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week21 + qrscans.qr_code_scans.week22 + qrscans.qr_code_scans.week23 + qrscans.qr_code_scans.week24 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> July</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week25 + qrscans.qr_code_scans.week26 + qrscans.qr_code_scans.week27 + qrscans.qr_code_scans.week28 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> August</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week29 + qrscans.qr_code_scans.week30 + qrscans.qr_code_scans.week31 + qrscans.qr_code_scans.week32 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> September</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week33 + qrscans.qr_code_scans.week34 + qrscans.qr_code_scans.week35 + qrscans.qr_code_scans.week36 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> October</td>
+                                     <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week37 + qrscans.qr_code_scans.week38 + qrscans.qr_code_scans.week39 + qrscans.qr_code_scans.week40 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> November</td>
+                                     <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week41 + qrscans.qr_code_scans.week42 + qrscans.qr_code_scans.week43 + qrscans.qr_code_scans.week44 + qrscans.qr_code_scans.week45 }}</td>
+                                </tr>
+                                <tr> 
+                                    <td> December</td>
+                                    <td v-if="qrscans.qr_code_scans">{{qrscans.qr_code_scans.week48 + qrscans.qr_code_scans.week49 + qrscans.qr_code_scans.week50 + qrscans.qr_code_scans.week51 + qrscans.qr_code_scans.week52 }}</td>
+                                </tr>
+                                    
+                                <tr class="py-2">
+                                    <th> Total scans</th>
+                                    <th> {{ this.getTotalScans(qrscans.qr_code_scans) }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div v-else class="text-muted my-auto py-5  text-center">
                    <b class="my-auto">  No items to show today</b>
                 </div>
+             
             </div>
         </div>
     </div>
@@ -64,6 +145,7 @@ export default {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),    //csrf token
             restaurant: window.authRestaurant,
             current_orders:'',
+            qrscans:'',
         }
     },
     components:{
@@ -72,11 +154,10 @@ export default {
     },
     methods:{
          fetchOrders(search_term){ 
-             console.log(this.restaurant);
             axios.get('/orders/'+ this.restaurant.id + '/' + search_term)
             .then( response => {
             if( response.status = 200){
-                
+                this.qrscans='';
                 this.current_orders = response.data.data.data;
                 console.log(this.current_orders);
                 } 
@@ -85,6 +166,71 @@ export default {
                 this.$swal('Error,  failed to fetch orders!');                
                    
             });
+        },
+         fetchQrScans(){ 
+             console.log(this.restaurant);
+            axios.get('qr-scans-history/'+ this.restaurant.id )
+            .then( response => {
+            if( response.status == 200){  
+                this.current_orders = '';             
+                this.qrscans = response.data.data;
+                console.log(this.qrscans);
+                } 
+            })
+            .catch( error => {
+                console.log(error.response);
+                this.$swal('Error,  failed to fetch orders!');                
+                   
+            });
+        },
+         getThisWeekScans(scans){
+            var total_scans =0;
+           var this_week = this.getCurrentWeekNumber();
+            
+            // find total weekly scans
+            if(Object.keys(scans).length){ 
+                Object.entries(scans).forEach((scan)=>{
+                if( scan[0] == 'week' + this_week  )  total_scans += scan[1];                
+                });                                          
+            }
+            return total_scans;
+
+        },
+         getLast4WeeksScans(scans){
+            var total_scans =0;
+           var current_week = this.getCurrentWeekNumber();
+            // get previous weeks
+            var this_week = 'week' + current_week;
+            var prev_week ='week' + (current_week -1) ;
+            var prev_prev_week = 'week' + (current_week - 2) ;
+            var prev_prev_week = 'week' + (current_week -3);
+            // find total monthly scans
+            if(Object.keys(scans).length){ 
+                Object.entries(scans).forEach((scan)=>{
+                if( scan[0] == this_week )  total_scans += scan[1];
+                if( scan[0] ==  prev_week )  total_scans += scan[1];
+                if( scan[0] == prev_prev_week )  total_scans += scan[1];
+                if( scan[0] ==  prev_prev_week )  total_scans += scan[1];
+                });                                          
+            }
+            return total_scans;
+
+        },
+        getCurrentWeekNumber(){
+            var currentdate = new Date();
+            var oneJan = new Date(currentdate.getFullYear(),0,1);
+            var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+            var current_week = Math.ceil(( currentdate.getDay() + 1 + numberOfDays) / 7);
+            return current_week;
+       },
+         getTotalScans(scans){
+            var total_scans = 0;
+            if(Object.keys(scans).length){ 
+                Object.entries(scans).forEach((scan)=>{
+                if(scan[0] !== 'created_at' && scan[0] !== 'updated_at' && scan[0] !== 'restaurant_id' && scan[0] !== 'id' )  total_scans += scan[1];
+                });                                          
+            }
+            return total_scans;
         },
         fetchFeedback(){
             this.current_orders = '';
@@ -99,6 +245,16 @@ export default {
 
 h5{
     cursor:pointer;
+}
+i {
+    color:rgb(160, 64, 64);
+    font-weight:500;
+}
+i:hover{
+    color:rgb(201, 35, 35);
+}
+i:active{
+    color:red;
 }
 .parent-nav{
     color:#9699a2 !important;

@@ -45,10 +45,11 @@
                     <tr class="p-2">
                         <th scope="col">#</th>
                         <th scope="col">Order no</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Order name</th>
                         <th scope="col">Transaction id</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Recieved at</th>
+                        <th scope="col">Completed at</th>
                         <th scope="col">No/pcs</th>
                     <th scope="col">Action</th>  
                </tr>
@@ -65,13 +66,45 @@
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                      
                         <td>{{formatDate(order.created_at)}}</td>
+                        <td>{{formatDate(order.updated_at)}}</td>
                         <td>{{order.order_for}}</td>
                      
                         <td class="text-center">
-                            <a href="#" class="badge badge-danger btn m-1 text-center disabled" >Ation</a>
+                            <a href="#" class="badge badge-danger btn m-1 text-center " data-bs-toggle="modal" :data-bs-target="'#staticBackdrop' + order.id">View</a>
                         </td>                       
                     </tr>                
-                    
+                     
+                        <!--Order history  Modal -->
+                            <div class="modal fade" :id="'staticBackdrop' + order.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                                <div class="modal-content text-muted ">
+                                <div class="modal-header">
+                                    <img :src="order.image" alt="" v-if="order.image" >
+                                    <h5 class="modal-title" id="staticBackdropLabel">{{}} Order deatails</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body px-5">
+                                    <p>Monthly scan history for year  {{new Date().getFullYear()}}</p>
+                                    <div class="table-responsive">
+                                        <table>
+                                            <thead>
+                                                <th>Month</th>
+                                                <th>Scans</th>
+                                            </thead>
+                                            <tbody>
+                                               
+                                            </tbody>
+                                           
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer mx-5">
+                                    <button type="button" class="btn btn-danger px-2" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success">Print</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                 </tbody>
                 <tbody>
                     <tr class="p-2 border-top">
@@ -129,7 +162,7 @@ export default {
         },
         formatDate(date){
             if (date) {
-                return moment(String(date)).format('lll');
+                return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');
             }
         },
        

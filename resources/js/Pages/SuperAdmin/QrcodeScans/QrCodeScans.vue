@@ -142,7 +142,7 @@
                                 </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                    </tr>
                </tbody>
                 <tbody>

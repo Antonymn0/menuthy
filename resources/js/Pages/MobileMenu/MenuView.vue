@@ -12,7 +12,7 @@
 
 
 <div class="parent-div mx-auto shadow px-1 bg-white">
-    <div :class="this.blur"> 
+    <div :class="this.blur "> 
     <div class="header-div">
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
         <i class="bi bi-justify-left"></i>
@@ -26,9 +26,17 @@
     </div>
 
 
+
+<!-- -----------------------------cart items preview----------------------------------------------- -->
+        <div class="cart-items">
+            <div class="cart-preview shadow  d-flex align-items-center" @click="togglepopUp()" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
+              <span> <i class="bi bi-cart-plus"></i> {{this.cart_items.length}} items</span> 
+            </div>
+        </div>
     <!-- ------------------------------------------------------------ -->
 
     <div class="slider-div" id="slider-div">
+        
         <div v-if="this.subMenus.length" :class="blur" > 
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
@@ -100,11 +108,11 @@
                     <p class="order-btn pt-2 mt-1">
                         <span  v-if="this.User.package_type != null" class="button">                  
                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Order</a></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="[togglepopUp(menu_item), addToCart(menu_item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                            
                         </span> 
 
-                        <span class="open ">  <a href="#" class="py-2 pr-3 mr-3" @click="togglepopUp(menu_item)" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">Oder</a></span>
+                        <span class="open ">  <a href="#" class="py-2 pr-3 mr-3" @click="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i>Add</a></span>
 
                         <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
                      </p>
@@ -128,7 +136,7 @@
 <!-- ---------------------------------------------------------------- -->
 
            
- <!-- menu modal popup -->
+ <!--main menu modal popup -->
  <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
             <div class="modal-content shadow" style="">
@@ -148,30 +156,47 @@
     </div> 
 </div>
 
- <!-- final pop up --> 
+ <!--order final pop up --> 
 <!-- Modal -->
 <div class="modal fade mx-auto text-center" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="width:auto;">
+    <div class="modal-content shadow" >
 
-         <div class="pop-up  shadow p-1" >
+         <div class="pop-up " >
                 <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
-                    <div class="pop-up-img">
+                     <div class="pop-up-img">
                         <span class="p-2 shadow rounded back-btn" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left"  > </i></span>
-                        <img :src="this.menu_item.image" alt="menu-image" >
+                        
                     </div>
-                    <div class=" ribbon "> 
-                        <span class="time bg-white  py-1 text-default px-3"><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
-                        <span class=" ribon-price float-right">{{this.restaurant.currency}} {{this.menu_item.price}} </span>
+                    <h5 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h5>
+                    <div class="popup-items-div mt-3" v-if="this.cart_items.length" >
+                        <div class="my-1 mx-3 row" v-for="(item, index) in this.cart_items" :key="index">                            
+                            <div class="inner-popup-div rounded border-bottom p-1 mb-2"> 
+                                 <span @click="removeFromCart(item.id)" style="position:absolute; margin-top:-1.5rem; right:.5rem; font-size:1.5rem; cursor:pointer;"> <i class="bi bi-x text-danger"></i></span> 
+                                <div class="popup-text" style="width:79%; height:auto; float:left">
+                                    <p  v-if="item.menu_item_name" class="d-flex justify-content-between align-items-center mb-0">
+                                        <span> {{ capitalize(item.menu_item_name) }}</span> 
+                                        <span> <small>{{this.restaurant.currency}} {{item.price}} </small> </span>
+                                    </p> 
+                                    <p class="description mb-0 d-flex justify-content-between text-lighter" >
+                                        <span v-if="item.description"> <small> {{ capitalize(item.description) }}</small>  </span>
+                                         <span><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                                    </p>
+                                </div>
+                                <div class="popup-img" style="width:20%; height:100%; float:right">
+                                  
+                                    <img :src="item.image" alt="menu-image" class="rounded" style="width:50px; height:auto; object-fit:cover;">
+                                </div>
+                            </div>                            
+                        </div>
+                        <p class="text-right lead mb-1 pr-5 mx-4"> Amount {{this.total_amount}}</p>
                     </div>
-                    <div class="pop-up-text  py-2">
-                        <h4 class="" v-if="this.menu_item.menu_item_name">
-                            {{ capitalize(this.menu_item.menu_item_name) }}   
-                        </h4> 
-                        <p class="description mb-0" v-if="menu_item.description ">{{ capitalize(this.menu_item.description) }}  </p>
-
+                    <div class="text-muted py-5 lead" v-else> 
+                        <small> --  Cart is empty, Please select some items  --</small>
+                    </div>
+                    <div class="pop-up-text  py-2">                       
                         <!-- radio buttons -->
-                    <div class=" radio-btns-popup py-1"> 
+                    <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" checked v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
@@ -186,11 +211,11 @@
                         </div>
                         <small class="text-danger"> {{this.errors.order_type}}</small>
                     </div>
-                        <p class="order-btn mt-2 mx-auto">
-                            <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 mx-3" @click="placeOrder(menu_item)">Order for {{order_amount}}</a></span> 
-                            
-                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i>
+                        <p class="order-btn  mt-2 mx-auto">                           
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3 mr-5" @click="placeOrder(menu_item)">Pay now </a></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3  " @click="placeOrder(menu_item)">Pay later </a></span> 
+                             <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
+                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
                         </p>
                     </div>
                 </div>
@@ -245,28 +270,54 @@ export default {
           errors:{},
           User:{},
           client_IP:'',
-          pre_flight_cors_flag:true,  // flag to prevent sending api request twice
+         cart_items:[],
+         total_amount:0,
       }
   },
   methods:{
-      
-     orderFor(number){
-         this.order_amount += number;
-         if(this.order_amount < 1)this.order_amount = 1;
-     },
-    capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+        addToCart(menu_item){
+            var is_item_in_cart=false;
+            if(!this.cart_items.length) this.cart_items.push(menu_item);
+            this.cart_items.forEach((item)=>{
+            if(item.id == menu_item.id) {
+                is_item_in_cart = true;
+                return;
+            }            
+            }); 
+            if(!is_item_in_cart) this.cart_items.push(menu_item);  // prevent adding multiple items in the cart  
+            this.calculateTotalAmount();   
         },
-      togglepopUp(menu_item){        
-         if(this.blur == '') this.blur = 'blur';
-         if(this.blur == 'blur') this.blur = '';
-         this.menu_item = menu_item;
-         this.order_amount = 1;
-      },
-      updateMenuName(sub_menu){
-            this.menu_name= sub_menu.sub_menu_name;
-            this.description = sub_menu.description;
-      },
+        removeFromCart(item_id){
+            this.cart_items.forEach((item)=>{
+                if(item.id == item_id){
+                    var index = this.cart_items.indexOf(item);
+                    this.cart_items.splice(index, 1);                
+                } ;
+                this.calculateTotalAmount(); 
+            })
+        },
+        calculateTotalAmount(){
+              var total = 0;
+              this.cart_items.forEach((item)=>{
+                  total += item.price;                  
+              }) 
+            this.total_amount = total; 
+        },
+        orderFor(number){
+            this.order_amount += number;
+            if(this.order_amount < 1)this.order_amount = 1;
+        },
+        capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+            },
+        togglepopUp(){        
+            if(this.blur == '') this.blur = 'blur';
+            if(this.blur == 'blur') this.blur = '';
+        },
+        updateMenuName(sub_menu){
+                this.menu_name= sub_menu.sub_menu_name;
+                this.description = sub_menu.description;
+        },
       showMenuItem(menu_item){
           this.single_menu_item = menu_item;
           this.show_menus_list = !this.show_menus_list;
@@ -356,13 +407,11 @@ export default {
                 // check if coockie exists first, if it doesnt create one              
             var isset_cookie = document.cookie.includes('qr_code_scans');
             if(!isset_cookie){
-                document.cookie = JSON.stringify(cookie_obj) + ';' + 'expires=' + expiry_time + ';';
-                console.log('coockie created');
+                document.cookie = JSON.stringify(cookie_obj) + ';' + 'expires=' + expiry_time + ';';             
             }
             if(isset_cookie){                          
                 var old_cookie = document.cookie.split(';');
-                var newcookie = JSON.parse(old_cookie[0]);
-                console.log(document.cookie);
+                var newcookie = JSON.parse(old_cookie[0]);             
                 // see if restaurant is registered in the cookie 
                 if(newcookie.restaurant_id == this.restaurant.id && newcookie.scan_counted == true) return; // if restaurant is in the cookie dont count the scan
                 else{  
@@ -371,8 +420,6 @@ export default {
                         if( response.status = 200){
                             newcookie.scan_counted = true;
                             document.cookie =  JSON.stringify(newcookie)+ ';' + 'expires=' + expiry_time;
-                            console.log(document.cookie);
-                            console.log(newcookie);
                         } 
                     })
                     .catch( error => {
@@ -393,6 +440,36 @@ export default {
 <style lang="scss" >
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+
+
+// cart items sticky preview styles
+.cart-items{
+    position:relative; /* Safari */
+    position: sticky;
+    top: 0; 
+    cursor: pointer; 
+    
+}
+.cart-preview{
+    position: absolute; /* Safari */
+    right:1rem;
+    top:-1.5rem;
+    width:auto;
+    height:100%;
+    padding:1.2rem;
+    border-radius: 10px;
+    background-color: rgb(247, 143, 46);
+    border:1px solid rgb(243, 118, 1);
+    align-items: center;    
+    color:#fff;
+     cursor: pointer;
+}
+.cart-preview:hover{
+    background-color: rgb(243, 127, 18);
+    border:1px solid rgb(253, 122, 0);
+
+}
 
 // parent div 
 .parent-div{
@@ -616,7 +693,7 @@ input[type='radio']:after {
     font-size:8pt;
 }
 
-
+//popup div
 .pop-up{
     position:relative;
     height:auto;
@@ -628,7 +705,7 @@ input[type='radio']:after {
     margin-right:auto;
     max-height:500px;
     width:100%;
-    max-width:350px;
+    min-width:100%;
     border-radius:15px;
     overflow:hidden;
     background:rgb(224, 222, 222);
@@ -650,6 +727,7 @@ input[type='radio']:after {
     top:.5rem;
     background:rgba(248, 143, 6, 0.808);
     color:rgb(224, 221, 221);
+    border-radius: 100px !important;
 }
 .back-btn:hover{
     background:rgba(248, 143, 6, 0.966);

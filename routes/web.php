@@ -67,9 +67,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/menu-items/{id}', [App\Http\Controllers\Web\SubMenu\SubMenuController::class, 'show'])->name('menu-item1');
 
     //Qr code routes
+    Route::get('qr-scans-history/{restaurant_id}',[App\Http\Controllers\Web\QrCodeScans\QrCodeScansController::class, 'getRestaurantScans'])->name('single-restaurant-scans');
     Route::get('qrcode-get','QrCodeController@index')->name('qrcode-get');
     Route::get('qrcode-create','QrCodeController@create')->name('qrcode-create');
-    
+   
+  
     // orders routes
     Route::get('/{restaurant_name}/orders/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('orders');
     Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
