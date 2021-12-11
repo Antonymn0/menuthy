@@ -261,6 +261,29 @@ function toggleActivemenuClass(){
    var current = event.target.parentElement.parentElement.parentElement;
    current.getElementsByClassName("h5")[0].classList.add("active") ;   
 }
+
+// toggle accordions functions
+function toggleAccordion(){
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {    
+        // event.target.classList.add("active");
+        /* Toggle between hiding and showing the active panel */
+        var panel = event.target.parentElement.nextElementSibling;
+        
+        if(panel.classList.contains('panel')) {panel.classList.remove('panel');}
+        // if( !panel.classList.contains('panel')) {panel.classList.add('panel');}
+
+        if (panel.style.display == "none"){ 
+            panel.style.display = "table-row";
+         }else{
+            if (panel.style.display == "table-row") {
+                panel.style.display = "none";
+             }
+         }
+       
+    }
+}
+
  </script>
  
 

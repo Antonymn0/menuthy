@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Restaurant;
+use App\Models\OrderItem;
 use Carbon\carbon;
 use Inertia\Inertia;
 
@@ -17,8 +19,9 @@ class OrdersController extends Controller
      */
     public function getAllOrders()
     {
-         $orders = Order::orderBy('created_at','DESC')
-                        ->paginate(ENV('API_PAGINATION', 15));
+        $orders = Order::with(['OrderItem'])
+                    ->orderBy('created_at','DESC')
+                    ->paginate(ENV('API_PAGINATION', 15));
 
         return Inertia::render('SuperAdmin/Orders/AllOrders')->with([
             'orders' => $orders,
@@ -32,7 +35,7 @@ class OrdersController extends Controller
      */
     public function searchOrderNo($order_no)
     {
-         $order = Order::where('order_number', $order_no)->get();
+         $order = Order::with(['OrderItem'])->where('order_number', $order_no)->get();
          return response()->json([
             'success'=> true,
             'message' => 'A single order retieved successfully',
@@ -46,57 +49,35 @@ class OrdersController extends Controller
      */
     public function searchTransactionId($transaction_id)
     {
-         $order = Order::where('transaction_id', $transaction_id)->get();
+         $order =Order::with(['OrderItem']) -> where('transaction_id', $transaction_id)->get();
          return response()->json([
             'success'=> true,
             'message' => 'Order by transaction id  successful',
             'data'=>$order], 200);
     }
 
-   
-
     /**
-     * Display the specified resource.
+     * Search order by resaturant email.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function searchOrdersByResaturantEmail($email)
+    { 
+        $restaurant = Restaurant::where('restaurant_email', $email)->first();
+       
+        if(isset($restaurant)){
+            $order =Order::with(['OrderItem']) -> where('restaurant_id', $restaurant ->id)->get();
+            return response()->json([
+                'success'=> true,
+                'message' => 'Orders search by restaurant email  successful',
+                'data'=>$order], 200);
+        }
+         return response()->json([
+                'success'=> false,
+                'message' => 'No results found',
+                'data'=>[]], 404);
+         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

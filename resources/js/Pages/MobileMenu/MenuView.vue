@@ -489,7 +489,8 @@ export default {
 .cart-preview{
     position: absolute; /* Safari */
     right:1rem;
-    top:-1.5rem;
+    top:-2.5rem;
+    z-index: 10;
     width:auto;
     height:100%;
     padding:1.2rem;

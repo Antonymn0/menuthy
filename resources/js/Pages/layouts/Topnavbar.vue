@@ -23,7 +23,8 @@
                                     Orders
                                  </a>
                             <ul class="dropdown-menu pr-3 ml-0 pl-0" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Orders</a></li>
+                                <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Cashier</a></li>
+                                <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Kitchen</a></li>
                                 
                             </ul>
                             </li>

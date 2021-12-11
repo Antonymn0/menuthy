@@ -40,10 +40,11 @@ table tr .last-row td{
                 <tr class="table-danger">
                     <th scope="col">#</th>
                     <th scope="col">Order no</th>
-                    <th scope="col">Order name</th>
                     <th scope="col">Type</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date ordered</th>
+                    <th scope="col">Date delivered</th>
                 </tr>
             </thead>
             <tbody> 
@@ -51,10 +52,11 @@ table tr .last-row td{
                 <tr>
                     <th scope="row">{{ $key }}</th>
                     <td>{{ $data->order_number }}</td>
-                    <td>{{ $data->menu_item_name }}</td>
                     <td>{{ $data->order_type }}</td>
                     <td>{{ $data->status }}</td>
+                    <td>{{ $data->amount }}</td>
                     <td>{{ $data->created_at }}</td>
+                    <td>{{ $data->updated_at }}</td>
                 </tr>
                 @endforeach
                 <tr class="last-row" style="text-align:right; padding:5px;">

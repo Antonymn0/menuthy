@@ -18,9 +18,10 @@
                                 <tr class="p-2"> 
                                     <td scope="col">  # </td>
                                     <td scope="col"> Order no </td>
-                                    <td scope="col">  Name </td>
-                                    <td scope="col">  Time </td>
+                                    <td scope="col">  Recieved</td>
+                                    <td scope="col">  Completed </td>
                                     <td scope="col">  Table </td>
+                                    <td scope="col">  Paid</td>
                                     <td scope="col">  Status </td>
                                 </tr>
                             </thead>
@@ -28,12 +29,14 @@
                                 <tr v-for="(order, index) in this.current_orders" :key="order.id" class="py-3"> 
                                     <td> {{index}}</td>
                                     <td> {{order.order_number}}</td>
-                                    <td> {{order.menu_item_name}} </td>
-                                    <td> {{order.preparation_time}} </td>
+                                    <td> {{this.formatDate(order.created_at)}} </td>
+                                    <td> {{this.formatDate(order.updated_at)}} </td>
                                     <td> {{order.table_number}} </td>
+                                    <td v-if="order.paid =='false'" class="text-danger">No</td>
+                                    <td v-if="order.paid =='true'" class="text-primary">Yes</td>
                                     <td v-if="order.status == 'recieved'" class="">{{order.status}}</td>
                                     <td v-if="order.status == 'canceled'" class="text-danger">{{order.status}}</td>
-                                    <td v-if="order.status == 'processing'" class="text-warning">{{order.status}}</td>
+                                    <td v-if="order.status == 'processing'" class="text-primary">{{order.status}}</td>
                                     <td v-if="order.status == 'completed'" class="text-muted">{{order.status}}</td>
                                 </tr>
                             </tbody>
@@ -136,6 +139,7 @@
 
 <script>
 import RestaurantName from "../HeaderComponents/RestaurantName";
+import moment from 'moment';
 
 export default {
     
@@ -153,6 +157,11 @@ export default {
     
     },
     methods:{
+        formatDate(date){
+            if (date) {
+                return  moment(String(date)).format('LT');
+            }
+        },
          fetchOrders(search_term){ 
             axios.get('/orders/'+ this.restaurant.id + '/' + search_term)
             .then( response => {
@@ -169,7 +178,7 @@ export default {
         },
          fetchQrScans(){ 
              console.log(this.restaurant);
-            axios.get('qr-scans-history/'+ this.restaurant.id )
+            axios.get('/qr-scans-history/'+ this.restaurant.id )
             .then( response => {
             if( response.status == 200){  
                 this.current_orders = '';             
@@ -179,7 +188,7 @@ export default {
             })
             .catch( error => {
                 console.log(error.response);
-                this.$swal('Error,  failed to fetch orders!');                
+                this.$swal('Error,  failed to fetch scans!');                
                    
             });
         },

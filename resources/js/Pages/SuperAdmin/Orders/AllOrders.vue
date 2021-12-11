@@ -35,6 +35,14 @@
                         <small class="text-center text-danger"> {{this.errors.transaction_id}}</small>
                     </p>
                 </div>
+                  <div class="form-group col ">
+                    <label for="status"> Restaurant Email</labeL>
+                    <p class="example  rounded" >
+                        <input type="text" class=" " placeholder="Search.." v-model="this.email">
+                        <button  class=" rounded" @click="searchOrdersByRestaurantEmail(this.email)"><i class="fa fa-search"></i></button>
+                        <small class="text-center text-danger"> {{this.errors.email}}</small>
+                    </p>
+                </div>
             </div>        
         </div>
 
@@ -45,12 +53,13 @@
                     <tr class="p-2">
                         <th scope="col">#</th>
                         <th scope="col">Order no</th>
-                        <th scope="col">Order name</th>
                         <th scope="col">Transaction id</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Paid at</th>
+                        <th scope="col">No/items</th>
                         <th scope="col">Status</th>
                         <th scope="col">Recieved at</th>
                         <th scope="col">Completed at</th>
-                        <th scope="col">No/pcs</th>
                     <th scope="col">Action</th>  
                </tr>
                 </thead>
@@ -58,8 +67,10 @@
                     <tr>
                         <th scope="row">{{index}}</th>
                         <td>{{order.order_number}}</td>
-                        <td>{{capitalize(order.menu_item_name)}}</td>
                         <td> {{order.transaction_id}}</td>
+                        <td> {{order.amount}}</td>
+                        <td> {{order.paid_at}}</td>
+                        <td>{{order.order_item.length}}</td>
                         <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}</td>
@@ -67,56 +78,115 @@
                      
                         <td>{{formatDate(order.created_at)}}</td>
                         <td>{{formatDate(order.updated_at)}}</td>
-                        <td>{{order.order_for}}</td>
                      
                         <td class="text-center">
                             <a href="#" class="badge badge-danger btn m-1 text-center " data-bs-toggle="modal" :data-bs-target="'#staticBackdrop' + order.id">View</a>
                         </td>                       
                     </tr>                
                      
-                        <!--Order history  Modal -->
-                            <div class="modal fade" :id="'staticBackdrop' + order.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-                                <div class="modal-content text-muted ">
-                                <div class="modal-header">
-                                    <img :src="order.image" alt="" v-if="order.image" >
-                                    <h5 class="modal-title" id="staticBackdropLabel">{{}} Order deatails</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body px-5">
-                                    <p>Monthly scan history for year  {{new Date().getFullYear()}}</p>
-                                    <div class="table-responsive">
-                                        <table>
-                                            <thead>
-                                                <th>Month</th>
-                                                <th>Scans</th>
-                                            </thead>
-                                            <tbody>
-                                               
-                                            </tbody>
-                                           
-                                        </table>
+                    <!--Order history  Modal -->
+                        <div class="modal fade" :id="'staticBackdrop' + order.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                            <div class="modal-content  ">
+                            <div class="modal-header">
+                                <img :src="order.image" alt="" v-if="order.image" >
+                                <h5 class="modal-title" id="staticBackdropLabel">{{}} Order deatails</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body px-5">
+                               
+                                <div class="table-responsive">
+                                    <table>
+                                            <tr class="p-2">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Order no</th>
+                                        <th scope="col">Transaction id</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Paid at</th>
+                                        <th scope="col">No/items</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Recieved at</th>
+                                        <th scope="col">Completed at</th>
+                                    </tr>                                            
+                                    <tbody  >
+                                        <tr>
+                                            <th scope="row">{{index}}</th>
+                                            <td>{{order.order_number}}</td>
+                                            <td> {{order.transaction_id}}</td>
+                                            <td> {{order.amount}}</td>
+                                            <td> {{order.paid_at}}</td>
+                                            <td>{{order.order_item.length}}</td>
+                                            <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}</td>
+                                            <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                                        
+                                            <td>{{formatDate(order.created_at)}}</td>
+                                            <td>{{formatDate(order.updated_at)}}</td>
+                                                                 
+                                        </tr>  
+                                    <tr class="panel border rounded " >
+                                                <td> </td>
+                                                <td> </td>
+                                                <td colspan="5" class="">
+                                                    <div class="table-responsive text-center mb-2" v-if="order.order_item">
+                                                        <h5 class="">Order items</h5>
+                                                        <table class="table-md border rounded p-3 mb-2 mx-auto">
+                                                            <thead >
+                                                                <th># </th>
+                                                                <th>Order  no </th>
+                                                                <th>Order name </th>
+                                                                <th>Qty </th>
+                                                                <th>Table no</th>
+                                                                <th>Ready Time </th>
+                                                                <th>status </th>
+                                                            </thead>
+                                                            <thead> 
+                                                                <tr v-for="(item, index) in order.order_item" :key="index" class="border-bottom"> 
+                                                                    <th> {{index}} </th>
+                                                                    <td> {{item.order_number}} </td>
+                                                                    <td> {{item.item_name}} </td>
+                                                                    <td> {{item.quantity}} </td>
+                                                                    <td> {{order.table_number}} </td>
+                                                                    <td> {{item.preparation_time}} </td>
+                                                                    <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                                                                    <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
+                                                                    <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}</td>
+                                                                    <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                    <div v-else>
+                                                        <p class="text-muted py-3 text-center"> No records to show</p>
+                                                    </div>
+                                                </td>
+                                                <td> </td>
+                                            </tr> 
+                                                </tbody>
+                                            
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer mx-5">
+                                        <button type="button" class="btn btn-danger px-2" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success">Print</button>
+                                    </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer mx-5">
-                                    <button type="button" class="btn btn-danger px-2" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success">Print</button>
-                                </div>
-                                </div>
                             </div>
-                        </div>
-                </tbody>
-                <tbody>
-                    <tr class="p-2 border-top">
-                        <td colspan="7" class="text-right border-right">
-                           <b> Total orders</b> 
-                        </td>
-                        <td class="text-center">
-                            {{this.current_orders.total}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                    <tbody>
+                        <tr class="p-2 border-top">
+                            <td colspan="7" class="text-right border-right">
+                            <b> Total orders</b> 
+                            </td>
+                            <td class="text-center">
+                                {{this.current_orders.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
              <Pagination :data="this.current_orders" />
         </div>
     </div>
@@ -152,13 +222,15 @@ export default {
             title:'All orders',
             order_no:'',
             transaction_id:'',
+            email:'',
 
             errors:{}
        }
    },
    methods:{
         capitalize(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
+            if(string) return string.charAt(0).toUpperCase() + string.slice(1);
+            else return;
         },
         formatDate(date){
             if (date) {
@@ -220,9 +292,9 @@ export default {
             });
         },
         searchOrderNo(order_no){
+             if(!order_no) return;
             this.errors = {};
             this.current_orders = [];
-            console.log(order_no);
              axios.get('/search-orders/' + order_no)
             .then( response => {
             if( response.status == 200){
@@ -239,13 +311,11 @@ export default {
             .catch( error => {
                 this.errors.order_no = "No results found";
                 console.log(error); 
-                new Swal({
-                    title:'Error,  failed to fetch orders!',
-                    timer:2000
-                });                             
+                                            
             });
         },
         searchTransactionId(transaction_id){
+            if(!transaction_id) return;
             this.errors = {};
             this.current_orders = [];
              axios.get('/search-orders/transaction/' + transaction_id)
@@ -257,16 +327,34 @@ export default {
                 }
                 this.title = 'Results';
                 this.current_orders = response.data;
-               console.log(response.data)
                 } 
             })
             .catch( error => {
                 this.errors.transaction_id = "No results found";
                 console.log(error); 
-                new Swal({
-                    title:'Error,  failed to fetch orders!',
-                    timer:2000
-                });                             
+                                            
+            });
+        },
+        searchOrdersByRestaurantEmail(email){
+            this.validateEmail();
+            if(Object.keys(this.errors).length) return;
+            this.errors = {};
+            this.current_orders = [];
+             axios.get('/search-orders/email/' + email)
+            .then( response => {
+            if( response.status == 200){
+                 if(!response.data.data.length){
+                    this.errors.email = "No results found";
+                    return;
+                }
+                this.title = 'Results';
+                this.current_orders = response.data;
+                } 
+            })
+            .catch( error => {
+                this.errors.email = "No results found";
+                console.log(error.response); 
+                                            
             });
         },
         showLoading(){            
@@ -288,7 +376,19 @@ export default {
                 });              
                 console.log(error.response.data.errors);                    
             });
-        },    
+        },  
+
+        validateEmail(){
+            if(!this.email) return;
+            if(this.email){
+                var is_valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email);
+                if(!is_valid){
+                    this.errors.email = 'Enter a valid Email address' ;
+                }else{
+                   delete this.errors.email;  
+            }
+            }
+        }  
    },
 
     mounted(){

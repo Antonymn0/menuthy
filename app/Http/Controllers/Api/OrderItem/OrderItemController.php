@@ -54,9 +54,9 @@ class OrderItemController extends Controller
     public function show($id)
     {
         $orderItem= OrderItem::WHERE('id', $id)->first();
-        return ([
+        return response()->json([
             'success' => true,
-           'message' => 'order Item updated',
+           'message' => 'order Item fetched',
            'data' => true,
         ]);
     }

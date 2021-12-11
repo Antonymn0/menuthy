@@ -48,8 +48,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
     // redict users after authentication
     Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
-
-   
        
     //logout route
     Route::post('/logout','Web\Auth\AuthController@logout');
@@ -73,7 +71,8 @@ Route::middleware(['auth'])->group(function () {
    
   
     // orders routes
-    Route::get('/{restaurant_name}/orders/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'index'])->name('orders');
+    Route::get('/{restaurant_name}/orders/kitchen/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'kitchenOrders'])->name('kitchen-orders');
+    Route::get('/{restaurant_name}/orders/cashier/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'cashierOrders'])->name('cashier-orders');
     Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
     Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
     Route::get('/orders/{restaurant_id}/type/{order_type}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTypes']);
@@ -90,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
     Route::get('/search-orders/transaction/{transaction_id}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchTransactionId'])->name('search-transaction-id');
+    Route::get('/search-orders/email/{email}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrdersByResaturantEmail'])->name('search-ordersby-email');
 
   // Qr code scans route
     Route::get('/admin-qr-code-scans', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'allScans'])->name('all-qr-code-scans');

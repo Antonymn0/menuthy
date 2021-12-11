@@ -16,19 +16,35 @@ use PDF;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display orders to the kitchen.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($restaurant_name, $restaurant_id)
+    public function kitchenOrders($restaurant_name, $restaurant_id)
     {
         $orders = Order::with(['OrderItem'])
                     ->WHERE('restaurant_id', $restaurant_id)
                     ->whereDate('created_at', Carbon::today())
                     ->orderBy('created_at','DESC')
                     ->paginate(ENV('API_PAGINATION', 15));
+        return Inertia::render('Order/KitchenOrders')->with([
+            'orders' => $orders,
+        ]);
+    }
 
-        return Inertia::render('Order/AllOrders')->with([
+    /**
+     * Display orders to cashier.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cashierOrders($restaurant_name, $restaurant_id)
+    {
+        $orders = Order::with(['OrderItem'])
+                    ->WHERE('restaurant_id', $restaurant_id)
+                    ->whereDate('created_at', Carbon::today())
+                    ->orderBy('created_at','DESC')
+                    ->paginate(ENV('API_PAGINATION', 15));
+        return Inertia::render('Order/CashierOrders')->with([
             'orders' => $orders,
         ]);
     }
@@ -40,7 +56,8 @@ class OrderController extends Controller
      */
     public function refreshOrders($restaurant_name, $restaurant_id)
     {
-        $orders = Order::WHERE('restaurant_id', $restaurant_id)
+        $orders = Order::with(['OrderItem'])
+                        ->WHERE('restaurant_id', $restaurant_id)
                         -> whereDate('created_at', Carbon::today())
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15));
@@ -54,15 +71,16 @@ class OrderController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
+     * fetch orders by statusy.
      *
      * @return \Illuminate\Http\Response
      */
     public function fetchOrders($restaurant_id, $search_term)
     {         
-          // fetch aal today orders 
+          // fetch all today orders 
         if($search_term == 'today'){
-             $orders = Order::WHERE('restaurant_id', $restaurant_id)
+             $orders = Order::with(['OrderItem'])
+                            ->WHERE('restaurant_id', $restaurant_id)
                             ->whereDate('created_at', Carbon::today())
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15));   
@@ -74,9 +92,9 @@ class OrderController extends Controller
                ]);                         
         }
         else{
-
             // fetch orders according to provided search term 
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+            $orders = Order::with(['OrderItem'])
+                            ->WHERE('restaurant_id', $restaurant_id)
                             -> WHERE('status', $search_term)
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15)); 
@@ -92,9 +110,9 @@ class OrderController extends Controller
 
  // fetch order types depending on the search term
 public function fetchOrderTypes($restaurant_id, $order_type){
-        // fetch orders according to provided search term 
-       
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+        // fetch orders according to provided search term        
+            $orders = Order::with(['OrderItem'])
+                        ->WHERE('restaurant_id', $restaurant_id)
                         ->WHERE('order_type', $order_type)
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15)); 
@@ -110,7 +128,8 @@ public function fetchOrderTypes($restaurant_id, $order_type){
 public function fetchOrderTables($restaurant_id, $table_no){
         // fetch orders according to provided search term 
        
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+            $orders = Order::with(['OrderItem'])
+                        ->WHERE('restaurant_id', $restaurant_id)
                         ->WHERE('table_number', $table_no)
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15)); 
@@ -125,7 +144,8 @@ public function fetchOrderTables($restaurant_id, $table_no){
  // fetch orders depending on the date
 public function fetchOrderBydate($restaurant_id, $date){
         // fetch orders according to provided date       
-            $orders = Order::WHERE('restaurant_id', $restaurant_id)
+            $orders = Order::with(['OrderItem'])
+                        ->WHERE('restaurant_id', $restaurant_id)
                         ->whereDate('created_at', $date)
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15)); 
@@ -144,7 +164,8 @@ public function printOrders($restaurant_id){
         $startDate = Carbon::now()->subDays(7);
         $endDate = Carbon::now();
 
-        $orders = Order::WHERE('restaurant_id', $restaurant_id)
+        $orders = Order::with(['OrderItem'])
+                    ->WHERE('restaurant_id', $restaurant_id)
                     ->whereBetween('created_at', [$startDate, $endDate])
                     ->orderBy('created_at','DESC')
                     ->get(); 

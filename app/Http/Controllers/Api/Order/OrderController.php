@@ -68,11 +68,30 @@ class OrderController extends Controller
      */
     public function markOrder($id, $value){
         $order= Order::WHERE('id', $id)->first()->update(['status' => $value]);
-        return ([
+        return response()->json([
             'success' => true,
            'message' => 'Order updated',
            'data' => true,
-        ]);        
+        ], 200);        
+    }
+    /**
+     * mark order as paid item
+     * 
+     * @param $id $amount
+     * 
+     * @return response
+     */
+    public function markOrderPaid($id, $amount){
+        $order= Order::WHERE('id', $id)->first()->update([
+            'paid' => 'true',
+            'amount_paid' => $amount,
+            'paid_at' => now(),
+            ]);
+        return response()->json([
+            'success' => true,
+           'message' => 'Order marked  as paid',
+           'data' => true,
+        ], 200);        
     }
 
     /**
