@@ -200,7 +200,6 @@ export default {
             restaurant_name:'',
             restaurant_email:'',
             title:'All scans',
-
             errors:{}
        }
    },
@@ -263,22 +262,24 @@ export default {
             return current_week;
        },        
        searchScansByEmail(restaurant_email){
-           if(!restaurant_email.length) return;
-             axios.get( '/admin-qr-scansearch-email/' + restaurant_email)
+           this.validateEmail();
+            if(Object.keys(this.errors).length) return;
+            this.current_restaurants =[];
+            axios.get( '/admin-qr-scansearch-email/' + restaurant_email)
             .then( response => {
             if( response.status == 200){
-                if(!response.data.data.length){
+                if(!response.data.data){
                     this.current_restaurants =[];
                     this.errors={};
                     this.errors.email = "No results found";
                     return;
                 }
                 this.title = 'Results';
-               this.current_restaurants = response.data.data; 
-               console.log(response.data) ;              
+               this.current_restaurants = response.data.data;
                 } 
             })
             .catch( error => {
+                console.log(error) ; 
                 new Swal({
                     title:'Error,  failed to fetch scans!',
                     timer:1500,
@@ -326,7 +327,18 @@ export default {
                 });              
                 console.log(error.response.data.errors);                    
             });
-        },    
+        },  
+           validateEmail(){
+            if(!this.restaurant_email) return;
+            if(this.restaurant_email){
+                var is_valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.restaurant_email);
+                if(!is_valid){
+                    this.errors.email = 'Enter a valid Email address' ;
+                }else{
+                   delete this.errors.email;  
+            }
+            }
+        } 
    },
 
     mounted(){

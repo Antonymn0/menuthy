@@ -47,8 +47,8 @@ class QrCodeScansController extends Controller
     public function searchScansByEmail($email)
     {
         $scans = Restaurant::with(['QrCodeScans'])
-                        ->where('restaurant_email', $email)
-                        ->paginate(ENV('API_PAGINATION', 15));
+                    ->where('restaurant_email', $email)
+                    ->paginate(ENV('API_PAGINATION', 15));
          return response()->json([
             'success'=> true, 
             'message'=>'Scan search by restaurant email complete', 
