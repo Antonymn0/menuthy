@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Events\Order\orderCreated;
 use App\Events\Order\orderUpdated;
 use App\Events\Order\orderDestroyed;
@@ -37,6 +38,19 @@ class OrderController extends Controller
         $data = $request->validated();  
       
         $order = Order::create($data);
+        
+        // save data for order items after order is created
+        $orderItems = json_decode($request->order_items);
+        $newOrderItems =array() ;   
+        foreach($orderItems as $item){
+            foreach($item as $key =>$value){         
+                $newOrderItems[$key] = $value;               
+                $newOrderItems['order_number'] = $order->order_number;               
+                $newOrderItems['order_id'] = $order->id;                          
+            } 
+            OrderItem::create($newOrderItems) ;            
+        }
+
         event(new orderCreated($order));
         return response()->json([
             'success'=> true,
@@ -58,8 +72,7 @@ class OrderController extends Controller
             'success' => true,
            'message' => 'Order updated',
            'data' => true,
-        ]);
-        
+        ]);        
     }
 
     /**

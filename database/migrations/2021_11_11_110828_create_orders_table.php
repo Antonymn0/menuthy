@@ -15,23 +15,18 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('menu_item_name')->required();
-             $table->double('price')->required();
-            $table->integer('preparation_time')->required();
-            $table->string('status')->required();
-            $table->string('transaction_id')->required();
-            $table->string('restaurant_id')->required();
-            $table->integer('menu_item_id')->required();
-            $table->integer('table_number')->required();
             $table->bigInteger('order_number')->required();
-            $table->string('menu_item_type')->nullable();
-            $table->string('is_take_away')->nullable();
-            $table->string('order_type')->nullable();
-            $table->integer('order_for')->nullable();
-            $table->string('is_inhouse')->nullable();
-            $table->text('accompaniments')->nullable();
+            $table->double('amount')->required();
+            $table->string('paid')->required();
+            $table->double('amount_paid')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            $table->integer('number_of_items')->required();
+            $table->integer('table_number')->required();
+            $table->string('status')->required();
+            $table->string('order_type')->required();
+            $table->string('transaction_id')->nullable();
+            $table->integer('restaurant_id')->required();
             $table->timestamp('deleted_at')->nullable();
-            $table->string('avatar')->nullable();
 
             $table->timestamps();
         });

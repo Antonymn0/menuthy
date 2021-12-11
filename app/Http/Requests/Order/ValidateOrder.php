@@ -24,23 +24,17 @@ class ValidateOrder extends FormRequest
     public function rules()
     {
         return [
-        'menu_item_name' =>['required', 'string'],
-        'menu_item_type' =>[ 'string'],
-        'order_number' =>['required', 'integer'],
-        'menu_item_id' =>['required', 'integer' ],
-        'table_number' =>[ 'integer' ],
-        'restaurant_id' =>['required', 'integer' ],
-        'transaction_id' =>['required', 'string' ],
-        'is_take_away' =>[ 'string'],
-        'is_inhouse' =>[ 'string'],
-        'order_type' =>['required', 'string'],
-        'order_for' =>['required', 'integer'],
-        'price' =>['required', 'regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
-        'preparation_time' =>['required', 'integer'],
-        'status' =>['required', 'string'],
-        'accompaniments' =>[ 'string'],
-        'deleted_at' =>[ 'date'],
-        'avatar' =>[ 'string']
+            'restaurant_id' => ['required','integer'],
+            'transaction_id' => ['nullable','string'],
+            'order_number' => ['required','string'],       
+            'amount' => ['required','regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
+            'paid' => ['required','string'],
+            'amount_paid' => ['nullable','regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
+            'time_paid' => ['nullable','date'],
+            'number_of_items' => ['required','integer'],
+            'status' => ['required','string'],
+            'order_type' => ['required','string'],
+            'table_number' => ['required','integer'],
         ];
     }
 }

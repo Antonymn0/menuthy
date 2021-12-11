@@ -215,8 +215,11 @@ components: { Multiselect },
 
         validateForm () {
             if(this.form.menu_item_name == '')this.errors.menu_item_name = 'This field is required' ;             
-               else delete this.errors.menu_item_name;
-           
+            else delete this.errors.menu_item_name;
+
+            if(this.form.description == '') this.errors.description = 'This field is required' ;
+            else delete this.errors.description; 
+
             if(!this.form.price) this.errors.price = 'Price field is required' ;
             else delete this.errors.price;
 

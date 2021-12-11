@@ -163,7 +163,8 @@ export default {
    },
    methods:{
         capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+        if(string) return string.charAt(0).toUpperCase() + string.slice(1);
+        else return;
         },
         markOrder(id, value){
              axios.get('/api/order/mark/' + id + '/' + value)
@@ -301,7 +302,7 @@ export default {
         this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);  //refresh orders every 10 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
-        console.log(this.orders);
+       console.log(this.current_orders);
     }
 }
 </script>

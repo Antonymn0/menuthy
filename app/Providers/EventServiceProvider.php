@@ -51,6 +51,17 @@ class EventServiceProvider extends ServiceProvider
             //
         ],
 
+         // orderItem events
+        'App\Events\OrderItem\orderItemCreated' => [
+            //
+        ],
+        'App\Events\OrderItem\orderItemUpdated' => [
+            //
+        ],
+        'App\Events\OrderItem\orderItemDestroyed' => [
+            //
+        ],
+
          // Qrcode events
         'App\Events\QrCode\qrCodeCreated' => [
             //

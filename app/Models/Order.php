@@ -18,23 +18,21 @@ class Order extends Model
      * @var string[]
      */
     protected $fillable = [
-        'menu_item_name',
-        'menu_item_type',
-        'menu_item_id',
+        
         'restaurant_id',
         'transaction_id',
-        'order_number',
-        'is_take_away',
-        'is_inhouse',
-        'price',
-        'order_type',
-        'order_for',
-        'preparation_time',
+        'order_number',       
+        'amount',
+        'paid',
+        'amount_paid',
+        'paid_at',
+        'number_of_items',
         'status',
+        'order_type',
         'table_number',
-        'accompaniments',
+       
         'deleted_at',
-        'avatar'
+
 
     ];
 
@@ -56,5 +54,9 @@ class Order extends Model
         //
     ];
 
-
+// eloquent <relation
+    //gets order items
+    public function OrderItem(){
+        return $this->hasMany(OrderItem::class,'order_id', 'id');
+    }
 }

@@ -161,12 +161,10 @@
 <div class="modal fade mx-auto text-center" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow" >
-
          <div class="pop-up " >
                 <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
-                     <div class="pop-up-img">
-                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left"  > </i></span>
-                        
+                    <div class="pop-up-img">
+                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left"  > </i></span>          
                     </div>
                     <h5 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h5>
                     <div class="popup-items-div mt-3" v-if="this.cart_items.length" >
@@ -174,18 +172,34 @@
                             <div class="inner-popup-div rounded border-bottom p-1 mb-2"> 
                                  <span @click="removeFromCart(item.id)" style="position:absolute; margin-top:-1.5rem; right:.5rem; font-size:1.5rem; cursor:pointer;"> <i class="bi bi-x text-danger"></i></span> 
                                 <div class="popup-text" style="width:79%; height:auto; float:left">
+                                   <span class=" mr-5 rounded">
+                                       <label :for="item.id" class="font-italic font-weight-lighter pr-1"> Qty </label>
+                                        <select :name="item.id" :id="item.id" class="rounded" :ref="item.id" v-model="this.cart_item_qty[item.id]" @change="this.calculateTotalAmount">
+                                            <option value="1" default selected> 1</option>
+                                            <option value="2" > 2</option>
+                                            <option value="3" > 3</option>
+                                            <option value="4" > 4</option>
+                                            <option value="5" > 5</option>
+                                            <option value="6" > 6</option>
+                                            <option value="7" > 7</option>
+                                            <option value="8" > 8</option>
+                                        </select>
+                                        {{this.cart_item_qty[item.id]}}
+                                        </span>
                                     <p  v-if="item.menu_item_name" class="d-flex justify-content-between align-items-center mb-0">
                                         <span> {{ capitalize(item.menu_item_name) }}</span> 
-                                        <span> <small>{{this.restaurant.currency}} {{item.price}} </small> </span>
+                                        <span style="color:#f16730;"> <small>{{this.restaurant.currency}} {{item.price}} </small> </span>
                                     </p> 
                                     <p class="description mb-0 d-flex justify-content-between text-lighter" >
                                         <span v-if="item.description"> <small> {{ capitalize(item.description) }}</small>  </span>
                                          <span><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
                                     </p>
+                                     
                                 </div>
                                 <div class="popup-img" style="width:20%; height:100%; float:right">
                                   
                                     <img :src="item.image" alt="menu-image" class="rounded" style="width:50px; height:auto; object-fit:cover;">
+                                   
                                 </div>
                             </div>                            
                         </div>
@@ -198,7 +212,7 @@
                         <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" checked v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                            <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -208,12 +222,12 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
                             <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
-                        </div>
-                        <small class="text-danger"> {{this.errors.order_type}}</small>
+                        </div> <br>
+                        <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto">                           
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3 mr-5" @click="placeOrder(menu_item)">Pay now </a></span> 
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3  " @click="placeOrder(menu_item)">Pay later </a></span> 
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 mr-5 disabled" disabled>Pay now </button></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3  " @click="placeOrder()">Pay later </a></span> 
                              <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
                             <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
                         </p>
@@ -254,38 +268,43 @@ export default {
   },
   data(){
       return{
-          blur:'',
-          menu_item:'',
-          order_amount:1,
-          restaurant_name:'',
-          menu_items:'',
-          menu_name:'',
-          description:'',
-          single_menu_item:'',
-          show_menus_list:true,
-          show_single_menu_item:false,
-          is_take_away:false,
-          popupVisible:false,
-          order_type:'dine in',
-          errors:{},
-          User:{},
-          client_IP:'',
-         cart_items:[],
-         total_amount:0,
+        blur:'',
+        menu_item:'',
+        order_amount:1,
+        restaurant_name:'',
+        menu_items:'',
+        menu_name:'',
+        description:'',
+        single_menu_item:'',
+        show_menus_list:true,
+        show_single_menu_item:false,
+        is_take_away:false,
+        popupVisible:false,
+        order_type:'dine in',
+        errors:{},
+        User:{},
+        client_IP:'',
+        cart_items:[],
+        cart_item_qty:[], //keeps track of individual cart item qty
+        total_amount:0,
       }
   },
   methods:{
         addToCart(menu_item){
             var is_item_in_cart=false;
-            if(!this.cart_items.length) this.cart_items.push(menu_item);
             this.cart_items.forEach((item)=>{
             if(item.id == menu_item.id) {
                 is_item_in_cart = true;
                 return;
             }            
-            }); 
-            if(!is_item_in_cart) this.cart_items.push(menu_item);  // prevent adding multiple items in the cart  
-            this.calculateTotalAmount();   
+            }); // prevent adding multiple items in the cart 
+            if(!is_item_in_cart) {
+                var menu_item_id = menu_item.id;
+                this.cart_item_qty[menu_item_id]= 1;
+                this.cart_items.push(menu_item);   
+                this.calculateTotalAmount(); 
+                console.log(this.cart_item_qty);
+            } 
         },
         removeFromCart(item_id){
             this.cart_items.forEach((item)=>{
@@ -299,7 +318,9 @@ export default {
         calculateTotalAmount(){
               var total = 0;
               this.cart_items.forEach((item)=>{
-                  total += item.price;                  
+                  var qty = this.cart_item_qty[item.id]; // get item quatntity from tracker variable
+                  var amount = qty * item.price;
+                  total += amount;                  
               }) 
             this.total_amount = total; 
         },
@@ -308,7 +329,8 @@ export default {
             if(this.order_amount < 1)this.order_amount = 1;
         },
         capitalize(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
+            if(string) return string.charAt(0).toUpperCase() + string.slice(1);
+            else return; 
             },
         togglepopUp(){        
             if(this.blur == '') this.blur = 'blur';
@@ -318,18 +340,18 @@ export default {
                 this.menu_name= sub_menu.sub_menu_name;
                 this.description = sub_menu.description;
         },
-      showMenuItem(menu_item){
-          this.single_menu_item = menu_item;
-          this.show_menus_list = !this.show_menus_list;
-          this.show_single_menu_item = !this.show_single_menu_item;
-          this.blur = this.blur == 'blur-background' ? '' : 'blur-background';
-      },
-      fetchMenus( menu_id){
-          Swal.showLoading();
-          this.$inertia.visit('/' + this.restaurant_name + '/main-menu/' + menu_id);
-         Swal.close()
-        
-      },
+        showMenuItem(menu_item){
+            this.single_menu_item = menu_item;
+            this.show_menus_list = !this.show_menus_list;
+            this.show_single_menu_item = !this.show_single_menu_item;
+            this.blur = this.blur == 'blur-background' ? '' : 'blur-background';
+        },
+        fetchMenus( menu_id){
+            Swal.showLoading();
+            this.$inertia.visit('/' + this.restaurant_name + '/main-menu/' + menu_id);
+            Swal.close()
+            
+        },
       fetchMenuItems( sub_menu_id){
           Swal.showLoading();
           console.log('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id);
@@ -345,42 +367,54 @@ export default {
                 console.log(error.response);                    
             });
       },
-      placeOrder(menu_item){
+        
+      placeOrder(){
           this.validateOrderType();
-          if(Object.keys(this.errors).lenngth) return;
+          if(Object.keys(this.errors).length) return;
+          // gather order data
+          var order_data = new FormData();            
+            order_data.append('order_number', Date.now());            
+            order_data.append('restaurant_id', this.restaurant.id);
+            order_data.append('amount', this.total_amount);
+            order_data.append('paid', 'false');
+            order_data.append('number_of_items', this.cart_items.length);
+            order_data.append('status', 'recieved');
+            order_data.append('order_type', this.order_type);
+            if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
+            if(!this.User.table_number) order_data.append('table_number', 1); //default table number is 1
 
-          var form_data = new FormData();
-            form_data.append('menu_item_name', menu_item.menu_item_name);
-            form_data.append('menu_item_type', menu_item.menu_item_name);
-            form_data.append('is_take_away', this.is_take_away);
-            form_data.append('order_number', Date.now());
-            form_data.append('menu_item_id', menu_item.id);
-            form_data.append('restaurant_id', this.restaurant.id);
-            form_data.append('transaction_id', 'HYHJ58d8d');
-            form_data.append('preparation_time', menu_item.preparation_time);
-            form_data.append('price', menu_item.price);
-            form_data.append('status', 'recieved');
-            form_data.append('order_type', this.order_type);
-            form_data.append('order_for', this.order_amount);
-            if(this.User.table_number) form_data.append('table_number', parseInt(this.User.table_number) );
-            if(!this.User.table_number) form_data.append('table_number', 1);
+            // gather order item data
+            var order_items = [];
+            this.cart_items.forEach((item)=>{
+                var elmnt = {};
+                elmnt.item_name = item.menu_item_name;
+                elmnt.menu_item_id = item.id;
+                elmnt.price_per_item = item.price;
+                elmnt.preparation_time = item.preparation_time;
+                elmnt.quantity = this.cart_item_qty[item.id]; // get item quantity
+                elmnt.amount = item.price * this.cart_item_qty[item.id]; // multiply price by quantity
+                order_items.push(elmnt);
+            });
 
-            if(window.confirm("Place a " + this.order_type + " order for "+ this.order_amount + ' people?')){
-                axios.post('/api/order', form_data)
+            order_data.append('order_items', JSON.stringify(order_items)); //append order items data to form
+            
+            if(window.confirm("Place a " + this.order_type  + ' order?')){
+                axios.post('/api/order', order_data)
                     .then( response => {
+                        console.log(response);
                         if( response.status = 201){
                             this.$swal( 'Order placed!'); 
-                            // console.log(response.data);
+                            console.log(response.data);
                             } 
                         })
                     .catch( error => {
                         this.$swal('Error, Order failed!');                
-                        console.log(error.response.data.errors);                    
+                        console.log(error.response);                    
                     });
             }
       },
       validateOrderType(){
-          if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select an order type';
+          if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select  order type';
           else delete this.errors.order_type;
       },
        getCookie() {
@@ -390,6 +424,7 @@ export default {
    
   },
   mounted(){
+      console.log(this.$refs);
         this.menu_items = this.menuItems;
         this.User= this.user;
         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();            
@@ -427,7 +462,7 @@ export default {
                         console.log(error.response);                    
                     });
 
-                    console.log('Coockie uupdated and scan counted'); 
+                    
                 }
             }
           
@@ -590,7 +625,7 @@ font-weight:300;
 }
 
 // order btn
-.order-btn a{
+.order-btn a, .order-btn button{
     background-color: $orange;
     border: none;
     color: white;

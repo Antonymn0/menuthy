@@ -97,12 +97,10 @@ export default {
     methods:{
         // mobile qr code
         generateQrCode(restaurant_id){
-            console.log('Generating qr code...');
             axios.get('/api/qrcode-generate/'+ restaurant_id)
             .then( response => {
             if( response.status = 200){
                 this.qrCode = response.data;
-                console.log(this.qrCode);
                 } 
             })
             .catch( error => {
@@ -118,7 +116,6 @@ export default {
             .then( response => {
             if( response.status = 200){
                 this.tables_qr_code_link = response.data;
-                console.log(this.tables_qr_code_link);
                 } 
             })
             .catch( error => {

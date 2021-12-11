@@ -32,7 +32,7 @@ if (App::environment('production')) {
   // Deleted users
    Route::get('users/deleted','Api\User\UserController@deletedusers');
 
-    // Orders API routes
+    // Item API routes
   Route::apiResource('order','Api\Order\OrderController');
     // Get deleted orders
   Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
@@ -41,6 +41,9 @@ if (App::environment('production')) {
   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
    //  Parmamnently delete order
   Route::get('order/parmanently-delete/{id}','Api\Order\OrderController@parmanentlyDelete');
+
+  // OrderItem API route
+  Route::apiResource('order-item','Api\OrderItem\OrderItemController');
 
     // Qr code API routes
   Route::apiResource('qrcode','Api\QrCode\QrCodeController');

@@ -40,14 +40,10 @@ data(){
   methods:{
       // generate prview link
       getQqrCodeLink(){
-            console.log('Generating preview link.on..', '/api/qrcode-generate/'+ this.restaurant.id);
             axios.get('/api/qrcode-generate/'+ this.restaurant.id)
             .then( response => {
-              if( response.status = 200){
-                console.log(this.restaurant);
-                console.log(response);            
+              if( response.status = 200){      
                   this.preview_link = response.data;
-                  console.log( 'New preview link ', this.preview_link);
                 } 
             })
             .catch( error => {
@@ -60,8 +56,6 @@ data(){
   mounted(){
     this.restaurant = window.authRestaurant;
      this.getQqrCodeLink();
-    console.log('preview link', this.preview_link);
-    console.log('restaurant', this.restaurant);
     
   },
     
