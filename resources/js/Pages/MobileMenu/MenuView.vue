@@ -106,19 +106,34 @@
                         </form>
                     </div>
                     <p class="order-btn pt-2 mt-1">
-                        <span  v-if="this.User.package_type != null" class="button">                  
-                            
+                        <span  v-if="this.User.package_type != null" class="button">                             
                             <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="[togglepopUp(menu_item), addToCart(menu_item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
-                           
-                        </span> 
+                            </span>
 
+                            <span class=" mr-5 rounded" v-if="this.cart_item_qty[menu_item.id] ">
+                                <label :for="menu_item.id" class="font-italic font-weight-lighter pr-1"> Qty </label>
+                                <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change="this.calculateTotalAmount">
+                                    <option value="1" default selected> 1</option>
+                                    <option value="2" > 2</option>
+                                    <option value="3" > 3</option>
+                                    <option value="4" > 4</option>
+                                    <option value="5" > 5</option>
+                                    <option value="6" > 6</option>
+                                    <option value="7" > 7</option>
+                                    <option value="8" > 8</option>
+                                </select>
+                                {{this.cart_item_qty[menu_item.id]}}
+                                <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
+                            </span>
                         <span class="open ">  <a href="#" class="py-2 pr-3 mr-3" @click="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i>Add</a></span>
 
                         <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
+                        
                      </p>
                 </div>    
             </div>  
                  <div class="img-div "> 
+                     
                <a href="#"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
@@ -293,27 +308,32 @@ export default {
         addToCart(menu_item){
             var is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
-            if(item.id == menu_item.id) {
-                is_item_in_cart = true;
-                return;
-            }            
+                if(item.id == menu_item.id) {
+                    is_item_in_cart = true;
+                    return;
+                }                      
             }); // prevent adding multiple items in the cart 
             if(!is_item_in_cart) {
                 var menu_item_id = menu_item.id;
                 this.cart_item_qty[menu_item_id]= 1;
                 this.cart_items.push(menu_item);   
-                this.calculateTotalAmount(); 
-                console.log(this.cart_item_qty);
+                this.calculateTotalAmount(); ;
             } 
         },
         removeFromCart(item_id){
+            console.log(item_id);
             this.cart_items.forEach((item)=>{
                 if(item.id == item_id){
-                    var index = this.cart_items.indexOf(item);
-                    this.cart_items.splice(index, 1);                
+                    var index = this.cart_items.indexOf(item); // remove item from cart
+                    this.cart_items.splice(index, 1); 
+
+                    delete this.cart_item_qty[item_id];   
+                    
                 } ;
+                if(!this.cart_items.length) this.cart_item_qty = [];
+
                 this.calculateTotalAmount(); 
-            })
+            });
         },
         calculateTotalAmount(){
               var total = 0;
@@ -486,6 +506,24 @@ export default {
     cursor: pointer; 
     
 }
+
+select{
+    border: 1px solid $orange;
+    color: rgb(141, 101, 101);
+}
+select:active{
+    border: 3px solid $orange;
+    color: rgb(182, 123, 123);
+}
+select:hover{
+    border: 2px solid $orange;
+    color: rgb(182, 123, 123);
+}
+select:focus{
+    border: 3px solid $orange;
+    color: rgb(182, 123, 123);
+}
+
 .cart-preview{
     position: absolute; /* Safari */
     right:1rem;

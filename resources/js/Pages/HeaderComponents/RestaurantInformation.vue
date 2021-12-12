@@ -762,6 +762,16 @@ export default {
                     'name': 'Ugandan shilling',
                     'symbol': '&#85;&#83;&#104;'},
 
+                {'code': 'KSH',
+                    'countryname': 'Kenya',
+                    'name': 'Kenyan shilling',
+                    'symbol': '&#85;&#83;&#104;'},
+
+                {'code': 'TSH',
+                    'countryname': 'Tanzania',
+                    'name': 'Tanzanian shilling',
+                    'symbol': '&#85;&#83;&#104;'},
+
 
                 {'code': 'USD',
                     'countryname': 'United States',
@@ -816,6 +826,7 @@ export default {
                 form_data.append('city', this.form.city);
                 form_data.append('restaurant_phone_number', this.form.restaurant_phone_number);
                 if(this.form.restaurant_email) form_data.append('restaurant_email', this.form.restaurant_email);
+                form_data.append('currency', this.form.currency);
                 form_data.append('website', this.form.website);
                 form_data.append('timezone', this.form.timezone);
                 form_data.append('facebook', this.form.facebook);
