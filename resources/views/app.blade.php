@@ -265,22 +265,20 @@ function toggleActivemenuClass(){
 // toggle accordions functions
 function toggleAccordion(){
     var acc = document.getElementsByClassName("accordion");
-    for (var i = 0; i < acc.length; i++) {    
-        // event.target.classList.add("active");
-        /* Toggle between hiding and showing the active panel */
-        var panel = event.target.parentElement.nextElementSibling;
-        
-        if(panel.classList.contains('panel')) {panel.classList.remove('panel');}
-        // if( !panel.classList.contains('panel')) {panel.classList.add('panel');}
-
-        if (panel.style.display == "none"){ 
-            panel.style.display = "table-row";
-         }else{
-            if (panel.style.display == "table-row") {
-                panel.style.display = "none";
-             }
-         }
+    for (let i = 0; i < acc.length; i++) {    
        
+        let panel = event.target.parentElement.nextElementSibling;
+        if (panel.style.display == "table-row"){ 
+            console.log('table-row')
+            panel.style.display = "none";   
+            return      
+         }
+        else if (panel.style.display == "none"){ 
+            console.log('none');
+            panel.style.display = "table-row";
+            return;         
+         }
+       return;
     }
 }
 

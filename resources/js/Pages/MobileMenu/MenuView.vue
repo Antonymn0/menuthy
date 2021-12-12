@@ -10,7 +10,6 @@
 <body>
     
 
-
 <div class="parent-div mx-auto shadow px-1 bg-white">
     <div :class="this.blur "> 
     <div class="header-div">
@@ -24,7 +23,6 @@
                <span v-else> Hotel name</span> 
             </p>
     </div>
-
 
 
 <!-- -----------------------------cart items preview----------------------------------------------- -->

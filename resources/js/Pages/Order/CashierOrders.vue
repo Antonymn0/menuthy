@@ -124,13 +124,13 @@
                             <a href="#" class="badge badge-danger btn m-1  disabled" >Canceled</a>
                         </td>                                              
                     </tr>  
-                    <tr class="panel alert-danger " >
+                    <tr class="panel alert-danger " style="display:none;" >
                         <td> </td>
                         <td> </td>
-                        <td colspan="4" class="">
+                        <td colspan="9" class="">
                             <div class="table-responsive text-center mb-2" v-if="order.order_item">
                                 <h5 class="">Order items</h5>
-                                <table class="table border rounded p-3 mb-2 mx-auto">
+                                <table class="table table2 rounded p-3 alert-danger mb-2 mx-auto">
                                     <thead >
                                         <th># </th>
                                         <th>Order  no </th>
@@ -394,16 +394,8 @@ export default {
             axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {
             if( response.status = 200){
-            this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
-             this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);
-                // scan response for new orders
-                response.data.data.data.forEach(order => {
-                    // play a beep sound for a new order 
-                    if(order.status == 'recieved'){
-                        this.$refs.audio.play();
-                        return;
-                    } 
-                });
+                this.refreshOrdersInterval = clearInterval(this.refreshOrdersInterval);
+                this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);               
                 this.current_orders = response.data.data;                
                 } 
             })
@@ -465,10 +457,12 @@ export default {
 .panel {
   padding: 0 18px;
   background-color: white;
-  display: none;
   overflow: hidden;
+  transition: all 1s ease-in-out;
 }
-
+.table2{
+    border: 1px solid rgb(231, 133, 133) !important;
+}
 /* Style the search field */
 p.example input[type=text] {
   padding: 7px;

@@ -109,19 +109,19 @@
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-primary btn ml-3 mb-2" @click="markOrder(order.id, 'processing')">Processing</a>
                             <a href="#" class="badge badge-success btn m-1" @click="markOrder(order.id, 'completed')">Complete</a>
-                            <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
+                            <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order .id, 'canceled')">Cancel</a>
                         </td> 
                         <td v-else class="text-center">
                             <a href="#" class="badge badge-danger btn m-1 text-center disabled" >Canceled</a>
                         </td>                                              
                     </tr>  
-                    <tr class="panel alert-danger " >
+                    <tr class="panel alert-danger " style="display:none;" >
                         <td> </td>
                         <td> </td>
-                        <td colspan="4" class="">
+                        <td colspan="5" class="">
                             <div class="table-responsive text-center mb-2" v-if="order.order_item">
                                 <h5 class="">Order items</h5>
-                                <table class="table-md border rounded p-3 mb-2 mx-auto">
+                                <table class="table-md  table2 alert-danger rounded p-3 mb-2 mx-auto">
                                     <thead >
                                         <th># </th>
                                         <th>Order  no </th>
@@ -412,16 +412,17 @@ export default {
 
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-
   cursor: pointer;
   padding: 18px;
   width: 100%;
   text-align: left;
   border: none;
   outline: none;
-  transition: 0.4s;
+  transition: 1s;
 }
-
+.table2{
+    border: 1px solid rgb(231, 133, 133);
+}
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
  .accordion:hover {
   background-color: #ccc;
@@ -431,7 +432,6 @@ export default {
 .panel {
   padding: 0 18px;
   background-color: white;
-  display: none;
   overflow: hidden;
 }
 
