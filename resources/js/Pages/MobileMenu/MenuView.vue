@@ -178,8 +178,8 @@
     <div class="modal-content shadow" >
          <div class="pop-up " >
                 <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
-                    <div class="pop-up-img">
-                        <span class="p-2 shadow rounded back-btn" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left"  > </i></span>          
+                    <div class="pop-up-img ">
+                        <span class="p-2   back-btn " @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
                     <h5 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h5>
                     <div class="popup-items-div mt-3" v-if="this.cart_items.length" >
@@ -218,7 +218,7 @@
                                 </div>
                             </div>                            
                         </div>
-                        <p class="text-right lead mb-1 pr-5 mx-4"> Amount {{this.total_amount}}</p>
+                        <p class="text-right lead mb-1 pr-5 mx-1"> Amount {{this.total_amount}}</p>
                     </div>
                     <div class="text-muted py-5 lead" v-else> 
                         <small> --  Cart is empty, Please select some items  --</small>
@@ -241,8 +241,8 @@
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto">                           
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 mr-5 disabled" disabled>Pay now </button></span> 
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3  " @click="placeOrder()">Pay later </a></span> 
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </a></span> 
                              <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
                             <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
                         </p>
@@ -526,23 +526,26 @@ select:focus{
 
 .cart-preview{
     position: absolute; /* Safari */
-    right:1rem;
-    top:-2.5rem;
+    right:.3rem;
+    top:-3rem;
     z-index: 10;
     width:auto;
     height:100%;
     padding:1.2rem;
     border-radius: 10px;
-    background-color: rgb(247, 143, 46);
-    border:1px solid rgb(243, 118, 1);
+    background-color: rgb(248, 154, 66);
+    border:1px solid rgb(240, 120, 8);
     align-items: center;    
     color:#fff;
      cursor: pointer;
 }
 .cart-preview:hover{
-    background-color: rgb(243, 127, 18);
-    border:1px solid rgb(253, 122, 0);
-
+    background-color: rgb(248, 137, 33);
+    border:1px solid rgb(243, 121, 7);
+}
+.cart-preview:active{
+    background-color: rgb(252, 123, 2);
+    border:1px solid rgb(184, 92, 6);
 }
 
 // parent div 
@@ -662,7 +665,15 @@ font-weight:300;
     color: $orange;
     font-weight:400;
 }
-
+.bi-x:hover{
+        background-color: rgb(248, 207, 160);
+        color:#fff !important;
+}
+.bi-x:active{
+        background-color: rgb(236, 137, 24);
+        border:1px solid rgb(250, 136, 7);
+        color:#fff !important;
+}
 // order btn
 .order-btn a, .order-btn button{
     background-color: $orange;
@@ -799,14 +810,13 @@ input[type='radio']:after {
     font-size:1.5rem;
     left:.5rem;
     top:.5rem;
-    background:rgba(248, 143, 6, 0.808);
+    
     color:rgb(224, 221, 221);
-    border-radius: 100px !important;
 }
-.back-btn:hover{
-    background:rgba(248, 143, 6, 0.966);
+.back-btn i:hover{
+    background:rgba(243, 138, 2, 0.966);
 }
-.back-btn:active{
+.back-btn i:active{
     border:1px solid rgba(206, 118, 4, 0.966);
     background:rgba(241, 138, 2, 0.993);
     color:#fff;
