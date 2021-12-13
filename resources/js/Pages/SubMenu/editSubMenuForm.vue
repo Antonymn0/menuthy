@@ -19,6 +19,7 @@
                     <div class="form-group">
                         <label for="maneu-name">Description</label>
                         <textarea   class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
+                         <small class="text-danger"> {{ this.errors.description}} </small>
                     </div>
                     <div class="mx-auto p-2">
                         <label for="exampleFormControlInputimage">Image*</label>
@@ -132,6 +133,9 @@ export default defineComponent({
         validateForm () {
             if(!this.form.sub_menu_name) this.errors.sub_menu_name = 'This field is required' ;
             else delete this.errors.sub_menu_name;
+
+            if(!this.form.description ) this.errors.description = 'This field is required' ;
+            else delete this.errors.description;
 
             if(!this.form.restaurant_id) this.errors.restaurant_id = 'Restaurant id field is required' ;
             else  delete this.errors.restaurant_id; 

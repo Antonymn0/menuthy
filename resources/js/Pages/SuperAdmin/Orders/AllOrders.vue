@@ -73,11 +73,11 @@
                         <td>{{order.order_item.length}}</td>
                         <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
-                        <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'processing'" class="text-warning">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                      
                         <td>{{formatDate(order.created_at)}}</td>
-                        <td>{{formatDate(order.updated_at)}}</td>
+                        <td>{{formatDate(order.completed_at)}}</td>
                      
                         <td class="text-center">
                             <a href="#" class="badge badge-danger btn m-1 text-center " data-bs-toggle="modal" :data-bs-target="'#staticBackdrop' + order.id">View</a>
@@ -108,7 +108,7 @@
                                         <th scope="col">Recieved at</th>
                                         <th scope="col">Completed at</th>
                                     </tr>                                            
-                                    <tbody  >
+                                    <tbody >
                                         <tr>
                                             <th scope="row">{{index}}</th>
                                             <td>{{order.order_number}}</td>
@@ -122,7 +122,7 @@
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                                         
                                             <td>{{formatDate(order.created_at)}}</td>
-                                            <td>{{formatDate(order.updated_at)}}</td>
+                                            <td>{{formatDate(order.completed_at)}}</td>
                                                                  
                                         </tr>  
                                     <tr class="panel border rounded " >

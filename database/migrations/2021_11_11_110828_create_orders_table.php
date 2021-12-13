@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->integer('restaurant_id')->required();
             $table->timestamp('deleted_at')->nullable();
+            
 
             $table->timestamps();
         });

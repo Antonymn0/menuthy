@@ -25,10 +25,10 @@
                         </div>
                         
                          <div class="row"> 
-                            <div class="form-group col-md-4 ">
+                            <!-- <div class="form-group col-md-4 ">
                                 <label for="exampleFormControlInputprice">Price</label>
                                 <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
-                            </div>
+                            </div> -->
                             <div class="form-group col-md-4 ">
                                 <label for="exampleFormControlInputfile">Discount</label>
                                 <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
@@ -183,7 +183,7 @@ components: { Multiselect },
     methods:{
         submitForm () {
             this.validateForm();
-            if(this.errors.length > 0) return;
+            if(Object.keys(this.errors).length) return;
             console.log('No errors in the form...');
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);

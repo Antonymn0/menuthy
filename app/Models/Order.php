@@ -32,6 +32,8 @@ class Order extends Model
         'table_number',
        
         'deleted_at',
+        'completed_at',
+        'canceled_at',
 
 
     ];

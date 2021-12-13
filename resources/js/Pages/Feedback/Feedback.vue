@@ -30,7 +30,7 @@
                                     <td> {{index}}</td>
                                     <td> {{order.order_number}}</td>
                                     <td> {{this.formatDate(order.created_at)}} </td>
-                                    <td> {{this.formatDate(order.updated_at)}} </td>
+                                    <td> {{this.formatDate(order.completed_at)}} </td>
                                     <td> {{order.table_number}} </td>
                                     <td v-if="order.paid =='false'" class="text-danger">No</td>
                                     <td v-if="order.paid =='true'" class="text-primary">Yes</td>

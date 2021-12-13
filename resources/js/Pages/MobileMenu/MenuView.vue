@@ -226,15 +226,15 @@
                         <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
+                            <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away">
                             <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Pick Up" >
                             <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
                         </div> <br>
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
@@ -292,7 +292,7 @@ export default {
         show_single_menu_item:false,
         is_take_away:false,
         popupVisible:false,
-        order_type:'dine in',
+        order_type:'Dine In',
         errors:{},
         User:{},
         client_IP:'',

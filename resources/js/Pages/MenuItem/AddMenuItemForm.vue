@@ -30,10 +30,10 @@
                     <label for="exampleFormControlInputprice">Price</label>
                     <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
                 </div>
-                <div class="form-group col-md-4 ">
+                <!-- <div class="form-group col-md-4 ">
                     <label for="exampleFormControlInputfile">Discount</label>
                     <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
-                </div>
+                </div> -->
                 <div class="form-group col-md-4 ">
                     <label for="exampleFormControlInputprice">Peparation time</label>
                     <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
@@ -187,7 +187,7 @@ props:['sub_menu'],
     methods:{
         submitForm () {
             this.validateForm();
-            if(Object.keys(this.errors).lenngth) return;
+            if(Object.keys(this.errors).length) return;
             console.log('No errors in the form...');
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
@@ -222,7 +222,7 @@ props:['sub_menu'],
             if(this.form.menu_item_name == '')this.errors.menu_item_name = 'This field is required' ;
             else delete this.errors.menu_item_name
 
-            if(this.form.description == '') this.errors.description = 'This field is required' ;
+            if(!this.form.description ) this.errors.description = 'This field is required' ;
             else delete this.errors.description;
                 
             if(!this.form.price) this.errors.price = 'Price field is required' ;

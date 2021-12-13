@@ -67,10 +67,21 @@ class OrderController extends Controller
      * @return response
      */
     public function markOrder($id, $value){
-        $order= Order::WHERE('id', $id)->first()->update(['status' => $value]);
+        if($value =='completed') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            'completed_at' => now(),
+            ]);
+        if($value =='canceled') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            'canceled_at' => now(),
+            ]);
+        if($value =='processing') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            ]);
+        
         return response()->json([
             'success' => true,
-           'message' => 'Order updated',
+           'message' => 'Order marked ' . $value,
            'data' => true,
         ], 200);        
     }

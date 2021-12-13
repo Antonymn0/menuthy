@@ -85,11 +85,12 @@
                     <tr class="p-2">
                         <th scope="col">#</th>
                         <th scope="col">Time recieved </th>
+                        <th scope="col">Time completed </th>
                         <th scope="col">Order no</th>
                         <th scope="col">Type</th>
                         <th scope="col">No/Items</th>
                         <th scope="col">Table</th>
-                        <th scope="col">Amount</th>
+                        <th scope="col">Amount due</th>
                         <th scope="col">Paid</th>
                         <th scope="col">Amount paid</th>
                         <th scope="col">Paid at</th>
@@ -99,8 +100,9 @@
                 </thead>
                 <tbody v-for="(order, index) in this.current_orders.data" :key="order.id" >
                     <tr class="accordion border-bottom" onclick="toggleAccordion()">
-                        <th scope="row">{{index}}</th>
+                        <th scope="row">{{index +1}}</th>
                         <td>{{formatDate(order.created_at)}}</td>
+                        <td>{{formatDate(order.completed_at)}}</td>
                         <td>{{order.order_number}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
                          <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
@@ -112,9 +114,9 @@
                         <td v-else>0</td>
                         <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>
                         <td v-else></td>                       
-                        <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                        <td v-if="order.status == 'recieved'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
-                        <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-success btn m-1" @click="markAsPaid(order.id, order.amount)">Mark as paid</a>
@@ -151,9 +153,9 @@
                                             <td> {{order.table_number}} </td>
                                             <td> {{item.preparation_time}} </td>
                                             <td> {{formatDate(item.created_at)}} </td>
-                                            <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'recieved'" >{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
-                                            <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}</td>
+                                            <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                                             <td v-if="order.paid =='false'" class="text-danger">No</td>
                                             <td v-if="order.paid =='true'" class="text-primary">Yes</td>
