@@ -78,7 +78,6 @@ class OrderController extends Controller
         if($search_term == 'today'){
              $orders = Order::with(['OrderItem'])
                             ->WHERE('restaurant_id', $restaurant_id)
-                            ->whereDate('created_at', Carbon::today())
                             ->orderBy('created_at','DESC')
                             ->paginate(ENV('API_PAGINATION', 15));   
 
