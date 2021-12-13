@@ -95,6 +95,7 @@ class OrderController extends Controller
     public function markOrderPaid($id, $amount){
         $order= Order::WHERE('id', $id)->first()->update([
             'paid' => 'true',
+            'transaction_id' => 'cash',
             'amount_paid' => $amount,
             'paid_at' => now(),
             ]);

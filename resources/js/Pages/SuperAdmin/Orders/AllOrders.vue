@@ -67,7 +67,8 @@
                     <tr>
                         <th scope="row">{{index}}</th>
                         <td>{{order.order_number}}</td>
-                        <td> {{order.transaction_id}}</td>
+                         <td v-if="order.transaction_id == 'cash' "> {{capitalize(order.transaction_id)}}</td>
+                         <td v-else> {{order.transaction_id}}</td>
                         <td> {{order.amount}}</td>
                         <td> {{order.paid_at}}</td>
                         <td>{{order.order_item.length}}</td>
@@ -112,7 +113,8 @@
                                         <tr>
                                             <th scope="row">{{index}}</th>
                                             <td>{{order.order_number}}</td>
-                                            <td> {{order.transaction_id}}</td>
+                                            <td v-if="order.transaction_id == 'cash' "> {{capitalize(order.transaction_id)}}</td>
+                                            <td v-else> {{order.transaction_id}}</td>
                                             <td> {{order.amount}}</td>
                                             <td> {{order.paid_at}}</td>
                                             <td>{{order.order_item.length}}</td>
