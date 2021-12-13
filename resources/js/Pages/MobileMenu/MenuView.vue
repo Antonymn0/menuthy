@@ -17,7 +17,7 @@
         <i class="bi bi-justify-left"></i>
         </span>
         <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" >
-        <img src="/images/restaurant_logo_placeholder.png" v-else alt="" style="min-width:100px; height:100px">
+        <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px">
         <p class="p-2 text-center">
                <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
                <span v-else> Hotel name</span> 
@@ -87,11 +87,10 @@
                     <p v-if="menu_item.description !== 'null'" class="mb-1">{{ capitalize(menu_item.description) }}</p>
 
                     <!-- radio buttons -->
-                    <div class=" radio-btns mb-1"> 
-                      
+                    <div class=" radio-btns mb-1">                       
                         <div class=" d-flex align-items-center align-content-between">
                             <div class="form-check form-check-inline d-flex align-items-center">
-                                <i class="bi bi-dot" ></i> 
+                                <i class="bi bi-dot pr-0 mr-0" ></i> 
                                 <label class="form-check-label" > Dine in</label>
                             </div>
                             <div class="form-check form-check-inline d-flex align-items-center">
@@ -111,7 +110,7 @@
                             </span>
 
                             <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
-                                <label :for="menu_item.id" class="font-italic font-weight-lighter pr-1"> Qty </label>
+                                <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
                                     <option value="2" > 2</option>
@@ -142,9 +141,9 @@
     <div v-else class="text-center py-5">
         No items listed in this category
     </div>
-    <div class=" py-4 text-danger d-flex justify-content-center align-items-center">
+    <div class=" py-2 text-danger d-flex justify-content-center align-items-center">
         <p>
-            Powered by: <b> Menuthy</b> 
+            Powered by: <span><img src="/images/menuthy_logo_iii.svg" alt="menuthy-logo" style="width:80px; height:50px"></span> 
         </p>
     </div>
 
@@ -188,7 +187,7 @@
                                  <span @click="removeFromCart(item.id)" style="position:absolute; margin-top:-1.5rem; right:.5rem; font-size:1.5rem; cursor:pointer;"> <i class="bi bi-x text-danger"></i></span> 
                                 <div class="popup-text" style="width:79%; height:auto; float:left">
                                    <span class=" mr-5 rounded">
-                                       <label :for="item.id" class="font-italic font-weight-lighter pr-1"> Qty </label>
+                                       <label :for="item.id" class=" font-weight-lighter pr-1"> Qty </label>
                                         <select :name="item.id" :id="item.id" class="rounded" :ref="item.id" v-model="this.cart_item_qty[item.id]" @change="this.calculateTotalAmount">
                                             <option value="1" default selected> 1</option>
                                             <option value="2" > 2</option>
@@ -520,7 +519,7 @@ select:focus{
 .cart-preview{
     position:fixed;
     width:auto;  
-    top:18.5%; 
+    top:10.5%; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -531,7 +530,7 @@ select:focus{
     align-items: center;    
     color:#fff;
     cursor: pointer;
-    box-shadow: 7px 7px 40px 5px rgba(128, 63, 2, 0.623);
+    box-shadow: 7px 7px 15px 5px rgba(128, 63, 2, 0.205);
 }
 .cart-preview:hover{
     background-color: rgb(248, 137, 33);
@@ -866,7 +865,7 @@ input[type='radio']:after {
         color:#fff ;
     }
 
-/* media quesries */
+/* media queries */
 @media only screen and (max-width: 600px) {
     .items-panel{
         padding-left:.3rem;
@@ -901,7 +900,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-       top:5%;
+        top:18%;
         font-size:.7rem;
         padding:7px;
         }

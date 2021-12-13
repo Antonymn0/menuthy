@@ -63,39 +63,13 @@
                     </h1>
                     <p style=" max-width: 470px;">
                         Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
-                        QR Menu for a contactless dine-in experience.
-                          
+                        QR Menu for a contactless dine-in experience.                          
                     </p>
                    <a href="#" class="p-2 btn btn-lg bg-white "> https://menuthy.com/restaurant<span class="btn btn-sm border rounded">Copy link</span> </a>
                
                 </div>
                 <div class="col-sm-4 float-right d-flex">
                     <img src="/images/banner.png" alt="" class="float-right img-fluid">
-                </div>
-            </div>
-        </div>
-
-        <!-- feedback and recent orders section  -->
-        <div class="row feedback px-2 py-2 feedback-recent ">
-            <div class=" col-md-6 1 p-3 mt-2 fade-in">
-               <div class="pb-2 shadow">
-                   <div class="px-3 py-3  border-bottom">
-                     <h3>   Recent orders <span class="float-right  "> <a href="#" class="text-muted"> <i class="bi bi-arrow-repeat"></i> </a>   </span>   </h3>
-                    </div>
-                    <p class="py-4 px-1 mr-1">
-                         <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white btn float-right primary-btn-color"> All oders</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="  col-md-6 p-3 mt-2 ">
-                <div class="pb-2 shadow ">                    
-                    <div class="px-3 py-3 border-bottom">
-                        <h3> Feedback    <a href="#" class="text-muted">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </h3>
-                    </div>
-                    <p class="py-4 px-1"> 
-                        <span class="float-right small btn primary-btn-color mr-1 "> All feedback </span> 
-                    </p>
                 </div>
             </div>
         </div>
@@ -188,7 +162,6 @@ h3{
       min-width: 100px;
     padding: 10px;
     height: 40px;
-   
   
 }
 .edit-menu a:hover{

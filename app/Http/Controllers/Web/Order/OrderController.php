@@ -79,9 +79,8 @@ class OrderController extends Controller
              $orders = Order::with(['OrderItem'])
                             ->WHERE('restaurant_id', $restaurant_id)
                             ->orderBy('created_at','DESC')
-                            ->paginate(ENV('API_PAGINATION', 15));   
-
-               return response()->json([
+                            ->paginate(ENV('API_PAGINATION', 15));
+                return response()->json([
                    'success' => true,
                    'message' => 'A list of orders',
                    'data' => $orders,           
