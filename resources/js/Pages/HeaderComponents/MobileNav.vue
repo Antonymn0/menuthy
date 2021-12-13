@@ -1,21 +1,18 @@
 <template>
 
 
-<div class="parent-nav bg-dark px-4 py-2">
+<div class="parent-nav bg-dark  py-2">
     <div class="logo">
-        <img src="/images/white_logo.svg" alt="menuthy-logo" class="img-fluid" style="width:180px; height:90px;">
+        <img src="/images/white_logo.svg" alt="menuthy-logo" class="img-fluid" >
     </div>
     <div>
-        <RestaurantName /> 
+        <RestaurantName />         
     </div>
     <div>
-        <span onclick="openNav()"><i class="bi bi-list text-white " style="font-size:1.5rem"></i></span>
+        <span onclick="openNav()"><i class="bi bi-list text-white " style="font-size:1.5rem; margin-right:1rem"></i></span>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link "  href="/super-admin">Super admin</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link "  href="/dashboard">Dashboard</a>
                     </li>
@@ -28,12 +25,9 @@
                             Orders
                             </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id">Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Tables</a></li>
-                        <li><a class="dropdown-item" href="#">Waiters</a></li>
-                        <li><a class="dropdown-item" href="#">Modifiers</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant_id">  Cashier</a></li>
+                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant_id"> Kitchen</a></li>
+                                
                     </ul>
                     </li>
                         <li class="nav-item">
@@ -113,10 +107,10 @@ export default {
 
  .parent-nav{
      display:none;
+     padding-left: 3%;
+     padding-right:3%;
  }
-
-
-   
+  
 
 /* The side navigation menu */
 .sidenav {
@@ -159,7 +153,9 @@ export default {
   font-size: 36px;
   margin-left: 50px;
 }
-
+i{
+    margin-right: 3rem;
+}
 
 //media querries
 @media screen and (max-width: 950px) {
@@ -171,17 +167,13 @@ export default {
     justify-content:space-between;
 
 }
-.logo img{
-    width:40px;
-    height:40px;
-}
-}
-@media screen and (max-width: 450px) {
- 
-}
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (min-height: 450px) {
 
+    .logo img{
+        padding-left: .5rem;
+        width:120px;
+        height:70px;
+    }
 }
+
 
 </style>

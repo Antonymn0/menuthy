@@ -26,8 +26,9 @@
 
 
 <!-- -----------------------------cart items preview----------------------------------------------- -->
-        <div class="cart-items">
-            <div class="cart-preview shadow  d-flex align-items-center" @click="togglepopUp()" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
+        <div class="cart-items d-flex flex-row-reverse">
+            
+            <div class="cart-preview mr-2 " @click="togglepopUp()" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
               <span> <i class="bi bi-cart-plus"></i> {{this.cart_items.length}} items</span> 
             </div>
         </div>
@@ -64,14 +65,14 @@
 
 
     <!-- ----------------------------------------------------------- -->
-    <div class=" text-center align-items-center py-2">
+    <div class=" text-center align-items-center ">
         <h5> <b> {{ capitalize( this.menu_name) }} </b> </h5>
         <p v-if="this.description"> {{this.description}} </p>
     </div>
 
  
     <!-- --------------------------------------------------- -->
-    <div v-if="menu_items.length" class="px-3"> 
+    <div v-if="menu_items.length" class="items-panel"> 
         
     <div class="items-div "  v-for="menu_item in menu_items" :key="menu_item.id">
         <div class="row items-div-inner my-2 shadow border" >
@@ -87,34 +88,35 @@
 
                     <!-- radio buttons -->
                     <div class=" radio-btns mb-1"> 
-                        <form action="#">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input"   type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="dine in">
-                                <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
+                      
+                        <div class=" d-flex align-items-center align-content-between">
+                            <div class="form-check form-check-inline d-flex align-items-center">
+                                <i class="bi bi-dot" ></i> 
+                                <label class="form-check-label" > Dine in</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="take away">
-                                <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
+                            <div class="form-check form-check-inline d-flex align-items-center">
+                                <i class="bi bi-dot"></i> 
+                                <label class="form-check-label">Take away</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio"  :name="menu_item.id" :id=" 'r3' + menu_item.id" value="pick up" >
-                                <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
+                            <div class="form-check form-check-inline d-flex align-items-center align-content-between">
+                                <i class="bi bi-dot"></i> 
+                                <label class="form-check-label" >Pick up</label>
                             </div>
-                            <small class="text-danger"> {{this.errors.order_type}}</small>
-                        </form>
+                            
+                        </div> 
                     </div>
                     <p class="order-btn pt-2 mt-1">
                         <span  v-if="this.User.package_type != null" class="button">                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click="[togglepopUp(menu_item), addToCart(menu_item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(menu_item), addToCart(menu_item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                             </span>
 
-                            <span class=" mr-5 rounded" v-if="this.cart_item_qty[menu_item.id] ">
+                            <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                                 <label :for="menu_item.id" class="font-italic font-weight-lighter pr-1"> Qty </label>
                                 <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
                                     <option value="2" > 2</option>
                                     <option value="3" > 3</option>
-                                    <option value="4" > 4</option>
+                                    <option value="4" > 4</option> 
                                     <option value="5" > 5</option>
                                     <option value="6" > 6</option>
                                     <option value="7" > 7</option>
@@ -123,7 +125,7 @@
                                 {{this.cart_item_qty[menu_item.id]}}
                                 <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                             </span>
-                        <span class="open ">  <a href="#" class="py-2 pr-3 mr-3" @click="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i>Add</a></span>
+                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span>
 
                         <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
                         
@@ -240,9 +242,7 @@
                     </div>
                         <p class="order-btn  mt-2 mx-auto">                           
                             <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span> 
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </a></span> 
-                             <!-- <i class="bi bi-dash-circle" @click="orderFor(-1)"></i>
-                            <i class="bi bi-plus-circle" @click="orderFor(1)"></i> -->
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </button></span> 
                         </p>
                     </div>
                 </div>
@@ -303,7 +303,7 @@ export default {
       }
   },
   methods:{
-        addToCart(menu_item){
+        addToCart( menu_item){
             var is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
@@ -494,17 +494,6 @@ export default {
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
-
-
-// cart items sticky preview styles
-.cart-items{
-    position:relative; /* Safari */
-    position: sticky;
-    top: 0; 
-    cursor: pointer; 
-    
-}
-
 select{
     border: 1px solid $orange;
     color: rgb(141, 101, 101);
@@ -522,20 +511,27 @@ select:focus{
     color: rgb(182, 123, 123);
 }
 
+// cart items sticky preview styles
+.cart-items{
+    position:relative; 
+    right:0;
+    cursor: pointer;     
+}
 .cart-preview{
-    position: absolute; /* Safari */
-    right:.3rem;
-    top:-3rem;
-    z-index: 10;
-    width:auto;
-    height:100%;
-    padding:1.2rem;
+    position:fixed;
+    width:auto;  
+    top:18.5%; 
+    font-size:.9rem;
+    z-index: 1000;
+    padding:.5rem;
     border-radius: 10px;
     background-color: rgb(248, 154, 66);
     border:1px solid rgb(240, 120, 8);
+    border-right: 3px solid rgb(240, 120, 8);
     align-items: center;    
     color:#fff;
-     cursor: pointer;
+    cursor: pointer;
+    box-shadow: 7px 7px 40px 5px rgba(128, 63, 2, 0.623);
 }
 .cart-preview:hover{
     background-color: rgb(248, 137, 33);
@@ -555,6 +551,7 @@ select:focus{
     width:42rem;
     max-width:100%;
     overflow-y:scroll;
+    overflow-anchor: none;   
 }
 
 .header-div img{
@@ -594,16 +591,20 @@ select:focus{
     padding:.3rem;
     overflow:hidden;
     font-size:1rem;
-   max-height: 80%;;
+   max-height: 80%;
+   z-index: 1 !important;
 }
-
+.slider-div *{
+    z-index: 1 !important;
+}
 .slider-div img{
     object-fit:cover;
     width:180px;
     height:120px;
     max-width:100%;
     max-height:100%;
-    border-radius: 5px;;
+    border-radius: 5px;
+    z-index: 1 !important;
 }
  .carousel__prev, .carousel__next {
     background-color: $orange !important;
@@ -616,6 +617,11 @@ select:focus{
 }
 
 // items div
+
+.items-panel{
+    padding-left:.8rem;
+    padding-right:.8rem;
+}
 .items-div{
     margin-left: .5rem;
     padding-right: 10px;
@@ -709,10 +715,7 @@ font-weight:300;
     font-size: 1.3rem;
     cursor:pointer;
 }
-.order-btn i:hover{
-    font-size: 1.35rem;
-    cursor:pointer;
-}
+
 .inner-shadow {
     box-shadow: inset -5rem 0 0 0 #fff;
 }
@@ -865,21 +868,43 @@ input[type='radio']:after {
 
 /* media quesries */
 @media only screen and (max-width: 600px) {
+    .items-panel{
+        padding-left:.3rem;
+        padding-right:.3rem;        
+    }
+    .items-panel h5, .items-panel .price, .h5, h5{        
+        font-size:.8rem ;
+    }
+    .items-panel p{        
+        font-size:.7rem ;
+    }
+    .counter{
+        padding-bottom:5px;
+    }
+    .order-btn a, .order-btn i{
+        font-size:.7rem;
+    }
   .img-div{
-vertical-align:middle;
-padding:.2rem;
+    vertical-align:middle;
+    padding:.2rem;
+    padding-right:0;
 
-}
+    }
   .img-div img{
       max-height:100px;
-      width:200px;
+      width:100px;
      max-width:100%;
 
-}
+    }
 }
 
-/* media quesries */
-@media only screen and (max-width: 450px) {
+/* media queries */
+@media only screen and (max-width: 500px) {
+    .cart-preview{
+       top:5%;
+        font-size:.7rem;
+        padding:7px;
+        }
     .parent-div{
    padding:1rem;
    overflow:hidden;

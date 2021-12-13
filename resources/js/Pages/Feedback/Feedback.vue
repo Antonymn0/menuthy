@@ -5,9 +5,9 @@
         <span onclick="openFeedBack()"></span>
         <div id="feedBack1" class="sidenav shadow">
             <a href="javascript:void(0)" class="closebtn" onclick="closeFeedBack()">&times;</a>
-                <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom">
+                <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom" >
                    <h5 class="pr-4 orders mb-0" @click="fetchOrders('today')">Orders </h5> 
-                    <h5 class="feedback pr-4 mb-0" @click="fetchFeedback()"> Feedback</h5>
+                    <!-- <h5 class="feedback pr-4 mb-0" @click="fetchFeedback()"> Feedback</h5> -->
                     <h5 class="feedback pr-4 mb-0" @click="fetchQrScans()"> Qr scans</h5>
                 </div>
                 <div v-if="current_orders.length">
@@ -44,7 +44,7 @@
                     </div>
                        
                 </div>
-                <div v-if="qrscans !== '' ">
+                <div v-if="qrscans !== '' " style="overflow:scroll;">
                     <div class="table-responsive px-4 py-4 text-muted">
                         <h6 class="text-muted py-2 d-flex justify-content-between align-items-center"> <span> Qr scans  </span> <span> <a href="#" class="text-muted pr-1  float-right text-right"  @click="fetchQrScans()"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right" style="font-size:1rem"></i> </a>  </span></h6>
                         <table class="table table-sm table-hover text-muted">
@@ -291,6 +291,7 @@ table{
 .sidenav {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
+  max-width: 40%; 
   position: fixed; /* Stay in place */
   z-index: 10; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -331,7 +332,11 @@ table{
 
 //media querries
 @media screen and (max-width: 950px) {
- 
+ .sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  max-width: 90%; 
+ }
 .logo img{
     width:40px;
     height:40px;

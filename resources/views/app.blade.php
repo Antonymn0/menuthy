@@ -30,6 +30,7 @@
         background-color: #fff !important;
         font-family: poppins;
         font-weight:300;
+
     }
 
     .primary-btn-color{
@@ -224,7 +225,7 @@ animation-duration: 1s;
 
     // side bar feedback
     function openFeedBack() {
-        document.getElementById("feedBack1").style.width = "35%";
+        document.getElementById("feedBack1").style.width = "500px";
         document.getElementById("main").style.marginLeft = "250px";
         document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }

@@ -221,8 +221,13 @@ font-family: Poppins !important;
 
     /* On smaller screens, where width is less than 950px, hide browser menu */
 @media screen and (max-width: 950px) {
+    
     .parent-header{
         display:none;
+    }
+    .logo{
+        padding-left:0;
+        margin-left:0;
     }
  }
 </style>

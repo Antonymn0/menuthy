@@ -47,7 +47,7 @@
                         Integrations
                     </h3>
                     <p>
-                        Connect with the Payment, POS or Printer systems 
+                        Connect with the Payment services, POS or Printer systems 
                     </p>
                     <a href="" class="btn btn-lg btn-success"> Integrate</a>
                 </div>
@@ -57,7 +57,7 @@
         <!-- banner section -->
         <div class=" banner row justify-content-center px-3 py-5 " >
             <div class=" row page-banner px-3 pt-2 text-white fade-in ">            
-                <div class="col-sm-8 float-left my-auto py-4">          
+                <div class="col-md-8 float-left my-auto py-4">          
                     <h1  style="font-size: 2.5rem;">
                         Try our contactless online ordering solution!
                     </h1>
@@ -69,7 +69,7 @@
                    <a href="#" class="p-2 btn btn-lg bg-white "> https://menuthy.com/restaurant<span class="btn btn-sm border rounded">Copy link</span> </a>
                
                 </div>
-                <div class="col-sm-4 float-right">
+                <div class="col-sm-4 float-right d-flex">
                     <img src="/images/banner.png" alt="" class="float-right img-fluid">
                 </div>
             </div>
@@ -82,7 +82,7 @@
                    <div class="px-3 py-3  border-bottom">
                      <h3>   Recent orders <span class="float-right  "> <a href="#" class="text-muted"> <i class="bi bi-arrow-repeat"></i> </a>   </span>   </h3>
                     </div>
-                    <p class="py-4 px-1">
+                    <p class="py-4 px-1 mr-1">
                          <a :href=" '/' + this.restaurant_name + '/orders/' + this.restaurant_id" class="text-white btn float-right primary-btn-color"> All oders</a>
                     </p>
                 </div>
@@ -94,7 +94,7 @@
                         <h3> Feedback    <a href="#" class="text-muted">  <i class="bi bi-arrow-repeat float-right"></i> </a>  </h3>
                     </div>
                     <p class="py-4 px-1"> 
-                        <span class="float-right small btn primary-btn-color "> All feedback </span> 
+                        <span class="float-right small btn primary-btn-color mr-1 "> All feedback </span> 
                     </p>
                 </div>
             </div>
@@ -261,30 +261,58 @@ h3{
     border-color: #ff0800;
 }
 .page-banner img{
-   margin-bottom:0;
+    align-self: flex-end;
+  min-width:100%;
 }
 
 
 /* media queries */
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 950px) {
   .top-cards .card-body{
       border-right:none !important;
-}
-.feedback .card{
-    width:98%;
-}
+      border-bottom: 1px solid rgb(228, 227, 227);
+      padding:0;
+      padding:1rem;
+      padding-left:0;
+      padding-right:0;
+      width:100%;
+      height:100%;
+    }
+    .feedback .card{
+        width:98%;
+    }
 }
 
 @media only screen and (max-width: 750px) {
-//
+ .top-cards .card-body{
+        border-bottom: 1px solid rgb(228, 227, 227);
+    }
+    .banner .float-right{
+        display:none;
+    }
+    .banner .float-left{
+        width:100% ;
+        padding:0;
+    }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 600px) {
+     .slide-down{
+         width:95%;
+     }
       .top-cards .card{
             display: block;
-             width: 95%;
-             
+            width: 95%;
+                         
 }
+      .top-cards .col-md-3{
+            display: block;
+             width: 100%; 
+             margin:0;
+             padding:0;
+                    
+}
+
 }
 
 </style>

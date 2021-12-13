@@ -1,42 +1,50 @@
 <template>
 <div class="row restaurant p-0 m-0 justify-content-center">
     <div class="nav-item dropdown m-1">
-        <a class="btn ml-5 restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn  restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <small class="d-flex align-items-center  " > 
                 <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
-                &nbsp; <i class="bi bi-caret-down float-right  mt-1"></i> 
+                &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
             </small> 
            
         </a>
        
-        <div class="dropdown-menu rounded ribbon " aria-labelledby="navbarDropdown" style="width:90%; margin:auto"> 
-            <div class="ribbon-outer">                
+        <div class="dropdown-menu rounded ribbon shadow mx-auto bg-white" aria-labelledby="navbarDropdown" > 
+            <div class="ribbon-outer shadow bg-white">                
             <div class="row  justify-content-center p-2 bg-danger menu-bar rounded px-2 m-0 mb-3">  
                         <!-- toggle edit restaurant modal  -->
                 <a href="#" class="res-top" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
                     <i class="bi bi-gear-fill text-white" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info"></i>
                 </a>
-                 <!-- publish changes  -->
-                <a href="" class="res-top"> <i class="bi bi-lightning-fill text-white"></i> </a>
+                 
                     <!-- toggle mobile menu  modal  -->
                 <a href="#" class="res-top"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
                 
                  
                 <!-- toggle qr code modal  -->
-                <a href="" class="res-top" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
+                <a href="#" class="res-top" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
                     <i class="bi bi-qr-code text-white"></i>
+                </a>
+                <!-- recent orders bell toggle  -->
+                <a href="#" class="res-top" onclick="openFeedBack()">
+                    <i class="bi bi-bell-fill text-white  recent-link" style="font-size: 1rem;font-weight: 300;">              
+                        <span class="hovercard">
+                            <span class="tooltiptext">
+                            Track orders, requests and feedback.
+                            </span>
+                    </span></i>  
                 </a>
             </div> 
             <div class="p-2">              
-                <p class="row justify-content-center p-" style="font-size:1.2rem; color:#e3342f;">
-                <span class="col-sm-8"> <a href="#" class="text-decoration-none text-dark " > {{this.authRestaurant.restaurant_name}}</a> </span>
-                <span class="col-sm-4"> <i class="bi bi-geo-alt-fill " ></i> </span> 
+                <p class="d-flex justify-content-between px-2 " style="font-size:.9rem; color:#e3342f;">
+                    <span class=""> <a href="#" class="text-decoration-none text-dark " > {{this.authRestaurant.restaurant_name}}</a> </span>
+                    <span class=" mr-1"> <i class="bi bi-geo-alt-fill " ></i> </span> 
                 </p>
-                <div class="map text-center" id="map" style="min-width:5rem; min-height:10rem;"> map</div>
+                <!-- <div class="map text-center" id="map" style="min-width:5rem; min-height:10rem;"> map</div>
                 <div class="row border-top p-1">               
                     <span class="col-sm-8">New venue  </span> 
                     <span class="col-sm-3"> <i class="bi bi-plus" style="font-size:15pt"></i></span>  
-            </div>
+            </div> -->
            </div>
         </div>
         </div>
@@ -73,11 +81,11 @@ export default {
 @import "../../../sass/app.scss";
 
 
-     .restaurant-btn:hover {
-         color: #fcfcfc; 
+     .restaurant-btn:hover, .restaurant-btn:hover:active {
+        color: #fcfcfc; 
         font-size: 1.1rem;
         font-weight: 300;
-         background-color:  #d41b14; 
+        background-color:  #d41b14; 
      }
      
 
@@ -96,13 +104,40 @@ export default {
      .ribbon-outer{
                 display:none;
             }
-    .ribbon{height:0px}
+    .ribbon{
+        width:300px;
+        height:0px;
+
+        }
 
     @media only screen and (max-width: 950px) {
             .ribbon-outer{
                 display:block;
             }
-            .ribbon{height:auto}
+            .ribbon{
+                width:300px;
+                height:0px;
+                }
+        }
+    @media only screen and (max-width: 600px) {
+        .restaurant-btn{
+        width:100%;
+         background-color:  #c40a04;
+         color:#fff;
+         font-size: .7rem;
+         border-radius: 17px; 
+         padding:5px !important;   
+          
+     }
+        .restaurant-btn:hover, .restaurant-btn:hover:active{
+         background-color:  #e60800;
+         border: 1px solid  #ff0800;
+         color:#fff;
+         font-size: .75rem;
+         border-radius: 20px; 
+         padding:5px !important;   
+          
+     }
         }
      
  

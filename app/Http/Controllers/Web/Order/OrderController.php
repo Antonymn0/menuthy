@@ -24,7 +24,6 @@ class OrderController extends Controller
     {
         $orders = Order::with(['OrderItem'])
                     ->WHERE('restaurant_id', $restaurant_id)
-                    ->whereDate('created_at', Carbon::today())
                     ->orderBy('created_at','DESC')
                     ->paginate(ENV('API_PAGINATION', 15));
         return Inertia::render('Order/KitchenOrders')->with([
@@ -40,8 +39,7 @@ class OrderController extends Controller
     public function cashierOrders($restaurant_name, $restaurant_id)
     {
         $orders = Order::with(['OrderItem'])
-                    ->WHERE('restaurant_id', $restaurant_id)
-                    ->whereDate('created_at', Carbon::today())
+                    ->WHERE('restaurant_id', $restaurant_id)                    
                     ->orderBy('created_at','DESC')
                     ->paginate(ENV('API_PAGINATION', 15));
         return Inertia::render('Order/CashierOrders')->with([
@@ -58,7 +56,6 @@ class OrderController extends Controller
     {
         $orders = Order::with(['OrderItem'])
                         ->WHERE('restaurant_id', $restaurant_id)
-                        -> whereDate('created_at', Carbon::today())
                         ->orderBy('created_at','DESC')
                         ->paginate(ENV('API_PAGINATION', 15));
 
