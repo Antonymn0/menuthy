@@ -148,10 +148,8 @@ export default {
         } , 
   },
   mounted(){
-   
-      for(var pair of this.subMenus) {
-        console.log(pair); 
-        }
+   //
+     
   },
 };
 </script>

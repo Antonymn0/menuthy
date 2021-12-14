@@ -122,7 +122,7 @@
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
-                            <a href="#" class="badge badge-success btn m-1" @click="markAsPaid(order.id, order.amount)">Mark as paid</a>
+                            <a href="#" class="badge badge-success btn m-1" @click="markAsPaid(order.id, order.amount)">Pay</a>
                             <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
                         </td> 
                         <td v-else class="text-center">
@@ -261,7 +261,7 @@ export default {
             }
         },
         markAsPaid(id, amount){
-            if(confirm("Are you sure you want to mark this order as paid ?"))
+            if(confirm("Confirm you have recived " + window.authRestaurant.currency +' ' + amount + " for this order?"))
             {            
                 axios.get('/api/order/mark-paid/' + id + '/' + amount)
                 .then( response => {
@@ -425,7 +425,7 @@ export default {
         this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);  //refresh orders every 10 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
-       console.log(this.current_orders);
+       
     }
 }
 </script>

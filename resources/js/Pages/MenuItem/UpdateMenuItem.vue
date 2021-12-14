@@ -14,21 +14,17 @@
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Item name</label>
-                            <input type="text" @input="logInput" v-model="form.menu_item_name" maxlength="25" class="form-control p-4"  id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
+                            <input type="text" @input="logInput" v-model="form.menu_item_name" maxlength="30" class="form-control p-4"  id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                             <small class="text-danger"> {{this.errors.menu_item_name }} </small>
                         </div>                        
                     
                         <div class="form-group">
-                            <label for="maneu-name">Description</label>
-                            <textarea name="description" v-model="form.description" maxlength="40" class="form-control p-3"  id="" cols="10" rows="5" required placeholder="Describe the menu"></textarea>
+                            <label for="maneu-name">Description*</label>
+                            <textarea name="description" v-model="form.description" maxlength="50" class="form-control p-3"  id="" cols="10" rows="5"  placeholder="Describe the menu" required></textarea>
                             <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>
                         
                          <div class="row"> 
-                            <!-- <div class="form-group col-md-4 ">
-                                <label for="exampleFormControlInputprice">Price</label>
-                                <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
-                            </div> -->
                             <div class="form-group col-md-4 ">
                                 <label for="exampleFormControlInputfile">Discount</label>
                                 <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
@@ -51,7 +47,7 @@
                             <div class="image-preview mx-auto p-0 m-0 text-center">
                                 <img :src="form.img_preview" alt="" style="min-height:7rem; min-width:7rem; border-radius:15px;">  <br>
 
-                                 <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                                 <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2 w-50 "  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
                             </div>    
                             <small class="text-danger"> {{this.errors.image }} </small>              
                          </div>

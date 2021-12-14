@@ -25,8 +25,9 @@
                             Orders
                             </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant_id">  Cashier</a></li>
-                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant_id"> Kitchen</a></li>
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant.id"> <i class="bi bi-cart-check pr-1"></i> Cashier</a></li>
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id"> <i class="bi bi-cart-check pr-1"></i> Kitchen</a></li>
+                                
                                 
                     </ul>
                     </li>
@@ -86,10 +87,13 @@
 import RestaurantName from "../HeaderComponents/RestaurantName";
 
 export default {
+    props:[],
     data(){
         return{
             authUser: window.authUser,  // Authenticated user Imported from laravel main blade file
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'), //csrf token
+            restaurant: window.authRestaurant,
+            restaurant_name:   window.authRestaurant.restaurant_name.toLowerCase().replace(/ /g,"-"),
         }
     },
     components:{
@@ -98,6 +102,9 @@ export default {
     },
     methods:{
 
+    }, 
+    mounted(){
+        //
     }
 }
 </script>

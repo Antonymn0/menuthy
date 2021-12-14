@@ -2,9 +2,9 @@
     <Header />
     <Topnavbar />  
         
-        <div class="row pr-0 px-5 mx-2" >
+        <div class="row pr-0 px-5 mx-2 main" >
              <div class="p-2 mt-5 ml-3">
-                 <p class="text-right m-0"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></p>
+                 <p class="text-right m-0 back-btn"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></p>
            
                 <h3> Main menu</h3>
                 <p> A list of main menus in your restaurant</p>
@@ -264,19 +264,22 @@ input:checked + .slider:before {
 
 
 /* media quesries */
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 950px) {
   .menu-card{
-      width:30%;
+      width:49%;
   }
 }
-@media only screen and (max-width: 750px) {
-  .menu-card{
-      width:50%;
-  }
-}
+
 @media only screen and (max-width: 600px) {
   .menu-card{
       width:100%;
+  }
+  .main{
+      padding-left:0 !important;
+      padding-right:0 !important;
+  }
+  .back-btn{
+      margin-right:2rem !important;
   }
 }
 

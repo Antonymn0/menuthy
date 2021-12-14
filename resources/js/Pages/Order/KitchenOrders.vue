@@ -113,8 +113,8 @@
                             <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
                             <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order .id, 'canceled')">Cancel</a>
                         </td> 
-                        <td v-else class="text-center">
-                            <a href="#" class="badge badge-danger btn m-1 text-center disabled" >Canceled</a>
+                        <td v-else class="">
+                            <a href="#" class="badge badge-danger btn ml-3  disabled" >Canceled</a>
                         </td>                                              
                     </tr>  
                     <tr class="panel alert-danger " style="display:none;" >

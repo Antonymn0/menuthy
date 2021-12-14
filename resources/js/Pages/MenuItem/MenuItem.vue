@@ -1,16 +1,17 @@
 <template>
     <Header />
     <Topnavbar />    
-    <div class=" p-5 parent-container mx-auto mb-5">   
+    <div class="  parent-container mx-auto mb-5">   
         <div class="badge bg-success " v-if="success">
             {{success}}
         </div>
         <div class="badge bg-danger px-5 py-2   " v-if="pageErrors">
             {{pageErrors}}
         </div>
-        <p class="text-right m-0"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></p>
-           
-         <p class="mt-4 small"> <a href="/menus">Menu </a>  <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#" onclick="history.back()"> Section </a> <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#"> Items</a> </p>
+        <div class="mt-3"> 
+            <span class="mt-4 small"> <a href="/menus">Menu </a>  <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#" onclick="history.back()"> Section </a> <i class="bi bi-chevron-right p-0 m-0"></i> <a href="#"> Items</a> </span>
+            <span class="float-right m-0"> <a href="#" class="btn btn-danger" onclick="history.back()"><i class="bi bi-chevron-left"></i> Back</a></span>
+        </div>
         <h3 class="mt-4"> Items  </h3>
         {{menu.sub_menu_name.toUpperCase()}}
               
@@ -284,7 +285,7 @@ input:checked + .slider:before {
 /* media quesries */
 @media only screen and (max-width: 900px) {
   .menu-card{
-      width:30%;
+      width:49%;
   }
 }
 @media only screen and (max-width: 750px) {

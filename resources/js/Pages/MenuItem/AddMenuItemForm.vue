@@ -21,7 +21,7 @@
             </div>
         
             <div class="form-group">
-                <label for="maneu-name">Description</label>
+                <label for="maneu-name">Description*</label>
                 <textarea name="description" v-model="form.description" class="form-control p-3" id="" maxlength="40" cols="10" rows="5" placeholder="Describe the menu" required></textarea>
                  <small class="text-danger"> {{ this.errors.description}} </small>
             </div>
@@ -30,10 +30,6 @@
                     <label for="exampleFormControlInputprice">Price</label>
                     <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
                 </div>
-                <!-- <div class="form-group col-md-4 ">
-                    <label for="exampleFormControlInputfile">Discount</label>
-                    <input type="number" step=0.5 min="1" v-model="form.discount" class="form-control p-4" id="exampleFormControlInputfile" name="discount" placeholder="discount">
-                </div> -->
                 <div class="form-group col-md-4 ">
                     <label for="exampleFormControlInputprice">Peparation time</label>
                     <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
@@ -67,7 +63,7 @@
                 <label for="exampleFormControlInputimage">Image*</label>
                 <div class="image-preview mx-auto p-0 m-0 text-center">
                     <img :src="form.img_preview" alt="" >  <br>
-                    <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload" required>
+                    <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2 w-50"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload" required>
                 </div>    
                 <small class="text-danger"> {{this.errors.image }} </small>              
            </div>
@@ -162,7 +158,7 @@ props:['sub_menu'],
         return{   
             form:{
                 menu_item_name:'',
-                restaurant_id:'',
+                restaurant_id: '',
                 sub_menu_id: '',
                 description:'', 
                 carlories:'', 
@@ -188,11 +184,11 @@ props:['sub_menu'],
         submitForm () {
             this.validateForm();
             if(Object.keys(this.errors).length) return;
-            console.log('No errors in the form...');
+            console.log(this.errors);
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
-                form_data.append('restaurant_id', this.sub_menu.restaurant_id);
-                form_data.append('sub_menu_id', this.sub_menu.id);
+                form_data.append('restaurant_id', this.form.restaurant_id);
+                form_data.append('sub_menu_id', this.form.sub_menu_id);
                 form_data.append('price', this.form.price);                
                 form_data.append('discount', this.form.discount);                
                 form_data.append('description', this.form.description);                
@@ -203,11 +199,12 @@ props:['sub_menu'],
                 form_data.append('origin', this.form.origin);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
+                console.log(...form_data);
 
             Swal.showLoading();
             axios.post('/api/menu-item', form_data)
             .then( response => {
-            if( response.status = 201){
+            if( response.status == 201){
                  new Swal({ title: "Success!",timer: 1800  });
                 this.$inertia.reload();
                 } 
@@ -253,8 +250,8 @@ props:['sub_menu'],
         }     
     },
     mounted(){
-        console.log(this.sub_menu);
-        // console.log(this.restaurant_id);
+        this.form.sub_menu_id = this.sub_menu.id;
+        this.form.restaurant_id = this.sub_menu.restaurant_id;
     }
 
 }
