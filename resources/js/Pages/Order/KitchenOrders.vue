@@ -5,10 +5,10 @@
 
     <div class="parent-div m-1 pt-2 mx-auto">       
         <div class=" row p-3">            
-            <h2 class="col-md-6 ">
+            <h2 class="col-md-6 float-left">
                Kitchen Orders
             </h2>
-            <p class="col-md-6 text-right">
+            <p class="col-md-6 text-right float-right">
                 <a href="#" class="btn btn-danger daily-report"> <i class="fa fa-arrow-circle-o-up pr-2 pl-2"></i> Export daily report</a>
                 <a :href="'/' + this.authRestaurant.id + '/orders/print'" class="btn text-white px-2 mx-3" style="background-color: #36a3f7;" @click="this.showLoading()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export </a>
                 <a href="#" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
@@ -396,7 +396,6 @@ export default {
         this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);  //refresh orders every 10 seconds on load
         this.authRestaurant = window.authRestaurant;
         this.current_orders = this.orders;
-       console.log(this.current_orders);
     }
 }
 </script>

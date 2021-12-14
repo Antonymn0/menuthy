@@ -25,8 +25,8 @@
                             Orders
                             </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant.id"> <i class="bi bi-cart-check pr-1"></i> Cashier</a></li>
-                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id"> <i class="bi bi-cart-check pr-1"></i> Kitchen</a></li>
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant.id">  Cashier</a></li>
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id">  Kitchen</a></li>
                                 
                                 
                     </ul>
