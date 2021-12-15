@@ -11,7 +11,7 @@
     
 
 <div class="parent-div mx-auto shadow px-1 bg-white">
-    <div :class="this.blur "> 
+    <div :class="this.blur +' p-0' "> 
     <div class="header-div">
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
         <i class="bi bi-justify-left"></i>
@@ -869,6 +869,12 @@ input[type='radio']:after {
 
 /* media queries */
 @media only screen and (max-width: 600px) {
+    .parent-div{
+        padding:1rem;
+        padding-top:0;
+        overflow:hidden;
+        margin-top: -2rem;
+        }
     .items-panel{
         padding-left:.3rem;
         padding-right:.3rem;        
@@ -902,14 +908,16 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:15%;
+        top:8%;
         font-size:.7rem;
         padding:7px;
+        margin-right: 0 !important;
         }
     .parent-div{
-   padding:1rem;
-   overflow:hidden;
-}
+        padding:1rem;
+        padding-top:0;
+        overflow:hidden;
+        }
 .carousel__prev, .carousel__next {
     background-color: $orange !important;
     margin: .3rem;

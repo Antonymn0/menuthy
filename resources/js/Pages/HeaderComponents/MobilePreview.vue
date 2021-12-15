@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body fade-in" >
               
-              <div class="smartphone" style="max-width:100%;">
+              <div class="smartphone-device" style="max-width:100%;">
                 <div class="content m-0 p-0" style="width:100%; height:100%;" >
                   <iframe :src="this.preview_link"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
                 </div>
@@ -24,9 +24,7 @@
       </div>
   </div>
 </div> 
-</div> 
-
-
+</div>
 </template>
 
 <script>
@@ -69,6 +67,15 @@ data(){
   width:50rem;
 }
 
-
+.smartphone-device {
+    position: relative;
+    width: 300px;
+    height: 600px;
+    margin: auto;
+    border: 8px black solid;
+    border-top-width: 40px;
+    border-bottom-width: 40px;
+    border-radius: 36px;
+}
 
 </style>
