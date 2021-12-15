@@ -1,14 +1,14 @@
 <template>
   <!-- add new Menu modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title text-center" id="exampleModalLabel">Add new Item</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">Add new Item</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
     <div class="modal-body p-5">
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
@@ -26,19 +26,19 @@
                  <small class="text-danger"> {{ this.errors.description}} </small>
             </div>
              <div class="row"> 
-                <div class="form-group col-md-4 ">
+                <div class="form-group col-md-6 ">
                     <label for="exampleFormControlInputprice">Price</label>
                     <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
                 </div>
-                <div class="form-group col-md-4 ">
+                <div class="form-group col-md-6 ">
                     <label for="exampleFormControlInputprice">Peparation time</label>
                     <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="maneu-name">Ingredients</label>
                 <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="5" rows="3"></textarea>              
-            </div>
+            </div> -->
              <div class="row">
              <div class="form-group col-md-6">
                 <label for="exampleFormControlInputprice">Carlories</label>
@@ -51,7 +51,7 @@
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInputprice">Allergy warning</label>
-                <select v-model="allergy_warning" class="form-control p-4" >
+                <select v-model="this.form.allergy_warning" class="form-control p-4" >
                     <option value="alcohol">-select-</option>
                     <option value="alcohol">Alcohol free</option>
                     <option value="cheese">Cheese</option>
@@ -75,6 +75,15 @@
             <div class=" row p-2">
                 <div class="col-md-6 ">
                     <div class="row custom-control p-3  custom-switch  ">
+                        <span clas='col-xs-8'> Publish </span>
+                        <span class="col-xs-4">
+                            <label class="switch ">
+                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish">
+                                <span class="slider round"></span>
+                            </label>
+                        </span>                                    
+                    </div>
+                    <div class="row custom-control p-3  custom-switch  ">
                     <span clas='col-xs-8'>  Mark item as new </span>
                         <span class="col-xs-4">
                             <label class="switch ">
@@ -92,15 +101,7 @@
                             </label>
                         </span>                                    
                     </div> 
-                    <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as signiture </span>
-                        <span class="col-xs-4">
-                            <label class="switch ">
-                                <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" checked="form.is_signiture">
-                                <span class="slider round"></span>
-                            </label>
-                        </span>                                    
-                    </div>
+                   
                 </div>
                 <div class="col-md-6">  
                     <div class="row custom-control p-3  custom-switch  ">
@@ -114,23 +115,23 @@
                     </div>
                                      
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as special presentation </span>
+                        <span clas='col-xs-8'>  Mark item as halal </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" v-model="form.is_special_presentation" :checked="form.is_special_presentation">
+                                <input type="checkbox" class="" v-model="form.is_halal" :checked="form.is_halal">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
                     </div>
-                    <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'> Publish </span>
+                      <div class="row custom-control p-3  custom-switch  ">
+                        <span clas='col-xs-8'>  Mark item as signiture </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish">
+                                <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" checked="form.is_signiture">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
-                    </div>                       
+                    </div>                  
                     <div class="form-group">
                         <input type="hidden" class="form-control p-4" v-model="form.restaurant_id" name="resaturant_id" required>
                         <input type="hidden" class="form-control p-4" v-model="form.sub_menu_id" name="resaturant_id" required>
@@ -166,15 +167,13 @@ props:['sub_menu'],
                 allergy_warning:'', 
                 is_new:false, 
                 is_veg:false, 
-                is_hot:false, 
-                is_signiture:false, 
-                is_special_presentation:false, 
+                is_hot:false,  
+                is_halal:false, 
                 publish:true, 
                 discount:1,
                 price:1,
                 image:'',
                 origin:'',
-                allergy_warning:{ }, 
                 img_preview:'',              
             },           
             errors:{ },
@@ -195,11 +194,15 @@ props:['sub_menu'],
                 form_data.append('preparation_time', this.form.preparation_time);      
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
+                form_data.append('is_hot', this.form.is_hot);
+                form_data.append('is_halal', this.form.is_halal);
+                form_data.append('is_veg', this.form.is_veg);
                 form_data.append('publish', this.form.publish);
                 form_data.append('origin', this.form.origin);
+                form_data.append('carlories', this.form.carlories);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
-                 console.log(...form_data);
+                console.log(...form_data);
 
             Swal.showLoading();
             axios.post('/api/menu-item', form_data)

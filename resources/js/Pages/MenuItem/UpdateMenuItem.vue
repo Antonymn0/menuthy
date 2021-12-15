@@ -25,19 +25,19 @@
                         </div>
                         
                          <div class="row"> 
-                            <div class="form-group col-md-4 ">
+                            <div class="form-group col-md-6 ">
                                 <label for="exampleFormControlInputprice">Price</label>
                                 <input type="number" step=0.5 min="1" v-model="form.price" class="form-control p-4" id="exampleFormControlInputprice" name="price" placeholder="Price" required>
                             </div>
-                            <div class="form-group col-md-4 ">
+                            <div class="form-group col-md-6 ">
                                 <label for="exampleFormControlInputprice">Peparation time</label>
                                 <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="maneu-name">Ingredients</label>
                             <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="exampleFormControlInputprice">Carlories</label>
                             <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
@@ -54,7 +54,7 @@
                     <div>
               </div>
              <div class="form-group">
-                 <label for="exampleFormControlInputprice">Ingridient warning</label>
+                 <label for="exampleFormControlInputprice">Alergy warning</label>
                  <select v-model="allergy_warning" class="form-control p-4" >
                      <option value="alcohol">-select-</option>
                      <option value="alcohol">Alcohol free</option>
@@ -63,13 +63,22 @@
                      <option value="chocolate">Chocolate</option>
                  </select>
             </div>
-            <div class="pt-3 pb-1 pl-5 border-bottom">
+             <h5 class="pt-3 pb-1 pl-5 border-bottom">
                 Lables
-            </div>
+            </h5>
             <div class=" row p-2">
                 <div class="col-md-6 ">
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as new </span>
+                        <span clas='col-xs-8'> Publish </span>
+                        <span class="col-xs-4">
+                            <label class="switch ">
+                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish">
+                                <span class="slider round"></span>
+                            </label>
+                        </span>                                    
+                    </div>
+                    <div class="row custom-control p-3  custom-switch  ">
+                    <span clas='col-xs-8'>  Mark item as new </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="p-2" name="is_new" v-model="form.is_new" :checked="form.is_new">
@@ -81,20 +90,12 @@
                         <span clas='col-xs-8'>  Mark item as hot </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="p-2" name="is_new" v-model="form.is_new" :checked="form.is_new">
+                                <input type="checkbox" class="p-2" name="is_new" v-model="form.is_hot" :checked="form.is_hot">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
                     </div> 
-                    <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as signiture </span>
-                        <span class="col-xs-4">
-                            <label class="switch ">
-                                <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" checked="form.is_signiture">
-                                <span class="slider round"></span>
-                            </label>
-                        </span>                                    
-                    </div>
+                   
                 </div>
                 <div class="col-md-6">  
                     <div class="row custom-control p-3  custom-switch  ">
@@ -105,33 +106,31 @@
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
-                    </div>
-                                     
+                    </div>                                     
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as special presentation </span>
+                        <span clas='col-xs-8'>  Mark item as halal </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" v-model="form.is_signiture" :checked="form.is_special_presentation">
+                                <input type="checkbox" class="" v-model="form.halal" :checked="form.is_halal">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
                     </div>
-                    <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'> Publish </span>
+                      <div class="row custom-control p-3  custom-switch  ">
+                        <span clas='col-xs-8'>  Mark item as signiture </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish">
+                                <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" :checked="form.is_signiture">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
-                    </div>                       
+                    </div>                  
                     <div class="form-group">
                         <input type="hidden" class="form-control p-4" v-model="form.restaurant_id" name="resaturant_id" required>
                         <input type="hidden" class="form-control p-4" v-model="form.sub_menu_id" name="resaturant_id" required>
                     </div>
                 </div>
-
-            </div>  
+            </div>   
             <div class=" text-center mx-auto">
                 <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()" data-dismiss="modal" >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -164,7 +163,7 @@ components: { Multiselect },
                 is_veg:'', 
                 is_hot: '', 
                 is_signiture:'', 
-                is_special_presentation: '', 
+                is_halal: '', 
                 publish:'', 
                 discount: '',
                 price: '',
@@ -191,6 +190,8 @@ components: { Multiselect },
                 form_data.append('preparation_time', this.form.preparation_time);      
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
+                form_data.append('is_veg', this.form.is_veg);
+                form_data.append('is_halal', this.form.is_halal);
                 form_data.append('publish', this.form.publish);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 form_data.append('_method', 'PUT');
@@ -254,7 +255,7 @@ components: { Multiselect },
         this.form.is_veg = this.menuItem.is_veg; 
         this.form.is_hot =  this.menuItem.is_hot; 
         this.form.is_signiture = this.menuItem.is_signiture; 
-        this.form.is_special_presentation =  this.menuItem.is_special_presentation; 
+        this.form.is_halal =  this.menuItem.is_halal; 
         this.form.publish =  this.menuItem.publish; 
         this.form.discount =  this.menuItem.discount;
         this.form.price =  this.menuItem.price;

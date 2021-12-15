@@ -28,6 +28,11 @@ class MenuItem extends Model
         'inhouse',
         'is_signiture',
         'is_new',
+        'is_veg',
+        'is_halal',
+        'is_hot',
+        'food_origin',
+        'carlories',
         'publish',
         'allergy_warning',
         'price',
@@ -39,7 +44,6 @@ class MenuItem extends Model
         'image',
         'avatar',
         'deleted_at'
-
     ];
 
     /**

@@ -146,31 +146,38 @@
  <div class="modal fade mx-auto text-center" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
             <div class="modal-content shadow" style="width:400px; max-width:100%;">
-            <div class="modal-header">
-                <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">Item details</h4>
+            <div class="modal-header px-2">
+                <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">
+                    <span class=""   data-bs-dismiss="modal"><i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" style="position:absolute; left:1rem;"></i> </span>
+                    <span>Item details </span>
+                    
+                    </h4>
             </div>
-            <div class="modal-body">
-               <div class="item-details">
+            <div class="modal-body" style="background:rgb(247 247 247 / 93%);">
+               <div class="item-details" >
                    <div class="details-img">
-                       <img :src="this.item.image" alt="item-image" class="rounded shadow" style="width:210px; max-width:100%; height:150px;">
-                       <p class="text-center" style="width:210px; max-width:100%;  margin-left:auto; margin-right:auto; bottom:0"> 
+                       <img :src="this.item.image" alt="item-image" class="rounded shadow" style="min-width:350px; max-width:100%; height:200px; object-fit:cover;">
+                       <p class="text-center" style="width:350px; max-width:100%;  margin-left:auto; margin-right:auto; bottom:0"> 
                            <span class="float-left"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{this.item.preparation_time}} mins </small></span>
                            <span class="float-right" style="color:rgb(241, 103, 48);">  <b> {{this.restaurant.currency}} {{this.item.price}} </b> </span>
                        </p>
                    </div>                   
-                   <div class="details-content px-3">
-                       <h4 class="pt-1">{{this.item.menu_item_name}}</h4>
-                       <p>{{this.item.description}}</p>
+                   <div class="details-content text-left px-3" >
+                       <h4 class="pt-1 text-left">{{this.item.menu_item_name}}</h4>
+                       <p class="">{{this.item.description}}</p>                       
                     </div>
-                    <div class="labels">
-                    <span class="badge badge-success mr-1" v-if="this.is_new !== 'null'"> {{this.item.is_new}}</span>
-                    <span class="badge badge-primary mr-1" v-if="this.is_signiture !== 'null'"> {{this.item.is_signiture}}</span>
-                    <span class="badge badge-danger mr-1"  v-if="this.is_hot !== 'null'"> {{this.item.is_hot}}</span>
-                    <span class="badge badge-warning mr-1" v-if="this.is_halal !== 'null'"> {{this.item.is_halal}}</span>
-                    <span class="badge badge-warning mr-1" v-if="this.is_veg !== 'null'"> {{this.item.is_veg}}</span>
-                    <span class="badge badge-warning mr-1" v-if="this.is_special_presentation!== 'null'"> {{this.item.is_special_presentation}}</span>
-                     </div>
-                     <p class="order-btn pt-2 mt-1">
+                    <p class="labels text-left px-3">
+                        <span>Labels: &nbsp; &nbsp; </span>
+                        <span class="badge badge-success mr-1 p-1" v-if="this.is_new !== 'null'"> New</span>
+                        <span class="badge badge-primary mr-1 p-1" v-if="this.is_signiture !== 'null'"> Signiture</span>
+                        <span class="badge badge-danger mr-1 p-1"  v-if="this.is_hot !== 'null'"> Hot</span>
+                        <span class="badge badge-warning mr-1 p-1" v-if="this.is_halal !== 'null'"> Halal</span>
+                        <span class="badge badge-secondary mr-1 p-1" v-if="this.is_veg !== 'null'"> Veg</span>
+                     </p>
+                     <p class="text-left px-3"> 
+                        <span v-if="this.item.allergy_warning">Allergy warning: &nbsp; {{this.item.allergy_warning}} </span>
+                     </p>
+                     <p class="order-btn pt-2 mt-2">
                         <span  v-if="this.User.package_type != null" class="button">                             
                             <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                             </span>
