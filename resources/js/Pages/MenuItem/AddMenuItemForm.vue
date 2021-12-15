@@ -35,28 +35,28 @@
                     <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
                 </div>
             </div>
-            <!-- <div class="form-group">
-                <label for="maneu-name">Ingredients</label>
-                <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="5" rows="3"></textarea>              
-            </div> -->
-             <div class="row">
-             <div class="form-group col-md-6">
-                <label for="exampleFormControlInputprice">Carlories</label>
-                <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+            <div class="form-group">
+                <label for="maneu-name">Ingredients <small class="text-muted">(Use comma, seperated)</small></label>
+                <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="5" rows="3" placeholder="Ingredients"></textarea>              
             </div>
-             <div class="form-group col-md-6">
-                <label for="exampleFormControlInputprice">Food Origin</label>
-                <input type="text"   class="form-control p-4" v-model="form.origin" id="exampleFormControlInputprice"  placeholder="origin" >
-            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="exampleFormControlInputprice">Carlories</label>
+                    <input type="number"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exampleFormControlInputprice">Food Origin</label>
+                    <input type="text"   class="form-control p-4" v-model="form.food_origin" id="exampleFormControlInputprice"  placeholder="origin" >
+                </div>
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInputprice">Allergy warning</label>
                 <select v-model="this.form.allergy_warning" class="form-control p-4" >
-                    <option value="alcohol">-select-</option>
-                    <option value="alcohol">Alcohol free</option>
-                    <option value="cheese">Cheese</option>
-                    <option value="caffeine">Caffeine</option>
-                    <option value="chocolate">Chocolate</option>
+                    <option value="Alcohol">-select-</option>
+                    <option value="Alcohol">Alcohol </option>
+                    <option value="Cheese">Cheese</option>
+                    <option value="Caffeine">Caffeine</option>
+                    <option value="Chocolate">Chocolate</option>
                 </select>
             </div>
             <div class="mx-auto p-2">
@@ -162,7 +162,8 @@ props:['sub_menu'],
                 restaurant_id: '',
                 sub_menu_id: '',
                 description:'', 
-                carlories:'', 
+                ingredients:'', 
+                carlories:0, 
                 preparation_time:1, 
                 allergy_warning:'', 
                 is_new:false, 
@@ -170,10 +171,11 @@ props:['sub_menu'],
                 is_hot:false,  
                 is_halal:false, 
                 publish:true, 
+                is_signiture:false, 
                 discount:1,
                 price:1,
                 image:'',
-                origin:'',
+                food_origin:'',
                 img_preview:'',              
             },           
             errors:{ },
@@ -191,6 +193,7 @@ props:['sub_menu'],
                 form_data.append('price', this.form.price);                
                 form_data.append('discount', this.form.discount);                
                 form_data.append('description', this.form.description);                
+                form_data.append('ingredients', this.form.ingredients);                
                 form_data.append('preparation_time', this.form.preparation_time);      
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
@@ -198,7 +201,7 @@ props:['sub_menu'],
                 form_data.append('is_halal', this.form.is_halal);
                 form_data.append('is_veg', this.form.is_veg);
                 form_data.append('publish', this.form.publish);
-                form_data.append('origin', this.form.origin);
+                form_data.append('food_origin', this.form.food_origin);
                 form_data.append('carlories', this.form.carlories);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);

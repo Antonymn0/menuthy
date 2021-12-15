@@ -6,9 +6,9 @@
         <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title " :id="'updateModal'+ menuItem.id + 'Label'">Update menu</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
                 </div>
                 <div class="modal-body p-5">
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
@@ -22,8 +22,7 @@
                             <label for="maneu-name">Description*</label>
                             <textarea name="description" v-model="form.description" maxlength="50" class="form-control p-3"  id="" cols="10" rows="5"  placeholder="Describe the menu" required></textarea>
                             <small class="text-danger"> {{ this.errors.description}} </small>
-                        </div>
-                        
+                        </div>  
                          <div class="row"> 
                             <div class="form-group col-md-6 ">
                                 <label for="exampleFormControlInputprice">Price</label>
@@ -34,34 +33,41 @@
                                 <input type="number"   class="form-control p-4" v-model="form.preparation_time" id="exampleFormControlInputprice" name="preparation_time" placeholder="Preparation time" required>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="maneu-name">Ingredients</label>
-                            <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
-                        </div> -->
                         <div class="form-group">
-                            <label for="exampleFormControlInputprice">Carlories</label>
-                            <input type="text"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
-                        </div>
-                        <div class="mx-auto p-2">
-                            <label for="exampleFormControlInputimage">Image*</label>
-                            <div class="image-preview mx-auto p-0 m-0 text-center">
-                                <img :src="form.img_preview" alt="" style="min-height:7rem; min-width:7rem; border-radius:15px;">  <br>
-
-                                 <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2 w-50 "  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
-                            </div>    
-                            <small class="text-danger"> {{this.errors.image }} </small>              
-                         </div>
+                            <label for="maneu-name">Ingredients  <small class="text-muted">(Use comma, seperated)</small></label>
+                            <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
+                        </div>   
                     <div>
-              </div>
+                </div>
+               <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInputprice">Carlories</label>
+                        <input type="number"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInputprice">Food Origin</label>
+                        <input type="text"   class="form-control p-4" v-model="form.food_origin" id="exampleFormControlInputprice"  placeholder="origin" >
+                    </div>
+                </div>
              <div class="form-group">
                  <label for="exampleFormControlInputprice">Alergy warning</label>
-                 <select v-model="allergy_warning" class="form-control p-4" >
-                     <option value="alcohol">-select-</option>
-                     <option value="alcohol">Alcohol free</option>
-                     <option value="cheese">Cheese</option>
-                     <option value="caffeine">Caffeine</option>
-                     <option value="chocolate">Chocolate</option>
+                 <select v-model="form.allergy_warning" class="form-control p-4" >
+                     <option selected default>-select-</option>
+                     <option value="Alcohol">Alcohol </option>
+                     <option value="Cheese">Cheese</option>
+                     <option value="Caffeine">Caffeine</option>
+                     <option value="Chocolate">Chocolate</option>
+                     <option value="Luctose">Luctose</option>
                  </select>
+            </div>
+             <div class="mx-auto p-2">
+                <label for="exampleFormControlInputimage">Image*</label>
+                <div class="image-preview mx-auto p-0 m-0 text-center">
+                    <img :src="form.img_preview" alt="" style="min-height:7rem; min-width:7rem; border-radius:15px;">  <br>
+
+                        <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2 w-50 "  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
+                </div>    
+                <small class="text-danger"> {{this.errors.image }} </small>              
             </div>
              <h5 class="pt-3 pb-1 pl-5 border-bottom">
                 Lables
@@ -152,24 +158,25 @@ components: { Multiselect },
         return{   
      
             form:{
-                menu_item_name: '',
-                restaurant_id:'',
+                menu_item_name:'',
+                restaurant_id: '',
                 sub_menu_id: '',
-                description: '', 
-                carlories: '', 
-                preparation_time: '', 
-                allergy_warning: '', 
-                is_new: '', 
-                is_veg:'', 
-                is_hot: '', 
-                is_signiture:'', 
-                is_halal: '', 
-                publish:'', 
-                discount: '',
-                price: '',
-                image: '',
+                description:'', 
+                ingredients:'', 
+                carlories:1, 
+                preparation_time:1, 
                 allergy_warning:'', 
-                img_preview:''        
+                is_new:false, 
+                is_veg:false, 
+                is_hot:false,  
+                is_halal:false, 
+                publish:true, 
+                is_signiture:false, 
+                discount:1,
+                price:1,
+                image:'',
+                food_origin:'',
+                img_preview:'',         
             },
            
             errors:{},
@@ -187,15 +194,19 @@ components: { Multiselect },
                 form_data.append('price', this.form.price);                
                 form_data.append('discount', this.form.discount);                
                 form_data.append('description', this.form.description);                
+                form_data.append('ingredients', this.form.ingredients);                
                 form_data.append('preparation_time', this.form.preparation_time);      
                 form_data.append('is_signiture', this.form.is_signiture);
                 form_data.append('is_new', this.form.is_new);
-                form_data.append('is_veg', this.form.is_veg);
+                form_data.append('is_hot', this.form.is_hot);
                 form_data.append('is_halal', this.form.is_halal);
+                form_data.append('is_veg', this.form.is_veg);
                 form_data.append('publish', this.form.publish);
+                form_data.append('food_origin', this.form.food_origin);
+                form_data.append('carlories', this.form.carlories);
                 form_data.append('allergy_warning', this.form.allergy_warning);
-                form_data.append('_method', 'PUT');
                 if(this.form.image) form_data.append('image', this.form.image);
+                form_data.append('_method', 'PUT');
                 Swal.showLoading();
             axios.post('/api/menu-item/'+ this.menuItem.id , form_data)
             .then( response => {
@@ -248,9 +259,11 @@ components: { Multiselect },
         this.form.restaurant_id = 1;
         this.form.sub_menu_id =  this.menuItem.sub_menu_id;
         this.form.description =  this.menuItem.description; 
-        this.form.carlories =  this.menuItem.calories; 
+        this.form.carlories =  this.menuItem.carlories; 
         this.form.preparation_time =  this.menuItem.preparation_time; 
-        this.form.allergy_warning =  this.menuItem.alergy_warning; 
+        this.form.allergy_warning =  this.menuItem.allergy_warning; 
+        this.form.ingredients =  this.menuItem.ingredients; 
+        this.form.food_origin =  this.menuItem.food_origin; 
         this.form.is_new =  this.menuItem.is_new; 
         this.form.is_veg = this.menuItem.is_veg; 
         this.form.is_hot =  this.menuItem.is_hot; 
@@ -258,8 +271,7 @@ components: { Multiselect },
         this.form.is_halal =  this.menuItem.is_halal; 
         this.form.publish =  this.menuItem.publish; 
         this.form.discount =  this.menuItem.discount;
-        this.form.price =  this.menuItem.price;
-        this.form.allergy_warning = {...this.menuItem.alergy_warning };  
+        this.form.price =  this.menuItem.price; 
     }
 }
 </script>

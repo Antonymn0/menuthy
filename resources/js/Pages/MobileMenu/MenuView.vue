@@ -9,7 +9,7 @@
 </head>
 <body>    
 
-<div class="parent-div mx-auto shadow px-1 bg-white">
+<div class="parent-div mx-auto shadow px-1 ">
     <div :class="this.blur +' p-0' "> 
     <div class="header-div">
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
@@ -143,15 +143,14 @@
 
 <!-- ---------------------------------------------------------------- -->           
  <!-- item details modal popup -->
- <div class="modal fade mx-auto text-center" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+ <div class="modal fade mx-auto text-center item-details" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
             <div class="modal-content shadow" style="width:400px; max-width:100%;">
             <div class="modal-header px-2">
                 <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">
-                    <span class=""   data-bs-dismiss="modal"><i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" style="position:absolute; left:1rem;"></i> </span>
-                    <span>Item details </span>
-                    
-                    </h4>
+                    <span class="back-btn"   data-bs-dismiss="modal"><i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" ></i> </span>
+                    <span>Item details </span>                    
+                </h4>
             </div>
             <div class="modal-body" style="background:rgb(247 247 247 / 93%);">
                <div class="item-details" >
@@ -162,27 +161,36 @@
                            <span class="float-right" style="color:rgb(241, 103, 48);">  <b> {{this.restaurant.currency}} {{this.item.price}} </b> </span>
                        </p>
                    </div>                   
-                   <div class="details-content text-left px-3" >
-                       <h4 class="pt-1 text-left">{{this.item.menu_item_name}}</h4>
-                       <p class="">{{this.item.description}}</p>                       
+                   <div class="details-content px-3" >
+                       <h4 class="pt-1 mx-auto">{{this.item.menu_item_name}}</h4>
+                       <p class="mx-auto text-center" v-if="this.item.description">{{this.item.description}}</p>                       
                     </div>
-                    <p class="labels text-left px-3">
-                        <span>Labels: &nbsp; &nbsp; </span>
-                        <span class="badge badge-success mr-1 p-1" v-if="this.is_new !== 'null'"> New</span>
-                        <span class="badge badge-primary mr-1 p-1" v-if="this.is_signiture !== 'null'"> Signiture</span>
-                        <span class="badge badge-danger mr-1 p-1"  v-if="this.is_hot !== 'null'"> Hot</span>
-                        <span class="badge badge-warning mr-1 p-1" v-if="this.is_halal !== 'null'"> Halal</span>
-                        <span class="badge badge-secondary mr-1 p-1" v-if="this.is_veg !== 'null'"> Veg</span>
-                     </p>
-                     <p class="text-left px-3"> 
-                        <span v-if="this.item.allergy_warning">Allergy warning: &nbsp; {{this.item.allergy_warning}} </span>
-                     </p>
+                    <div class="details-content px-3"> 
+                        <p class="labels ">
+                            <span>Labels: &nbsp; &nbsp; </span>
+                            <span class="badge badge-secondary mr-1 p-1" v-if="this.item.is_new == 'true'"> New</span>
+                            <span class="badge badge-danger mr-1 p-1"  v-if="this.item.is_hot == 'true'"> Hot</span>
+                            <span class="badge badge-success mr-1 p-1" v-if="this.item.is_veg == 'true'"> Veg</span>
+                            <span class="badge badge-warning mr-1 p-1" v-if="this.item.is_halal == 'true'"> Halal</span>
+                            <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signiture</span>
+                        </p>
+                        <p class="" v-if="this.item.ingredients">
+                            Ingredients: &nbsp; {{capitalize(this.item.ingredients)}} 
+                        </p>
+                        <p class=""> 
+                            <span v-if="this.item.allergy_warning">Allergy warning: &nbsp; {{capitalize(this.item.allergy_warning)}} </span>
+                        </p>
+                        <p>
+                            <span class="mr-2" v-if="this.item.carlories"> Carlories:  {{this.item.carlories}} </span>
+                            <span v-if="this.item.food_origin"> Origin: {{capitalize(this.item.food_origin)}}  </span>
+                        </p>
+                     </div>
                      <p class="order-btn pt-2 mt-2">
-                        <span  v-if="this.User.package_type != null" class="button">                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
-                            </span>
-
-                            <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[this.item.id] ">
+                        <span  v-if="this.User.package_type != null" class="button">   </span>                          
+                        <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                                                   
+                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                        
+                         <span class="  rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
@@ -197,7 +205,6 @@
                                 {{this.cart_item_qty[this.item.id]}}
                                 <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                             </span>
-                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                        
                      </p>
                </div>
             </div>
@@ -234,7 +241,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow" >
          <div class="pop-up " >
-                <div class="bg-white rounded" style="border-radius:15px; overflow:hidden">
+                <div class=" rounded" style="border-radius:15px; overflow:hidden">
                     <div class="pop-up-img ">
                         <span class="p-2   back-btn " @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
@@ -270,7 +277,7 @@
                                 </div>
                                 <div class="popup-img" style="width:20%; height:100%; float:right">
                                   
-                                    <img :src="item.image" alt="menu-image" class="rounded" style="width:50px; height:auto; object-fit:cover;">
+                                    <img :src="item.image" alt="menu-image" class="rounded shadow" style="width:50px; height:auto; object-fit:cover;">
                                    
                                 </div>
                             </div>                            
@@ -361,6 +368,7 @@ export default {
       }
   },
   methods:{
+     
         viewItemDetails(menu_item){
             this.item = menu_item;
         },
@@ -608,8 +616,8 @@ select:focus{
 // parent div 
 .parent-div{
     color: #585858;
+    background-color:#e7e5e53b;
     font-family: poppins !important;
-    background-color: #fff !important;
     min-height:100vh;
     width:42rem;
     max-width:100%;
@@ -741,6 +749,25 @@ font-weight:300;
         border:1px solid rgb(250, 136, 7);
         color:#fff !important;
 }
+
+
+// order details
+.details-content p{
+    font-family:poppins;
+    text-align:left;
+    font-weight: 500;
+}
+.item-details .back-btn i{
+    position:absolute;
+    left:.8rem;
+    color: $orange;
+}
+.item-details .back-btn i:hover{    
+    color:#fff;
+    border-radius: 1px solid rgb(236, 137, 24);
+}
+
+
 // order btn
 .order-btn a, .order-btn button{
     background-color: $orange;
@@ -857,9 +884,8 @@ input[type='radio']:after {
     min-width:100%;
     border-radius:15px;
     overflow:hidden;
-    background:rgb(224, 222, 222);
     transition: transform .5s ease;  
-    overflow:scroll;
+    overflow-y:scroll;
 
 }
 .pop-up-img img{

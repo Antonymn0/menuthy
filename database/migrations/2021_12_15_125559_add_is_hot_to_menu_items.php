@@ -18,6 +18,8 @@ class AddIsHotToMenuItems extends Migration
             $table->string('is_veg')->nullable(); 
             $table->string('is_halal')->nullable(); 
             $table->string('food_origin')->nullable(); 
+            $table->string('ingredients')->nullable(); 
+            $table->integer('carlories')->nullable(); 
         });
     }
 

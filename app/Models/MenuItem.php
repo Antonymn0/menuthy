@@ -36,6 +36,7 @@ class MenuItem extends Model
         'publish',
         'allergy_warning',
         'price',
+        'ingredients',
         'discount',
         'preparation_time',
         'available_days',
