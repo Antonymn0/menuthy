@@ -20,8 +20,7 @@
                             <li >
                                 <a class="dropdown-item " href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + menu.id" >                                
                                     Edit
-                                </a>
-                           
+                                </a>                           
                             </li>
                             <li><a class="dropdown-item" href="#" @click="duplicateMenu(menu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteMenu(menu.id)">Delete</a></li>                   
@@ -140,7 +139,8 @@ export default {
         } ,  
         togglePublish(id, state){
             axios.get('/api/menu/toggle-publish/' + id + '/' + state)
-            .then( response => {              
+            .then( response => {  
+                this.$inertia.reload();            
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');

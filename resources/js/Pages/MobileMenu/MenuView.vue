@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    
+<body>    
 
 <div class="parent-div mx-auto shadow px-1 bg-white">
     <div :class="this.blur +' p-0' "> 
@@ -24,8 +23,7 @@
             </p>
     </div>
 
-
-<!-- -----------------------------cart items preview----------------------------------------------- -->
+<!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">
             
             <div class="cart-preview mr-2 " @click="togglepopUp()" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
@@ -34,12 +32,11 @@
         </div>
     <!-- ------------------------------------------------------------ -->
 
-    <div class="slider-div" id="slider-div">
-        
+    <div class="slider-div" id="slider-div">        
         <div v-if="this.subMenus.length" :class="blur" > 
             <carousel :items-to-show="3.5">
                 <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
-                        <div class="carausel-item mx-1 " v-if="sub_menu.published !== null" >                            
+                        <div class="carausel-item mx-1 " v-if="sub_menu.publish == 'true'" >                            
                             <div class="" v-if="sub_menu.image " onclick="toggleActivemenuClass()">
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
@@ -58,9 +55,7 @@
                         </div>            
                 </template>
             </carousel>
-        </div>
-
-        
+        </div>        
     </div>
 
 
@@ -71,11 +66,11 @@
     </div>
 
  
-    <!-- --------------------------------------------------- -->
+    <!-- ---------------------item panels------------------------------ -->
     <div v-if="menu_items.length" class="items-panel"> 
         
     <div class="items-div "  v-for="menu_item in menu_items" :key="menu_item.id">
-        <div class="row items-div-inner my-2 shadow border" >
+        <div class="row items-div-inner my-2 shadow border" v-if="menu_item.publish == 'true'">
             
             <div class="text-div">
                 <div class="pl-3 pt-3 w-100 inner-items-div">
@@ -86,7 +81,7 @@
                     </div>
                     <p v-if="menu_item.description !== 'null'" class="mb-1">{{ capitalize(menu_item.description) }}</p>
 
-                    <!-- radio buttons -->
+                    <!--type hints -->
                     <div class=" radio-btns mb-1">                       
                         <div class=" d-flex align-items-center align-content-between">
                             <div class="form-check form-check-inline d-flex align-items-center">
@@ -100,8 +95,7 @@
                             <div class="form-check form-check-inline d-flex align-items-center align-content-between">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Pick up</label>
-                            </div>
-                            
+                            </div>                            
                         </div> 
                     </div>
                     <p class="order-btn pt-2 mt-1">
@@ -133,7 +127,7 @@
             </div>  
                  <div class="img-div "> 
                      
-               <a href="#"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
+               <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
         </div>        
@@ -147,9 +141,66 @@
         </p>
     </div>
 
-<!-- ---------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------- -->           
+ <!-- item details modal popup -->
+ <div class="modal fade mx-auto text-center" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  mx-auto" >
+            <div class="modal-content shadow" style="width:400px; max-width:100%;">
+            <div class="modal-header">
+                <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">Item details</h4>
+            </div>
+            <div class="modal-body">
+               <div class="item-details">
+                   <div class="details-img">
+                       <img :src="this.item.image" alt="item-image" class="rounded shadow" style="width:210px; max-width:100%; height:150px;">
+                       <p class="text-center" style="width:210px; max-width:100%;  margin-left:auto; margin-right:auto; bottom:0"> 
+                           <span class="float-left"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{this.item.preparation_time}} mins </small></span>
+                           <span class="float-right" style="color:rgb(241, 103, 48);">  <b> {{this.restaurant.currency}} {{this.item.price}} </b> </span>
+                       </p>
+                   </div>                   
+                   <div class="details-content px-3">
+                       <h4 class="pt-1">{{this.item.menu_item_name}}</h4>
+                       <p>{{this.item.description}}</p>
+                    </div>
+                    <div class="labels">
+                    <span class="badge badge-success mr-1" v-if="this.is_new !== 'null'"> {{this.item.is_new}}</span>
+                    <span class="badge badge-primary mr-1" v-if="this.is_signiture !== 'null'"> {{this.item.is_signiture}}</span>
+                    <span class="badge badge-danger mr-1"  v-if="this.is_hot !== 'null'"> {{this.item.is_hot}}</span>
+                    <span class="badge badge-warning mr-1" v-if="this.is_halal !== 'null'"> {{this.item.is_halal}}</span>
+                    <span class="badge badge-warning mr-1" v-if="this.is_veg !== 'null'"> {{this.item.is_veg}}</span>
+                    <span class="badge badge-warning mr-1" v-if="this.is_special_presentation!== 'null'"> {{this.item.is_special_presentation}}</span>
+                     </div>
+                     <p class="order-btn pt-2 mt-1">
+                        <span  v-if="this.User.package_type != null" class="button">                             
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                            </span>
 
-           
+                            <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[this.item.id] ">
+                                <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
+                                <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
+                                    <option value="1" default selected> 1</option>
+                                    <option value="2" > 2</option>
+                                    <option value="3" > 3</option>
+                                    <option value="4" > 4</option> 
+                                    <option value="5" > 5</option>
+                                    <option value="6" > 6</option>
+                                    <option value="7" > 7</option>
+                                    <option value="8" > 8</option>
+                                </select>
+                                {{this.cart_item_qty[this.item.id]}}
+                                <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
+                            </span>
+                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                        
+                     </p>
+               </div>
+            </div>
+            
+            </div>
+        </div>
+    </div> 
+
+
+<!-- ------------------------------------------------ -->
  <!--main menu modal popup -->
  <div class="modal fade mx-auto text-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
@@ -159,7 +210,7 @@
             </div>
             <div class="modal-body">
                 <ul  v-for="(menu) in menus" :key="menu.id" class="list-unstyled px-5">
-                     <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" >  
+                     <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" v-if="menu.published == 'true'">  
                         <a class="menu-list p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
                     </li>
                 </ul>
@@ -299,9 +350,13 @@ export default {
         cart_items:[],
         cart_item_qty:[], //keeps track of individual cart item qty
         total_amount:0,
+        item:{},
       }
   },
   methods:{
+        viewItemDetails(menu_item){
+            this.item = menu_item;
+        },
         addToCart( menu_item){
             var is_item_in_cart=false;
             this.cart_items.forEach((item)=>{

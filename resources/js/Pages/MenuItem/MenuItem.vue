@@ -153,7 +153,7 @@ export default {
         togglePublish(id, state){
             axios.get('/api/menu-item/toggle-publish/' + id + '/' + state)
             .then( response => {
-               
+                this.$inertia.reload();               
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');

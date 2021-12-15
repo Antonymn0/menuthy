@@ -18,7 +18,7 @@
         <div class="row pr-0 " >
             <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
                
-                 <div class="card p-0 text-center fade-in borderless " style="border-radius:15px;overflow:hidden">
+                 <div class="card p-0 text-center fade-in borderless " style="border-radius:15px;overflow:hidden" >
                      <div class=" cursor-pointer" style="background-color:#efeff3; cursor: pointer; background-size:cover">                     
                         <i class="bi bi bi-three-dots-vertical menu-dots rounded-circle bg-white py-0 px-2 " style="font-size: 1.5rem;"  id="navbarDropdown"  data-bs-toggle="dropdown" aria-expanded="false"></i>
                          <ul class="dropdown-menu rounded ">
@@ -139,7 +139,7 @@ export default {
         togglePublish(id, state){
             axios.get('/api/sub-menu/toggle-publish/' + id + '/' + state)
             .then( response => {
-                // console.log(response);
+                this.$inertia.reload();
             })
             .catch(error=>{
                 this.$swal('Error, Failed to publish!');
