@@ -521,7 +521,7 @@ select:focus{
 .cart-preview{
     position:fixed;
     width:auto;  
-    top:10.8%; 
+    top:4.28rem; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
