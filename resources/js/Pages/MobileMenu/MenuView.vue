@@ -422,6 +422,8 @@ export default {
                         if( response.status = 201){
                             this.$swal( 'Order placed!'); 
                             console.log(response.data);
+                            this.cart_items = [];
+                            this.cart_item_qty=[];
                             } 
                         })
                     .catch( error => {
