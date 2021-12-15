@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body fade-in" >
               
-              <div class="smartphone-device" style="max-width:100%;">
+              <div class="smartphone smartphone-device" style="max-width:100%;">
                 <div class="content m-0 p-0" style="width:100%; height:100%;" >
                   <iframe :src="this.preview_link"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
                 </div>
@@ -77,5 +77,28 @@ data(){
     border-bottom-width: 40px;
     border-radius: 36px;
 }
-
+.smartphone:after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    bottom: -51px;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 50%;
+}
+.smartphone:before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 10px;
+}
 </style>
