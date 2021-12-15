@@ -797,6 +797,7 @@ input[type='radio']:after {
     overflow:hidden;
     background:rgb(224, 222, 222);
     transition: transform .5s ease;  
+    overflow:scroll;
 
 }
 .pop-up-img img{
