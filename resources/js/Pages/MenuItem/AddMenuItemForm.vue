@@ -177,14 +177,14 @@ props:['sub_menu'],
                 allergy_warning:{ }, 
                 img_preview:'',              
             },           
-            errors:{ l:''},
+            errors:{ },
         }
     },
     methods:{
         submitForm () {
             this.validateForm();
-            if(Object.keys(this.errors).length) return;
             console.log(this.errors);
+            if(Object.keys(this.errors).length) return;
             let form_data = new FormData();
                 form_data.append('menu_item_name', this.form.menu_item_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
@@ -199,7 +199,7 @@ props:['sub_menu'],
                 form_data.append('origin', this.form.origin);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
-                console.log(...form_data);
+                 console.log(...form_data);
 
             Swal.showLoading();
             axios.post('/api/menu-item', form_data)
@@ -237,17 +237,13 @@ props:['sub_menu'],
             if(this.form.image == '')  this.errors.image = 'Image is required' ;        
             else  delete this.errors.image;
 
-            this.form = { ...this.form, na:'track'};
-            console.log(this.errors); 
         },
         fileUpload(event){
             this.form.image = event.target.files[0];
             this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
-            console.log(URL.createObjectURL(event.currentTarget.files[0]));
+            console.log('image', URL.createObjectURL(event.currentTarget.files[0]));
         },
-        logInput(){
-            console.log(this.form.menu_item_name);
-        }     
+            
     },
     mounted(){
         this.form.sub_menu_id = this.sub_menu.id;

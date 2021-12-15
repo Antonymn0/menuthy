@@ -278,6 +278,10 @@ h3{
             width: 95%;
                          
 }
+      .top-cards .card-body{
+           padding-left: 1rem;
+                         
+}
       .top-cards .col-md-3{
             display: block;
              width: 100%; 
