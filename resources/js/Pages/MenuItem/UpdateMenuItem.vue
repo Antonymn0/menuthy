@@ -117,7 +117,7 @@
                         <span clas='col-xs-8'>  Mark item as halal </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" v-model="form.is_halal" :checked="form.is_halal">
+                                <input type="checkbox" class="" v-model="this.form.is_halal" :checked="this.form.is_halal">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
