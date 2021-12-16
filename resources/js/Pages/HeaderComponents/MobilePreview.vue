@@ -36,11 +36,11 @@ data(){
   }
 },
   methods:{
-      // generate prview link
+      // generate preview link
       getQqrCodeLink(){
             axios.get('/api/qrcode-generate/'+ this.restaurant.id)
             .then( response => {
-              if( response.status = 200){      
+              if( response.status == 200){      
                   this.preview_link = response.data;
                 } 
             })

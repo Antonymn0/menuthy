@@ -354,7 +354,7 @@ export default {
     Navigation,
   },
   data(){
-     const lang = localStorage.getIt
+     const lang = localStorage.getItem('lang');
       return{
         blur:'',
         menu_item:'',
@@ -373,7 +373,7 @@ export default {
         User:{},
         client_IP:'',
         cart_items:[],
-        cart_item_qty:[], //keeps track of individual cart item qty
+        cart_item_qty:[], //keeps track of individual cart item qty in an array
         total_amount:0,
         item:{},
         language:lang,
