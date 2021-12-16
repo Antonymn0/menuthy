@@ -189,7 +189,7 @@
                         <span  v-if="this.User.package_type != null" class="button">   </span>                          
                         <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
-                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                        
+                        <!-- <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                         -->
                          <span class="  rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
