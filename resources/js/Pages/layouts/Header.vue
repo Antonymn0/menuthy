@@ -6,8 +6,7 @@
         <MobilePreview />
         <QrCode />
         <MobileNav />
-        <Feedback />
-       
+        <Feedback />       
         <Profile />
    
 <!-- --------------header---------------------------- -->
@@ -94,11 +93,8 @@
         </ul> 
         </p>
     </div>
-
     <!-- -------------------------------------------------------------------------- -->
 </div>
-
-
    
 </template>
 
@@ -112,7 +108,6 @@ import Profile from "../Profile/Profile";
 import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
 import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
 import Feedback from "../Feedback/Feedback";
-
 
 export default {
     data(){

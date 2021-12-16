@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+   </head>
 <body>    
 
 <div class="parent-div mx-auto shadow px-1 ">
@@ -318,17 +318,11 @@
 
 <!-- ------------- Translate button--------------------- -->
 <div class="translate-btn">
-    <div class="translate-btn-inner">
-        <select class="custom-select" id="" v-model="this.language" @change.prevent="changeLanguage($event)">
-            <option default selected>-Language-</option>
-            <option value="ar">Arabic</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="de">Dutch</option>
-            <option value="hi">Hindi</option>
-        </select>
+    <div class="translate-btn-inner shadow">
+       <div id="google_translate_element"></div>
     </div>
 </div>
+
 </div>
 
 
@@ -338,20 +332,19 @@
 </template>
 
 <script> 
-
 import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import { Carousel, Slide } from 'vue3-carousel';
+
 
 export default {
   name: 'App',
 
-  props:['menus', 'subMenus', 'menuItems', 'user', 'restaurant'],
-
+  props:[
+      'menus', 'subMenus', 'menuItems', 'user', 'restaurant',  
+    ],
   components: {
     Carousel,
     Slide,
-    Pagination,
-    Navigation,
   },
   data(){
      const lang = localStorage.getItem('lang');
@@ -523,15 +516,25 @@ export default {
       },
        getCookie() {
             var current_cookie = document.cookie;
-            // return current_cookie.includes('qr_code_scans=');
-        }
+            return current_cookie.includes('qr_code_scans=');
+        },
+        //google transalate
+        googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en' , includedLanguages : 'ar,hi,en,sw,fr,es'}, 'google_translate_element');
+        },    
+   
+  },
+   created() {
+    var scripts = [
+      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
+    ];
    
   },
   mounted(){
       console.log(this.$refs);
         this.menu_items = this.menuItems;
         this.User= this.user;
-        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();            
+        this.restaurant_name = 'this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); '           
 
                 // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
@@ -580,6 +583,14 @@ export default {
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+body > .skiptranslate {
+    position:absolute;
+    top:-10rem !important;
+    display: none;
+}
+.goog-logo-link{
+    display:none;
+}
 select{
     border: 1px solid $orange;
     color: rgb(141, 101, 101);
@@ -975,6 +986,7 @@ input[type='radio']:after {
     .translate-btn-inner{
         position:fixed;
         bottom:1rem;
+        overflow:hidden !important;
     }
     .translate-btn-inner select{
        width:100px;
