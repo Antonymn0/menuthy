@@ -42,11 +42,11 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="exampleFormControlInputprice">Carlories</label>
-                    <input type="number"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+                    <input type="number" min='1'  class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="Carlories" >
                 </div>
                 <div class="form-group col-md-6">
                     <label for="exampleFormControlInputprice">Food Origin</label>
-                    <input type="text"   class="form-control p-4" v-model="form.food_origin" id="exampleFormControlInputprice"  placeholder="origin" >
+                    <input type="text"   class="form-control p-4" v-model="form.food_origin" id="exampleFormControlInputprice"  placeholder="Origin" >
                 </div>
             </div>
              <div class="form-group">
@@ -163,7 +163,7 @@ props:['sub_menu'],
                 sub_menu_id: '',
                 description:'', 
                 ingredients:'', 
-                carlories:0, 
+                carlories:1, 
                 preparation_time:1, 
                 allergy_warning:'', 
                 is_new:false, 

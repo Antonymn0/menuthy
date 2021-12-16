@@ -13,7 +13,7 @@ import VueQrcode from "@chenfengyuan/vue-qrcode";
 
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-import $ from "jquery";
+import axios from "axios";
 import BootstrapVue3 from "bootstrap-vue-3";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
@@ -22,6 +22,9 @@ import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import swal from "sweetalert2";
 window.Swal = swal;
 
+axios.defaults.baseURL = "http://127.0.0.1:8000/";
+const language = localStorage.getItem('lang') || 'en';
+axios.defaults.headers['Accept-Langauge'] = language;
 
 const el = document.getElementById("app");
 

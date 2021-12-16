@@ -42,7 +42,7 @@
                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlInputprice">Carlories</label>
-                        <input type="number"   class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
+                        <input type="number" min='1'  class="form-control p-4" v-model="form.carlories" id="exampleFormControlInputprice"  placeholder="carlories" >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleFormControlInputprice">Food Origin</label>
@@ -184,6 +184,7 @@ components: { Multiselect },
     },
     methods:{
         submitForm () {
+            console.log(this.form.carlories);
             this.validateForm();
             if(Object.keys(this.errors).length) return;
             console.log('No errors in the form...');
@@ -203,7 +204,7 @@ components: { Multiselect },
                 form_data.append('is_veg', this.form.is_veg);
                 form_data.append('publish', this.form.publish);
                 form_data.append('food_origin', this.form.food_origin);
-                form_data.append('carlories', this.form.carlories);
+                if(this.form.carlories) form_data.append('carlories', parseInt(this.form.carlories));
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');

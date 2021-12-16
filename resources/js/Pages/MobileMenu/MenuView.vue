@@ -315,10 +315,19 @@
   </div>
 </div>   
       
-     
-  
 
-<!-- ---------------------------------- -->
+<!-- ------------- Translate button--------------------- -->
+<div class="translate-btn">
+    <div class="translate-btn-inner">
+        <select  id="" v-model="this.language" @change.prevent="changeLanguage($event)">
+            <option default selected>-Language-</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="de">Dutch</option>
+            <option value="ar">Arabic</option>
+        </select>
+    </div>
+</div>
 </div>
 
 
@@ -365,10 +374,14 @@ export default {
         cart_item_qty:[], //keeps track of individual cart item qty
         total_amount:0,
         item:{},
+        language:localStorage.getItem('lang'),
       }
   },
   methods:{
-     
+        changeLanguage(event){
+            localStorage.setItem('lang', event.target.value);
+            window.location.reload();
+        },     
         viewItemDetails(menu_item){
             this.item = menu_item;
         },
@@ -886,7 +899,6 @@ input[type='radio']:after {
     overflow:hidden;
     transition: transform .5s ease;  
     overflow-y:scroll;
-
 }
 .pop-up-img img{
     object-fit: cover;
@@ -954,6 +966,18 @@ input[type='radio']:after {
     .modal ul li:active{
         background:rgba(221, 134, 20, 0.993);
         color:#fff ;
+    }
+    .translate-btn{
+    position:relative;
+    }
+    .translate-btn-inner{
+        position:fixed;
+        bottom:5rem;
+    }
+    .translate-btn-inner select{
+       width:100px;
+       padding:5px;
+       border-radius: 10px;;
     }
 
 /* media queries */
