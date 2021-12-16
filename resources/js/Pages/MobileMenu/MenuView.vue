@@ -171,7 +171,7 @@
                             <span class="badge badge-secondary mr-1 p-1" v-if="this.item.is_new == 'true'"> New</span>
                             <span class="badge badge-danger mr-1 p-1"  v-if="this.item.is_hot == 'true'"> Hot</span>
                             <span class="badge badge-success mr-1 p-1" v-if="this.item.is_veg == 'true'"> Veg</span>
-                            <span class="badge badge-warning mr-1 p-1" v-if="this.item.is_halal == 'true'"> Halal</span>
+                            <span class="badge badge-warning mr-1 p-1" v-if="this.item.is_halal !== 'false' "> Halal</span>
                             <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signiture</span>
                         </p>
                         <p class="" v-if="this.item.ingredients">
@@ -381,7 +381,7 @@ export default {
   methods:{
         changeLanguage(event){
             localStorage.setItem('lang', event.target.value);
-            window.location.reload();
+            // window.location.reload();
         },     
         viewItemDetails(menu_item){
             this.item = menu_item;
