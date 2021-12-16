@@ -321,10 +321,11 @@
     <div class="translate-btn-inner">
         <select  id="" v-model="this.language" @change.prevent="changeLanguage($event)">
             <option default selected>-Language-</option>
+            <option value="ar">Arabic</option>
             <option value="en">English</option>
             <option value="fr">French</option>
             <option value="de">Dutch</option>
-            <option value="ar">Arabic</option>
+            <option value="hi">Hindi</option>
         </select>
     </div>
 </div>

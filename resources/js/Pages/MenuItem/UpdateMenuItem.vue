@@ -117,7 +117,7 @@
                         <span clas='col-xs-8'>  Mark item as halal </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" v-model="form.halal" :checked="form.is_halal">
+                                <input type="checkbox" class="" v-model="form.is_halal" :checked="form.is_halal">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -204,7 +204,7 @@ components: { Multiselect },
                 form_data.append('is_veg', this.form.is_veg);
                 form_data.append('publish', this.form.publish);
                 form_data.append('food_origin', this.form.food_origin);
-                if(this.form.carlories) form_data.append('carlories', parseInt(this.form.carlories));
+                if(this.form.carlories) form_data.append('carlories', parseInt(this.form.carlories));                
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
