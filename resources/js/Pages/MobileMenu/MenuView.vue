@@ -319,7 +319,7 @@
 <!-- ------------- Translate button--------------------- -->
 <div class="translate-btn">
     <div class="translate-btn-inner">
-        <select  id="" v-model="this.language" @change.prevent="changeLanguage($event)">
+        <select class="custom-select" id="" v-model="this.language" @change.prevent="changeLanguage($event)">
             <option default selected>-Language-</option>
             <option value="ar">Arabic</option>
             <option value="en">English</option>
@@ -354,6 +354,7 @@ export default {
     Navigation,
   },
   data(){
+     const lang = localStorage.getIt
       return{
         blur:'',
         menu_item:'',
@@ -375,7 +376,7 @@ export default {
         cart_item_qty:[], //keeps track of individual cart item qty
         total_amount:0,
         item:{},
-        language:localStorage.getItem('lang'),
+        language:lang,
       }
   },
   methods:{
@@ -635,8 +636,8 @@ select:focus{
     min-height:100vh;
     width:42rem;
     max-width:100%;
-    overflow-y:scroll;
-    overflow-anchor: none;   
+    overflow-y:scroll;   
+    overflow-x:hidden;   
 }
 
 .header-div img{
@@ -973,7 +974,7 @@ input[type='radio']:after {
     }
     .translate-btn-inner{
         position:fixed;
-        bottom:5rem;
+        bottom:1rem;
     }
     .translate-btn-inner select{
        width:100px;
