@@ -22,10 +22,6 @@ import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import swal from "sweetalert2";
 window.Swal = swal;
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
-const language = localStorage.getItem('lang') || 'en';
-axios.defaults.headers['Accept-Langauge'] = language;
-
 const el = document.getElementById("app");
 
 
