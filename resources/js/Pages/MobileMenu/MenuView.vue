@@ -26,8 +26,8 @@
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">
             
-            <div class="cart-preview mr-2 " @click="togglepopUp()" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
-              <span> <i class="bi bi-cart-plus"></i> {{this.cart_items.length}} items</span> 
+            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
+              <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
             </div>
         </div>
     <!-- ------------------------------------------------------------ -->
@@ -100,12 +100,12 @@
                     </div>
                     <p class="order-btn pt-2 mt-1">
                         <span  v-if="this.User.package_type != null" class="button">                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(menu_item), addToCart(menu_item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(menu_item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                             </span>
 
                             <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                                 <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
-                                <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change="this.calculateTotalAmount">
+                                <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change.prevent="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
                                     <option value="2" > 2</option>
                                     <option value="3" > 3</option>
@@ -118,7 +118,7 @@
                                 {{this.cart_item_qty[menu_item.id]}}
                                 <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                             </span>
-                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span>
+                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span>
 
                         <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
                         
@@ -187,10 +187,9 @@
                      </div>
                      <p class="order-btn pt-2 mt-2">
                         <span  v-if="this.User.package_type != null" class="button">   </span>                          
-                        <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="[togglepopUp(this.item), addToCart(this.item)]" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                        <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
-                        <!-- <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart( this.item)" ><i class="bi bi-cart-plus"></i> Add</button></span>                         -->
-                         <span class="  rounded counter" v-if="this.cart_item_qty[this.item.id] ">
+                          <span class="  rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
@@ -380,7 +379,7 @@ export default {
         viewItemDetails(menu_item){
             this.item = menu_item;
         },
-        addToCart( menu_item){
+        addToCart(menu_item){
             var is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
@@ -427,10 +426,7 @@ export default {
             if(string) return string.charAt(0).toUpperCase() + string.slice(1);
             else return; 
             },
-        togglepopUp(){        
-            if(this.blur == '') this.blur = 'blur';
-            if(this.blur == 'blur') this.blur = '';
-        },
+    
         updateMenuName(sub_menu){
                 this.menu_name= sub_menu.sub_menu_name;
                 this.description = sub_menu.description;
@@ -518,19 +514,17 @@ export default {
             var current_cookie = document.cookie;
             return current_cookie.includes('qr_code_scans=');
         },
-        //google transalate
-        googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'en' , includedLanguages : 'ar,hi,en,sw,fr,es'}, 'google_translate_element');
-        },    
+         
    
   },
    created() {
     var scripts = [
       "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
-    ];
+    ];    
    
   },
   mounted(){
+       
       console.log(this.$refs);
         this.menu_items = this.menuItems;
         this.User= this.user;
@@ -583,14 +577,7 @@ export default {
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
-body > .skiptranslate {
-    position:absolute;
-    top:-10rem !important;
-    display: none;
-}
-.goog-logo-link{
-    display:none;
-}
+
 select{
     border: 1px solid $orange;
     color: rgb(141, 101, 101);
@@ -648,7 +635,8 @@ select:focus{
     width:42rem;
     max-width:100%;
     overflow-y:scroll;   
-    overflow-x:hidden;   
+    overflow-x:hidden;  
+    margin-top:-2rem; 
 }
 
 .header-div img{
@@ -980,17 +968,33 @@ input[type='radio']:after {
         background:rgba(221, 134, 20, 0.993);
         color:#fff ;
     }
+
+    //google translate styles
+    body > .skiptranslate {
+    position:absolute;
+    top:-50rem !important;
+    display: none;
+    }
+    .goog-te-gadget{
+        overflow:hidden;
+        height:40px;
+        box-shadow: rgb(230, 228, 223);
+    }
+    .goog-logo-link{
+        display:none;
+    }
     .translate-btn{
     position:relative;
+    overflow:hidden;
     }
     .translate-btn-inner{
         position:fixed;
         bottom:1rem;
-        overflow:hidden !important;
+        overflow-y:hidden !important;
     }
     .translate-btn-inner select{
        width:100px;
-       padding:5px;
+       padding:8px;
        border-radius: 10px;;
     }
 
