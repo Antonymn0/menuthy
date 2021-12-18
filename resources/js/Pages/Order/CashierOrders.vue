@@ -248,12 +248,15 @@ export default {
             });
         },
         cancelOrder(id, value){
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+
             if(confirm("Are you sure you want to cancel this order?"))
             {            
-                axios.get('/api/order/mark/' + id + '/' + value)
+                axios.get('/api/order/mark/' + id + '/' + value + '/' + date)
                 .then( response => {
                 if( response.status = 200){
-
+                    this.$inertia.reload();
                     } 
                 })
                 .catch( error => {
@@ -263,9 +266,11 @@ export default {
             }
         },
         markAsPaid(id, amount){
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
             if(confirm("Confirm you have recived " + window.authRestaurant.currency +' ' + amount + " for this order?"))
             {            
-                axios.get('/api/order/mark-paid/' + id + '/' + amount)
+                axios.get('/api/order/mark-paid/' + id + '/' + amount + '/' + date)
                 .then( response => {
                 if( response.status = 200){
                     this.$inertia.reload();

@@ -67,14 +67,15 @@ class OrderController extends Controller
      * 
      * @return response
      */
-    public function markOrder($id, $value){
+    public function markOrder($id, $value, $date){
+        
         if($value =='completed') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
-            'completed_at' => now(),
+            'completed_at' => $date,
             ]);
         if($value =='canceled') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
-            'canceled_at' => now(),
+            'canceled_at' => $date,
             ]);
         if($value =='processing') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
@@ -93,12 +94,12 @@ class OrderController extends Controller
      * 
      * @return response
      */
-    public function markOrderPaid($id, $amount){
+    public function markOrderPaid($id, $amount, $date){
         $order= Order::WHERE('id', $id)->first()->update([
             'paid' => 'true',
             'transaction_id' => 'cash',
             'amount_paid' => $amount,
-            'paid_at' => Carbon::now(),
+            'paid_at' => $date,
             ]);
         return response()->json([
             'success' => true,

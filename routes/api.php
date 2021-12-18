@@ -37,9 +37,9 @@ if (App::environment('production')) {
     // Get deleted orders
   Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
   // mark 
-  Route::get('order/mark/{id}/{value}','Api\Order\OrderController@markOrder');
+  Route::get('order/mark/{id}/{value}/{date}','Api\Order\OrderController@markOrder');
   // mark 
-  Route::get('order/mark-paid/{id}/{value}','Api\Order\OrderController@markOrderpaid');
+  Route::get('order/mark-paid/{id}/{value}/{date}','Api\Order\OrderController@markOrderpaid');
     // Restore order
   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
    //  Parmamnently delete order

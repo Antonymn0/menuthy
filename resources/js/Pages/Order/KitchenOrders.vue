@@ -216,7 +216,9 @@ export default {
         else return;
         },
         markOrder(id, value){
-             axios.get('/api/order/mark/' + id + '/' + value)
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss"); 
+             axios.get('/api/order/mark/' + id + '/' + value +'/' + date)
             .then( response => {
             if( response.status = 200){
                 console.log(response.data);
@@ -228,9 +230,11 @@ export default {
             });
         },
         cancelOrder(id, value){
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
             if(confirm("Are you sure you want to cancel this order?"))
             {            
-                axios.get('/api/order/mark/' + id + '/' + value)
+                axios.get('/api/order/mark/' + id + '/' + value + '/' + date)
                 .then( response => {
                 if( response.status = 200){
 
@@ -317,7 +321,7 @@ export default {
                 new Swal({
                     title:'Error,  failed to fetch orders!',
                     timer:2000
-                });                
+                });   
                    
             });
         },

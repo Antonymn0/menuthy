@@ -33,9 +33,8 @@ class AuthController extends Controller
         }
 
         // else redirect to register resaturant page
-         return redirect('/register');
+         return redirect('/');
      }
-
 
     //logout user
     public function logout(Request $request){
