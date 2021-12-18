@@ -28,12 +28,12 @@ class AuthController extends Controller
    
 
         // if user has restaurant redirect to dashboard
-        if($restaurant){
+        if(count($restaurant)){
             return redirect()->intended('/dashboard');
         }
 
         // else redirect to register resaturant page
-         return Inertia::render('Restaurant/Register', ['user_id' =>  $user->id]);
+         return redirect('/register');
      }
 
 
