@@ -89,6 +89,38 @@ public function getOneMainMenu($restaurant_name, $menu_id){
                     ]);
 }
 
+/**
+ * get a single main menu with the sub mneus and menu items
+ */
+public function fetchMainMenu($restaurant_name, $menu_id){
+             $menu = Menu::WHERE('id', $menu_id)->first();
+                
+             $user = $this->makeSafeUser($menu->restaurant_id, $table_number=null);
+
+             $menus = Menu::WHERE('restaurant_id',$menu->restaurant_id )->get();
+             
+             if(isset($menu)){
+                  $subMenus  = SubMenu::WHERE('menu_id',$menu->id)->get();
+                  if(count($subMenus)){
+                      $menuItems = MenuItem::WHERE('sub_menu_id',$subMenus[0]->id)->get();
+                      
+                      return response()->json([
+                        'menus'=>$menus,
+                        'subMenus'=>$subMenus,
+                        'menuItems'=>$menuItems,                       
+                        ], 200);
+                  }
+             }
+              // else return empty array 
+         return response()->json([
+                    'menus'=>$menus,
+                    'subMenus'=>[],
+                    'menuItems'=>[],
+                    'user'=> $user['user'],
+                    'restaurant'=> $user['restaurant'],
+                    ], 200);
+}
+
     /**
      * when a user clicks on a main menu link he gets a list of sub menus back 
      * 

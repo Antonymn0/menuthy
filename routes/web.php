@@ -38,6 +38,7 @@ Route::get('/', function () {
   
    // get main menus route
    Route::get('/{restaurant_name}/main-menu/{menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getOneMainMenu'])->name('get main mobile menu');
+   Route::get('/fetch/{restaurant_name}/main-menu/{menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'fetchMainMenu'])->name('fetch main mobile menu');
    
 
   

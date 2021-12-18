@@ -37,9 +37,9 @@
     <!-- ------------------------------------------------------------ -->
 
     <div class="slider-div" id="slider-div">        
-        <div v-if="this.subMenus.length" :class="blur" > 
+        <div v-if="this.current_sub_menus.length" :class="blur" > 
             <carousel :items-to-show="3.5">
-                <slide v-for="(sub_menu) in subMenus" :key="sub_menu.id"  style="display:table">
+                <slide v-for="(sub_menu) in current_sub_menus" :key="sub_menu.id"  style="display:table">
                         <div class="carausel-item mx-1 " v-if="sub_menu.publish == 'true'" >                            
                             <div class="" v-if="sub_menu.image " onclick="toggleActivemenuClass()">
                                 <a href="#"> <img :src="sub_menu.image"  @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
@@ -134,6 +134,7 @@
                <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
+
         </div>        
     </div>
     <div v-else class="text-center py-5">
@@ -226,7 +227,7 @@
                 <h4 class="modal-title col-xs-6 mx-auto" id="exampleModalLabel" style="color:rgb(241, 103, 48);">Main menu</h4>
             </div>
             <div class="modal-body">
-                <ul  v-for="(menu) in menus" :key="menu.id" class="list-unstyled px-5">
+                <ul  v-for="(menu) in current_menus" :key="menu.id" class="list-unstyled px-5">
                      <li class="px-3 py-2 border-bottom"  data-bs-dismiss="modal" v-if="menu.published == 'true'">  
                         <a class="menu-list p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
                     </li>
@@ -353,8 +354,10 @@ export default {
   data(){
      const lang = localStorage.getItem('lang');
       return{
+        current_menus:[],
+        current_sub_menus:[],
+        menu_item:[],
         blur:'',
-        menu_item:'',
         order_amount:1,
         restaurant_name:'',
         menu_items:'',
@@ -442,15 +445,32 @@ export default {
             this.show_single_menu_item = !this.show_single_menu_item;
             this.blur = this.blur == 'blur-background' ? '' : 'blur-background';
         },
+
         fetchMenus( menu_id){
             Swal.showLoading();
-            this.$inertia.visit('/' + this.restaurant_name + '/main-menu/' + menu_id);
-            Swal.close()
-            
+            axios.get('/fetch/' + this.restaurant_name + '/main-menu/' + menu_id)
+            .then( response => {
+                console.log(response);
+            if( response.status == 200){
+                // this.current_menus = [];
+                // this. current_sub_menus = []; 
+                // this.menu_items = [];
+
+                this.current_menus = response.data.menus;
+                this. current_sub_menus = response.data.subMenus; 
+                this.menu_items = response.data.menuItems;
+                Swal.close();
+                } 
+            })
+            .catch( error => {
+                this.$swal('Failed to fecth!');                
+                console.log(error.response);                    
+            });
+            Swal.close();            
         },
+
       fetchMenuItems( sub_menu_id){
           Swal.showLoading();
-          console.log('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id);
            axios.get('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id)
             .then( response => {
             if( response.status = 200){
@@ -525,7 +545,9 @@ export default {
   mounted(){     
         this.menu_items = this.menuItems;
         this.User= this.user;
-        this.restaurant_name = 'this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); '          
+        this.current_menus= this.menus;
+        this.current_sub_menus= this.subMenus;
+        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();           
 
                 // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
