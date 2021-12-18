@@ -78,16 +78,16 @@
                 </thead>
                 <tbody v-if="Object.keys(this.current_users).length  ">
                     <tr v-for="(user, index) in this.current_users" :key="index" class="border-bottom">
-                        <th scope="row"> {{index}} </th>
+                            <th scope="row"> {{index}} </th>
                             <td> {{user.first_name}} {{user.last_name}} </td>
                             <td> {{user.email}} </td>
-                            <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].restaurant_name}} </td>
+                            <td v-if=" user.role !=='admin'  && user.get_restaurant[0]  "> {{user.get_restaurant[0].restaurant_name}} </td>
                             <td v-else></td>
-                            <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].restaurant_email}} </td>
+                            <td v-if=" user.role !=='admin' && user.get_restaurant[0]"> {{user.get_restaurant[0].restaurant_email}} </td>
                             <td v-else></td>
-                            <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].country}} </td>
+                            <td v-if=" user.role !=='admin' && user.get_restaurant[0]"> {{user.get_restaurant[0].country}} </td>
                             <td v-else></td>
-                            <td v-if="user.get_restaurant[0]"> {{user.get_restaurant[0].city}} </td>
+                            <td v-if=" user.role !=='admin' && user.get_restaurant[0]"> {{user.get_restaurant[0].city}} </td>
                             <td v-else></td>
                             <td> {{user.package_type}} </td>
                             <td v-if="user.registration_status == 'master' "> {{user.registration_expiry}} </td>

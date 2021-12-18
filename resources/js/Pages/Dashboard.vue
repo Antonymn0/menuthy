@@ -53,7 +53,6 @@
                 </div>
             </div>          
         </div>
-
         <!-- banner section -->
         <div class=" banner row justify-content-center px-3 py-5 " >
             <div class=" row page-banner px-3 pt-2 text-white fade-in ">            
@@ -99,7 +98,6 @@ export default {
    Footer,
     SubscriptionExpiryNotification, 
     TrialExpiryNotification,
-
   },
 };
 </script>
