@@ -52,10 +52,10 @@ class LoginController extends Controller
             ]);
         
         if(Auth::attempt($credentials)){
-             $request->session()->regenerate();
-             $user = Auth::user();
-
-             return redirect()->intended('/dashboard');
+            $request->session()->regenerate();
+            $user = Auth::user();
+            if($user->role == 'admin') return redirect()->intended('/admin');
+            else return redirect()->intended('/dashboard');
         }  
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

@@ -121,14 +121,10 @@ export default {
                 form_data.append('registration_status', this.form.registration_status);
                 form_data.append('city', this.selectedCity);
                 form_data.append('country', this.selectedCountry);
-                for(var pair of form_data.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                    }
             axios.post('/api/restaurant', form_data)
             .then( response => {
             if( response.status = 201){
-                console.log('responce: ',response);
-                this.$inertia.visit('/redirect/user');
+                this.$inertia.visit('/dashboard');
                 } 
             })
             .catch( error => {
@@ -170,7 +166,7 @@ form {
   width: 50%;
   margin: 60px auto;
   height:auto;
-  background: #eed8b6;
+  background: #f7f5f3;
   padding: 30px;
   text-align: center;
   -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);

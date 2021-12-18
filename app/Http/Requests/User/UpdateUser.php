@@ -33,6 +33,7 @@ class UpdateUser extends FormRequest
             'phone'=>['nullable', 'string',  Rule::unique('users')->ignore($this->user)],
             'registration_status' => ['nullable','string'],
             'package_type' => ['nullable','date'],
+            'role' => ['required','string'],
             'trial_expiry' => ['nullable','date'],
             'registration_expiry' => ['nullable','date'],
             'address'=>['string','max:255','nullable'],

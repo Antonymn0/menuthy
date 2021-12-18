@@ -34,6 +34,7 @@ class User extends Authenticatable
         'trial_expiry',
         'registration_expiry',
         'phone',
+        'role',
         'address',
         'biography',
         'password',

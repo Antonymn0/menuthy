@@ -100,6 +100,7 @@ export default {
                 middle_name:'',
                 last_name:'',
                 email: '',
+                role: '',
                 phone:'',
                 country:'',
                 timezone:'',
@@ -226,6 +227,7 @@ export default {
         if(window.authUser.country !== 'null') this.form.country = window.authUser.country;
         if(window.authUser.timezone !== 'null') this.form.timezone = window.authUser.timezone;
        if(window.authUser.city !== 'null') this.form.city = window.authUser.city;
+       if(window.authUser.role !== 'null') this.form.role = window.authUser.role;
         
     }
     

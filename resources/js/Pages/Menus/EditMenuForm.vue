@@ -13,7 +13,7 @@
                 <form action="#" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Menu name</label>
-                        <input type="text" v-model="form.menu_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
+                        <input type="text" maxlength="30" v-model="form.menu_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
                         <small class="text-danger"> {{ errors.menu_name}} </small>
                     </div>
                     <div class="form-group">
@@ -22,7 +22,7 @@
                 
                     <div class="form-group">
                         <label for="maneu-name">Description</label>
-                        <textarea name="description" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
+                        <textarea name="description" maxlength="60" v-model="form.description" class="form-control p-3" id="" cols="10" rows="5">Describe the menu</textarea>
                         
                     </div>
                       <div class="mx-auto p-2">

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Mail\WelcomeEmail;
-
+use App\Models\User;
 use Inertia\Inertia;
 
 /*
@@ -24,7 +24,9 @@ Route::get('/', function () {
 });
  // show vuejs user register form
    Route::get('register', function () { 
-     return Inertia::render('User/RegisterUser');
+    $user = User::first();
+    if(is_null($user)) return Inertia::render('SuperAdmin/createAdmin');
+    else return Inertia::render('User/RegisterUser');
       })->name('register');
 
 
@@ -79,9 +81,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
     Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
 
- 
-//-------------------------------SUPER ADMIN ROUTES -------------------------- //////
+  }); 
 
+//-------------------------------SUPER ADMIN ROUTES -------------------------- //////
+Route::middleware(['auth','admin'])->group(function () { 
+    Route::get('all-admins',[App\Http\Controllers\Web\Admin\AdminController::class, 'allAdmins'])->name('all-admin');
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
     Route::get('admin/client-portal',[App\Http\Controllers\Web\Admin\AdminController::class, 'clientsPortal'])->name('super-admin');
     Route::get('/users/deleted',[App\Http\Controllers\Web\Admin\AdminController::class, 'getDeletedUsers'])->name('deleted-users');

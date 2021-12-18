@@ -10,6 +10,7 @@ use App\Events\Order\orderCreated;
 use App\Events\Order\orderUpdated;
 use App\Events\Order\orderDestroyed;
 use App\Http\Requests\Order\ValidateOrder;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -97,7 +98,7 @@ class OrderController extends Controller
             'paid' => 'true',
             'transaction_id' => 'cash',
             'amount_paid' => $amount,
-            'paid_at' => now(),
+            'paid_at' => Carbon::now(),
             ]);
         return response()->json([
             'success' => true,

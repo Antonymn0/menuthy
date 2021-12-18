@@ -16,7 +16,7 @@
 <body class=" " >
     <div class="d-flex justify-content-between align-items-center px-5 parent">
              <a class="p-3" href="/">
-                <img src="/images/menuthy_logo.svg" class="" width="60%"  alt="menuthy-logo">
+                <img src="/images/menuthy_logo.svg" class="" style="width:60%"  alt="menuthy-logo">
             </a>
             <button class="button " style="max-width:8rem;"><a href="/login" class="text-white "> Go to Login</a></button>         
     </div>
@@ -131,6 +131,7 @@ export default {
             form:{
                 restaurant_name:'',
                 type:'',
+                role:'user',
                 timezone:'',
                full_name:'',
                email:'',
@@ -1008,6 +1009,7 @@ export default {
                 user_data.append('password', this.form.password);
                 user_data.append('password_again', this.form.password_again);
                 user_data.append('package_type', 'master');          
+                user_data.append('role', this.form.role);          
                 
                 Swal.showLoading(),    
 

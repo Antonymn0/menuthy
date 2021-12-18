@@ -18,6 +18,7 @@ class UserFactory extends Factory
         'full_name' => $this->faker->sentence,
         'first_name'=> $this->faker->word(),
         'middle_name'=> $this->faker->word(),
+        'role'=> $this->faker->word(),
         'last_name'=> $this->faker->word(),
         'user_name'=> now() . $this->faker->unique()->userName(),
         'email' =>  $this->faker->unique()->safeEmail()  ,

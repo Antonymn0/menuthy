@@ -13,12 +13,12 @@
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name</label>
-                        <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="15" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
+                        <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="20" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
                     </div>
                 
                     <div class="form-group">
                         <label for="maneu-name">Description</label>
-                        <textarea   class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
+                        <textarea maxlength="40"  class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
                         <small class="text-danger"> {{ this.errors.description}} </small>
                     </div>
                      <div class="mx-auto p-2">
@@ -38,26 +38,7 @@
                             </label>
                         </span>                                    
                     </div>
-                    <div class="col-sm-6 p-2">
-                        <div class="row custom-control p-3  custom-switch  ">
-                            <span clas='col-xs-8'>  Mark section as new </span>
-                            <span class="col-xs-4">
-                                <label class="switch ">
-                                    <input type="checkbox" class=""  v-model="form.is_new">
-                                    <span class="slider round"></span>
-                                </label>
-                            </span>                                    
-                        </div> 
-                        <div class="row custom-control p-3  custom-switch  ">
-                            <span clas='col-xs-8'>  Mark section as signiture </span>
-                            <span class="col-xs-4">
-                                <label class="switch ">
-                                    <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture">
-                                    <span class="slider round"></span>
-                                </label>
-                            </span>                                    
-                        </div>
-                       
+                    <div class="col-sm-6 p-2">                       
                          <div class="form-group">
                             <input type="hidden" class="form-control p-4" v-model="form.restaurant_id" name="resaturant_id" required>
                             <input type="hidden" class="form-control p-4" v-model="form.menu_id" name="resaturant_id" required>
@@ -139,6 +120,9 @@ export default defineComponent({
 
             if(!this.form.restaurant_id) this.errors.restaurant_id = 'Restaurant id field is required' ;
             else  delete this.errors.restaurant_id; 
+
+            if(this.form.image == '')  this.errors.image = 'Image is required' ;        
+            else  delete this.errors.image;
 
             if(!this.form.menu_id) this.errors.menu_id = 'menu id field is required' ;
             else  delete this.errors.menu_id;

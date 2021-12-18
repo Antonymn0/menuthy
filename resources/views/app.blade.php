@@ -8,7 +8,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <link rel="icon" href="images/menuthy_logo_icon.png">
+    <link rel="icon" href="/images/artboard.png">
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     {{-- bootstrap css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -180,6 +180,9 @@ animation-duration: 1s;
 .dropdown-menu{
     z-index: 5;
 }
+.goog-logo-link{
+    display:none !important;
+}
 </style>
 
 
@@ -285,7 +288,15 @@ function toggleAccordion(){
        return;
     }
 }
+// alignment for arabic
+function alignArabic(){
+    var el = document.getElementById('google_translate_element');
+    var select = el.getElementsByClassName('goog-te-combo')[0];
+    select.addEventListener(change, function(){
+        console.log(select.value);
+    })
 
+}
  </script>
  
 
@@ -302,11 +313,9 @@ function toggleAccordion(){
 <script src="{{ mix('js/app.js') }}" defer></script>
 
 <script type="text/javascript">
-   //google transalate
     function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'en' , includedLanguages : 'ar,hi,en,es,fr,sw'},
-        'google_translate_element');
-    }
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages : 'ar,hi,fr,es,sw,en' }, 'google_translate_element');
+}
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
 </script>

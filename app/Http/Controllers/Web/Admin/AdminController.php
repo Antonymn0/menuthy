@@ -41,7 +41,7 @@ class AdminController extends Controller
      */
     public function getDeletedUsers( )
     {
-        $user = User::with('getRestaurant')->onlyTrashed()->paginate(env('API_PAGINATION', 10));; 
+        $user = User::with('getRestaurant')->onlyTrashed()->paginate(env('API_PAGINATION', 10));
         return response()->json([
             'success'=> true, 
             'message'=>'User restored', 
@@ -49,47 +49,14 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * get all site admins.
+     * 
      */
-    public function show($id)
+    public function allAdmins()
     {
-        //
+        $admins = User::where('role', 'admin')->paginate(ENV('API_PAGINATION',10));
+        return Inertia::render('SuperAdmin/AllAdmins',['users'=> $admins]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

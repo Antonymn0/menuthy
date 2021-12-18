@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
    </head>
 <body>    
 
@@ -17,10 +18,13 @@
         </span>
         <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" >
         <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px">
-        <p class="p-2 text-center">
-               <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
-               <span v-else> Hotel name</span> 
-            </p>
+        <h5 class="pt-2 mb-0 text-center">
+            <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
+            <span v-else> Hotel name</span> 
+        </h5>
+        <p class=" text-center">
+            <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
+        </p>
     </div>
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
@@ -51,7 +55,7 @@
                     </slide>
                     <template #addons>
                         <div class="">
-                            <navigation />
+                            <Navigation />
                         </div>            
                 </template>
             </carousel>
@@ -145,7 +149,7 @@
  <!-- item details modal popup -->
  <div class="modal fade mx-auto text-center item-details" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  mx-auto" >
-            <div class="modal-content shadow" style="width:400px; max-width:100%;">
+            <div class="modal-content shadow mx-auto" style="width:400px; max-width:98%;">
             <div class="modal-header px-2">
                 <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">
                     <span class="back-btn"   data-bs-dismiss="modal"><i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" ></i> </span>
@@ -332,7 +336,7 @@
 
 <script> 
 import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide } from 'vue3-carousel';
+import { Carousel, Slide,Navigation } from 'vue3-carousel';
 
 
 export default {
@@ -344,6 +348,7 @@ export default {
   components: {
     Carousel,
     Slide,
+    Navigation
   },
   data(){
      const lang = localStorage.getItem('lang');
@@ -514,21 +519,13 @@ export default {
             var current_cookie = document.cookie;
             return current_cookie.includes('qr_code_scans=');
         },
-         
    
   },
-   created() {
-    var scripts = [
-      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
-    ];    
-   
-  },
-  mounted(){
-       
-      console.log(this.$refs);
+
+  mounted(){     
         this.menu_items = this.menuItems;
         this.User= this.user;
-        this.restaurant_name = 'this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); '           
+        this.restaurant_name = 'this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); '          
 
                 // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
@@ -562,12 +559,10 @@ export default {
                         this.$swal('Failed record scan!');                
                         console.log(error.response);                    
                     });
-
                     
                 }
-            }
-          
-  }
+            }          
+    }
  
 };
 </script>
@@ -576,7 +571,6 @@ export default {
 <style lang="scss" >
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-
 
 select{
     border: 1px solid $orange;
@@ -604,7 +598,7 @@ select:focus{
 .cart-preview{
     position:fixed;
     width:auto;  
-    top:4.28rem; 
+    top:2.65rem; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;

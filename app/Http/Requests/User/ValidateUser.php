@@ -30,6 +30,7 @@ class ValidateUser extends FormRequest
             'email'=>['required', 'string','max:255','email',  Rule::unique('users')->ignore($this->user)],
             'password' => ['required','min:4'],
             'package_type' => ['nullable','string'],
+            'role' => ['required','string'],
             
         ];
     }
