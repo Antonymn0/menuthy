@@ -12,7 +12,7 @@
     <div class="modal-body p-5">
         <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Item name*</label>
+                <label for="exampleFormControlInput1">Item name* <small class="text-muted">max: 30 Characters</small></label>
                 <input type="text" maxlength="30" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                  <small class="text-danger"> {{this.errors.menu_item_name }} </small>
             </div>
@@ -21,7 +21,7 @@
             </div>
         
             <div class="form-group">
-                <label for="maneu-name">Description*</label>
+                <label for="maneu-name">Description* <small class="text-muted">max: 50 Characters</small></label>
                 <textarea name="description" v-model="form.description" class="form-control p-3" id="" maxlength="50" cols="10" rows="5" placeholder="Describe the menu" required></textarea>
                  <small class="text-danger"> {{ this.errors.description}} </small>
             </div>

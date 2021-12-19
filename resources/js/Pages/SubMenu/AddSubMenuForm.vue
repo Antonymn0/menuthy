@@ -12,12 +12,12 @@
             <div class="modal-body p-5">
                 <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Section name</label>
-                        <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="20" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
+                        <label for="exampleFormControlInput1">Section name* <small class="text-muted">max: 30 Characters</small></label>
+                        <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="30" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
                     </div>
                 
                     <div class="form-group">
-                        <label for="maneu-name">Description</label>
+                        <label for="maneu-name">Description <small class="text-muted">max: 50 Characters</small></label>
                         <textarea maxlength="40"  class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
                         <small class="text-danger"> {{ this.errors.description}} </small>
                     </div>

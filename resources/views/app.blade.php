@@ -276,27 +276,17 @@ function toggleAccordion(){
        
         let panel = event.target.parentElement.nextElementSibling;
         if (panel.style.display == "table-row"){ 
-            console.log('table-row')
             panel.style.display = "none";   
             return      
          }
         else if (panel.style.display == "none"){ 
-            console.log('none');
             panel.style.display = "table-row";
             return;         
          }
        return;
     }
 }
-// alignment for arabic
-function alignArabic(){
-    var el = document.getElementById('google_translate_element');
-    var select = el.getElementsByClassName('goog-te-combo')[0];
-    select.addEventListener(change, function(){
-        console.log(select.value);
-    })
 
-}
  </script>
  
 

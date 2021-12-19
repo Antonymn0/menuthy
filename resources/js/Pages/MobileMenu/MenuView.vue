@@ -62,14 +62,12 @@
         </div>        
     </div>
 
-
     <!-- ----------------------------------------------------------- -->
     <div class=" text-center align-items-center ">
         <h5> <b> {{ capitalize( this.menu_name) }} </b> </h5>
         <p v-if="this.description"> {{this.description}} </p>
     </div>
 
- 
     <!-- ---------------------item panels------------------------------ -->
     <div v-if="menu_items.length" class="items-panel"> 
         
@@ -77,17 +75,16 @@
         <div class="row items-div-inner my-2 shadow border" v-if="menu_item.publish == 'true'">
             
             <div class="text-div">
-                <div class="pl-3 pt-3 w-100 inner-items-div">
-                    
+                <div :class=" this.text_right + ' pl-3 pt-3 w-100 inner-items-div text_right' ">                    
                     <div class="title ">                        
-                        <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> 
+                        <!-- <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span>  -->
                         <span class=""> <h5> {{ capitalize(menu_item.menu_item_name) }} </h5> </span>            
                     </div>
-                    <p v-if="menu_item.description !== 'null'" class="mb-1">{{ capitalize(menu_item.description) }}</p>
+                    <p v-if="menu_item.description !== 'null'" class="mb-1" >{{ capitalize(menu_item.description) }}</p>
 
                     <!--type hints -->
-                    <div class=" radio-btns mb-1">                       
-                        <div class=" d-flex align-items-center align-content-between">
+                    <div class=" radio-btns m-1 arabic">                       
+                        <div class="radio-btns-inner arabic d-flex mb-1 align-content-between ">
                             <div class="form-check form-check-inline d-flex align-items-center">
                                 <i class="bi bi-dot pr-0 mr-0" ></i> 
                                 <label class="form-check-label" > Dine in</label>
@@ -102,33 +99,36 @@
                             </div>                            
                         </div> 
                     </div>
-                    <p class="order-btn pt-2 mt-1">
-                        <span  v-if="this.User.package_type != null" class="button">                             
-                            <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(menu_item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
-                            </span>
+                    <p class="arabic order-btn text-left pt-1 my-2" >
+                        <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
+                             <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
+                        </span>
+                        <span class="arabic px-2 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
+                            <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
+                            <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change.prevent="this.calculateTotalAmount">
+                                <option value="1" default selected> 1</option>
+                                <option value="2" > 2</option>
+                                <option value="3" > 3</option>
+                                <option value="4" > 4</option> 
+                                <option value="5" > 5</option>
+                                <option value="6" > 6</option>
+                                <option value="7" > 7</option>
+                                <option value="8" > 8</option>
+                            </select>
+                            {{this.cart_item_qty[menu_item.id]}}
+                            <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
+                        </span>
+                        <span class="open ">  <button class="py-2 arabic" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span> 
 
-                            <span class=" mr-5 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
-                                <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
-                                <select :name="menu_item.id" :id="menu_item.id" class="rounded" :ref="menu_item.id" v-model="this.cart_item_qty[menu_item.id]" @change.prevent="this.calculateTotalAmount">
-                                    <option value="1" default selected> 1</option>
-                                    <option value="2" > 2</option>
-                                    <option value="3" > 3</option>
-                                    <option value="4" > 4</option> 
-                                    <option value="5" > 5</option>
-                                    <option value="6" > 6</option>
-                                    <option value="7" > 7</option>
-                                    <option value="8" > 8</option>
-                                </select>
-                                {{this.cart_item_qty[menu_item.id]}}
-                                <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
-                            </span>
-                        <span class="open ">  <button class="py-2 pr-3 mr-3" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span>
-
-                        <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
+                        <!-- <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span> -->
                         
                      </p>
                 </div>    
             </div>  
+            <div class="price-time text-right pt-3 pb-2 px-0 mx-0">
+                <span>  <span class="price    "> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> </span> <br>
+                <span> <span class="time text-default "> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span></span>
+            </div>
                  <div class="img-div "> 
                      
                <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
@@ -138,7 +138,7 @@
         </div>        
     </div>
     <div v-else class="text-center py-5">
-        No items listed in this category
+        No items listed in this menu
     </div>
     <div class=" py-2 text-danger d-flex justify-content-center align-items-center">
         <p>
@@ -159,19 +159,19 @@
             </div>
             <div class="modal-body" style="background:rgb(247 247 247 / 93%);">
                <div class="item-details" >
-                   <div class="details-img">
+                   <div class="details-img" style="overflow:hidden;">
                        <img :src="this.item.image" alt="item-image" class="rounded shadow" style="min-width:350px; max-width:100%; height:200px; object-fit:cover;">
                        <p class="text-center" style="width:350px; max-width:100%;  margin-left:auto; margin-right:auto; bottom:0"> 
                            <span class="float-left"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{this.item.preparation_time}} mins </small></span>
                            <span class="float-right" style="color:rgb(241, 103, 48);">  <b> {{this.restaurant.currency}} {{this.item.price}} </b> </span>
                        </p>
                    </div>                   
-                   <div class="details-content px-3" >
-                       <h4 class="pt-1 mx-auto">{{this.item.menu_item_name}}</h4>
-                       <p class="mx-auto text-center" v-if="this.item.description">{{this.item.description}}</p>                       
+                   <div class="details-content px-3 arabic" >
+                       <h4 class="pt-1 mx-auto arabic">{{this.item.menu_item_name}}</h4>
+                       <h6 class="mx-auto  arabic" v-if="this.item.description">{{this.item.description}}</h6>                       
                     </div>
                     <div class="details-content px-3"> 
-                        <p class="labels ">
+                        <p class="labels arabic">
                             <span>Labels: &nbsp; &nbsp; </span>
                             <span class="badge badge-secondary mr-1 p-1" v-if="this.item.is_new == 'true'"> New</span>
                             <span class="badge badge-danger mr-1 p-1"  v-if="this.item.is_hot == 'true'"> Hot</span>
@@ -179,22 +179,24 @@
                             <span class="badge badge-warning mr-1 p-1" v-if="this.item.is_halal !== 'false' "> Halal</span>
                             <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signiture</span>
                         </p>
-                        <p class="" v-if="this.item.ingredients">
+
+                        <p class=" arabic " v-if="this.item.ingredients">
                             Ingredients: &nbsp; {{capitalize(this.item.ingredients)}} 
                         </p>
-                        <p class=""> 
+
+                        <p class="arabic"> 
                             <span v-if="this.item.allergy_warning">Allergy warning: &nbsp; {{capitalize(this.item.allergy_warning)}} </span>
                         </p>
-                        <p>
+                        <p class="arabic">
                             <span class="mr-2" v-if="this.item.carlories"> Carlories:  {{this.item.carlories}} </span>
                             <span v-if="this.item.food_origin"> Origin: {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
-                     <p class="order-btn pt-2 mt-2">
+                     <p class="order-btn pt-2 mt-2 arabic">
                         <span  v-if="this.User.package_type != null" class="button">   </span>                          
                         <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
-                          <span class="  rounded counter" v-if="this.cart_item_qty[this.item.id] ">
+                          <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
@@ -323,7 +325,7 @@
 <!-- ------------- Translate button--------------------- -->
 <div class="translate-btn">
     <div class="translate-btn-inner shadow">
-       <div id="google_translate_element"></div>
+       <div id="google_translate_element" @click="alignArabic()"></div>
     </div>
 </div>
 
@@ -352,7 +354,6 @@ export default {
     Navigation
   },
   data(){
-     const lang = localStorage.getItem('lang');
       return{
         current_menus:[],
         current_sub_menus:[],
@@ -376,14 +377,70 @@ export default {
         cart_item_qty:[], //keeps track of individual cart item qty in an array
         total_amount:0,
         item:{},
-        language:lang,
+        language:'',
       }
   },
   methods:{
-        changeLanguage(event){
-            localStorage.setItem('lang', event.target.value);
-            // window.location.reload();
-        },     
+       alignArabic(){
+            var el = document.getElementById('google_translate_element');
+            var select = el.getElementsByClassName('goog-te-combo')[0];
+            var arabic = document.getElementsByClassName('arabic');
+            var order_btn = document.getElementsByClassName('order-btn');
+            var text_div = document.getElementsByClassName('text-div');
+            var radiobtn_inner= document.getElementsByClassName('radio-btns-inner');
+            var butons =  document.getElementsByClassName('ord-btn');
+            var item_deatails = document.getElementsByClassName('details-content')[1];
+            select.addEventListener('change', function(){              
+            console.log(butons); 
+            if(select.value == 'ar'){                       
+                Array.from(arabic).forEach((item)=>{
+                    item.classList.add('text-right');
+                });
+
+                Array.from(order_btn).forEach((item)=>{
+                    item.classList.add('text-right');
+                });
+
+                Array.from(text_div).forEach((item)=>{
+                    item.classList.add('text-right');
+                });
+
+                Array.from(radiobtn_inner).forEach((item)=>{
+                    item.classList.add('float-right');
+                });
+
+                Array.from(butons).forEach((item)=>{
+                    item.classList.add('float-right');
+                });
+                item_deatails.classList.add('text-right');
+                return;
+            } else{
+                Array.from(arabic).forEach((item)=>{
+                    item.classList.remove('text-right');
+                });
+
+                Array.from(order_btn).forEach((item)=>{
+                    item.classList.remove('text-right');
+                });
+
+                Array.from(text_div).forEach((item)=>{
+                    item.classList.remove('text-right');
+                });
+
+                Array.from(radiobtn_inner).forEach((item)=>{
+                    item.classList.remove('float-right');
+                });
+
+                Array.from(butons).forEach((item)=>{
+                    item.classList.remove('float-right');
+                });
+                item_deatails.classList.remove('text-right');
+                return;
+            }
+            
+            
+        })
+        },    
         viewItemDetails(menu_item){
             this.item = menu_item;
         },
@@ -620,7 +677,7 @@ select:focus{
 .cart-preview{
     position:fixed;
     width:auto;  
-    top:2.65rem; 
+    top:5.5rem !important; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -733,7 +790,7 @@ select:focus{
 }
 .img-div{
     object-fit:cover;
-    width:30%;
+    width:25%;
     float:right;
     margin-top:auto;
     margin-bottom:auto;
@@ -745,8 +802,15 @@ select:focus{
     height:140px;
     max-height:100%;
 }
+.price-time{
+    width:20%;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    max-height:99%;
+}
 .text-div{
-    width:70%;
+    width:55%;
     display: flex;
     align-items: center;
     padding-right:5px;
@@ -804,8 +868,8 @@ font-weight:300;
     border: none;
     color: white;
     padding: 5px 10px;
-    border-radius: 7px;;
-    text-align: center;
+    border-radius: 7px;
+    // text-align: center;
     text-decoration: none;
     font-size: 16px;
 }
@@ -825,7 +889,7 @@ font-weight:300;
     border-radius: 10px;
     font-size: 16px;
 }
-.order-btn .button{
+.order-btn {
         display:inline-block;
     }
 .order-btn .open{
@@ -894,6 +958,7 @@ input[type='radio']:after {
 
 .radio-btns{
     padding: 5px 0;
+    height:auto;
 }
 .radio-btns label{
     font-size:8pt;
