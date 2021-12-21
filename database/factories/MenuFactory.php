@@ -24,7 +24,7 @@ class MenuFactory extends Factory
             'slang' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'avatar' => $this->faker->url(),
-             'image' =>  $this->faker-> randomElement(['breakfast.jpeg', 'breakfast1.jpeg', 'dinner1.jpeg', 'dinner3.jpg', 'lunch1.jpeg']),
+            //  'image' =>  $this->faker-> randomElement(['breakfast.jpeg', 'breakfast1.jpeg', 'dinner1.jpeg', 'dinner3.jpg', 'lunch1.jpeg']),
             // 'deleted_at' => null,
         ];
     }

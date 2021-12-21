@@ -75,7 +75,7 @@
         <div class="row items-div-inner my-2 shadow border" v-if="menu_item.publish == 'true'">
             
             <div class="text-div">
-                <div :class=" this.text_right + ' pl-3 pt-3 w-100 inner-items-div text_right' ">                    
+                <div :class=" this.text_right + ' pl-3 pt-3 pb-2 w-auto inner-items-div text_right' ">                    
                     <div class="title ">                        
                         <!-- <span class="price  pr-3  text-right"> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span>  -->
                         <span class=""> <h5> {{ capitalize(menu_item.menu_item_name) }} </h5> </span>            
@@ -99,7 +99,7 @@
                             </div>                            
                         </div> 
                     </div>
-                    <p class="arabic order-btn text-left pt-1 my-2" >
+                    <p class="arabic order-btn text-left pt-1 mt-2 mb-0" >
                         <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
                              <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
@@ -118,19 +118,18 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class="py-2 arabic" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus"></i> Add</button></span> 
+                        <span class="open ">  <button class=" arabic" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span> 
 
                         <!-- <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span> -->
                         
                      </p>
                 </div>    
             </div>  
-            <div class="price-time text-right pt-3 pb-2 px-0 mx-0">
+            <div class="price-time text-right pt-3 pb-2 px-0 mx-0 my-auto">
                 <span>  <span class="price    "> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> </span> <br>
                 <span> <span class="time text-default "> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span></span>
             </div>
-                 <div class="img-div "> 
-                     
+                 <div class="img-div ">                      
                <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
@@ -218,7 +217,6 @@
             </div>
         </div>
     </div> 
-
 
 <!-- ------------------------------------------------ -->
  <!--main menu modal popup -->
@@ -381,6 +379,7 @@ export default {
       }
   },
   methods:{
+      // align arabic content
        alignArabic(){
             var el = document.getElementById('google_translate_element');
             var select = el.getElementsByClassName('goog-te-combo')[0];
@@ -677,7 +676,7 @@ select:focus{
 .cart-preview{
     position:fixed;
     width:auto;  
-    top:5.5rem !important; 
+    top:3rem !important; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -799,7 +798,7 @@ select:focus{
     object-fit: cover;
     width:150px;
     max-width:100%;
-    height:140px;
+    height:142px;
     max-height:100%;
 }
 .price-time{
@@ -807,7 +806,9 @@ select:focus{
     display: flex;
     flex-direction:column;
     justify-content: space-between;
+    height:137px;
     max-height:99%;
+    padding-right:5px;
 }
 .text-div{
     width:55%;

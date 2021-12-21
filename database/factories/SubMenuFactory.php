@@ -27,9 +27,9 @@ class SubMenuFactory extends Factory
             'available_days' => $this->faker-> randomElement(['monday', 'wednesday', 'friday']),
             'slang' => $this->faker-> word(),
             'description' => $this->faker-> sentence(),
-            'image' => $this->faker-> url(),
+           // 'image' => $this->faker-> url(),
             'avatar' => $this->faker-> url(),
-            'image' =>  $this->faker-> randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']),
+            // 'image' =>  $this->faker-> randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']),
             'deleted_at' => null
         ];
     }
