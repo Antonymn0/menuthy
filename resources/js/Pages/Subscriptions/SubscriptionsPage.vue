@@ -1,16 +1,16 @@
 <template>
-<div class="parent">
-    <div>
+ <div >
         <Header />
         <TopNavbar />        
-    </div>
-     
+    </div> 
+<div class="parent">
+       
         <div class="">
             <div class="header text-center">
                 <h1> How much does Menuthy cost? </h1> 
                 <p class="text-muted">There is a reason why we are the best in the market. </p> 
             </div>
-
+        <div class="fade-in"> 
             <div class="bill-period mx-auto py-5"> 
                 <div class="px-1">
                     <p class="yearly shadow active-yearly" @click.prevent="[toggleYearlyTabs($event, 'monthly'),  updatePackagePrice(60, 120, 240)]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
@@ -20,7 +20,7 @@
                 </div>
             </div>
 <!-- ------------------------ Monthly package panels------------------------------------------ -->
-        <div class="monthly-panels ">
+        <div class="monthly-panels  ">
             <div class="types py-1 mx-auto"> 
                 <div class="px-2"> <span class="types-tabs shadow active-types" @click.prevent="[toggleTypestabs($event), updatePackagePrice(60, 120, 240)]"> Dine-In QR Menu</span> </div>
                 <div class="px-2"> <span class="types-tabs shadow" @click.prevent="[toggleTypestabs($event), updatePackagePrice(120,240,480)]">Delivery and Pick-Up Menu </span> </div>
@@ -118,7 +118,7 @@
                 </div>
             </div>
          </div>
-
+</div>
         </div>
        <Footer /> 
     </div>
