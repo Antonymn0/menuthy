@@ -38,8 +38,8 @@
                                 <span class="amount">{{this.basic}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices </p>
+                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -50,8 +50,8 @@
                                 <span class="amount">{{this.pro}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button  @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pt-3"> <button  @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -62,8 +62,8 @@
                                 <span class="amount">{{this.advanced}}</span>
                                 <span class="period">/Month</span>                              
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
+                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@
                                 <span class="amount">{{this.basic}}</span>
                                 <span class="period">/Yearly</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -99,8 +99,8 @@
                                 <span class="amount">{{this.pro}}</span>
                                 <span class="period">/Yearly</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
+                            <p class="pt-2"> <button @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -111,8 +111,8 @@
                                 <span class="amount">{{this.advanced}}</span>
                                 <span class="period">/Yearly</span>                              
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check"></i> </p>
-                            <p class=""> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                 </div>
@@ -276,7 +276,8 @@ export default {
 }
 .packages .packages-inner div div i{
     font-weight:600;
-    font-size:40px;
+    font-size:18px;
+    margin-right:5px;
 }
 .packages .packages-inner div div p{
    display:flex;
@@ -371,5 +372,21 @@ export default {
         width:100%;    
         padding:1rem;
     }
+    .packages .packages-inner div div h4{
+    font-weight:800;
+    font-size:20px;
+}
+.packages .packages-inner div div .currency{
+    font-weight:600;
+    font-size:20px;
+}
+.packages .packages-inner div div .amount{
+    font-weight:800;
+    font-size:40px;
+}
+.packages .packages-inner div div i{
+    font-weight:600;
+    font-size:15px;
+}
 }
 </style>
