@@ -1,7 +1,7 @@
 @component('mail::message')
 # Verify email
 # Hello {{$user->first_name}},   <img src="/public/images/menuthy_logo_iii.png" style="width:30%" alt="App Logo" class="float-right">
-{{ asset('https://laravel.com/img/notification-logo.png') }}
+
 
 We are excited that you are here to try our services.
 

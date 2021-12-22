@@ -32,7 +32,7 @@
             <div class="row"> 
                 <div class="col-sm-6">
                     <div class="fpb-1">
-                        <label for="type">Restaurant type <small class="text-muted">(indian cousines, chinese etc..)</small></label>
+                        <label for="type">Restaurant type <small class="text-muted">(Indian cuisines, Chinese etc..)</small></label>
                         <input type="text" class=" "  placeholder="Restaurant type" id="type" v-model="form.type"/>
                         <small class="text-danger text-center">  {{this.errors.type}}</small>
                     </div>

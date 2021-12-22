@@ -87,6 +87,7 @@ import Footer from "./layouts/Footer";
 import TrialExpiryNotification from "./Notifications/TrialExpiryNotification";
 import SubscriptionExpiryNotification from "./Notifications/SubscriptionExpiryNotification";
 
+
 export default {
   props: {
     //
@@ -98,6 +99,7 @@ export default {
    Footer,
     SubscriptionExpiryNotification, 
     TrialExpiryNotification,
+    
   },
 };
 </script>

@@ -9,7 +9,7 @@ use App\Mail\WelcomeEmail;
 use App\Mail\ConfirmEmail;
 use Illuminate\Support\Facades\Mail;
 
-class userCreatedListener implements shouldQueue
+class userCreatedListener 
 {
 
     
@@ -35,7 +35,7 @@ class userCreatedListener implements shouldQueue
     public function handle(userCreated $event)
     {
             // send welcome email and confirmation emails
-       Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
-       Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+          Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
+          Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
     }
 }

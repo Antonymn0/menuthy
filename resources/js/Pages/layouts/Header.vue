@@ -1,7 +1,8 @@
 <template >
     <!-- --------- components ------ -->  
-         <TrialExpiryNotification /> 
-         <SubscriptionExpiryNotification /> 
+        <TrialExpiryNotification /> 
+        <SubscriptionExpiryNotification /> 
+        <EmailNotConfirmedNotification />
         <RestaurantInformation />            
         <MobilePreview />
         <QrCode />
@@ -107,6 +108,7 @@ import MobileNav from "../HeaderComponents/MobileNav";
 import Profile from "../Profile/Profile";
 import TrialExpiryNotification from "../Notifications/TrialExpiryNotification";
 import SubscriptionExpiryNotification from "../Notifications/SubscriptionExpiryNotification";
+import EmailNotConfirmedNotification from "../Notifications/EmailNotConfirmedNotification";
 import Feedback from "../Feedback/Feedback";
 
 export default {
@@ -121,6 +123,7 @@ export default {
         RestaurantInformation,
        SubscriptionExpiryNotification, 
         TrialExpiryNotification,
+        EmailNotConfirmedNotification,
         MobilePreview,
         Profile,
         MobileNav,

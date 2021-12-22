@@ -28,7 +28,7 @@ class AuthController extends Controller
    
 
         // if user has restaurant redirect to dashboard
-        if(count($restaurant)){
+        if(isset($restaurant)){
             return redirect()->intended('/dashboard');
         }
 

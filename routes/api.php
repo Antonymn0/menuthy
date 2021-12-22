@@ -32,6 +32,10 @@ if (App::environment('production')) {
   // Deleted users
    Route::get('users/deleted','Api\User\UserController@deletedusers');
 
+   //send email verification
+   Route::get('send-email-verification/{email}','Web\Auth\EmailVerificationController@sendVerificationEmailLink');
+
+  // -------------------------------------------------------------------------------------//
     // Item API routes
   Route::apiResource('order','Api\Order\OrderController');
     // Get deleted orders
@@ -82,6 +86,8 @@ if (App::environment('production')) {
     //  Parmamnently delete Table
   Route::get('table/parmanently-delete/{id}','Api\Table\TableController@parmanentlyDelete');
 
+// ------------------------------------------------------------------------------------------------------//
+
     // Menu API routes routes
   Route::apiResource('menu','Api\Menu\MenuController');
     // Get deleted menu
@@ -104,6 +110,7 @@ if (App::environment('production')) {
     //  Parmamnently delete MenuItem
   Route::get('menu-item/parmanently-delete/{id}','Api\MenuItem\MenuItemController@parmanentlyDelete');
 
+// ---------------------------------------------------------------------------------------------------------------------//
 
     // SubMenu API routes routes
   Route::apiResource('sub-menu','Api\SubMenu\SubMenuController');

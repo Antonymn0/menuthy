@@ -61,13 +61,11 @@
             </carousel>
         </div>        
     </div>
-
     <!-- ----------------------------------------------------------- -->
     <div class=" text-center align-items-center ">
         <h5> <b> {{ capitalize( this.menu_name) }} </b> </h5>
         <p v-if="this.description"> {{this.description}} </p>
     </div>
-
     <!-- ---------------------item panels------------------------------ -->
     <div v-if="menu_items.length" class="items-panel"> 
         
@@ -99,7 +97,7 @@
                             </div>                            
                         </div> 
                     </div>
-                    <p class="arabic order-btn text-left pt-1 mt-2 mb-0" >
+                    <p class="arabic order-btn text-left pt-1 mt-2 mb-1" >
                         <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
                              <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
@@ -118,7 +116,7 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic" @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span> 
+                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span> 
 
                         <!-- <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span> -->
                         
@@ -249,13 +247,13 @@
                     <div class="pop-up-img ">
                         <span class="p-2   back-btn " @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
-                    <h5 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h5>
-                    <div class="popup-items-div mt-3" v-if="this.cart_items.length" >
+                    <h4 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h4>
+                    <div class="popup-items-div mt-2" v-if="this.cart_items.length" >
                         <div class="my-1 mx-3 row" v-for="(item, index) in this.cart_items" :key="index">                            
                             <div class="inner-popup-div rounded border-bottom p-1 mb-2"> 
                                  <span @click="removeFromCart(item.id)" style="position:absolute; margin-top:-1.5rem; right:.5rem; font-size:1.5rem; cursor:pointer;"> <i class="bi bi-x text-danger"></i></span> 
                                 <div class="popup-text" style="width:79%; height:auto; float:left">
-                                   <span class=" mr-5 rounded">
+                                   <span class="select mr-5 rounded">
                                        <label :for="item.id" class=" font-weight-lighter pr-1"> Qty </label>
                                         <select :name="item.id" :id="item.id" class="rounded" :ref="item.id" v-model="this.cart_item_qty[item.id]" @change="this.calculateTotalAmount">
                                             <option value="1" default selected> 1</option>
@@ -269,20 +267,18 @@
                                         </select>
                                         {{this.cart_item_qty[item.id]}}
                                         </span>
-                                    <p  v-if="item.menu_item_name" class="d-flex justify-content-between align-items-center mb-0">
+                                    <h6  v-if="item.menu_item_name" class="d-flex justify-content-between align-items-center mb-0">
                                         <span> {{ capitalize(item.menu_item_name) }}</span> 
-                                        <span style="color:#f16730;"> <small>{{this.restaurant.currency}} {{item.price}} </small> </span>
-                                    </p> 
+                                        <span style="color:#f16730; width:25%;"> <small>{{this.restaurant.currency}} {{item.price}} </small> </span>
+                                    </h6> 
                                     <p class="description mb-0 d-flex justify-content-between text-lighter" >
-                                        <span v-if="item.description"> <small> {{ capitalize(item.description) }}</small>  </span>
-                                         <span><i class="bi bi-alarm pl-1 text-danger text-right"></i> <small>{{menu_item.preparation_time}} mins </small> </span>
+                                        <span v-if="item.description" class="text-left"> <small> {{ capitalize(item.description) }}</small>  </span>
+                                         <span style="width:25%"><i class="bi bi-alarm pl-1 text-danger text-right" style="font-size:.7rem;"></i> <small>{{item.preparation_time}} mins </small> </span>
                                     </p>
                                      
                                 </div>
-                                <div class="popup-img" style="width:20%; height:100%; float:right">
-                                  
-                                    <img :src="item.image" alt="menu-image" class="rounded shadow" style="width:50px; height:auto; object-fit:cover;">
-                                   
+                                <div class="popup-img d-flex align-items-center" style="width:20%; height:100%; float:right">                                  
+                                    <img :src="item.image" alt="menu-image" class="rounded shadow" style="width:60px; height:auto; object-fit:cover;">                                   
                                 </div>
                             </div>                            
                         </div>
@@ -1079,7 +1075,9 @@ input[type='radio']:after {
        padding:8px;
        border-radius: 10px;;
     }
-
+.select{
+        font-size:.65rem;
+    }
 /* media queries */
 @media only screen and (max-width: 600px) {
     .parent-div{
@@ -1115,6 +1113,9 @@ input[type='radio']:after {
       width:100px;
      max-width:100%;
 
+    }
+    .select{
+        font-size:.65rem;
     }
 }
 

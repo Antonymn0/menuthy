@@ -18,7 +18,7 @@ use Inertia\Inertia;
    // print orders route 
     Route::get('/{restaurant_id}/orders/print', [App\Http\Controllers\Web\Order\OrderController::class, 'printOrders']);
     
-/////////// PUBLIC ROUTES  ///////////////
+//========== PUBLIC ROUTES  ================
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,7 +28,6 @@ Route::get('/', function () {
     if(is_null($user)) return Inertia::render('SuperAdmin/createAdmin');
     else return Inertia::render('User/RegisterUser');
       })->name('register');
-
 
    // main mobile menu view route (via qr code)
    Route::get('/{restaurant_name}/menu/{restaurant_id}/{menu_id?}/{table_number?}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMainMenu'])->name('mobile menu');
@@ -40,12 +39,11 @@ Route::get('/', function () {
    Route::get('/{restaurant_name}/main-menu/{menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getOneMainMenu'])->name('get main mobile menu');
    Route::get('/fetch/{restaurant_name}/main-menu/{menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'fetchMainMenu'])->name('fetch main mobile menu');
    
-
   
  // verify email route
     Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
 
-/////////// PROTECTED ROUTES /////
+//============ PROTECTED  All Users ROUTES ===================
 Route::middleware(['auth', 'is_user'])->group(function () { 
     // route to dash board users will be redirected accordingly
     Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
@@ -82,9 +80,14 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
     Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
 
+  // --------------------------------------------------------------------------//4
+  //Subsciptions packages  page routes
+  Route::get('subscription', [App\Http\Controllers\Web\Subscription\SubscriptionController::class, 'showSubscriptionsPackagesPage'])->name('show-packages');
+  
   }); 
 
-//-------------------------------SUPER ADMIN ROUTES -------------------------- //////
+
+//=====================Protected SUPER ADMIN ROUTES ====================//////
 Route::middleware(['auth','admin'])->group(function () { 
     Route::get('all-admins',[App\Http\Controllers\Web\Admin\AdminController::class, 'allAdmins'])->name('all-admin');
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
@@ -102,6 +105,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin-qrscansearch/{restaurant_name}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByName'])->name('all-scans-by-name');
   // Qr code scans search by email route route
     Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
+
+  
 
   });  
     

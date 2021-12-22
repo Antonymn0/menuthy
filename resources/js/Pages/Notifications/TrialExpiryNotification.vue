@@ -3,7 +3,7 @@
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpiryDate !== null">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
     <span class="mr-2 pl-4">   Your Trial period will expire on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this button to: </span>
-      <a href="#" class=" btn-danger  btn">Subscribe</a>
+      <a href="/subscription" class=" btn-danger  btn">Subscribe</a>
   </div>
 </div>
 </template>
