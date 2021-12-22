@@ -1,11 +1,11 @@
 <template>
-<div class=" mb-0 " >
+<div class=" mb-0 border-bottom" >
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.emailverified == false">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
-    <span class="mr-2 pl-4"> Your email is not confirmed. Please Click this button to: </span>
+    <span class="mr-2 pl-4"> Your email is not verified. Please Click this button to: </span>
       <a href="#" class=" btn-danger  btn" @click.prevent="sendVerificationEmail(this.user.email)">Confirm</a>
       <p class="text-dark mr-2 pl-4 mt-1">
-          {{message}}
+         <small>{{message}} </small> 
       </p>
   </div>
 </div>
@@ -33,7 +33,7 @@ export default {
             axios.get('api/send-email-verification/' + email)
                 .then( response => {
                 if( response.status = 200){
-                    this.message = 'We have sent a verification link to your email. Please check your inbox and click the link to verify.'
+                    this.message = 'We have sent a verification link to your email address. Please check your inbox and click the link to verify.'
                     } 
                 })
                 .catch( error => {
@@ -45,7 +45,6 @@ export default {
     },
     mounted(){
       this.user = window.authUser;
-      console.log(this.user.email_verified_at);
       if(this.user.email_verified_at !== undefined && this.user.email_verified_at !== null ) this.emailverified = true;      
 
     }

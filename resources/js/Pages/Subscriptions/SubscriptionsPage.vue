@@ -119,6 +119,7 @@
             </div>
          </div>
 </div>
+            
         </div>
        <Footer /> 
     </div>
@@ -126,6 +127,8 @@
 </template>
 
 <script>
+import { StripeCheckout } from '@vue-stripe/vue-stripe';
+
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
@@ -134,6 +137,7 @@ export default {
         Header,
         Topnavbar,
         Footer,
+        StripeCheckout,       
     },
     data(){
         return{
@@ -143,6 +147,7 @@ export default {
         }
     },
     methods:{
+      
         toggleYearlyTabs(event, period){
             var el = document.getElementsByClassName('yearly'); 
             var type = document.getElementsByClassName('types-tabs');           

@@ -167,6 +167,7 @@ export default {
     width:65%;
 }
 .middle-header{
+    padding-top:.2rem;
     font-size: 1rem;
     display:flex; 
     align-items: center;

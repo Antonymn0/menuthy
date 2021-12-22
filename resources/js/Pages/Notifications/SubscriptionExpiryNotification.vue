@@ -1,9 +1,11 @@
 <template>
 <div > 
+  <div class=" mb-0 border-bottom" >
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.registrationExpiryDate != null">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
    <span class="mr-2 pl-4">   Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}.</span> Click here to:  <a href="#" class=" btn-danger ml-2 btn">extend your subscription</a>  . </span>
   </div>
+</div>
 </div>
 </template>
 

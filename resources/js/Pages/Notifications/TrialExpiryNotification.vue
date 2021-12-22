@@ -1,9 +1,14 @@
 <template>
-<div class=" mb-0 " >
-  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpiryDate !== null">
+<div class=" mb-0 border-bottom" >
+  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpiryDate !== null && this.trialExpired == false">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
     <span class="mr-2 pl-4">   Your Trial period will expire on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this button to: </span>
       <a href="/subscription" class=" btn-danger  btn">Subscribe</a>
+  </div>
+  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpired == true">
+    <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
+    <span class="mr-2 pl-4">   Your Trial period period EXPIRED on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Please click this button to: </span>
+      <a href="/subscription" class=" btn-danger  btn"> Buy a Subscription</a>
   </div>
 </div>
 </template>
@@ -14,6 +19,7 @@ export default {
     data(){
         return{
             trialExpiryDate:null,
+            trialExpired:false,
         }
     },
     methods:{
@@ -25,9 +31,15 @@ export default {
         updateDate(){
             this.trialExpiryDate = window.authUser.trial_expiry;
         },
+        checkIfTrialIsExpired(){
+            var date = moment(this.trialExpiryDate).format("YYYY-MM-DD HH:mm:ss");
+            var today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+            if(today > date) this.trialExpired = true;
+        }
     },
     mounted(){
       setTimeout(this.updateDate(),5000);
+      setTimeout(this.checkIfTrialIsExpired(),5000);
 
        
 

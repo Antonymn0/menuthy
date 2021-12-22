@@ -82,10 +82,8 @@ export default {
 
 
      .restaurant-btn:hover, .restaurant-btn:hover:active {
-        color: #fcfcfc; 
-        font-size: 1.1rem;
-        font-weight: 300;
-        background-color:  #d41b14; 
+        color: #fcfcfc;
+        background-color:  #e91912; 
      }
      
 
