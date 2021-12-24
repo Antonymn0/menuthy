@@ -207,7 +207,7 @@ export default {
             event.target.classList.add('active-types');
         },
         stripeCheckout(plan){
-            if(! confirm('Do you want to subscribe to this plan?')) return;
+            if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;
             const stripe = Stripe(this.stripe_public_key);
             plan.plan_period = this.plan_period;
             var form_data = new FormData();
