@@ -149,19 +149,22 @@ export default {
                 'name' : 'Menuthy basic plan',
                 'price' : 60,
                 'description' : 'Menuthy BASIC plan subscription',
-                'plan_period' : this.period()
+                'plan_period' : this.period(),
+                'type' : 'basic'
                 },
             pro:{
                 'name' : 'Menuthy Pro plan',
                 'price' :120,
                 'description' : 'Menuthy PRO plan subscription',
-                'plan_period' : this.period()
+                'plan_period' : this.period(),
+                'type' : 'pro'
             },
             advanced:{
                 'name': 'Menuthy Advanced plan',
                 'price' :240,
                 'description' : 'Menuthy ADVANCED plan subscription',
-                'plan_period' : this.period()
+                'plan_period' : this.period(),
+                'type' : 'advanced'
                 },
             plan_period:'monthly'            
         }
@@ -210,8 +213,9 @@ export default {
             if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;
             const stripe = Stripe(this.stripe_public_key);
             plan.plan_period = this.plan_period;
+            plan.email = window.authUser.email;
             var form_data = new FormData();
-            form_data.append('user_data', JSON.stringify({plan})) ;
+            form_data.append('user_data', JSON.stringify({plan}));
 
             axios.post('api/stripe-pay-checkout', form_data )
             .then( payload => {

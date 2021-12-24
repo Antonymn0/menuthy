@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Inertia\Inertia;
+use App\Models\User;
+use Carbon\Carbon;
 
 class StripePayController extends Controller
 { 
-
     
     /**
      * Display a listing of the resource.
@@ -18,6 +19,7 @@ class StripePayController extends Controller
      */
     public function checkout(Request $request)
     {     
+        if(!isset($request->user_data)) return;
         $url = url('');
         $user_data = json_decode($request->user_data);
 
@@ -44,10 +46,51 @@ class StripePayController extends Controller
             ]
         ]);
 
-        echo json_encode($session);
-        
+        // this update block to be edited or removed
+        User::where('email', $user_data->plan->email)->first()
+                ->update([
+                'registration_status'=> 'registered',
+                'package_type'=>$user_data->plan->type,
+                'trial_expiry'=> null,
+                'registration_expiry' => Carbon::now()->addDays(30)
+            ]);
+
+        echo json_encode($session);        
     }
 
+
+    /**
+     * Update user subscrition details 
+     * this part will be edited later
+     */
+    public function updateUserSubscription($user_email, $subscription_type, $subscription_period){
+        return $user_email;
+            if(!isset($user_email)) return;
+            
+            $user = User::where('email', $user_email)->first();
+            
+            if(!isset($user)) return ;
+            // this block to be edited
+            $user->update([
+                'registration_status'=> 'registered',
+                'package_type'=> $subscription_type,
+                'trial_expiry'=> null,
+                'registration_expiry' => getExpiryDate($subscription_period)
+            ]);            
+    }
+
+    /**
+     * return subscription expiry date
+     */
+    public function getExpiryDate($subscription_period){
+        if(isset($subscription_period)){
+            $days = 0;
+            if($subscription_period == 'monthly') $days = 30; 
+            if($subscription_period == 'yearly') $days = 365; 
+
+            return Carbon::now()->addDays($days);
+        }
+    }
 
     /**
      * succssful stripe payment callback route
@@ -60,6 +103,7 @@ class StripePayController extends Controller
      * succssful stripe payment callback route
      */
     public function failed(){
+
         return Inertia::render('Subscriptions/FailedPage');
     }
 

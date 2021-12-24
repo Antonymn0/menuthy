@@ -5,7 +5,7 @@ Please click the button below to purchase a package and enjoy our unlimited serv
 
 
 
-@component('mail::button', ['url' => url('/dashboard')])
+@component('mail::button', ['url' => url('/subscription')])
 Purchase
 @endcomponent
 

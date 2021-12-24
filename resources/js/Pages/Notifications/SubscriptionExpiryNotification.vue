@@ -1,9 +1,10 @@
 <template>
 <div > 
   <div class=" mb-0 border-bottom" >
-  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.registrationExpiryDate != null">
+  <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.expired == true">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-   <span class="mr-2 pl-4">   Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}.</span> Click here to:  <a href="#" class=" btn-danger ml-2 btn">extend your subscription</a>  . </span>
+   <span class="mr-2 pl-4">   Your Subscription will expire on <span class="h6"> {{  formatDate(this.registrationExpiryDate)}}.</span> Click here to:
+     <a href="/subscription" class=" btn-danger ml-2 btn">extend your subscription</a>  . </span>
   </div>
 </div>
 </div>
@@ -16,7 +17,8 @@ import moment from 'moment';
 export default {
     data(){
         return{
-            registrationExpiryDate:null,
+            expired:false,
+            registrationExpiryDate:'',
         }
     },
     methods:{
@@ -29,9 +31,15 @@ export default {
           this.registrationExpiryDate = window.authUser.registration_expiry;
                  
         },
+        checkIfSubscriptionIsExpired(){
+            var date = moment(this.registrationExpiryDate).format("YYYY-MM-DD HH:mm:ss");
+            var today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+            if( date - today < 25) this.expired = true;
+        }
     },
     mounted(){
         setTimeout(this.updateDate(), 10000);       
+        setTimeout(this.checkIfSubscriptionIsExpired(), 10000);       
         
     }
 }
