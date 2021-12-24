@@ -3,13 +3,17 @@
         <Header />
         <TopNavbar />        
     </div> 
-<div class="parent">
-       
+<div class="parent">       
         <div class="">
             <div class="header text-center">
                 <h1> How much does Menuthy cost? </h1> 
                 <p class="text-muted">There is a reason why we are the best in the market. </p> 
             </div>
+
+             <div class="text-center pt-2">
+                <p> <span>  Pay with: </span> <span><img src="/images/stripe_logo.png" class="" style="width:62px"  alt="stripe-logo"></span></p>
+            </div>
+
         <div class="fade-in"> 
             <div class="bill-period mx-auto py-5"> 
                 <div class="px-1">
@@ -35,11 +39,11 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Basic</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.basic}}</span>
+                                <span class="amount">{{this.basic.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices </p>
-                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -47,11 +51,11 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Pro</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.pro}}</span>
+                                <span class="amount">{{this.pro.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
-                            <p class="pt-3"> <button  @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="pt-3"> <button  @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -59,11 +63,11 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Advanced</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency" >QAR</span>
-                                <span class="amount">{{this.advanced}}</span>
+                                <span class="amount">{{this.advanced.price}}</span>
                                 <span class="period">/Month</span>                              
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
-                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                 </div>
@@ -84,11 +88,11 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Basic </h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.basic}}</span>
+                                <span class="amount">{{this.basic.price}}</span>
                                 <span class="period">/Yearly</span>
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
-                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -96,11 +100,11 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Pro</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.pro}}</span>
+                                <span class="amount">{{this.pro.price}}</span>
                                 <span class="period">/Yearly</span>
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
-                            <p class="pt-2"> <button @click.prevent="purchasePackage(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="pt-2"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
                     <div> 
@@ -108,46 +112,64 @@
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Advanced</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency" >QAR</span>
-                                <span class="amount">{{this.advanced}}</span>
+                                <span class="amount">{{this.advanced.price}}</span>
                                 <span class="period">/Yearly</span>                              
                             </p>
                             <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
-                            <p class="pt-3"> <button @click.prevent="purchasePackage(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
                 </div>
             </div>
          </div>
-</div>
-            
-        </div>
-       <Footer /> 
     </div>
+             
+    </div>
+    <Footer /> 
+</div>
     
 </template>
 
 <script>
-import { StripeCheckout } from '@vue-stripe/vue-stripe';
 
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
+
 export default {
+    props:[ 'stripe_public_key'],
     components:{
         Header,
         Topnavbar,
-        Footer,
-        StripeCheckout,       
+        Footer,          
     },
     data(){
-        return{
-            basic:60,
-            pro:120,
-            advanced:240,
+         return{
+            basic:{
+                'name' : 'Menuthy basic plan',
+                'price' : 60,
+                'description' : 'Menuthy BASIC plan subscription',
+                'plan_period' : this.period()
+                },
+            pro:{
+                'name' : 'Menuthy Pro plan',
+                'price' :120,
+                'description' : 'Menuthy PRO plan subscription',
+                'plan_period' : this.period()
+            },
+            advanced:{
+                'name': 'Menuthy Advanced plan',
+                'price' :240,
+                'description' : 'Menuthy ADVANCED plan subscription',
+                'plan_period' : this.period()
+                },
+            plan_period:'monthly'            
         }
     },
-    methods:{
-      
+    methods:{       
+        period(){
+            return this.plan_period;
+        },
         toggleYearlyTabs(event, period){
             var el = document.getElementsByClassName('yearly'); 
             var type = document.getElementsByClassName('types-tabs');           
@@ -156,10 +178,12 @@ export default {
                 });            
             event.target.classList.add('active-yearly');
             if(period == 'yearly'){
+                this.plan_period= 'yearly';
                 document.getElementsByClassName('monthly-panels')[0].classList.add('hidden');
                 document.getElementsByClassName('yearly-panels')[0].classList.remove('hidden');
             } 
             if(period == 'monthly'){
+                this.plan_period ='monthly';
                 document.getElementsByClassName('monthly-panels')[0].classList.remove('hidden');
                 document.getElementsByClassName('yearly-panels')[0].classList.add('hidden');
             } 
@@ -171,9 +195,9 @@ export default {
             type[3].classList.add('active-types');
         },
         updatePackagePrice(basic, pro, advanced){
-            this.basic = basic;
-            this.pro = pro;
-            this.advanced = advanced;
+            this.basic.price = basic;
+            this.pro.price = pro;
+            this.advanced.price = advanced;
         },
         toggleTypestabs(event){
             var el = document.getElementsByClassName('types-tabs');
@@ -182,14 +206,33 @@ export default {
                 });
             event.target.classList.add('active-types');
         },
-        purchasePackage(subscription){
-            console.log(subscription);
+        stripeCheckout(plan){
+            if(! confirm('Do you want to subscribe to this plan?')) return;
+            const stripe = Stripe(this.stripe_public_key);
+            plan.plan_period = this.plan_period;
+            var form_data = new FormData();
+            form_data.append('user_data', JSON.stringify({plan})) ;
+
+            axios.post('api/stripe-pay-checkout', form_data )
+            .then( payload => {
+                console.log(payload);
+                stripe.redirectToCheckout({sessionId: payload.data.id});
+            })
+            .catch( error => {
+               this.$swal('Failed!');
+                console.log(error);                    
+            });
         }
     },
+    mounted(){
+       //
+    }
+     
 }
 </script>
 
 <style scoped>
+
     .parent{
         font-family:Poppins !important;
         padding-top:3rem;
@@ -304,6 +347,7 @@ export default {
 .hidden{
     display:none;
 }
+
 
 /* //media queries */
   @media only screen and (max-width: 750px) {

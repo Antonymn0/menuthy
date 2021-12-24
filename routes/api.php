@@ -140,7 +140,11 @@ if (App::environment('production')) {
   // Qr code scans route
     Route::get('/qr-code-scan/{restaurant_id}',[App\Http\Controllers\Api\QrCodeScan\QrCodeScanController::class, 'countQrCodeScan'])->name('qr-code-scan');
   
-  
+
+   //============================Stripe Pay checkout routes ===================//
+    // stripe pay checkout route
+    Route::post('stripe-pay-checkout',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'checkout'])->name('stripe-checkout');
+   
 
 Route::fallback(function() {
         return response()->json([

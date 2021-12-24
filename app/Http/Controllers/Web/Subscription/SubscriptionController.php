@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
      */
     public function showSubscriptionsPackagesPage()
     {
-        return Inertia::render('Subscriptions/SubscriptionsPage');
+        return Inertia::render('Subscriptions/SubscriptionsPage', ['stripe_public_key' => env('STRIPE_PUBLISHABLE_KEY')] );
     }
 
     /**

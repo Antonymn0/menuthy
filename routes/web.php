@@ -80,14 +80,14 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
     Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
 
-  // --------------------------------------------------------------------------//4
+  // --------------------------------------------------------------------------//
   //Subsciptions packages  page routes
   Route::get('subscription', [App\Http\Controllers\Web\Subscription\SubscriptionController::class, 'showSubscriptionsPackagesPage'])->name('show-packages');
   
   }); 
 
 
-//=====================Protected SUPER ADMIN ROUTES ====================//////
+//=====================Protected SUPER ADMIN ROUTES ====================//
 Route::middleware(['auth','admin'])->group(function () { 
     Route::get('all-admins',[App\Http\Controllers\Web\Admin\AdminController::class, 'allAdmins'])->name('all-admin');
     Route::get('admin',[App\Http\Controllers\Web\Admin\AdminController::class, 'index'])->name('super-admin');
@@ -107,11 +107,15 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
 
   
+   
 
   });  
     
-
-
+    //========================= Stripe checkout callback routes ======================
+ // stripe succsess route
+    Route::get('/payment-success',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'successful'])->name('stripe-checkout-successful');
+    // stripe cancel checkout route
+    Route::get('/payment-fail',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'failed'])->name('stripe-checkout-failed');
 
 
 Auth::routes([

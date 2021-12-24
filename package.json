@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@chenfengyuan/vue-qrcode": "^2.0.0-rc.1",
+        "@stripe/stripe-js": "^1.22.0",
         "@vue-stripe/vue-stripe": "^4.2.9",
         "@vueform/multiselect": "^2.2.0",
         "bootstrap-vue-3": "^0.0.5",

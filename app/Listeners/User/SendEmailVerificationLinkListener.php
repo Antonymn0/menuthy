@@ -30,7 +30,11 @@ class SendEmailVerificationLinkListener implements shouldQueue
      * @return void
      */
     public function handle(SendEmailVerificationLink $event)
-    {
-        Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+    {        
+        try{
+            Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+        }catch(\Swift_TransportException $transportExp){
+            return $transportExp->getMessage();
+        }
     }
 }

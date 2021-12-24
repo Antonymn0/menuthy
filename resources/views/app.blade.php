@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" href="/images/artboard.png">
-<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     {{-- bootstrap css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -24,6 +24,8 @@
 @routes
 <script src="{{ mix('js/app.js') }}" defer></script>
 
+{{-- stripe js --}}
+<script src="https://js.stripe.com/v3/"></script>
 
 <style>
     body {
@@ -287,8 +289,8 @@ function toggleAccordion(){
     }
 }
 
+
  </script>
- 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
     integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
@@ -299,6 +301,9 @@ function toggleAccordion(){
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
 {{-- webpack.mix.css --}}
 <script src="{{ mix('js/app.js') }}" defer></script>
 

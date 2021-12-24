@@ -39,9 +39,7 @@ export default {
     },
     mounted(){
       setTimeout(this.updateDate(),5000);
-      setTimeout(this.checkIfTrialIsExpired(),5000);
-
-       
+      setTimeout(this.checkIfTrialIsExpired(),5000);      
 
     }
 }

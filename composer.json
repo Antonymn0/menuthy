@@ -19,6 +19,7 @@
         "laravel/ui": "^3.3",
         "league/flysystem-aws-s3-v3": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "stripe/stripe-php": "^7.108",
         "tightenco/ziggy": "^1.4"
     },
     "require-dev": {
