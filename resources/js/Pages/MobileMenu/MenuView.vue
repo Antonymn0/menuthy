@@ -238,7 +238,7 @@
 </div>
 
  <!--order final pop up --> 
-<!-- Modal -->
+<!--cart items Modal -->
 <div class="modal fade mx-auto text-center" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow" >
@@ -306,7 +306,8 @@
                     </div>
                         <p class="order-btn  mt-2 mx-auto">                           
                             <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span> 
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </button></span> 
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </button></span> <br>
+                            <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
                 </div>
@@ -431,8 +432,7 @@ export default {
                 });
                 item_deatails.classList.remove('text-right');
                 return;
-            }
-            
+            }           
             
         })
         },    
@@ -452,10 +452,10 @@ export default {
                 this.cart_item_qty[menu_item_id]= 1;
                 this.cart_items.push(menu_item);   
                 this.calculateTotalAmount(); ;
-            } 
+            }
+            delete this .errors.cart_empty ;
         },
         removeFromCart(item_id){
-            console.log(item_id);
             this.cart_items.forEach((item)=>{
                 if(item.id == item_id){
                     var index = this.cart_items.indexOf(item); // remove item from cart
@@ -468,6 +468,8 @@ export default {
 
                 this.calculateTotalAmount(); 
             });
+            if(!Object.keys(this.cart_items).length) this.errors.cart_empty = "Cart Empty. Pease add some items";
+            else delete this.errors.cart_empty;
         },
         calculateTotalAmount(){
               var total = 0;
@@ -539,6 +541,11 @@ export default {
       placeOrder(){
           this.validateOrderType();
           if(Object.keys(this.errors).length) return;
+          if(!Object.keys(this.cart_items).length){
+              this .errors.cart_empty = "Cart Empty. Pease add some items";
+              return;
+          }
+           
           // gather order data
           var order_data = new FormData();            
             order_data.append('order_number', Date.now());            
