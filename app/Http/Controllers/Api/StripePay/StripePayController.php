@@ -72,15 +72,15 @@ class StripePayController extends Controller
         if($event->type == 'charge.succeeded'){
             $payment =  array();
                 $payment['customer_name'] = $event->data->object->name;
-                $payment['email'] = $event->data->object->email;
-                $payment['phone'] = $event->data->object->phone;
-                $payment['currency'] = $event->data->currency;
-                $payment['customer_id'] = $event->data->customer;
-                $payment['paid'] = $event->data->paid;
-                $payment['payment_intent'] = $event->data->payment_intent;
-                $payment['payment_method'] = $event->data->payment_method;
-                $payment['reciept_url'] = $event->data->reciept_url;
-                $payment['amount_paid'] = $event->data->object->amount;
+                // $payment['email'] = $event->data->object->email;
+                // $payment['phone'] = $event->data->object->phone;
+                // $payment['currency'] = $event->data->currency;
+                // $payment['customer_id'] = $event->data->customer;
+                // $payment['paid'] = $event->data->paid;
+                // $payment['payment_intent'] = $event->data->payment_intent;
+                // $payment['payment_method'] = $event->data->payment_method;
+                // $payment['reciept_url'] = $event->data->reciept_url;
+                // $payment['amount_paid'] = $event->data->object->amount;
            return $payment; 
         } 
         if($event->type == 'charge.failed') return $event->type;
