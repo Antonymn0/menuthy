@@ -17,18 +17,38 @@
         <div class="fade-in"> 
             <div class="bill-period mx-auto py-5"> 
                 <div class="px-1">
-                    <p class="yearly shadow active-yearly" @click.prevent="[toggleYearlyTabs($event, 'monthly'),  updatePackagePrice(60, 120, 240)]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
+                    <p class="yearly shadow active-yearly" 
+                    @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
+                     updatePackagePrice(60, 120, 240),
+                      updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
+                      ]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>
                 <div class="px-1">
-                    <p class="yearly shadow "  @click.prevent="[toggleYearlyTabs($event, 'yearly'),  updatePackagePrice(600, 1200, 2400)]"> <span ><i class="bi bi-check"></i> </span>  Billed Yearly <small class="sm small s font-weight-light">Save 20%</small></p>
+                    <p class="yearly shadow "  
+                    @click.prevent="[toggleYearlyTabs($event, 'yearly'), 
+                     updatePackagePrice(600, 1200, 2400),
+                     updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
+                     ]"> <span ><i class="bi bi-check"></i> </span>  Billed Yearly <small class="sm small s font-weight-light">Save 20%</small></p>
                 </div>
             </div>
 <!-- ------------------------ Monthly package panels------------------------------------------ -->
         <div class="monthly-panels  ">
             <div class="types py-1 mx-auto"> 
-                <div class="px-2"> <span class="types-tabs shadow active-types" @click.prevent="[toggleTypestabs($event), updatePackagePrice(60, 120, 240)]"> Dine-In QR Menu</span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" @click.prevent="[toggleTypestabs($event), updatePackagePrice(120,240,480)]">Delivery and Pick-Up Menu </span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" @click.prevent="[toggleTypestabs($event), updatePackagePrice(60, 120, 240)]">Tablet Menu </span> </div>
+                <div class="px-2"> <span class="types-tabs shadow active-types"
+                @click.prevent="[toggleTypestabs($event),
+                 updatePackagePrice(60, 120, 240),
+                 updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
+                 ]"> Dine-In QR Menu</span> </div>
+                <div class="px-2"> <span class="types-tabs shadow"
+                 @click.prevent="[toggleTypestabs($event), 
+                 updatePackagePrice(120,240,480),
+                 updatespecification('Up to 500 orders Per Month', 'Up to 1000 orders Per Month', 'Up to 3000 Orders Per Month')
+                 ]">Delivery and Pick-Up Menu </span> </div>
+                <div class="px-2"> <span class="types-tabs shadow"
+                 @click.prevent="[toggleTypestabs($event),
+                  updatePackagePrice(60, 120, 240),
+                  updatespecification('Connect up to 5 devices ', 'Connect up to 25 devices', 'Connect Up to 50 devices')
+                  ]">Tablet Menu </span> </div>
             </div>
            
             <div class="packages py-3 mt-4">
@@ -42,7 +62,7 @@
                                 <span class="amount">{{this.basic.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  {{this.basic.specification}} </p>
                             <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
@@ -54,7 +74,7 @@
                                 <span class="amount">{{this.pro.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.pro.specification}}</p>
                             <p class="pt-3"> <button  @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
@@ -66,7 +86,7 @@
                                 <span class="amount">{{this.advanced.price}}</span>
                                 <span class="period">/Month</span>                              
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.advanced.specification}}</p>
                             <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
@@ -76,9 +96,21 @@
 <!-- ------------------------ Yearly package panels------------------------------------------ -->
         <div class="yearly-panels hidden">
             <div class="types py-1 mx-auto"> 
-                <div class="px-2"> <span class="types-tabs shadow active-types" @click.prevent="[toggleTypestabs($event,),  updatePackagePrice(600, 1200, 2400)]"> Dine-In QR Menu</span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" @click.prevent="[toggleTypestabs($event)], updatePackagePrice(1200, 2400, 4800)">Delivery and Pick-Up Menu </span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" @click.prevent="[toggleTypestabs($event), updatePackagePrice(600, 1200, 2400)]">Tablet Menu </span> </div>
+                <div class="px-2"> <span class="types-tabs shadow active-types"
+                @click.prevent="[toggleTypestabs($event), 
+                 updatePackagePrice(600, 1200, 2400),
+                 updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
+                 ]"> Dine-In QR Menu</span> </div>
+                <div class="px-2"> <span class="types-tabs shadow" 
+                @click.prevent="[toggleTypestabs($event),
+                updatePackagePrice(1200, 2400, 4800),
+                updatespecification('Up to 500 orders Per Month', 'Up to 1000 orders Per Month', 'Up to 3000 Orders Per Month')
+                ]">Delivery and Pick-Up Menu </span> </div>
+                <div class="px-2"> <span class="types-tabs shadow" 
+                @click.prevent="[toggleTypestabs($event),
+                 updatePackagePrice(600, 1200, 2400),
+                 updatespecification('Connect up to 5 devices ', 'Connect up to 25 devices', 'Connect Up to 50 devices')
+                 ]">Tablet Menu </span> </div>
             </div>
             <div class="packages py-3 mt-4">  
                 <p class="py-2 pb-3 text-center mx-auto mb-0" style="font-weight:500; font-size:20px;">Billed Yearly</p>   
@@ -89,9 +121,9 @@
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.basic.price}}</span>
-                                <span class="period">/Yearly</span>
+                                <span class="period">/Year</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  {{this.basic.specification}}</p>
                             <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
@@ -101,9 +133,9 @@
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.pro.price}}</span>
-                                <span class="period">/Yearly</span>
+                                <span class="period">/Year</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> Connect up to 5 devices </p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.pro.specification}} </p>
                             <p class="pt-2"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
                         </div>
                     </div>
@@ -113,9 +145,9 @@
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency" >QAR</span>
                                 <span class="amount">{{this.advanced.price}}</span>
-                                <span class="period">/Yearly</span>                              
+                                <span class="period">/Year</span>                              
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  Connect up to 5 devices</p>
+                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.advanced.specification}} </p>
                             <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
                         </div>
                     </div>
@@ -150,21 +182,24 @@ export default {
                 'price' : 60,
                 'description' : 'Menuthy BASIC plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'basic'
+                'type' : 'basic',
+                'specification': ''
                 },
             pro:{
                 'name' : 'Menuthy Pro plan',
                 'price' :120,
                 'description' : 'Menuthy PRO plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'pro'
+                'type' : 'pro',
+                'specification': ''
             },
             advanced:{
                 'name': 'Menuthy Advanced plan',
                 'price' :240,
                 'description' : 'Menuthy ADVANCED plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'advanced'
+                'type' : 'advanced',
+                'specification': ''
                 },
             plan_period:'monthly'            
         }
@@ -226,7 +261,12 @@ export default {
                this.$swal('Failed!');
                 console.log(error);                    
             });
-        }
+        },
+        updatespecification(basic, pro, advanced){
+                this.basic.specification = basic;
+                this.pro.specification = pro;
+                this.advanced.specification = advanced;
+        },
     },
     mounted(){
        //

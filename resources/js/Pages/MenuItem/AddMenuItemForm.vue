@@ -51,13 +51,17 @@
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInputprice">Allergy warning</label>
-                <select v-model="this.form.allergy_warning" class="form-control p-4" >
-                    <option value="Alcohol">-select-</option>
+                <select v-model="this.form.allergy_warning" class="rounded p-3 w-100 " 
+                    style="color: #495057;
+                        background-color: #fff;
+                        background-clip: padding-box;
+                        border: 1px solid #ced4da;">
+                    <option  selected >- Select -</option>
                     <option value="Alcohol">Alcohol </option>
                     <option value="Cheese">Cheese</option>
                     <option value="Caffeine">Caffeine</option>
                     <option value="Chocolate">Chocolate</option>
-                </select>
+                </select>                 
             </div>
             <div class="mx-auto p-2">
                 <label for="exampleFormControlInputimage">Image*</label>
@@ -66,8 +70,7 @@
                     <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2 w-50"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload" required>
                 </div>    
                 <small class="text-danger"> {{this.errors.image }} </small>              
-           </div>
-       
+           </div>      
            
             <h5 class="pt-3 pb-1 pl-5 border-bottom">
                 Lables

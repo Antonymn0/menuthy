@@ -318,10 +318,12 @@
       
 
 <!-- ------------- Translate button--------------------- -->
+<div>
 <div class="translate-btn">
     <div class="translate-btn-inner shadow">
        <div id="google_translate_element" @click="alignArabic()"></div>
     </div>
+</div>
 </div>
 
 </div>
@@ -677,9 +679,9 @@ select:focus{
     cursor: pointer;     
 }
 .cart-preview{
-    position:fixed;
+    position:absolute;
     width:auto;  
-    top:3rem !important; 
+    top:-7rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -711,7 +713,7 @@ select:focus{
     max-width:100%;
     overflow-y:scroll;   
     overflow-x:hidden;  
-    margin-top:-2rem; 
+    margin-top:-2.5rem; 
 }
 
 .header-div img{
@@ -1055,11 +1057,19 @@ input[type='radio']:after {
     }
 
     //google translate styles
-    body > .skiptranslate {
-    position:absolute;
-    top:-50rem !important;
-    display: none;
+   body > .skiptranslate {
+        position:absolute !important;
+        top:-20rem !important;
+        height:0;
+        display: none;
     }
+    .skiptranslate iframe{
+        position:fixed !important;
+        top:-50rem !important;
+        height:0;
+        display: none;
+    }
+    
     .goog-te-gadget{
         overflow:hidden;
         height:40px;

@@ -51,7 +51,11 @@
                 </div>
              <div class="form-group">
                  <label for="exampleFormControlInputprice">Alergy warning</label>
-                 <select v-model="form.allergy_warning" class="form-control p-4" >
+                 <select v-model="form.allergy_warning" class="rounded p-3 w-100" 
+                    style="color: #495057;
+                        background-color: #fff;
+                        background-clip: padding-box;
+                        border: 1px solid #ced4da;">>
                      <option selected default>-select-</option>
                      <option value="Alcohol">Alcohol </option>
                      <option value="Cheese">Cheese</option>
@@ -170,7 +174,7 @@ components: { Multiselect },
                 is_veg:false, 
                 is_hot:false,  
                 is_halal:false, 
-                publish:true, 
+                publish:false, 
                 is_signiture:false, 
                 discount:1,
                 price:1,
@@ -265,12 +269,12 @@ components: { Multiselect },
         this.form.allergy_warning =  this.menuItem.allergy_warning; 
         this.form.ingredients =  this.menuItem.ingredients; 
         this.form.food_origin =  this.menuItem.food_origin; 
-        this.form.is_new =  this.menuItem.is_new; 
-        this.form.is_veg = this.menuItem.is_veg; 
-        this.form.is_hot =  this.menuItem.is_hot; 
-        this.form.is_signiture = this.menuItem.is_signiture; 
-        this.form.is_halal =  this.menuItem.is_halal; 
-        this.form.publish =  this.menuItem.publish; 
+        if(this.menuItem.is_new == 'true')this.form.is_new =  this.menuItem.is_new; 
+        if(this.menuItem.is_veg == 'true')this.form.is_veg = this.menuItem.is_veg; 
+        if(this.menuItem.is_hot == 'true')this.form.is_hot =  this.menuItem.is_hot; 
+        if(this.menuItem.is_signiture == 'true')this.form.is_signiture = this.menuItem.is_signiture; 
+        if(this.menuItem.is_halal == 'true')this.form.is_halal =  this.menuItem.is_halal; 
+        if(this.menuItem.publish == 'true')this.form.publish =  this.menuItem.publish; 
         this.form.discount =  this.menuItem.discount;
         this.form.price =  this.menuItem.price; 
     }

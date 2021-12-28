@@ -27,6 +27,16 @@
 {{-- stripe js --}}
 <script src="https://js.stripe.com/v3/"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-215940087-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-215940087-1');
+</script>
+
 <style>
     body {
         color:#9699a2;
