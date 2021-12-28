@@ -51,7 +51,6 @@ class StripePayController extends Controller
 
 
 
-
     /**
      * return subscription expiry date
      */
@@ -69,19 +68,22 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleChargeEvents(Request $event){
-        return($event);
+        if($event->type == 'charge.succeeded') return $event->type;
+        if($event->type == 'charge.failed') return $event->type;
+        else return 'Unkown webhoo event';
+        
     }
 
 
     /**
-     * succssful stripe payment callback route
+     * successful stripe payment callback route
      */
     public function successful(){
         return Inertia::render('Subscriptions/SuccessPage');
     }
 
     /**
-     * succssful stripe payment callback route
+     * successful stripe payment callback route
      */
     public function failed(){
         return Inertia::render('Subscriptions/FailedPage');
