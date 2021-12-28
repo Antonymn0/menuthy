@@ -69,7 +69,7 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleChargeEvents(Request $event){
-        dd($event);
+        return($event);
     }
 
 

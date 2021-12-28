@@ -114,7 +114,6 @@ Route::middleware(['auth','admin'])->group(function () {
     // stripe cancel checkout route
     Route::get('/payment-fail',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'failed'])->name('stripe-checkout-failed');
 
- Route::post('/stripe-webhook',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'handleChargeEvents'])->name('stripe-charge-succsessfull');
 
 Auth::routes([
     'register' => false,
