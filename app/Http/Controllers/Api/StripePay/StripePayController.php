@@ -46,38 +46,11 @@ class StripePayController extends Controller
             ]
         ]);
 
-        // this update block to be edited or removed
-        User::where('email', $user_data->plan->email)->first()
-                ->update([
-                'registration_status'=> 'registered',
-                'package_type'=>$user_data->plan->type,
-                'trial_expiry'=> null,
-                'registration_expiry' => Carbon::now()->addDays(30)
-            ]);
-
         echo json_encode($session);        
     }
 
 
-    /**
-     * Update user subscrition details 
-     * this part will be edited later
-     */
-    public function updateUserSubscription($user_email, $subscription_type, $subscription_period){
-        return $user_email;
-            if(!isset($user_email)) return;
-            
-            $user = User::where('email', $user_email)->first();
-            
-            if(!isset($user)) return ;
-            // this block to be edited
-            $user->update([
-                'registration_status'=> 'registered',
-                'package_type'=> $subscription_type,
-                'trial_expiry'=> null,
-                'registration_expiry' => getExpiryDate($subscription_period)
-            ]);            
-    }
+
 
     /**
      * return subscription expiry date
@@ -93,6 +66,14 @@ class StripePayController extends Controller
     }
 
     /**
+     * handle charge  events
+     *  */ 
+    public function handleChargeEvents(Request $event){
+        dd($event);
+    }
+
+
+    /**
      * succssful stripe payment callback route
      */
     public function successful(){
@@ -103,8 +84,9 @@ class StripePayController extends Controller
      * succssful stripe payment callback route
      */
     public function failed(){
-
         return Inertia::render('Subscriptions/FailedPage');
     }
+
+    
 
 }

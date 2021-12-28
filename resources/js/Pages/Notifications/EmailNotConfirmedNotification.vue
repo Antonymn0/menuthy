@@ -3,7 +3,7 @@
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.emailverified == false">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
     <span class="mr-2 pl-4"> Your email is not verified. Please Click this button to: </span>
-      <a href="#" class=" btn-danger  btn" @click.prevent="sendVerificationEmail(this.user.email)">Confirm</a>
+      <a href="#" class=" btn-danger  btn" @click.prevent="sendVerificationEmail(this.user.email)">Verify</a>
       <p class="text-dark mr-2 pl-4 mt-1">
          <small>{{message}} </small> 
       </p>
@@ -32,7 +32,8 @@ export default {
         sendVerificationEmail(email){
             axios.get('api/send-email-verification/' + email)
                 .then( response => {
-                if( response.status = 200){
+                  console.log(response);
+                if( response.status == 200){
                     this.message = 'We have sent a verification link to your email address. Please check your inbox and click the link to verify.'
                     } 
                 })

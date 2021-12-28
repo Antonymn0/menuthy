@@ -106,9 +106,6 @@ Route::middleware(['auth','admin'])->group(function () {
   // Qr code scans search by email route route
     Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
 
-  
-   
-
   });  
     
     //========================= Stripe checkout callback routes ======================
