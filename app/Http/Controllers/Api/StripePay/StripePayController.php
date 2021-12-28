@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\SubscriptionPayment;
 use Carbon\Carbon;
 
 class StripePayController extends Controller
@@ -68,9 +69,22 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleChargeEvents(Request $event){
-        if($event->type == 'charge.succeeded') return $event->type;
+        if($event->type == 'charge.succeeded'){
+            $payment =  array();
+                $payment['customer_name'] = $event->data->object->name;
+                $payment['email'] = $event->data->object->email;
+                $payment['phone'] = $event->data->object->phone;
+                $payment['currency'] = $event->data->currency;
+                $payment['customer_id'] = $event->data->customer;
+                $payment['paid'] = $event->data->paid;
+                $payment['payment_intent'] = $event->data->payment_intent;
+                $payment['payment_method'] = $event->data->payment_method;
+                $payment['reciept_url'] = $event->data->reciept_url;
+                $payment['amount_paid'] = $event->data->object->amount;
+           return $payment; 
+        } 
         if($event->type == 'charge.failed') return $event->type;
-        else return 'Unkown webhoo event';
+        else return 'Unkown webhook event';
         
     }
 
@@ -87,8 +101,6 @@ class StripePayController extends Controller
      */
     public function failed(){
         return Inertia::render('Subscriptions/FailedPage');
-    }
-
-    
+    }    
 
 }
