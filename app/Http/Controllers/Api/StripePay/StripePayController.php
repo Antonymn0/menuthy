@@ -78,7 +78,7 @@ class StripePayController extends Controller
                 $payment['paid'] = $data['object']['paid'];
                 $payment['payment_intent'] = $data['object']['payment_intent'];
                 $payment['payment_method'] = $data['object']['payment_method'];
-                $payment['reciept_url'] = $data['object'];
+                $payment['reciept_url'] = $data['object']['receipt_url'];
                 $payment['amount_paid'] = $data['object']['amount'];
                 return $payment; 
         } 
