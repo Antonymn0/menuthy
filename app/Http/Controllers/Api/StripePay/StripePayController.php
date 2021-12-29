@@ -51,18 +51,6 @@ class StripePayController extends Controller
         echo json_encode($session);        
     }
 
-    /**
-     * return subscription expiry date
-     */
-    public function getExpiryDate($subscription_period){
-        if(isset($subscription_period)){
-            $days = 0;
-            if($subscription_period == 'monthly') $days = 30; 
-            if($subscription_period == 'yearly') $days = 365; 
-
-            return Carbon::now()->addDays($days);
-        }
-    }
 
     /**
      * handle charge  events
@@ -87,12 +75,12 @@ class StripePayController extends Controller
             $subscription = SubscriptionPayment::create($payment);
             $this->updateUser($payment);
             event(new SubscriptionCreated($subscription));
-            return $subscription; 
+            return 'Subscription successful'; 
         } 
         if($event->type == 'charge.failed'){  
             $payment = (object) $payment;         //convert array to object
             event(new SubscriptionFailed($payment));
-            return $payment;
+            return 'Subscription failed';
         } 
         else return 'Unhandled webhook event';
         
@@ -104,8 +92,13 @@ class StripePayController extends Controller
     public function updateUser($payment){
         $payment_obj = (object) $payment;         //convert array to object
         $user = User::where('email', $payment_obj->email)->first();
-        if(isset($user)) dump($user->email);
-        else dd('user not found');
+        if(isset($user)){
+            $user->update([
+                'registration_status' => 'subscribed',
+                'package_type' => $this->getPackageType($payment_obj),
+                'registration_expiy'=> $this-> getRegistrationExpiry($payment_obj)
+            ]);
+        };
     }
 
 
@@ -121,6 +114,49 @@ class StripePayController extends Controller
     */
     public function failed(){
         return Inertia::render('Subscriptions/FailedPage');
-    }    
+    } 
 
+    /**
+     * return NEW expiry date AFTER subscription
+     */
+    public function getRegistrationExpiry($payment_obj){
+        $days = 0;
+        $ex_date = null;
+
+        // monthy subscription
+        if($payment_obj->amount_paid == 60 || $payment_obj->amount_paid == 120 || $payment_obj->amount_paid == 240) $days =30;
+        if($payment_obj->amount_paid == 120 || $payment_obj->amount_paid == 240 || $payment_obj->amount_paid == 480) $days =30;
+        //yearly subsciption
+        if($payment_obj->amount_paid == 600 || $payment_obj->amount_paid == 1200 || $payment_obj->amount_paid == 2400) $days =365;
+        if($payment_obj->amount_paid == 1200 || $payment_obj->amount_paid == 2400 || $payment_obj->amount_paid == 4800) $days =365;
+
+        $ex_date = Carbon::now()->addDays($days);
+        return $ex_date;
+    }   
+
+    /**
+     * return package type after successful subscription
+     */
+    public function getPackageType($payment_obj){
+        $package_type ='';
+            // monthly 
+        if($payment_obj->amount_paid == 60 ) $package_type = 'basic';
+        if($payment_obj->amount_paid == 120 ) $package_type = 'pro';
+        if($payment_obj->amount_paid == 240 ) $package_type = 'advanced';
+        
+        if($payment_obj->amount_paid == 120 ) $package_type = 'basic';
+        if($payment_obj->amount_paid == 240 ) $package_type = 'pro';
+        if($payment_obj->amount_paid == 480 ) $package_type = 'advanced';
+        
+        //yearly
+        if($payment_obj->amount_paid == 600 ) $package_type = 'basic';
+        if($payment_obj->amount_paid == 1200) $package_type = 'pro';
+        if($payment_obj->amount_paid == 2400 ) $package_type = 'advanced';
+        
+        if($payment_obj->amount_paid == 1200 ) $package_type = 'basic';
+        if($payment_obj->amount_paid == 2400) $package_type = 'pro';
+        if($payment_obj->amount_paid == 4800 ) $package_type = 'advanced';
+
+        return $package_type;
+    }
 }
