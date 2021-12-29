@@ -82,10 +82,10 @@ class StripePayController extends Controller
                 $payment['reciept_number'] = $data['object']['receipt_number'];
                 $payment['reciept_url'] = $data['object']['receipt_url'];
                 $payment['amount_paid'] = $data['object']['amount'];
-                
-                $subscription = SubscriptionPayment::create($payment);
 
-                return $subscription; 
+            $subscription = SubscriptionPayment::create($payment);
+
+            return $subscription; 
         } 
         if($event->type == 'charge.failed') return $event;
         else return 'Unkown webhook event';

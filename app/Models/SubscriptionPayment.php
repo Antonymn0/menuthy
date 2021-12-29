@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubscriptionPayment extends Model
 {
-        use HasFactory;   
+    use HasFactory;   
     use SoftDeletes;
 
     /**
