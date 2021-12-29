@@ -102,7 +102,7 @@ class StripePayController extends Controller
  * Update user account after successful payment
  */
     public function updateUser($payment){
-        return $payment->email;
+        dd( $payment->email);
     }
 
 
