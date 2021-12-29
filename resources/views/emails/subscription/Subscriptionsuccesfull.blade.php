@@ -5,6 +5,6 @@ Thankyou for choosing our services.
 
 
 
-Thanks,<br>
+Thankyou,<br>
 {{ config('app.name') }}
 @endcomponent

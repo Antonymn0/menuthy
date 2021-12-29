@@ -7,6 +7,6 @@ If the problem persists, contact our support team on this email: suppor@menuthy.
 
 
 
-Thanks,<br>
+Thankyou,<br>
 {{ config('app.name') }}
 @endcomponent
