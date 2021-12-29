@@ -83,7 +83,7 @@ class StripePayController extends Controller
                 $payment['reciept_url'] = $data['object']['receipt_url'];
                 $payment['amount_paid'] = $data['object']['amount'];
 
-            $subscription = 'SubscriptionPayment::create($payment)';
+            $subscription = SubscriptionPayment::create($payment);
 
             return $subscription; 
         } 
