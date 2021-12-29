@@ -103,7 +103,7 @@ class StripePayController extends Controller
  */
     public function updateUser($payment){
         $payment = (object) $payment;         //convert array to object
-        dd( $payment->email);
+        dd( $payment);
     }
 
 
