@@ -72,14 +72,14 @@ class StripePayController extends Controller
             $payment =  array();
                 $payment['customer_name'] = $data['object']['billing_details']['name'];
                 $payment['email'] = $data['object']['billing_details']['email'];
-                $payment['reciept_email'] = $data['object']['receipt_email'];
-                $payment['reciept_phone'] = $data['object']['receipt_phone'];
                 $payment['phone'] = $data['object']['billing_details']['phone'];
                 $payment['currency'] = $data['object']['currency'];
                 $payment['customer_id'] = $data['object']['customer'];
                 $payment['paid'] = $data['object']['paid'];
                 $payment['payment_intent'] = $data['object']['payment_intent'];
                 $payment['payment_method'] = $data['object']['payment_method'];
+                $payment['reciept_email'] = $data['object']['receipt_email'];
+                $payment['reciept_number'] = $data['object']['receipt_number'];
                 $payment['reciept_url'] = $data['object']['receipt_url'];
                 $payment['amount_paid'] = $data['object']['amount'];
                 return $payment; 

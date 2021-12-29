@@ -18,7 +18,7 @@ class CreateSubscriptionPaymentsTable extends Migration
             $table->string('customer_name')->required();
             $table->string('email')->nullable();
             $table->string('reciept_email')->nullable();
-            $table->string('reciept_phone')->nullable();
+            $table->string('reciept_number')->nullable();
             $table->string('currency')->nullable();
             $table->string('customer_id')->nullable();
             $table->string('paid')->nullable();
