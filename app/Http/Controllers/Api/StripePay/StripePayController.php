@@ -85,6 +85,7 @@ class StripePayController extends Controller
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment);
+            $this->updateUser($payment);
             event(new SubscriptionCreated($subscription));
             return $subscription; 
         } 
@@ -96,6 +97,14 @@ class StripePayController extends Controller
         else return 'Unhandled webhook event';
         
     }
+
+/**
+ * Update user account after successful payment
+ */
+    public function updateUser($payment){
+        return $payment->email;
+    }
+
 
     /**
      * successful stripe payment callback route

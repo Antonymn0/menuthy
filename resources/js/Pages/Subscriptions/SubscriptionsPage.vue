@@ -251,7 +251,10 @@ export default {
             plan.email = window.authUser.email;
             var form_data = new FormData();
             form_data.append('user_data', JSON.stringify({plan}));
-
+            new Swal({
+                title: "Hint",
+                text:"Use the same email address you used to register your menuthy account."
+                });
             Swal.showLoading();
             axios.post('api/stripe-pay-checkout', form_data )
             .then( payload => {

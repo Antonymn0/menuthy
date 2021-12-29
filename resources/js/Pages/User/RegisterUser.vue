@@ -1002,7 +1002,6 @@ export default {
             this.validateForm();
             console.log(this.errors);
             if(Object.keys(this.errors).length) return;
-            console.log('No errors in the form...');
             var user_data = new FormData();
                 user_data.append('full_name', this.form.full_name);
                 user_data.append('email', this.form.email);
