@@ -1,7 +1,7 @@
 @component('mail::message')
-# Verify email
-# Hello {{$user->first_name}},   <img src="/public/images/menuthy_logo_iii.png" style="width:30%" alt="App Logo" class="float-right">
-
+<img src="http://menuthy.herokuapp.com/images/menuthy_logo_iii.svg" style="width:90px; float:right" alt="menuthy Logo"> <br>
+# Verify your email <br>
+ Hello {{$user->first_name}}, 
 
 We are excited that you are here to try our services.
 

@@ -1,4 +1,5 @@
 @component('mail::message')
+<img src="http://menuthy.herokuapp.com/images/menuthy_logo_iii.svg" style="width:90px; float:right" alt="menuthy Logo"> <br>
 # Dear {{$user->first_name}},
 
 Your subscription is expiring in less than a months time.
