@@ -9,8 +9,8 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\SubscriptionPayment;
 use Carbon\Carbon;
-use App\Events\Subscrioption\SubscriptionCreated;
-use App\Events\Subscrioption\SubscriptionFailed;
+use App\Events\Subscription\SubscriptionCreated;
+use App\Events\Subscription\SubscriptionFailed;
 
 class StripePayController extends Controller
 {     
