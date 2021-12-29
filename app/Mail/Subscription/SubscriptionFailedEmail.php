@@ -11,17 +11,17 @@ class SubscriptionFailedEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-     public $subscription;
+     public $payment;
     
     /**
      * Create a new event instance.
      *
-     * @param $subscription
+     * @param $payment
      * @return void
      */
-    public function __construct($subscription)
+    public function __construct($payment)
     {
-        $this->subscription = $subscription;
+        $this->payment = $payment;
     }
 
     /**
@@ -31,6 +31,6 @@ class SubscriptionFailedEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails/subscription/SubscriptionFailed')->with(['subscription'=>$this->subscription]);
+        return $this->markdown('emails/subscription/SubscriptionFailed')->with(['subscription'=>$this->payment]);
     }
 }
