@@ -82,11 +82,10 @@ class StripePayController extends Controller
                 $payment['amount_paid'] = $data['object']['amount'];
                 return $payment; 
         } 
-        if($event->type == 'charge.failed') return $event->type;
+        if($event->type == 'charge.failed') return $event;
         else return 'Unkown webhook event';
         
     }
-
 
     /**
      * successful stripe payment callback route
