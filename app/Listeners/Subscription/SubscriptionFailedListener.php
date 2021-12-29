@@ -28,6 +28,6 @@ class SubscriptionFailedListener
      */
     public function handle(SubscriptionFailed $event)
     {
-        Mail::to($event->subscription->email)->send(new SubscriptionFailed($event->subscription));
+        Mail::to($event->payment->email)->send(new SubscriptionFailed($event->payment));
     }
 }

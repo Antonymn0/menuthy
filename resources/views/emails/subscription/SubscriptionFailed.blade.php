@@ -1,5 +1,5 @@
 @component('mail::message')
-Dear {{$subscription->customer_name}},
+Dear {{$payment->customer_name}},
 Your subscription to menuthy package has not been successful.
 
 Please make sure your stripe account has enough money then try making the payment again.

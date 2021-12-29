@@ -14,17 +14,17 @@ class SubscriptionFailed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $subscription;
+    public $payment;
     
     /**
      * Create a new event instance.
      *
-     * @param $subscription
+     * @param $payment
      * @return void
      */
-    public function __construct($subscription)
+    public function __construct($payment)
     {
-        $this->subscription = $subscription;
+        $this->payment = $payment;
     }
 
     /**
