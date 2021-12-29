@@ -71,9 +71,9 @@ class StripePayController extends Controller
             $data = $event -> data;
             $payment =  array();
                 $payment['customer_name'] = $data['object']['billing_details']['name'];
-                // $payment['email'] = $data['billing_details']['email'];
-                // $payment['phone'] = $data['billing_details']['phone'];
-                // $payment['currency'] = $data['currency'];
+                $payment['email'] = $data['object']['billing_details']['email'];
+                $payment['phone'] = $data['object']['billing_details']['phone'];
+                $payment['currency'] = $data['currency'];
                 // $payment['customer_id'] = $event->data->customer;
                 // $payment['paid'] = $event->data->paid;
                 // $payment['payment_intent'] = $event->data->payment_intent;
