@@ -8,7 +8,6 @@ use Stripe\Stripe;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\SubscriptionPayment;
-use App\Models\User;
 use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
