@@ -6,6 +6,7 @@ use App\Events\Subscription\SubscriptionFailed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
+use App\Mail\Subscription\SubscriptionFailedEmail;
 use Illuminate\Support\Facades\Mail;
 
 class SubscriptionFailedListener
@@ -28,6 +29,6 @@ class SubscriptionFailedListener
      */
     public function handle(SubscriptionFailed $event)
     {
-        Mail::to($event->payment->email)->send(new SubscriptionFailed($event->payment));
+        Mail::to($event->payment->email)->send(new SubscriptionFailedEmail($event->payment));
     }
 }
