@@ -27,6 +27,8 @@ class SubscriptionPayment extends Model
         'payment_method',
         'card_type',
         'reciept_url',
+        'reciept_email',
+        'reciept_phone',
         'status',
         'amount_paid'
             ];

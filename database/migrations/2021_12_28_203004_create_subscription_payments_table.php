@@ -16,15 +16,16 @@ class CreateSubscriptionPaymentsTable extends Migration
         Schema::create('subscription_payments', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name')->required();
-            $table->string('email')->required();
-            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('reciept_email')->nullable();
+            $table->string('reciept_phone')->nullable();
             $table->string('currency')->nullable();
             $table->string('customer_id')->nullable();
             $table->string('paid')->nullable();
             $table->string('payment_intent')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('card_type')->nullable();
-            $table->string('reciept_url')->nullable();
+            $table->string('reciept_url')->required();
             $table->string('status')->nullable();
             $table->double('amount_paid')->required();
             $table->timestamps();
