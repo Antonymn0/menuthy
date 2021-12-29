@@ -79,7 +79,7 @@ class StripePayController extends Controller
                 // $payment['payment_intent'] = $event->data->payment_intent;
                 // $payment['payment_method'] = $event->data->payment_method;
                 // $payment['reciept_url'] = $event->data->reciept_url;
-                $payment['amount_paid'] = $data['object'];
+                $payment['amount_paid'] = $data['object']->amount;
                 return $payment; 
         } 
         if($event->type == 'charge.failed') return $event->type;
