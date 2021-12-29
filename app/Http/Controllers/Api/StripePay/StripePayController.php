@@ -102,6 +102,7 @@ class StripePayController extends Controller
  * Update user account after successful payment
  */
     public function updateUser($payment){
+        $payment = (object) $payment;         //convert array to object
         dd( $payment->email);
     }
 
