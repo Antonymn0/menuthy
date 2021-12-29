@@ -95,6 +95,7 @@ class StripePayController extends Controller
         if(isset($user)){
             $user->update([
                 'registration_status' => 'subscribed',
+                'trial_expiry' => null,
                 'package_type' => $this->getPackageType($payment_obj),
                 'registration_expiy'=> $this-> getRegistrationExpiry($payment_obj)
             ]);
