@@ -84,8 +84,6 @@ export default defineComponent({
         submitForm () {
             this.validateForm();
             if(this.errors.length > 0) return;
-            console.log('no errors...');
-            console.log(this.form);
             let form_data = new FormData();
                 form_data.append('sub_menu_name', this.form.sub_menu_name);
                 form_data.append('restaurant_id', this.restaurant_id);
@@ -96,7 +94,7 @@ export default defineComponent({
                 form_data.append('publish', this.form.publish);
                 if(this.form.image) form_data.append('image', this.form.image);
              
-             Swal.showLoading();        
+            Swal.showLoading();        
             axios.post('/api/sub-menu', form_data)
             .then( response => {
             if( response.status = 201){

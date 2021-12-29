@@ -952,6 +952,10 @@ export default {
                     'countryname': 'Uganda',
                     'name': 'Ugandan shilling',
                     'symbol': '&#85;&#83;&#104;'},
+                {'code': 'KES',
+                    'countryname': 'Kenya',
+                    'name': 'Kenyan shilling',
+                    'symbol': '&#85;&#83;&#104;'},
 
 
                 {'code': 'USD',

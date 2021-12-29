@@ -245,16 +245,16 @@ export default {
             event.target.classList.add('active-types');
         },
         stripeCheckout(plan){
-            if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;
+            if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;            
             const stripe = Stripe(this.stripe_public_key);
             plan.plan_period = this.plan_period;
             plan.email = window.authUser.email;
             var form_data = new FormData();
             form_data.append('user_data', JSON.stringify({plan}));
 
+            Swal.showLoading();
             axios.post('api/stripe-pay-checkout', form_data )
             .then( payload => {
-                console.log(payload);
                 stripe.redirectToCheckout({sessionId: payload.data.id});
             })
             .catch( error => {
