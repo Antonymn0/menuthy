@@ -89,7 +89,7 @@ class StripePayController extends Controller
             return $subscription; 
         } 
         if($event->type == 'charge.failed'){  
-            $payment= json_encode($payment);         
+            $payment= (object) $payment;         
             event(new SubscriptionFailed($payment));
             return $payment;
         } 
