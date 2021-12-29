@@ -50,8 +50,6 @@ class StripePayController extends Controller
         echo json_encode($session);        
     }
 
-
-
     /**
      * return subscription expiry date
      */
@@ -70,6 +68,7 @@ class StripePayController extends Controller
      *  */ 
     public function handleChargeEvents(Request $event){
         if($event->type == 'charge.succeeded'){
+            $data = $event -> data;
             $payment =  array();
                // $payment['customer_name'] = $event->data->object->name;
                 // $payment['email'] = $event->data->object->email;
@@ -80,7 +79,7 @@ class StripePayController extends Controller
                 // $payment['payment_intent'] = $event->data->payment_intent;
                 // $payment['payment_method'] = $event->data->payment_method;
                 // $payment['reciept_url'] = $event->data->reciept_url;
-                $payment['amount_paid'] = $event->data->object;
+                $payment['amount_paid'] = $data->object;
                 return $payment; 
         } 
         if($event->type == 'charge.failed') return $event->type;
@@ -97,8 +96,8 @@ class StripePayController extends Controller
     }
 
     /**
-     * successful stripe payment callback route
-     */
+    * successful stripe payment callback route
+    */
     public function failed(){
         return Inertia::render('Subscriptions/FailedPage');
     }    
