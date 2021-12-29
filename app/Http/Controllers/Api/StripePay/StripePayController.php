@@ -8,6 +8,7 @@ use Stripe\Stripe;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\SubscriptionPayment;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
@@ -102,8 +103,9 @@ class StripePayController extends Controller
  * Update user account after successful payment
  */
     public function updateUser($payment){
-        $payment = (object) $payment;         //convert array to object
-        dd( $payment);
+        $payment_obj = (object) $payment;         //convert array to object
+        $user = User::where('email', $payment_obj->email)->first();
+        dd( $user);
     }
 
 
