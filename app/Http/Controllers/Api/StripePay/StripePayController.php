@@ -70,7 +70,7 @@ class StripePayController extends Controller
         if($event->type == 'charge.succeeded'){
             $data = $event -> data;
             $payment =  array();
-                $payment['customer_name'] = $data['object']['name'];
+                // $payment['customer_name'] = $data['object']['name'];
                 // $payment['email'] = $event->data['object']['email'];
                 // $payment['phone'] = $event->data['object']['phone'];
                 // $payment['currency'] = $event->data['currency'];
