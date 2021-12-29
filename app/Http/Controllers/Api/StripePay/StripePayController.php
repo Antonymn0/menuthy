@@ -104,7 +104,8 @@ class StripePayController extends Controller
     public function updateUser($payment){
         $payment_obj = (object) $payment;         //convert array to object
         $user = User::where('email', $payment_obj->email)->first();
-        dd( $user);
+        if(isset($user)) dd($user);
+        else dd('user not found');
     }
 
 
