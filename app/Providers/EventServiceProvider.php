@@ -134,14 +134,26 @@ class EventServiceProvider extends ServiceProvider
 
          // Payment events
         'App\Events\Payment\paymentCreated' => [
-            //
-        ],
+            
+        ],        
         'App\Events\Payment\paymentUpdated' => [
             //
         ],
         'App\Events\Payment\paymentDestroyed' => [
             //
         ],
+
+         // Subscription events
+        'App\Events\Subscription\SubscriptionCreated' => [
+            'App\Listeners\Subscription\SubscriptionCreatedListener'
+        ],
+        'App\Events\Subscription\SubscriptionFailed' => [
+            'App\Listeners\Subscription\SubscriptionFailedListener'
+        ],
+        'App\Events\Subscription\SubscriptionUpdated' => [
+            //
+        ],
+        
     ];
 
     /**

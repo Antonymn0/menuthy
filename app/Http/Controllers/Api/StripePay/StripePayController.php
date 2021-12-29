@@ -9,10 +9,11 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\SubscriptionPayment;
 use Carbon\Carbon;
+use App\Events\Subscrioption\SubscriptionCreated;
+use App\Events\Subscrioption\SubscriptionFailed;
 
 class StripePayController extends Controller
-{ 
-    
+{     
     /**
      * Display a listing of the resource.
      *
@@ -67,28 +68,31 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleChargeEvents(Request $event){
+        $data = $event -> data;
+        $payment =  array();
+            $payment['customer_name'] = $data['object']['billing_details']['name'];
+            $payment['email'] = $data['object']['billing_details']['email'];
+            //$payment['phone'] = $data['object']['billing_details']['phone'];
+            $payment['currency'] = $data['object']['currency'];
+            $payment['customer_id'] = $data['object']['customer'];
+            $payment['paid'] = $data['object']['paid'];
+            $payment['payment_intent'] = $data['object']['payment_intent'];
+            $payment['payment_method'] = $data['object']['payment_method'];
+            $payment['reciept_email'] = $data['object']['receipt_email'];
+            $payment['reciept_number'] = $data['object']['receipt_number'];
+            $payment['reciept_url'] = $data['object']['receipt_url'];
+            $payment['amount_paid'] = $data['object']['amount'];
+
         if($event->type == 'charge.succeeded'){
-            $data = $event -> data;
-            $payment =  array();
-                $payment['customer_name'] = $data['object']['billing_details']['name'];
-                $payment['email'] = $data['object']['billing_details']['email'];
-                //$payment['phone'] = $data['object']['billing_details']['phone'];
-                $payment['currency'] = $data['object']['currency'];
-                $payment['customer_id'] = $data['object']['customer'];
-                $payment['paid'] = $data['object']['paid'];
-                $payment['payment_intent'] = $data['object']['payment_intent'];
-                $payment['payment_method'] = $data['object']['payment_method'];
-                $payment['reciept_email'] = $data['object']['receipt_email'];
-                $payment['reciept_number'] = $data['object']['receipt_number'];
-                $payment['reciept_url'] = $data['object']['receipt_url'];
-                $payment['amount_paid'] = $data['object']['amount'];
-
             $subscription = SubscriptionPayment::create($payment);
-
+            event(new SubscriptionCreated($subscription));
             return $subscription; 
         } 
-        if($event->type == 'charge.failed') return $event;
-        else return 'Unkown webhook event';
+        if($event->type == 'charge.failed'){            
+            event(new SubscriptionFailed($payment));
+            return $payment;
+        } 
+        else return 'Unhandled webhook event';
         
     }
 
