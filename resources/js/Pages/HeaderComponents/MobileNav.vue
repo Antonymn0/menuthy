@@ -26,32 +26,30 @@
                             </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant.id">  Cashier</a></li>
-                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id">  Kitchen</a></li>
-                                
-                                
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id">  Kitchen</a></li>                              
                     </ul>
                     </li>
-                        <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Design</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Feedback
-                            </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Survey forms</a></li>
-                        <li><a class="dropdown-item" href="#">Survey results</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </li>
-                        <li class="nav-item">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Survey forms</a></li>
+                            <li><a class="dropdown-item" href="#">Survey results</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+                    <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Reports</a>
                     </li>
-                        <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Settings</a>
-                    </li>
-                    <li class="nav-item dropdown m-1">
+                    </li> -->
+                    <!-- <li class="nav-item dropdown m-1">
                         <a class="nav-link  p-0 m-0 " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots pl-2" style="font-size: 1.5rem; "></i>
                             </a>
@@ -62,14 +60,13 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Integrations</a></li>
                         </ul>
-                    </li>  
+                    </li>   -->
                     <li class="dropdown-item  pt-2">
                         <form action="/logout" method="POST" enctype="multipart/form-data">
                             <div class="ml-2 border-top pt-2">
                             <input type="hidden" name="_token" :value="csrf">     
                             <button type="submit" class="btn-danger mx-auto"> 
-                                <i class="bi bi-box-arrow-left pr-1"></i> 
-                                Logout
+                                <i class="bi bi-box-arrow-left pr-1"></i>  Logout                               
                             </button>
                             </div>                        
                         </form>                     

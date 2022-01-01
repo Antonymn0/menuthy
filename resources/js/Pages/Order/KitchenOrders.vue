@@ -11,7 +11,7 @@
             <p class="col-md-6 text-right float-right">
                 <a href="#" class="btn btn-danger daily-report"> <i class="fa fa-arrow-circle-o-up pr-2 pl-2"></i> Export daily report</a>
                 <a :href="'/' + this.authRestaurant.id + '/orders/print'" class="btn text-white px-2 mx-3" style="background-color: #36a3f7;" @click="this.showLoading()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export </a>
-                <a href="#" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
+                <a href="#" id="refresh" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
             </p>
         </div>
         <div>
@@ -216,12 +216,13 @@ export default {
         else return;
         },
         markOrder(id, value){
+            if(!confirm("Update this order status?")) return;
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss"); 
-             axios.get('/api/order/mark/' + id + '/' + value +'/' + date)
+            axios.get('/api/order/mark/' + id + '/' + value +'/' + date)
             .then( response => {
-            if( response.status = 200){
-                console.log(response.data);
+                if( response.status = 200){
+                    this.refreshOrders();
                 } 
             })
             .catch( error => {
@@ -371,9 +372,13 @@ export default {
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
-                    if(order.status == 'recieved'){
-                        this.$refs.audio.play();
-                        return;
+                    if(order.status == 'recieved'){                        
+                        try {
+                           this.$refs.audio.play();
+                        return; 
+                        } catch (error) {
+                            console.log("Audio play failed.");
+                        }                        
                     } 
                 });
                 this.current_orders = response.data.data;                

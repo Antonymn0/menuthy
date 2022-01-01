@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\Subscription\SubscriptionSuccessful;
 use Illuminate\Support\Facades\Mail;
 
-class SubscriptionCreatedListener
+class SubscriptionCreatedListener implements shouldQueue
 {
     /**
      * Create the event listener.

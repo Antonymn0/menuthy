@@ -1,6 +1,6 @@
 <template>
 <div class=""> 
-    <Header />
+    <Header @passQrCode="updateQrCode($event)"/>
     <Topnavbar />
 
 </div>
@@ -64,8 +64,12 @@
                         Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
                         QR Menu for a contactless dine-in experience.                          
                     </p>
-                   <a href="#" class="p-2 btn btn-lg bg-white "> https://menuthy.com/restaurant<span class="btn btn-sm border rounded">Copy link</span> </a>
-               
+                   <p class="p-2 btn btn-lg bg-white ">
+                       <span>menuthy/{{this.restaurant.restaurant_name}} </span> 
+                       <span class="btn btn-sm border rounded" @click.prevent="copyToClipboard(this.qr_code)">Copy link</span> 
+                        <span class="text-success" v-if="this.link_copied"> <small> Copied!</small> </span> 
+                    </p>
+
                 </div>
                 <div class="col-sm-4 float-right d-flex">
                     <img src="/images/banner.png" alt="" class="float-right img-fluid">
@@ -89,18 +93,40 @@ import SubscriptionExpiryNotification from "./Notifications/SubscriptionExpiryNo
 
 
 export default {
-  props: {
+    props: {
     //
-  
-  },
-  components: {
-  Header,
-  Topnavbar,
-   Footer,
+
+    },
+    components: {
+    Header,
+    Topnavbar,
+    Footer,
     SubscriptionExpiryNotification, 
     TrialExpiryNotification,
-    
-  },
+    },
+
+    data(){
+        return{
+            qr_code:'qrCode',
+            link_copied:false,
+            restaurant: window.authRestaurant,
+        }
+    },
+    methods:{
+       updateQrCode(qrcode) {
+           this.qr_code = qrcode;
+       },
+       copyToClipboard(text){
+           navigator.clipboard.writeText(text);
+           this.link_copied = true;
+           setTimeout(() => {
+               this.link_copied = false;
+           }, 5000);
+       }
+       
+    }
+
+
 };
 </script>
 

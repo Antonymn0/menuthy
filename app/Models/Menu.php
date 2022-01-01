@@ -25,6 +25,7 @@ class Menu extends Model
         'restaurant_id',
         'availability',
         'take_away',
+        'published',
         'in_house',
         'available_days',
         'slang',

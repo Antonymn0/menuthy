@@ -91,15 +91,19 @@
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label">Take away</label>
                             </div>
+                            <!-- <div class="form-check form-check-inline d-flex align-items-center align-content-between">
+                                <i class="bi bi-dot"></i> 
+                                <label class="form-check-label" >Delivery</label>
+                            </div>                            
                             <div class="form-check form-check-inline d-flex align-items-center align-content-between">
                                 <i class="bi bi-dot"></i> 
-                                <label class="form-check-label" >Pick up</label>
-                            </div>                            
+                                <label class="form-check-label" >Drive through</label>
+                            </div>                             -->
                         </div> 
                     </div>
                     <p class="arabic order-btn text-left pt-1 mt-2 mb-1" >
                         <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
-                             <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
+                            <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
                         <span class="arabic px-2 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                             <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -116,10 +120,7 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span> 
-
-                        <!-- <span class="time text-default float-right pr-3"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span> -->
-                        
+                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>     
                      </p>
                 </div>    
             </div>  
@@ -174,7 +175,7 @@
                             <span class="badge badge-danger mr-1 p-1"  v-if="this.item.is_hot == 'true'"> Hot</span>
                             <span class="badge badge-success mr-1 p-1" v-if="this.item.is_veg == 'true'"> Veg</span>
                             <span class="badge badge-warning mr-1 p-1" v-if="this.item.is_halal !== 'false' "> Halal</span>
-                            <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signiture</span>
+                            <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signature</span>
                         </p>
 
                         <p class=" arabic " v-if="this.item.ingredients">
@@ -182,11 +183,11 @@
                         </p>
 
                         <p class="arabic"> 
-                            <span v-if="this.item.allergy_warning">Allergy warning: &nbsp; {{capitalize(this.item.allergy_warning)}} </span>
+                            <span v-if="this.item.allergy_warning !== 'null'">Allergy warning: &nbsp; {{capitalize(this.item.allergy_warning)}} </span>
                         </p>
                         <p class="arabic">
-                            <span class="mr-2" v-if="this.item.carlories"> Carlories:  {{this.item.carlories}} </span>
-                            <span v-if="this.item.food_origin"> Origin: {{capitalize(this.item.food_origin)}}  </span>
+                            <span class="mr-2" v-if="this.item.carlories !== 'null'"> Carlories:  {{this.item.carlories}} </span>
+                            <span v-if="this.item.food_origin !== 'null' "> Origin: {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
                      <p class="order-btn pt-2 mt-2 arabic">
@@ -208,10 +209,9 @@
                                 {{this.cart_item_qty[this.item.id]}}
                                 <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                             </span>
-                     </p>
-               </div>
-            </div>
-            
+                        </p>
+                </div>
+            </div>            
             </div>
         </div>
     </div> 
@@ -245,7 +245,7 @@
          <div class="pop-up " >
                 <div class=" rounded" style="border-radius:15px; overflow:hidden">
                     <div class="pop-up-img ">
-                        <span class="p-2   back-btn " @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
+                        <span class="p-2   back-btn " id="close" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
                     <h4 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h4>
                     <div class="popup-items-div mt-2" v-if="this.cart_items.length" >
@@ -274,39 +274,43 @@
                                     <p class="description mb-0 d-flex justify-content-between text-lighter" >
                                         <span v-if="item.description" class="text-left"> <small> {{ capitalize(item.description) }}</small>  </span>
                                          <span style="width:25%"><i class="bi bi-alarm pl-1 text-danger text-right" style="font-size:.7rem;"></i> <small>{{item.preparation_time}} mins </small> </span>
-                                    </p>
-                                     
+                                    </p>                                     
                                 </div>
                                 <div class="popup-img d-flex align-items-center" style="width:20%; height:100%; float:right">                                  
                                     <img :src="item.image" alt="menu-image" class="rounded shadow" style="width:60px; height:auto; object-fit:cover;">                                   
                                 </div>
                             </div>                            
                         </div>
-                        <p class="text-right lead mb-1 pr-5 mx-1"> Amount {{this.total_amount}}</p>
+                        <p class="text-right lead mb-1 pr-5 mx-1"> Amount {{this.restaurant.currency}} {{this.total_amount}}</p>
                     </div>
                     <div class="text-muted py-5 lead" v-else> 
-                        <small> --  Cart is empty, Please select some items  --</small>
+                        <small> --  Cart is empty, Please add some items --</small>
                     </div>
                     <div class="pop-up-text  py-2">                       
                         <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In">
-                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> Dine in</label>
+                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine in </small> </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away">
-                            <label class="form-check-label" :for=" 'r2' +  menu_item.id">Take away</label>
+                            <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Take away </small> </label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Pick Up" >
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Pick up</label>
-                        </div> <br>
+                        <!-- <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Delivery" >
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Delivery</label>
+                        </div>  -->
+                        <!-- <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" >
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Drive through</label>
+                        </div>  -->
+                       <br>
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto">                           
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span> 
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()">Pay later </button></span> <br>
+                            <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
@@ -314,8 +318,7 @@
             </div>
          </div>
   </div>
-</div>   
-      
+</div>      
 
 <!-- ------------- Translate button--------------------- -->
 <div>
@@ -337,7 +340,7 @@
 <script> 
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide,Navigation } from 'vue3-carousel';
-
+import { Modal } from 'bootstrap';
 
 export default {
   name: 'App',
@@ -375,6 +378,7 @@ export default {
         total_amount:0,
         item:{},
         language:'',
+        spinner:''
       }
   },
   methods:{
@@ -541,56 +545,56 @@ export default {
       },
         
       placeOrder(){
-          this.validateOrderType();
-          if(Object.keys(this.errors).length) return;
-          if(!Object.keys(this.cart_items).length){
-              this .errors.cart_empty = "Cart Empty. Pease add some items";
-              return;
-          }
-           
-          // gather order data
-          var order_data = new FormData();            
-            order_data.append('order_number', Date.now());            
-            order_data.append('restaurant_id', this.restaurant.id);
-            order_data.append('amount', this.total_amount);
-            order_data.append('paid', 'false');
-            order_data.append('number_of_items', this.cart_items.length);
-            order_data.append('status', 'recieved');
-            order_data.append('order_type', this.order_type);
-            if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
-            if(!this.User.table_number) order_data.append('table_number', 1); //default table number is 1
+        this.validateOrderType();
+        if(Object.keys(this.errors).length) return;
+        if(!Object.keys(this.cart_items).length){
+        this .errors.cart_empty = "Cart Empty. Pease add some items";
+        return;
+        }           
+        // gather order data
+        var order_data = new FormData();            
+        order_data.append('order_number', Date.now());            
+        order_data.append('restaurant_id', this.restaurant.id);
+        order_data.append('amount', this.total_amount);
+        order_data.append('paid', 'false');
+        order_data.append('number_of_items', this.cart_items.length);
+        order_data.append('status', 'recieved');
+        order_data.append('order_type', this.order_type);
+        if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
+        if(!this.User.table_number) order_data.append('table_number', 1); //default table number is 1
 
-            // gather order item data
-            var order_items = [];
-            this.cart_items.forEach((item)=>{
-                var elmnt = {};
-                elmnt.item_name = item.menu_item_name;
-                elmnt.menu_item_id = item.id;
-                elmnt.price_per_item = item.price;
-                elmnt.preparation_time = item.preparation_time;
-                elmnt.quantity = this.cart_item_qty[item.id]; // get item quantity
-                elmnt.amount = item.price * this.cart_item_qty[item.id]; // multiply price by quantity
-                order_items.push(elmnt);
-            });
+        // gather order item data
+        var order_items = [];
+        this.cart_items.forEach((item)=>{
+            var elmnt = {};
+            elmnt.item_name = item.menu_item_name;
+            elmnt.menu_item_id = item.id;
+            elmnt.price_per_item = item.price;
+            elmnt.preparation_time = item.preparation_time;
+            elmnt.quantity = this.cart_item_qty[item.id]; // get item quantity
+            elmnt.amount = item.price * this.cart_item_qty[item.id]; // multiply price by quantity
+            order_items.push(elmnt);
+        });
 
-            order_data.append('order_items', JSON.stringify(order_items)); //append order items data to form
-            
-            if(window.confirm("Place a " + this.order_type  + ' order?')){
-                axios.post('/api/order', order_data)
-                    .then( response => {
-                        console.log(response);
-                        if( response.status = 201){
-                            this.$swal( 'Order placed!'); 
-                            console.log(response.data);
-                            this.cart_items = [];
-                            this.cart_item_qty=[];
-                            } 
-                        })
-                    .catch( error => {
-                        this.$swal('Error, Order failed!');                
-                        console.log(error.response);                    
-                    });
-            }
+        order_data.append('order_items', JSON.stringify(order_items)); //append order items data to form
+        
+        if(window.confirm("Place a " + this.order_type  + ' order?')){
+            this.spinner = 'spinner-border spinner-border-sm';
+            axios.post('/api/order', order_data)
+                .then( response => {
+                    if( response.status = 201){
+                        this.$swal( 'Order placed!'); 
+                        this.cart_items = [];
+                        this.cart_item_qty=[];
+                        this.spinner = '';
+                        document.getElementById('close').click();
+                        } 
+                    })
+                .catch( error => {
+                    this.$swal('Error, Order failed!');                
+                    console.log(error.response);                    
+                });
+        }
       },
       validateOrderType(){
           if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select  order type';
@@ -608,7 +612,7 @@ export default {
         this.User= this.user;
         this.current_menus= this.menus;
         this.current_sub_menus= this.subMenus;
-        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase();           
+        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
 
                 // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs

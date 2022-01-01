@@ -6,7 +6,7 @@ use App\Events\Payment\paymentCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class PaymentCreatedListener
+class PaymentCreatedListener implements shouldQueue
 {
     /**
      * Create the event listener.

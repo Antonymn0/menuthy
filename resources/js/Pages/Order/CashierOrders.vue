@@ -123,11 +123,13 @@
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
-                        <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
-                            <a href="#" class="badge badge-success btn m-1" @click="markAsPaid(order.id, order.amount)">Pay</a>
+                        <td class=" mx-auto  m-1 " v-if="order.status !== 'canceled'">
+                            <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click="markAsPaid(order.id, order.amount)">Pay</a>
+                            <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
                             <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
                         </td> 
                         <td v-else class="text-center">
+                            <a href="#" class="badge badge-success btn m-1 disabled"  >Pay</a>
                             <a href="#" class="badge badge-danger btn m-1  disabled" >Canceled</a>
                         </td>                                              
                     </tr>  
@@ -179,7 +181,7 @@
                 <tbody>
                     <tr class="p-2 border-top">
                         
-                        <td colspan="11" class="text-right border-right">
+                        <td colspan="12" class="text-right border-right">
                            <b> Total orders</b> 
                         </td>
                         <td class="">
@@ -235,18 +237,7 @@ export default {
         if(string) return string.charAt(0).toUpperCase() + string.slice(1);
         else return;
         },
-        markOrder(id, value){
-             axios.get('/api/order/mark/' + id + '/' + value)
-            .then( response => {
-            if( response.status = 200){
-                console.log(response.data);
-                } 
-            })
-            .catch( error => {
-                this.$swal('Error,  failed to update!');                
-                console.log(error.response.data.errors);                    
-            });
-        },
+    
         cancelOrder(id, value){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
@@ -255,25 +246,24 @@ export default {
             {            
                 axios.get('/api/order/mark/' + id + '/' + value + '/' + date)
                 .then( response => {
-                if( response.status = 200){
-                    this.$inertia.reload();
+                    if( response.status == 200){
+                        this. refreshOrders();
                     } 
                 })
                 .catch( error => {
-                    this.$swal('Error,  failed to update!');                
-                 
+                    this.$swal('Error,  failed to update!'); 
                 });
             }
         },
         markAsPaid(id, amount){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
-            if(confirm("Confirm you have recived " + window.authRestaurant.currency +' ' + amount + " for this order?"))
+            if(confirm("Confirm you have recieved " + window.authRestaurant.currency +' ' + amount + " for this order?"))
             {            
                 axios.get('/api/order/mark-paid/' + id + '/' + amount + '/' + date)
                 .then( response => {
-                if( response.status = 200){
-                    this.$inertia.reload();
+                    if( response.status == 200){
+                        this. refreshOrders();
                     } 
                     new Swal({
                     title:'Payment successful',

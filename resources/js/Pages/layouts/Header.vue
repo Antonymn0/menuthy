@@ -5,7 +5,7 @@
         <EmailNotConfirmedNotification />
         <RestaurantInformation />            
         <MobilePreview />
-        <QrCode />
+        <QrCode @passQrCodeToParent="passQrCodeToDashboard($event)"/>
         <MobileNav />
         <Feedback />       
         <Profile />
@@ -77,9 +77,9 @@
             </a>             
            
         <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
-            <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >Profile</a></li>                
-            <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >User Profile</a></li>                
+            <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
             <li class="dropdown-item  border-top px-2">
                 <form action="/logout" method="POST" enctype="multipart/form-data">
                     <div class="ml-2">
@@ -134,6 +134,9 @@ export default {
         // console.log(this.authUser);
     },
     methods:{
+        passQrCodeToDashboard(qrCode){
+            this.$emit('passQrCode',qrCode);
+        },
         logout(){
              this.$inertia.visit('/logout');
         }

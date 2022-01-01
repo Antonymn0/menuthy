@@ -6,7 +6,7 @@ use App\Events\Payment\paymentFailed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class PaymentFailedListener
+class PaymentFailedListener implements shouldQueue
 {
     /**
      * Create the event listener.

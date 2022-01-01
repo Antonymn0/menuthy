@@ -19,7 +19,7 @@
                 <div class="px-1">
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
-                     updatePackagePrice(60, 120, 240),
+                        updatePackagePrice(60, 120, 240),
                       updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
                       ]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>

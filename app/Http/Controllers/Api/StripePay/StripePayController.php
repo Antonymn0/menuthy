@@ -75,7 +75,7 @@ class StripePayController extends Controller
             $subscription = SubscriptionPayment::create($payment);
             $this->updateUser($payment);
             event(new SubscriptionCreated($subscription));
-            return 'Subscription successful'; 
+            return $event; 
         } 
         if($event->type == 'charge.failed'){  
             $payment = (object) $payment;         //convert array to object

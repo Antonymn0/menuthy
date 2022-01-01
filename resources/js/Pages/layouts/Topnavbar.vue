@@ -27,12 +27,12 @@
                             </ul>
                             </li>
                              <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="#">Design</a>
+                                <!-- <a class="nav-link " aria-current="page" href="#">Design</a> -->
                             </li>
                              <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="#">Reports</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Feedback
                                  </a>
@@ -41,11 +41,11 @@
                                 <li><a class="dropdown-item" href="#">Survey results</a></li>
                                 
                             </ul>
-                            </li>
-                             <li class="nav-item">
+                            </li> -->
+                             <!-- <li class="nav-item">
                                <a class="nav-link " aria-current="page" href="#">Settings</a>
-                            </li>
-                            <li class="nav-item dropdown m-1">
+                            </li> -->
+                            <!-- <li class="nav-item dropdown m-1">
                                 <a class="nav-link  p-0 m-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                   <i class="bi bi-three-dots" style="font-size: 1.5rem;"></i>
                                  </a>
@@ -56,7 +56,7 @@
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Integrations</a></li>
                                 </ul>
-                            </li>                            
+                            </li> -->
                         </ul>
                         <!-- <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

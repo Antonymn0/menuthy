@@ -8,7 +8,7 @@
                 <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom" >
                    <h5 class="pr-4 orders mb-0" @click="fetchOrders('today')">Orders </h5> 
                     <!-- <h5 class="feedback pr-4 mb-0" @click="fetchFeedback()"> Feedback</h5> -->
-                    <h5 class="feedback pr-4 mb-0" @click="fetchQrScans()"> Qr scans</h5>
+                    <h5 class="feedback pr-4 mb-0" @click="fetchQrScans()"> QR scans</h5>
                 </div>
                 <div v-if="current_orders.length">
                     <div class="table-responsive px-4 py-4 text-muted">

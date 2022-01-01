@@ -58,7 +58,8 @@ export default defineComponent({
                 restaurant_id: 0,
                 description:'',
                 image:'',
-                img_preview:''
+                img_preview:'',
+                published:true,
             },
             errors:{ },
             swal_timer:5000,
@@ -75,6 +76,7 @@ export default defineComponent({
                 form_data.append('menu_name', this.form.menu_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
                 form_data.append('description', this.form.description);
+                form_data.append('published', this.form.published);
                 if(this.form.image) form_data.append('image', this.form.image);
                 Swal.showLoading();
             axios.post('/api/menu', form_data)
@@ -93,8 +95,7 @@ export default defineComponent({
 
         validateForm () {
             if(!this.form.menu_name) this.errors.menu_name = 'This field is required' ;
-            else delete this.errors.menu_name;
-            
+            else delete this.errors.menu_name;            
         },  
         fileUpload(event){
             this.form.image = event.target.files[0];
