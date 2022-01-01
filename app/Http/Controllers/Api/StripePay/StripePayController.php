@@ -41,7 +41,7 @@ class StripePayController extends Controller
                             'name' => $user_data->plan->name,
                             'description' => $user_data->plan->description,
                         ],
-                        'unit_amount' => $user_data->plan->price * 100
+                        'unit_amount' => $user_data->plan->price 
                     ],
                     'quantity' => 1,
                 ],               
@@ -74,7 +74,7 @@ class StripePayController extends Controller
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment);
             $this->updateUser($payment);
-            event(new SubscriptionCreated($event));
+            event(new SubscriptionCreated($subscription));
             return $event; 
         } 
         if($event->type == 'charge.failed'){  
