@@ -74,7 +74,7 @@ class StripePayController extends Controller
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment);
             $this->updateUser($payment);
-            event(new SubscriptionCreated($subscription));
+            event(new SubscriptionCreated($event));
             return $event; 
         } 
         if($event->type == 'charge.failed'){  
