@@ -41,7 +41,7 @@ class StripePayController extends Controller
                             'name' => $user_data->plan->name,
                             'description' => $user_data->plan->description,
                         ],
-                        'unit_amount' => $user_data->plan->price 
+                        'unit_amount' => $user_data->plan->price * 100 // least curency sub-unit
                     ],
                     'quantity' => 1,
                 ],               
@@ -69,13 +69,13 @@ class StripePayController extends Controller
             $payment['reciept_email'] = $data['object']['receipt_email'];
             $payment['reciept_number'] = $data['object']['receipt_number'];
             $payment['reciept_url'] = $data['object']['receipt_url'];
-            $payment['amount_paid'] = $data['object']['amount'];
+            $payment['amount_paid'] = $data['object']['amount'] / 100;
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment);
             $this->updateUser($payment);
             event(new SubscriptionCreated($subscription));
-            return $event; 
+            return 'Payment successfull'; 
         } 
         if($event->type == 'charge.failed'){  
             $payment = (object) $payment;         //convert array to object
