@@ -790,7 +790,7 @@ select:focus{
 .cart-preview{
     position:absolute;
     width:auto;  
-    top:-9rem ; 
+    top:-7rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -1263,7 +1263,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-8rem ;
+        top:-6rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;
