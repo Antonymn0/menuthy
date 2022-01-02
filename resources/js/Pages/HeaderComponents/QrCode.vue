@@ -99,7 +99,7 @@ export default {
         generateQrCode(restaurant_id){
             axios.get('/api/qrcode-generate/'+ restaurant_id)
             .then( response => {
-            if( response.status = 200){
+            if( response.status == 200){
                 this.qrCode = response.data;
                 this.tables_qr_code_link = this.qrCode + '/1';
                 this.$emit('passQrCodeToParent',this.qrCode);
