@@ -19,138 +19,128 @@
                 <div class="px-1">
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
-                        updatePackagePrice(60, 120, 240),
-                      updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
+                        updatePackagePrice(33, 66, 133,266),
+                        updatePeriod('monthly')                     
                       ]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>
                 <div class="px-1">
                     <p class="yearly shadow "  
                     @click.prevent="[toggleYearlyTabs($event, 'yearly'), 
-                     updatePackagePrice(600, 1200, 2400),
-                     updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
-                     ]"> <span ><i class="bi bi-check"></i> </span>  Billed Yearly <small class="sm small s font-weight-light">Save 20%</small></p>
+                     updatePackagePrice(333, 777, 1333, 2777),
+                     updatePeriod('yearly')
+                    ]">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
             </div>
+            
 <!-- ------------------------ Monthly package panels------------------------------------------ -->
-        <div class="monthly-panels  ">
-            <div class="types py-1 mx-auto"> 
-                <div class="px-2"> <span class="types-tabs shadow active-types"
-                @click.prevent="[toggleTypestabs($event),
-                 updatePackagePrice(60, 120, 240),
-                 updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
-                 ]"> Dine-In QR Menu</span> </div>
-                <div class="px-2"> <span class="types-tabs shadow"
-                 @click.prevent="[toggleTypestabs($event), 
-                 updatePackagePrice(120,240,480),
-                 updatespecification('Up to 500 orders Per Month', 'Up to 1000 orders Per Month', 'Up to 3000 Orders Per Month')
-                 ]">Delivery and Pick-Up Menu </span> </div>
-                <div class="px-2"> <span class="types-tabs shadow"
-                 @click.prevent="[toggleTypestabs($event),
-                  updatePackagePrice(60, 120, 240),
-                  updatespecification('Connect up to 5 devices ', 'Connect up to 25 devices', 'Connect Up to 50 devices')
-                  ]">Tablet Menu </span> </div>
-            </div>
-           
+        <div class="monthly-panels  ">            
             <div class="packages py-3 mt-4">
-                 <p class="py-2 pb-3 text-center mx-auto mb-0" style="font-weight:500; font-size:20px;">Billed Monthly</p>
+                 <p class="py-2 pb-3 text-center mx-auto mb-0" style="font-weight:500; font-size:20px;">Billed {{this.plan_period}}</p>
                 <div class="packages-inner py-2  ">                    
                     <div > 
                         <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Basic</h4>
+                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Starter</h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.basic.price}}</span>
+                                <span class="amount">{{this.starter.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  {{this.basic.specification}} </p>
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="d-table text-left mx-auto"> 
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Dine-in Orders </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Kitchen Order Management </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Cloud POS </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Drive-Thru Orders </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
+                            </p>                           
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.starter)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
+                        </div>
+                    </div>
+                    <div> 
+                        <div class="shadow"> 
+                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Lite  <span class="m-0  px-4  float-right recomended"> Recomended</span></h4>
+                            <p class="ty-1 price mb-0"> 
+                                <span class="currency">QAR</span>
+                                <span class="amount">{{this.lite.price}}</span>
+                                <span class="period">/Month</span>
+                            </p>
+                           <p class="d-table text-left mx-auto"> 
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Drive-Thru Orders </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
+                            </p>
+                            <p class="pt-3"> <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
                     </div>
                     <div> 
                         <div class="shadow"> 
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Pro</h4>
                             <p class="ty-1 price mb-0"> 
-                                <span class="currency">QAR</span>
-                                <span class="amount">{{this.pro.price}}</span>
-                                <span class="period">/Month</span>
-                            </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.pro.specification}}</p>
-                            <p class="pt-3"> <button  @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
-                        </div>
-                    </div>
-                    <div> 
-                        <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Advanced</h4>
-                            <p class="ty-1 price mb-0"> 
                                 <span class="currency" >QAR</span>
-                                <span class="amount">{{this.advanced.price}}</span>
+                                <span class="amount">{{this.pro.price}}</span>
                                 <span class="period">/Month</span>                              
                             </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.advanced.specification}}</p>
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                           <p class="d-table text-left mx-auto"> 
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Drive-Thru Orders </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
+                            </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
+                    </div>
+                    <div> 
+                    <div class="shadow"> 
+                        <h4 class="pb-4 mb-3 pt-1 text-dark"> Premium</h4>
+                        <p class="ty-1 price mb-0"> 
+                            <span class="currency" >QAR</span>
+                            <span class="amount">{{this.premium.price}}</span>
+                            <span class="period">/Month</span>                              
+                        </p>
+                        <p class="d-table text-left mx-auto"> 
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Drive-Thru Orders </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span>  Delivery + Driver App </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span>  Accept online payments</span> <br>
+                        </p>
+                        <p class="pt-3"> <button @click.prevent="stripeCheckout(this.premium)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                        <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                     </div>
                 </div>
-            </div>
-         </div>
-<!-- ------------------------ Yearly package panels------------------------------------------ -->
-        <div class="yearly-panels hidden">
-            <div class="types py-1 mx-auto"> 
-                <div class="px-2"> <span class="types-tabs shadow active-types"
-                @click.prevent="[toggleTypestabs($event), 
-                 updatePackagePrice(600, 1200, 2400),
-                 updatespecification(' ', 'Up to 30 tables', 'Up to 50 tables')
-                 ]"> Dine-In QR Menu</span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" 
-                @click.prevent="[toggleTypestabs($event),
-                updatePackagePrice(1200, 2400, 4800),
-                updatespecification('Up to 500 orders Per Month', 'Up to 1000 orders Per Month', 'Up to 3000 Orders Per Month')
-                ]">Delivery and Pick-Up Menu </span> </div>
-                <div class="px-2"> <span class="types-tabs shadow" 
-                @click.prevent="[toggleTypestabs($event),
-                 updatePackagePrice(600, 1200, 2400),
-                 updatespecification('Connect up to 5 devices ', 'Connect up to 25 devices', 'Connect Up to 50 devices')
-                 ]">Tablet Menu </span> </div>
-            </div>
-            <div class="packages py-3 mt-4">  
-                <p class="py-2 pb-3 text-center mx-auto mb-0" style="font-weight:500; font-size:20px;">Billed Yearly</p>   
-                <div class="packages-inner py-2  ">
-                    <div > 
-                        <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Basic </h4>
-                            <p class="ty-1 price mb-0"> 
-                                <span class="currency">QAR</span>
-                                <span class="amount">{{this.basic.price}}</span>
-                                <span class="period">/Year</span>
-                            </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i>  {{this.basic.specification}}</p>
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.basic)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
-                        </div>
-                    </div>
-                    <div> 
-                        <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Pro</h4>
-                            <p class="ty-1 price mb-0"> 
-                                <span class="currency">QAR</span>
-                                <span class="amount">{{this.pro.price}}</span>
-                                <span class="period">/Year</span>
-                            </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.pro.specification}} </p>
-                            <p class="pt-2"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
-                        </div>
-                    </div>
-                    <div> 
-                        <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Advanced</h4>
-                            <p class="ty-1 price mb-0"> 
-                                <span class="currency" >QAR</span>
-                                <span class="amount">{{this.advanced.price}}</span>
-                                <span class="period">/Year</span>                              
-                            </p>
-                            <p class="pb-1 mb-0 text-dark"> <i class="bi bi-check-circle"></i> {{this.advanced.specification}} </p>
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.advanced)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
-                        </div>
-                    </div>
                 </div>
             </div>
          </div>
@@ -177,28 +167,36 @@ export default {
     },
     data(){
          return{
-            basic:{
-                'name' : 'Menuthy basic plan',
-                'price' : 60,
-                'description' : 'Menuthy BASIC plan subscription',
+            starter:{
+                'name' : 'Menuthy starter plan',
+                'price' : 33,
+                'description' : 'Menuthy STARTER plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'basic',
+                'type' : 'stater',
                 'specification': ''
                 },
+            lite:{
+                'name' : 'Menuthy lite plan',
+                'price' :66,
+                'description' : 'Menuthy LITE plan subscription',
+                'plan_period' : this.period(),
+                'type' : 'lite',
+                'specification': ''
+            },
             pro:{
-                'name' : 'Menuthy Pro plan',
-                'price' :120,
+                'name': 'Menuthy pro plan',
+                'price' :133,
                 'description' : 'Menuthy PRO plan subscription',
                 'plan_period' : this.period(),
                 'type' : 'pro',
                 'specification': ''
-            },
-            advanced:{
-                'name': 'Menuthy Advanced plan',
-                'price' :240,
-                'description' : 'Menuthy ADVANCED plan subscription',
+                },
+            premium:{
+                'name': 'Menuthy premium plan',
+                'price' :266,
+                'description' : 'Menuthy PREMIUM plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'advanced',
+                'type' : 'premium',
                 'specification': ''
                 },
             plan_period:'monthly'            
@@ -208,42 +206,24 @@ export default {
         period(){
             return this.plan_period;
         },
+        updatePeriod(period){
+            this.plan_period = period
+        },
         toggleYearlyTabs(event, period){
             var el = document.getElementsByClassName('yearly'); 
             var type = document.getElementsByClassName('types-tabs');           
             Array.from(el).forEach((item)=>{
-                    item.classList.remove('active-yearly');
+                item.classList.remove('active-yearly');
                 });            
-            event.target.classList.add('active-yearly');
-            if(period == 'yearly'){
-                this.plan_period= 'yearly';
-                document.getElementsByClassName('monthly-panels')[0].classList.add('hidden');
-                document.getElementsByClassName('yearly-panels')[0].classList.remove('hidden');
-            } 
-            if(period == 'monthly'){
-                this.plan_period ='monthly';
-                document.getElementsByClassName('monthly-panels')[0].classList.remove('hidden');
-                document.getElementsByClassName('yearly-panels')[0].classList.add('hidden');
-            } 
-
-            Array.from(type).forEach((item)=>{
-                    item.classList.remove('active-types');
-                });
-            type[0].classList.add('active-types');
-            type[3].classList.add('active-types');
+            event.target.classList.add('active-yearly');            
         },
-        updatePackagePrice(basic, pro, advanced){
-            this.basic.price = basic;
+        updatePackagePrice(starter, lite, pro, premium){
+            this.starter.price = starter;
+            this.lite.price = lite;
             this.pro.price = pro;
-            this.advanced.price = advanced;
+            this.premium.price = premium;
         },
-        toggleTypestabs(event){
-            var el = document.getElementsByClassName('types-tabs');
-             Array.from(el).forEach((item)=>{
-                    item.classList.remove('active-types');
-                });
-            event.target.classList.add('active-types');
-        },
+       
         stripeCheckout(plan){
             if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;            
             const stripe = Stripe(this.stripe_public_key);
@@ -265,11 +245,7 @@ export default {
                 console.log(error);                    
             });
         },
-        updatespecification(basic, pro, advanced){
-                this.basic.specification = basic;
-                this.pro.specification = pro;
-                this.advanced.specification = advanced;
-        },
+        
     },
     mounted(){
        //
@@ -288,6 +264,37 @@ export default {
         font-weight:800;
     }
 
+    /* ------------------------------------- */
+    .d-table{
+        font-weight: 500;
+        font-size:16px;
+        line-height:20pt;
+    }
+    .d-table .bi-check-lg{
+        color:#38C733;
+        font-weight: 900;
+        font-size:19px;
+    }
+    .d-table .bi-x{
+        color: #FF0000;
+        font-weight: 900;
+        font-size:19px;
+    }
+
+    .recomended{ 
+        font-size: 12px;
+        line-height: 2;
+        font-weight: 800;
+        text-transform: uppercase;
+        background: #000;
+        color: #ffffff;
+        transform: translateY(0) translateX(0) translateX(50px) rotate(45deg);
+        box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
+    }
+    .shadow{
+        box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
+        overflow: hidden;
+    }
 /* --------------------------------- */
     .bill-period{
         width:100%; 
@@ -343,7 +350,7 @@ export default {
     width:100%;
 }
 .packages .packages-inner{
-    width:100%;
+    width:90%;
     display:flex;
     width:auto;
     text-align: center;
@@ -424,7 +431,7 @@ export default {
          display:block;
       }
     .packages .packages-inner div{
-        width:100%;    
+        width:90%;    
         padding:1rem;
     }
 }
