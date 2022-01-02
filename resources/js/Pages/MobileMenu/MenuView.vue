@@ -887,7 +887,6 @@ select:focus{
 }
 
 // items div
-
 .items-panel{
     padding-left:.8rem;
     padding-right:.8rem;
