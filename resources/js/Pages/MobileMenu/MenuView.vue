@@ -1263,7 +1263,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-8rem ;
+        top:-7rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;
