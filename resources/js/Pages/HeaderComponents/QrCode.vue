@@ -37,9 +37,8 @@
                         </div>
                         <!-- Tables qr code  -->
                         <div id="tables" class="tab-pane ">
-                            <small> Tables</small>
                            <div class="">    
-                                <p class="text-center m-0 p-t0 text-danger"> <small> Table {{this.qr_table_number}}</small></p>                                               
+                                <h5 class="text-center m-0 mt-3 text-danger">  Table {{this.qr_table_number}}</h5>                                               
                             <div class="d-flex justify-content-center align-items-center fade-in">                                                   
                                     <vue-qrcode
                                         :value="this.tables_qr_code_link"

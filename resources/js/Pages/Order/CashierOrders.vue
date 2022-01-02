@@ -188,7 +188,7 @@
                 <tbody>
                     <tr class="p-2 border-top">
                         
-                        <td colspan="12" class="text-right border-right">
+                        <td colspan="15" class="text-right border-right">
                            <b> Total orders</b> 
                         </td>
                         <td class="">

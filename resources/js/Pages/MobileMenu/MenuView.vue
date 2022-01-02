@@ -760,7 +760,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss" >
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
@@ -790,7 +790,7 @@ select:focus{
 .cart-preview{
     position:absolute;
     width:auto;  
-    top:-7rem ; 
+    top:-9rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -1264,7 +1264,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-7rem ;
+        top:-8rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;
