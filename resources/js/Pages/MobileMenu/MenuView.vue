@@ -679,7 +679,11 @@ export default {
                         this.cart_items = [];
                         this.cart_item_qty=[];
                         this.spinner = '';
+                        this.cancelPlaceOrder();
                         document.getElementById('close').click();
+                        this.car_registration_no = '';
+                        this.customer_name = '';
+                        this.customer_phone = '';
                         } 
                     })
                 .catch( error => {
@@ -715,7 +719,7 @@ export default {
         this.current_sub_menus= this.subMenus;
         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
 
-                // initialize coockies for qr scan counting - expires in 6hrs
+            // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
             var cookie_obj = {
                 'name':'qr_code_scans',
@@ -843,8 +847,7 @@ select:focus{
     transition: all .5s ease-in-out;
     width: 50px;
     height: 50px;
-    text-align: center;
-    
+    text-align: center;    
 }
 .arrow-left:hover{
     border: 3px solid rgb(236, 233, 233); 

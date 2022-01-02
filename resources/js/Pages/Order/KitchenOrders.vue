@@ -90,6 +90,9 @@
                         <th scope="col">Type</th>
                         <th scope="col">No of Items</th>
                         <th scope="col">Table</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer Phone</th>
+                        <th scope="col">Car Reg</th>
                         <th scope="col">Status</th>
                     <th scope="col">Action</th>                   
                      </tr>
@@ -103,7 +106,10 @@
                         <td>{{capitalize(order.order_type)}}</td>
                          <td v-if="order.number_of_items" class="lead">{{order.number_of_items}}</td>
                         <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
-                        <td v-else>1</td>                       
+                        <td v-else>1</td>   
+                        <td  class="">{{order.customer_name}}</td>
+                        <td  class="">{{order.customer_phone}}</td>
+                        <td  class="">{{order.car_registration_no}}</td>                    
                         <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>

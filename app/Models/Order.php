@@ -28,6 +28,9 @@ class Order extends Model
         'paid_at',
         'number_of_items',
         'status',
+        'customer_name',
+        'customer_phone',
+        'car_registration_no',
         'order_type',
         'table_number',
        

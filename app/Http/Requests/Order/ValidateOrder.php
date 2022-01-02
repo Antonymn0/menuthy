@@ -26,7 +26,10 @@ class ValidateOrder extends FormRequest
         return [
             'restaurant_id' => ['required','integer'],
             'transaction_id' => ['nullable','string'],
+            'car_registration_no' => ['nullable','string'],
             'order_number' => ['required','string'],       
+            'customer_name' => ['required','string'],       
+            'customer_phone' => ['required','string'],       
             'amount' => ['required','regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
             'paid' => ['required','string'],
             'amount_paid' => ['nullable','regex:/^[0-9]+(\.[0-9]{1,2})?$/'],

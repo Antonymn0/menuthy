@@ -18,6 +18,9 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('order_number')->required();
             $table->double('amount')->required();
             $table->string('paid')->required();
+            $table->string('customer_name')->required();
+            $table->string('customer_phone')->required();
+            $table->string('car_registration_no')->nullable();
             $table->double('amount_paid')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->integer('number_of_items')->required();
@@ -26,8 +29,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_type')->required();
             $table->string('transaction_id')->nullable();
             $table->integer('restaurant_id')->required();
-            $table->timestamp('deleted_at')->nullable();
-            
+            $table->timestamp('deleted_at')->nullable();            
 
             $table->timestamps();
         });

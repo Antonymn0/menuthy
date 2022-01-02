@@ -92,6 +92,9 @@
                         <th scope="col">Type</th>
                         <th scope="col">No/Items</th>
                         <th scope="col">Table</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer Phone</th>
+                        <th scope="col">Car Reg</th>
                         <th scope="col">Amount due</th>
                         <th scope="col">Paid</th>
                         <th scope="col">Amount paid</th>
@@ -110,6 +113,10 @@
                         <td>{{capitalize(order.order_type)}}</td>
                          <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
                         <td v-if="order.table_number" class="">{{order.table_number}}</td>
+                        <td v-else>1</td>
+                        <td  class="">{{order.customer_name}}</td>
+                        <td  class="">{{order.customer_phone}}</td>
+                        <td  class="">{{order.car_registration_no}}</td>
                         <td v-if="order.amount" class="">{{order.amount}}</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td>
