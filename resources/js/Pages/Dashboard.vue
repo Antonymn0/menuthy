@@ -23,7 +23,7 @@
                         Change  theme
                     </h3>
                     <p>
-                        Design your menu to reflect your business and your brand
+                        Design your menu to reflect your business and your brand colors
                     </p>
                     <a href="#" class="btn btn-lg disabled ">Design</a>
                 </div>
@@ -47,7 +47,7 @@
                         Integrations
                     </h3>
                     <p>
-                        Connect with the Payment services, POS or Printer systems 
+                        Connect with online Payment services, POS or Printer systems 
                     </p>
                     <a href="#" class="btn btn-lg btn-success disabled"> Integrate</a>
                 </div>
