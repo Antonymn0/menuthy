@@ -25,7 +25,7 @@
                     <p>
                         Design your menu to reflect your business and your brand
                     </p>
-                    <a href="" class="btn btn-lg ">Design</a>
+                    <a href="#" class="btn btn-lg disabled ">Design</a>
                 </div>
             </div> 
 
@@ -38,7 +38,7 @@
                     <p>
                         Set up all the details of your menu to fit it in your business
                     </p>
-                    <a href="" class="btn btn-lg btn-danger"> Settings</a>
+                    <a href="#" class="btn btn-lg btn-danger disabled"> Settings</a>
                 </div>
             </div> 
             <div class=" col-md-3 fade-in ">
@@ -49,7 +49,7 @@
                     <p>
                         Connect with the Payment services, POS or Printer systems 
                     </p>
-                    <a href="" class="btn btn-lg btn-success"> Integrate</a>
+                    <a href="#" class="btn btn-lg btn-success disabled"> Integrate</a>
                 </div>
             </div>          
         </div>

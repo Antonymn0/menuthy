@@ -24,7 +24,7 @@
             <div class="res-name p-0"> 
                 <RestaurantName  />
             </div>
-            <div class="other-icons"> 
+            <div class="other-icons pl-2"> 
                 <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
                     <i class="bi bi-gear-fill text-white recent-link" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info">
                         <span class="hovercard">
@@ -46,7 +46,7 @@
                     <i class="bi bi-qr-code text-white recent-link">
                         <span class="hovercard">
                             <span class="tooltiptext">
-                            Display Qr code for logging in into mobile menu.
+                            Display QR code for logging in into mobile menu.
                             </span>
                         </span>
                     </i>
@@ -168,11 +168,13 @@ export default {
      }
 .main-right{
     width:65%;
+    display: flex;
+    align-items: center;
 }
 .middle-header{
     padding-top:.2rem;
     font-size: 1rem;
-    display:flex; 
+    display: flex;
     align-items: center;
     justify-content:flex-start;
 }

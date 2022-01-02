@@ -2,12 +2,12 @@
 <div class=" mb-0 border-bottom" >
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpiryDate !== null && this.trialExpired == false">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
-    <span class="mr-2 pl-4">   Your Trial period will expire on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this button to: </span>
+    <span class="mr-2 ">   Your Trial period will expire on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Click this button to: </span>
       <a href="/subscription" class=" btn-danger  btn">Subscribe</a>
   </div>
   <div class="alert mx-auto px-5  mb-0 fade-in" v-if="this.trialExpired == true">
     <span class="closebtn " onclick="this.parentElement.style.display='none';">&times;</span>
-    <span class="mr-2 pl-4">   Your Trial period period EXPIRED on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Please click this button to: </span>
+    <span class="mr-2 ">   Your Trial period period EXPIRED on: <span class="h6"> {{  formatDate(this.trialExpiryDate)}}</span> Please click this button to: </span>
       <a href="/subscription" class=" btn-danger  btn"> Buy a Subscription</a>
   </div>
 </div>

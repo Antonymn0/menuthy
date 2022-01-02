@@ -5,7 +5,7 @@
                     <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title text-center " id="exampleModalLabel">Add new menu</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div> 
@@ -34,8 +34,8 @@
                 <small class="text-danger"> {{this.errors.image }} </small>              
             </div>
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" data-dismiss="modal" >Save </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn primary-btn mr-2" @click="submitForm()"  >Save </button>
+                <button type="button" class="btn btn-default" id="close"  data-dismiss="modal">Close</button>
             </div>
         </form>
     </div>
@@ -70,8 +70,7 @@ export default defineComponent({
     methods:{
         submitForm () {          
             this.validateForm();
-            if(this.errors.length > 0) return;
-            console.log('no errors...');
+            if(Object.keys(this.errors).length) return;
             let form_data = new FormData();
                 form_data.append('menu_name', this.form.menu_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
@@ -81,10 +80,10 @@ export default defineComponent({
                 Swal.showLoading();
             axios.post('/api/menu', form_data)
             .then( response => {
-                if( response.status = 201){               
-                    this.$swal('Success!');
-                    this.$inertia.reload();
-                    this.modalShow = false;
+                if( response.status == 201){ 
+                    document.getElementById('close').click(); 
+                    this.$inertia.reload();            
+                    this.$swal('Success!');                  
                     } 
                 })
             .catch( error => {
@@ -100,13 +99,10 @@ export default defineComponent({
         fileUpload(event){
             this.form.image = event.target.files[0];
             this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
-            console.log(URL.createObjectURL(event.currentTarget.files[0]));
         },    
     },
     mounted(){       
         this.form.restaurant_id = this.restaurant_id;
-        console.log(this.menus);
-        console.log(this.restaurant_id);
     },
    
 });

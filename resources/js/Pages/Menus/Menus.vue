@@ -150,9 +150,7 @@ export default {
 
   },
    mounted(){
-       
-        // console.log(this.menus);
-        // console.log(this.restaurant_id);
+       //
     },
    
    

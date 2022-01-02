@@ -38,15 +38,10 @@
                             </label>
                         </span>                                    
                     </div>
-                    <div class="col-sm-6 p-2">                       
-                         <div class="form-group">
-                            <input type="hidden" class="form-control p-4" v-model="form.restaurant_id" name="resaturant_id" required>
-                            <input type="hidden" class="form-control p-4" v-model="form.menu_id" name="resaturant_id" required>
-                        </div>
-                    </div>                         
+                                  
                     <div class="text-center mx-auto ">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" data-dismiss="modal">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" >
+                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
                     </div>
                 </form> 
             </div>    
@@ -65,7 +60,7 @@ export default defineComponent({
     data(){
         return{
             form:{
-                sub_menu_name:'menu 1',
+                sub_menu_name:'',
                 restaurant_id: 0,
                 menu_id:0,
                 description:null,
@@ -77,13 +72,12 @@ export default defineComponent({
             },
             errors:{},
             success:'',
-
         }
     },
     methods:{
         submitForm () {
             this.validateForm();
-            if(this.errors.length > 0) return;
+            if(Object.keys(this.errors).length) return;
             let form_data = new FormData();
                 form_data.append('sub_menu_name', this.form.sub_menu_name);
                 form_data.append('restaurant_id', this.restaurant_id);
@@ -97,10 +91,10 @@ export default defineComponent({
             Swal.showLoading();        
             axios.post('/api/sub-menu', form_data)
             .then( response => {
-            if( response.status = 201){
-                console.log('responce: ',response);
-                this.$swal('Success');
-                this.$inertia.reload();
+                if( response.status == 201){
+                    document.getElementById('close').click(); 
+                    this.$inertia.reload();            
+                    this.$swal('Success!'); 
                 } 
             })
             .catch( error => {
@@ -116,30 +110,20 @@ export default defineComponent({
             if(!this.form.description ) this.errors.description = 'This field is required' ;
             else delete this.errors.description;
 
-            if(!this.form.restaurant_id) this.errors.restaurant_id = 'Restaurant id field is required' ;
-            else  delete this.errors.restaurant_id; 
-
             if(this.form.image == '')  this.errors.image = 'Image is required' ;        
             else  delete this.errors.image;
 
-            if(!this.form.menu_id) this.errors.menu_id = 'menu id field is required' ;
-            else  delete this.errors.menu_id;
             console.log(this.errors); 
         }, 
 
         fileUpload(event){
             this.form.image = event.target.files[0];
             this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
-            console.log(URL.createObjectURL(event.currentTarget.files[0]));
         },
-        logPub(){
-            console.log(this.form.publish);
-        },
+    
         mounted(){
             this.form.menu_id = this.menu_id;
             this.form.restaurant_id = this.restaurant_id;
-            console.log(this.form.menu_id);
-            console.log(this.form.restaurant_id);
         
            } 
     },

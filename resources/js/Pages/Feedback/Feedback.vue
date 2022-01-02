@@ -6,9 +6,9 @@
         <div id="feedBack1" class="sidenav shadow">
             <a href="javascript:void(0)" class="closebtn" onclick="closeFeedBack()">&times;</a>
                 <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom" >
-                   <h5 class="pr-4 orders mb-0" @click="fetchOrders('today')">Orders </h5> 
-                    <!-- <h5 class="feedback pr-4 mb-0" @click="fetchFeedback()"> Feedback</h5> -->
-                    <h5 class="feedback pr-4 mb-0" @click="fetchQrScans()"> QR scans</h5>
+                   <h5 class="pr-4 orders f-back-links mb-0 active" @click="[fetchOrders('today'), toggleActive($event)]">Orders </h5> 
+                    <!-- <h5 class="feedback f-back-links pr-4 mb-0" @click="[fetchFeedback(), toggleActive($event)]"> Feedback</h5> -->
+                    <h5 class="feedback f-back-links pr-4 mb-0" @click="[fetchQrScans(), toggleActive($event)]"> QR scans</h5>
                 </div>
                 <div v-if="current_orders.length">
                     <div class="table-responsive px-4 py-4 text-muted">
@@ -46,7 +46,7 @@
                 </div>
                 <div v-if="qrscans !== '' " style="overflow:scroll;">
                     <div class="table-responsive px-4 py-4 text-muted">
-                        <h6 class="text-muted py-2 d-flex justify-content-between align-items-center"> <span> Qr scans  </span> <span> <a href="#" class="text-muted pr-1  float-right text-right"  @click="fetchQrScans()"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right" style="font-size:1rem"></i> </a>  </span></h6>
+                        <h6 class="text-muted py-2 d-flex justify-content-between align-items-center"> <span> QR scans  </span> <span> <a href="#" class="text-muted pr-1  float-right text-right"  @click="fetchQrScans()"  data-toggle="tooltip" data-placement="top-left" title="Refresh">  <i class="bi bi-arrow-repeat float-right" style="font-size:1rem"></i> </a>  </span></h6>
                         <table class="table table-sm table-hover text-muted">
                             <thead class="border-top-none">
                                 <tr class="p-2"> 
@@ -153,8 +153,7 @@ export default {
         }
     },
     components:{
-        RestaurantName,
-    
+        RestaurantName,    
     },
     methods:{
         formatDate(date){
@@ -243,7 +242,17 @@ export default {
         },
         fetchFeedback(){
             this.current_orders = '';
+        },
+        toggleActive(event){
+            var el = document.getElementsByClassName('f-back-links');
+            Array.from(el).forEach((item)=>{
+                    item.classList.remove('active');
+                });
+            event.target.classList.add('active');
         }
+    },
+    mounted(){
+        this.fetchOrders('today');
     }
 }
 </script>
@@ -261,6 +270,10 @@ i {
 }
 i:hover{
     color:rgb(201, 35, 35);
+}
+.active{
+    color:$primary-button;
+    border-bottom: 3px solid $primary-button;
 }
 i:active{
     color:red;

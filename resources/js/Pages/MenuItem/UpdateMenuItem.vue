@@ -127,7 +127,7 @@
                         </span>                                    
                     </div>
                       <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as signiture </span>
+                        <span clas='col-xs-8'>  Mark item as signature </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" :checked="form.is_signiture">
@@ -142,8 +142,8 @@
                 </div>
             </div>   
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()" data-dismiss="modal" >Save </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()" >Save </button>
+                <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
             </div>
         </form>
     </div>
@@ -215,9 +215,10 @@ components: { Multiselect },
                 Swal.showLoading();
             axios.post('/api/menu-item/'+ this.menuItem.id , form_data)
             .then( response => {
-            if( response.status = 201){
-                 new Swal({ title: "Success!",timer: 1800  });
-                this.$inertia.reload();
+                if( response.status = 201){
+                    document.getElementById('close').click(); 
+                    this.$inertia.reload();            
+                    this.$swal('Success!');
                 } 
             })
             .catch( error => {

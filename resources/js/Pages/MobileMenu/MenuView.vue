@@ -48,7 +48,7 @@
                                 <a href="#"> <img :src="sub_menu.image" @click="[fetchMenuItems(sub_menu.id), updateMenuName(sub_menu)]" alt="menu-image" > </a> 
                             </div>
 
-                            <p class="px-1 my-3 " >
+                            <p class=" my-3 " >
                                 <span class="h5">{{capitalize(sub_menu.sub_menu_name ) }} </span>
                             </p>                           
                         </div> 
@@ -98,7 +98,7 @@
                             <div class="form-check form-check-inline d-flex align-items-center align-content-between">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Drive through</label>
-                            </div>                             -->
+                            </div>     -->
                         </div> 
                     </div>
                     <p class="arabic order-btn text-left pt-1 mt-2 mb-1" >
@@ -558,7 +558,7 @@ export default {
         order_data.append('amount', this.total_amount);
         order_data.append('paid', 'false');
         order_data.append('number_of_items', this.cart_items.length);
-        order_data.append('status', 'recieved');
+        order_data.append('status', 'received');
         order_data.append('order_type', this.order_type);
         if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
         if(!this.User.table_number) order_data.append('table_number', 1); //default table number is 1
@@ -1088,7 +1088,7 @@ input[type='radio']:after {
     }
     .translate-btn-inner{
         position:fixed;
-        bottom:1rem;
+        bottom:2.3rem;
         overflow-y:hidden !important;
     }
     .translate-btn-inner select{
@@ -1112,7 +1112,7 @@ input[type='radio']:after {
         padding-right:.3rem;        
     }
     .items-panel h5, .items-panel .price, .h5, h5{        
-        font-size:.8rem ;
+        font-size:.73rem ;
     }
     .items-panel p{        
         font-size:.7rem ;

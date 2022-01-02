@@ -34,8 +34,8 @@
                         <small class="text-danger"> {{this.errors.image }} </small>              
                     </div>
                     <div class="text-center mx-auto">
-                        <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" data-dismiss="modal">Save </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" >Save </button>
+                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
@@ -68,8 +68,7 @@ export default defineComponent({
     methods:{
         submitForm () {
             this.validateForm();
-            if(this.errors.length > 0) return;
-            console.log('no errors...');
+            if(Object.keys(this.errors).length) return;
             let form_data = new FormData();
                 form_data.append('menu_name', this.form.menu_name);
                 form_data.append('restaurant_id', this.form.restaurant_id);
@@ -81,8 +80,9 @@ export default defineComponent({
             axios.post('/api/menu/' + this.form.menu_id, form_data)
             .then( response => {
             if( response.status = 200){
-                this.$swal('Success!');                
-                this.$inertia.reload();
+                    document.getElementById('close').click(); 
+                    this.$inertia.reload();            
+                    this.$swal('Success!'); 
                 } 
             })
             .catch( error => {

@@ -119,14 +119,14 @@
                          <td v-else> {{order.transaction_id}}</td>
                         <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>
                         <td v-else></td>                       
-                        <td v-if="order.status == 'recieved'" class="text-success">{{ capitalize(order.status) }}</td>
+                        <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td class=" mx-auto  m-1 " v-if="order.status !== 'canceled'">
-                            <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click="markAsPaid(order.id, order.amount)">Pay</a>
+                            <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click.prevent="markAsPaid(order)">Pay</a>
                             <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
-                            <a href="#" class="badge badge-danger btn m-1" @click="cancelOrder(order.id, 'canceled')">Cancel</a>
+                            <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order.id, 'canceled')">Cancel</a>
                         </td> 
                         <td v-else class="text-center">
                             <a href="#" class="badge badge-success btn m-1 disabled"  >Pay</a>
@@ -160,7 +160,7 @@
                                             <td> {{order.table_number}} </td>
                                             <td> {{item.preparation_time}} </td>
                                             <td> {{formatDate(item.created_at)}} </td>
-                                            <td v-if="order.status == 'recieved'" >{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
@@ -255,12 +255,13 @@ export default {
                 });
             }
         },
-        markAsPaid(id, amount){
+        markAsPaid(order){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
-            if(confirm("Confirm you have recieved " + window.authRestaurant.currency +' ' + amount + " for this order?"))
+            if(order.status == 'received'){ alert('Order not Processed, mark it complete or processing first in order to pay.'); return; }
+            if(confirm("Confirm you have recieved " + window.authRestaurant.currency +' ' + order.amount + " for this order?"))
             {            
-                axios.get('/api/order/mark-paid/' + id + '/' + amount + '/' + date)
+                axios.get('/api/order/mark-paid/' + id + '/' + order.amount + '/' + date)
                 .then( response => {
                     if( response.status == 200){
                         this. refreshOrders();

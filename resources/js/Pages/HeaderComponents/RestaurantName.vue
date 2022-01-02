@@ -1,14 +1,19 @@
 <template>
-<div class="row restaurant p-0 m-0 justify-content-center">
-    <div class="nav-item dropdown m-1">
-        <a class="btn  restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <small class="d-flex align-items-center  " > 
-                <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
-                &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
-            </small> 
-           
-        </a>
-       
+
+    <a class="btn desktop restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <small class="d-flex align-items-center  " > 
+            <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
+            &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
+        </small>            
+    </a>
+    <div class="row restaurant p-0 m-0 justify-content-center">
+    <div class="nav-item dropdown m-1">        
+       <a class="btn mobile restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <small class="d-flex align-items-center  " > 
+            <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
+            &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
+        </small>            
+    </a>
         <div class="dropdown-menu rounded ribbon shadow mx-auto bg-white" aria-labelledby="navbarDropdown" > 
             <div class="ribbon-outer shadow bg-white">                
             <div class="row  justify-content-center p-2 bg-danger menu-bar rounded px-2 m-0 mb-3">  
@@ -18,7 +23,7 @@
                 </a>
                  
                     <!-- toggle mobile menu  modal  -->
-                <a href="#" class="res-top"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
+                <a href="#" class="res-top mobile-prev"  data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white"></i></a>
                 
                  
                 <!-- toggle qr code modal  -->
@@ -94,12 +99,15 @@ export default {
          border-radius: 50px;      
      }
  
-         .res-top{
-             width:20%;
-             
-         }
+    .res-top{
+        width:20%;
+        
+    }
+    .mobile{
+    display:none;
+    }
 
-     .ribbon-outer{
+   .ribbon-outer{
                 display:none;
             }
     .ribbon{
@@ -107,8 +115,21 @@ export default {
         height:0px;
 
         }
+      
+        .desktop{
+            display: inline-block;
+        }
 
     @media only screen and (max-width: 950px) {
+          .desktop{
+            display:none
+        }
+        .mobile{
+            display: inline-block;
+        }
+        .mobile-prev{
+            display:none;
+        }
             .ribbon-outer{
                 display:block;
             }
@@ -118,6 +139,7 @@ export default {
                 }
         }
     @media only screen and (max-width: 600px) {
+      
         .restaurant-btn{
         width:100%;
          background-color:  #c40a04;

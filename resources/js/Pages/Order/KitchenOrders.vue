@@ -104,14 +104,14 @@
                          <td v-if="order.number_of_items" class="lead">{{order.number_of_items}}</td>
                         <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
                         <td v-else>1</td>                       
-                        <td v-if="order.status == 'recieved'" class="text-success">{{ capitalize(order.status) }}</td>
+                        <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
                             <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
-                            <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order .id, 'canceled')">Cancel</a>
+                            <!-- <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order .id, 'canceled')">Cancel</a> -->
                         </td> 
                         <td v-else class="">
                             <a href="#" class="badge badge-danger btn ml-3  disabled" >Canceled</a>
@@ -141,7 +141,7 @@
                                             <td> {{item.quantity}} </td>
                                             <td> {{order.table_number}} </td>
                                             <td> {{item.preparation_time}} </td>
-                                            <td v-if="order.status == 'recieved'" class="">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>

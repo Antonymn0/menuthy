@@ -45,8 +45,8 @@
                         </div>
                     </div>                         
                     <div class="text-center mx-auto">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" data-dismiss="modal" >
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()"  >
+                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
                     </div>
                 </form> 
             </div>    
@@ -83,9 +83,7 @@ export default defineComponent({
     methods:{
         submitForm () {
             this.validateForm();
-            if(this.errors.length > 0) return;
-            console.log('no errors...');
-            console.log(this.form);
+            if(Object.keys(this.errors).length) return;
             let form_data = new FormData();
                 form_data.append('sub_menu_name', this.form.sub_menu_name);
                 form_data.append('restaurant_id', this.restaurant_id);
@@ -100,9 +98,9 @@ export default defineComponent({
             axios.post('/api/sub-menu/' + this.subMenu.id, form_data)
             .then( response => {
             if( response.status = 201){
-                console.log('responce: ',response);
-                this.$swal('Success!');
-                this.$inertia.reload();
+                    document.getElementById('close').click(); 
+                    this.$inertia.reload();            
+                    this.$swal('Success!'); 
                 } 
             })
             .catch( error => {
