@@ -6,16 +6,16 @@
             &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
         </small>            
     </a>
-    <div class="row restaurant p-0 m-0 justify-content-center">
-    <div class="nav-item dropdown m-1">        
+    <div class="row restaurant p-0 m-0 justify-content-center mx-auto">
+    <div class="nav-item dropdown m-1 mx-auto">        
        <a class="btn mobile restaurant-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <small class="d-flex align-items-center  " > 
             <span v-if="authRestaurant"> {{authRestaurant.restaurant_name}}</span>
             &nbsp; <i class="bi bi-caret-down float-right  mt-1 mr-1"></i> 
         </small>            
     </a>
-        <div class="dropdown-menu rounded ribbon shadow mx-auto bg-white" aria-labelledby="navbarDropdown" > 
-            <div class="ribbon-outer shadow bg-white">                
+        <div class="dropdown-menu rounded ribbon shadow mx-auto " aria-labelledby="navbarDropdown" > 
+            <div class="ribbon-outer shadow ">                
             <div class="row  justify-content-center p-2 bg-danger menu-bar rounded px-2 m-0 mb-3">  
                         <!-- toggle edit restaurant modal  -->
                 <a href="#" class="res-top" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
@@ -40,17 +40,17 @@
                     </span></i>  
                 </a>
             </div> 
-            <div class="p-2">              
+            <!-- <div class="p-2">              
                 <p class="d-flex justify-content-between px-2 " style="font-size:.9rem; color:#e3342f;">
                     <span class=""> <a href="#" class="text-decoration-none text-dark " > {{this.authRestaurant.restaurant_name}}</a> </span>
                     <span class=" mr-1"> <i class="bi bi-geo-alt-fill " ></i> </span> 
                 </p>
-                <!-- <div class="map text-center" id="map" style="min-width:5rem; min-height:10rem;"> map</div>
+                <div class="map text-center" id="map" style="min-width:5rem; min-height:10rem;"> map</div>
                 <div class="row border-top p-1">               
                     <span class="col-sm-8">New venue  </span> 
                     <span class="col-sm-3"> <i class="bi bi-plus" style="font-size:15pt"></i></span>  
-            </div> -->
-           </div>
+                </div>
+           </div> -->
         </div>
         </div>
        

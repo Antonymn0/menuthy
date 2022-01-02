@@ -16,8 +16,9 @@
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
         <i class="bi bi-justify-left"></i>
         </span>
-        <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" >
-        <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px">
+        <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
+        <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px" data-bs-toggle="modal" data-bs-target="#headerModal">
+      
         <h5 class="pt-2 mb-0 text-center">
             <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
             <span v-else> Hotel name</span> 
@@ -26,6 +27,41 @@
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
     </div>
+
+<!--Restaurant info Modal -->
+<div class="modal fade" id="headerModal" tabindex="-1" aria-labelledby="headerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="px-2 pt-2">        
+        <button type="button" class="btn-close float-right " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="text-center pb-3">
+         <div class="header-div">
+            <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
+            <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px" data-bs-toggle="modal" data-bs-target="#headerModal">
+           
+            <h5 class="pt-2 mb-0 text-center">
+                <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
+                <span v-else> Hotel name</span> 
+            </h5>
+            <p class=" text-center">
+                <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
+            </p>
+            <div class="p-0 m-0  mx-auto">
+                <p class="  ">
+                     <small class="text-left" v-if="this.restaurant.restaurant_email"> Email: {{ this.restaurant.restaurant_email}}</small> <br>
+                
+                     <small class="text-left" v-if="this.restaurant.restaurant_phone_number"> Phone: {{ this.restaurant.restaurant_phone_number}}  </small>  <br>
+               
+                     <small class="text-left" v-if="this.restaurant.address"> Address: {{ this.restaurant.address}}  </small>
+                </p> 
+            </div>
+        </div>
+        <button class="btn btn-danger text-center mt-3" data-bs-dismiss="modal" aria-label="Close" > Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">
@@ -1101,6 +1137,7 @@ input[type='radio']:after {
     }
 /* media queries */
 @media only screen and (max-width: 600px) {
+    
     .parent-div{
         padding:1rem;
         padding-top:0;
@@ -1137,6 +1174,12 @@ input[type='radio']:after {
     }
     .select{
         font-size:.65rem;
+    }
+    .header-div p{
+        font-size: .7rem;;
+    }
+    .header-div h5{
+        font-size: .9.5rem;;
     }
 }
 
