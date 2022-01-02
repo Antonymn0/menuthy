@@ -35,26 +35,29 @@
                                 <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
-                        <!-- tables qr code  -->
+                        <!-- Tables qr code  -->
                         <div id="tables" class="tab-pane ">
                             <small> Tables</small>
-                           <div class="d-flex justify-content-center align-items-center fade-in">                               
-                                <vue-qrcode
-                                    :value="this.tables_qr_code_link"
-                                    :options="{
-                                        width:250,
-                                        color: {
-                                            dark: '#e3342f',
-                                            light: '#fff',
-                                        },
-                                    }">
-                                </vue-qrcode>
+                           <div class="">    
+                                <p class="text-center m-0 p-t0 text-danger"> <small> Table {{this.qr_table_number}}</small></p>                                               
+                            <div class="d-flex justify-content-center align-items-center fade-in">                                                   
+                                    <vue-qrcode
+                                        :value="this.tables_qr_code_link"
+                                        :options="{
+                                            width:250,
+                                            color: {
+                                                dark: '#000',
+                                                light: '#fff',
+                                            },
+                                        }">
+                                    </vue-qrcode>
+                                    </div>
                                 </div>
-                                <p class="text-center mt-0 p-t0 text-danger"> <small> Table {{this.qr_table_number}}</small></p>
-                                <div class="form-group">
-                                    <label for="exampleFormControlInput2">Link: &nbsp; &nbsp;</label>
-                                    <input type="text" disabled class="rounded p-0 px-2" :value=" 'menuthy/' + this.restaurant.restaurant_name + '/menu' " id="exampleFormControlInput2" placeholder="Link">
-                                </div> 
+                                
+                                <p class="text-center py-2">
+                                    <small class="text-muted"> Click the link to open</small> <br>
+                                     <a :href="this.tables_qr_code_link" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
+                                </p> 
                                 <div class="form-group" v-if="this.user.package_type !== null">
                                     <label for="exampleFormControlInput2">Enter table number <small class="text-muted">(max: {{this.max_package_tables}} tables )</small></label>
                                     <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no" @input.prevent="this.maxTableNumber">
