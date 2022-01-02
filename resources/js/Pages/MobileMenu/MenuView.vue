@@ -284,8 +284,8 @@
                         <span class="p-2   back-btn " id="close" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
                     <h4 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h4>
-                    <div class="popup-items-div mt-2" v-if="this.cart_items.length" >
-                        <div class="my-1 mx-3 row" v-for="(item, index) in this.cart_items" :key="index">                            
+                    <div class="popup-items-div mt-2" id="cart-items" v-if="this.cart_items.length" >
+                        <div class="my-1 mx-3 row "  v-for="(item, index) in this.cart_items" :key="index">                            
                             <div class="inner-popup-div rounded border-bottom p-1 mb-2"> 
                                  <span @click="removeFromCart(item.id)" style="position:absolute; margin-top:-1.5rem; right:.5rem; font-size:1.5rem; cursor:pointer;"> <i class="bi bi-x text-danger"></i></span> 
                                 <div class="popup-text" style="width:79%; height:auto; float:left">
@@ -344,11 +344,38 @@
                        <br>
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
-                        <p class="order-btn  mt-2 mx-auto">                           
+                        <p class="order-btn  mt-2 mx-auto" id="place-order-btn">                           
                             <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
+                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
+                    </div>
+                    <div class="customer-details p-2 pt-3 border  rounded m-2 mb-3 hidden" id="customer-details">
+                        <h5 class=""> Please provide the details below</h5>
+                        <div>
+                            <div class="form-group text-left">
+                                <label for="name">Your name </label>
+                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" required>
+                                <small class="text-danger">{{this.errors.customer_name}}</small>
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="phone">Phone no </label>
+                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_phone" id="phone"  placeholder="Phone no" required>
+                                <small class="text-danger">{{this.errors.customer_phone}}</small>
+                            </div>
+                            <div class="form-group text-left" v-if="this.order_type == 'Drive through'">
+                                <label for="car_reg">Car registration <small>(Optional)</small> </label>
+                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.car_registration_no" id="ca_reg"  placeholder="Car registration no" required>
+                                <small class="text-danger">{{this.errors.car_registration_no}}</small>
+                            </div>
+                            <p class="order-btn text-center mt-2 mb-1 mx-auto">                           
+                                <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
+                                <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Place order </button></span> 
+                                <span  v-if="this.User.package_type != null"> <button class="py-2  m-1 px-4 " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
+                                <small class="text-danger"> {{this .errors.cart_empty}} </small>
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -414,6 +441,9 @@ export default {
         total_amount:0,
         item:{},
         language:'',
+        car_registration_no:'',
+        customer_name:'',
+        customer_phone:'',
         spinner:''
       }
   },
@@ -579,13 +609,34 @@ export default {
                 console.log(error.response);                    
             });
       },
-        
-      placeOrder(){
-        this.validateOrderType();
+    cancelPlaceOrder(){
+        document.getElementById('cart-items').classList.remove('zero-height');
+        document.getElementById('customer-details').classList.add('hidden');
+        document.getElementById('place-order-btn').classList.remove('hidden');
+        document.getElementById('cart-items').classList.remove('shadow');
+        document.getElementById('cart-items').classList.remove('border-top');
+        this.errors = {};
+        this.spinner ='';
+    },
+    pre_placeOrder(){
         if(Object.keys(this.errors).length) return;
         if(!Object.keys(this.cart_items).length){
-        this .errors.cart_empty = "Cart Empty. Pease add some items";
+            this .errors.cart_empty = "Cart Empty. Please add some items";
+            return;
+        }           
+        document.getElementById('cart-items').classList.add('zero-height');
+        document.getElementById('cart-items').classList.add('shadow');
+        document.getElementById('cart-items').classList.add('border-top');
+        document.getElementById('customer-details').classList.remove('hidden');
+        document.getElementById('place-order-btn').classList.add('hidden');
         return;
+    } ,
+    placeOrder(){
+        this.validateOrder();
+        if(Object.keys(this.errors).length) return;
+        if(!Object.keys(this.cart_items).length){
+            this.errors.cart_empty = "Cart Empty. Please add some items";
+            return;
         }           
         // gather order data
         var order_data = new FormData();            
@@ -596,8 +647,13 @@ export default {
         order_data.append('number_of_items', this.cart_items.length);
         order_data.append('status', 'received');
         order_data.append('order_type', this.order_type);
+        order_data.append('customer_name', this.customer_name);
+        order_data.append('customer_phone', this.customer_phone);
+        order_data.append('car_registration_no', this.car_registration_no);
+
         if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
-        if(!this.User.table_number) order_data.append('table_number', 1); //default table number is 1
+        else order_data.append('table_number', 1); //default table number is 1
+
 
         // gather order item data
         var order_items = [];
@@ -615,7 +671,7 @@ export default {
         order_data.append('order_items', JSON.stringify(order_items)); //append order items data to form
         
         if(window.confirm("Place a " + this.order_type  + ' order?')){
-            this.spinner = 'spinner-border spinner-border-sm';
+            this.spinner = 'spinner-border spinner-border-sm';           
             axios.post('/api/order', order_data)
                 .then( response => {
                     if( response.status = 201){
@@ -632,15 +688,24 @@ export default {
                 });
         }
       },
-      validateOrderType(){
-          if(!this.order_type || this.order_type == '') this.errors.order_type =  'Please select  order type';
-          else delete this.errors.order_type;
+      validateOrder(){
+        if( this.order_type == '') this.errors.order_type =  'Please select  order type';
+        else delete this.errors.order_type;
+
+        if(this.customer_name =='') this.errors.customer_name ="Please provide your name";
+        else delete this.errors.customer_name;
+
+        if(this.customer_phone == '') this.errors.customer_phone ="Please provide your phone number";
+        else delete this.errors.customer_phone;
+
+        if(this.car_registration_no =='' && this.order_type == 'Drive through') this.errors.car_registration_no ="Please provide your car plate number";
+        else delete this.errors.car_registration_no;
+
       },
        getCookie() {
             var current_cookie = document.cookie;
             return current_cookie.includes('qr_code_scans=');
-        },
-   
+        },   
   },
 
   mounted(){     
@@ -691,7 +756,7 @@ export default {
 </script>
 
 
-<style lang="scss" >
+<style lang="scss" scoped>
 @import "../../../sass/app.scss"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
@@ -952,6 +1017,17 @@ font-weight:300;
 .inner-right-shadow {
     box-shadow: inset 5rem 0 9px -7px #fff;   
 }
+.hidden{
+    display:none;
+}
+
+.zero-height{
+    max-height:5rem;
+    overflow-y: scroll;
+    i{
+        display:none;
+    }
+}
 
 .ribbon{
     position:absolute;
@@ -1040,8 +1116,7 @@ input[type='radio']:after {
     position:absolute;
     font-size:1.5rem;
     left:.5rem;
-    top:.5rem;
-    
+    top:.5rem;    
     color:rgb(224, 221, 221);
 }
 .back-btn i:hover{
