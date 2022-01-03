@@ -66,7 +66,7 @@
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">
             
-            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false">
+            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.User.package_type != null">
               <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
             </div>
         </div>

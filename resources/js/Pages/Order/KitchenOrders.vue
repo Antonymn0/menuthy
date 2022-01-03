@@ -378,7 +378,7 @@ export default {
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
-                    if(order.status == 'recieved'){                        
+                    if(order.status == 'received'){                        
                         try {
                            this.$refs.audio.play();
                         return; 
