@@ -214,16 +214,16 @@
                             <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signature</span>
                         </p>
 
-                        <p class=" arabic " >
-                            Ingredients: &nbsp; <span v-if="this.item.ingredients !== 'null' ">{{capitalize(this.item.ingredients)}}  </span>
+                        <p class=" arabic " v-if="this.item.ingredients">
+                            <span v-if="this.item.ingredients !== 'null' ">Ingredients: &nbsp; {{capitalize(this.item.ingredients)}}  </span>
                         </p>
 
-                        <p class="arabic"> 
-                            Allergy warning: &nbsp; <span v-if="this.item.allergy_warning !== 'null'"> {{capitalize(this.item.allergy_warning)}} </span>
+                        <p class="arabic" v-if="this.item.allergy_warning"> 
+                            <span v-if="this.item.allergy_warning !== 'null'">Allergy warning: &nbsp;  {{capitalize(this.item.allergy_warning)}} </span>
                         </p>
                         <p class="arabic">
-                            <span class="mr-2" v-if="this.item.carlories !== 'null'"> Carlories:  {{this.item.carlories}} </span> &nbsp; &nbsp;
-                            Origin: <span v-if="this.item.food_origin !== 'null' ">  {{capitalize(this.item.food_origin)}}  </span>
+                            <span class="mr-2" v-if="this.item.carlories !== 1"> Carlories:  {{this.item.carlories}} </span> &nbsp; &nbsp;
+                             <span v-if="this.item.food_origin && this.item.food_origin !== 'null' ">Origin:  {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
                      <p class="order-btn pt-2 mt-2 arabic">
@@ -849,6 +849,7 @@ select:focus{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 
 .arrow-left{
