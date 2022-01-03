@@ -46,7 +46,7 @@ class UserController extends Controller
         $user_data = Utilities::createNamesFromFullName($data);
         $user_data['password']  = Hash::make($data['password']);
         $user_data['registration_status'] = 'trial';     // register user on trial by default
-       $user_data['trial_expiry'] = $this->trialDays($this->trial_days);
+        $user_data['trial_expiry'] = $this->trialDays($this->trial_days);
 
         $user= User::create($user_data);
         event(new userCreated($user));

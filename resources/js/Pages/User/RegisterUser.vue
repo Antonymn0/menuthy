@@ -1015,7 +1015,6 @@ export default {
             .then( response => {
                 if( response.status == 201){                
                     this.storeRestaurant(response.data.data.id); // pass user id to restaurant
-                    console.log(response.data);
                 } 
             })
             .catch( error => {  
