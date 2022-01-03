@@ -26,7 +26,7 @@
                  <small class="text-danger"> {{ errors.description}} </small>
             </div>
              <div class="mx-auto p-2">
-                <label for="exampleFormControlInputimage">Image*</label>
+                <label for="exampleFormControlInputimage">Image* <small class="text-muted"> (max size 2mb)</small></label>
                 <div class="image-preview mx-auto p-0 m-0 text-center">
                     <img :src="form.img_preview" alt="" >  <br>
                     <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
@@ -98,8 +98,20 @@ export default defineComponent({
             else delete this.errors.menu_name;            
         },  
         fileUpload(event){
-            this.form.image = event.target.files[0];
-            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
+            this.form.image = event.target.files[0]; 
+           if(this.form.image.size > 2048 * 1024){
+              this.errors.image = "Image too big. Select an image less than 2mb."; 
+              return;
+           } 
+           if(this.form.image['type'] === 'image/jpeg' || this.form.image['type'] === 'image/jpg' || this.form.image['type'] === 'image/png' || this.form.image['type'] === 'image/gif'){
+              this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]); 
+              delete this.errors.image
+              return;
+           } 
+           else {
+               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.form.img_preview = '';
+           }
         },    
     },
     mounted(){       
