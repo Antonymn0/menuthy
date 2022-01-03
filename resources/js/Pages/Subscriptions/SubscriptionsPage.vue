@@ -15,7 +15,7 @@
             </div>
 
         <div class="fade-in"> 
-            <div class="bill-period mx-auto py-5"> 
+            <div class="bill-period mx-auto pt-5"> 
                 <div class="px-1">
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 

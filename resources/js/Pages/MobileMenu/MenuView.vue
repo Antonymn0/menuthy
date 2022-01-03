@@ -17,8 +17,8 @@
         <i class="bi bi-justify-left"></i>
         </span>
         <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
-        <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px" data-bs-toggle="modal" data-bs-target="#headerModal">
-      
+        <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#headerModal">
+      <span class="res-contacts" v-if="this.show_res_info">Click the image to see contacts.</span>
         <h5 class="pt-2 mb-0 text-center">
             <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
             <span v-else> Hotel name</span> 
@@ -214,16 +214,16 @@
                             <span class="badge badge-primary mr-1 p-1" v-if="this.item.is_signiture == 'true'"> Signature</span>
                         </p>
 
-                        <p class=" arabic " v-if="this.item.ingredients">
-                            Ingredients: &nbsp; {{capitalize(this.item.ingredients)}} 
+                        <p class=" arabic " >
+                            Ingredients: &nbsp; <span v-if="this.item.ingredients !== 'null' ">{{capitalize(this.item.ingredients)}}  </span>
                         </p>
 
                         <p class="arabic"> 
-                            <span v-if="this.item.allergy_warning !== 'null'">Allergy warning: &nbsp; {{capitalize(this.item.allergy_warning)}} </span>
+                            Allergy warning: &nbsp; <span v-if="this.item.allergy_warning !== 'null'"> {{capitalize(this.item.allergy_warning)}} </span>
                         </p>
                         <p class="arabic">
-                            <span class="mr-2" v-if="this.item.carlories !== 'null'"> Carlories:  {{this.item.carlories}} </span>
-                            <span v-if="this.item.food_origin !== 'null' "> Origin: {{capitalize(this.item.food_origin)}}  </span>
+                            <span class="mr-2" v-if="this.item.carlories !== 'null'"> Carlories:  {{this.item.carlories}} </span> &nbsp; &nbsp;
+                            Origin: <span v-if="this.item.food_origin !== 'null' ">  {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
                      <p class="order-btn pt-2 mt-2 arabic">
@@ -326,19 +326,19 @@
                         <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In">
+                            <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine in </small> </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Take away </small> </label>
                         </div>
                         <!-- <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Delivery" >
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Delivery" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r3' + menu_item.id">Delivery</label>
                         </div>  -->
                         <!-- <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" >
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r3' + menu_item.id">Drive through</label>
                         </div>  -->
                        <br>
@@ -444,7 +444,8 @@ export default {
         car_registration_no:'',
         customer_name:'',
         customer_phone:'',
-        spinner:''
+        spinner:'',
+        show_res_info:false,
       }
   },
   methods:{
@@ -618,10 +619,18 @@ export default {
         this.errors = {};
         this.spinner ='';
     },
+    detectOrderType(order_type){
+        if(order_type == 'Dine In') this.cancelPlaceOrder();
+        return;
+    },
     pre_placeOrder(){
         if(Object.keys(this.errors).length) return;
         if(!Object.keys(this.cart_items).length){
             this .errors.cart_empty = "Cart Empty. Please add some items";
+            return;
+        }
+        if(this.order_type == 'Dine In'){
+            this.placeOrder();
             return;
         }           
         document.getElementById('cart-items').classList.add('zero-height');
@@ -693,13 +702,13 @@ export default {
         }
       },
       validateOrder(){
-        if( this.order_type == '') this.errors.order_type =  'Please select  order type';
+        if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
         else delete this.errors.order_type;
 
-        if(this.customer_name =='') this.errors.customer_name ="Please provide your name";
+        if(this.customer_name =='' && this.order_type !== 'Dine In') this.errors.customer_name ="Please provide your name";
         else delete this.errors.customer_name;
 
-        if(this.customer_phone == '') this.errors.customer_phone ="Please provide your phone number";
+        if(this.customer_phone == '' && this.order_type !== 'Dine In') this.errors.customer_phone ="Please provide your phone number";
         else delete this.errors.customer_phone;
 
         if(this.car_registration_no =='' && this.order_type == 'Drive through') this.errors.car_registration_no ="Please provide your car plate number";
@@ -709,7 +718,11 @@ export default {
        getCookie() {
             var current_cookie = document.cookie;
             return current_cookie.includes('qr_code_scans=');
-        },   
+        }, 
+        toggle_show_res_info(){
+            this.show_res_info = false;
+        },
+        
   },
 
   mounted(){     
@@ -718,6 +731,7 @@ export default {
         this.current_menus= this.menus;
         this.current_sub_menus= this.subMenus;
         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
+        setTimeout( this.toggle_show_res_info(), 3000); 
 
             // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
@@ -753,7 +767,8 @@ export default {
                     });
                     
                 }
-            }          
+            }  
+                   
     }
  
 };
@@ -854,7 +869,13 @@ select:focus{
     color:rgba(220, 20, 60, 0.205);
 }
 
-
+.res-contacts{
+    border:1px solid $orange;
+    border-radius: 15px;
+    padding:.5rem;
+    z-index: 10;
+    text-align: center;
+}
 // slider div 
 .carausel-item{
     display:table-cell;

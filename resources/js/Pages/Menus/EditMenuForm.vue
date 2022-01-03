@@ -5,7 +5,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" :id="'updateModal'+ menu.id + 'Label'">Update menu</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" :id="menu.id" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -34,8 +34,8 @@
                         <small class="text-danger"> {{this.errors.image }} </small>              
                     </div>
                     <div class="text-center mx-auto">
-                        <button type="submit" class="btn primary-btn mr-2" @click="submitForm()" >Save </button>
-                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn primary-btn mr-2" >Save </button>
+                        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
@@ -80,9 +80,10 @@ export default defineComponent({
             axios.post('/api/menu/' + this.form.menu_id, form_data)
             .then( response => {
             if( response.status = 200){
-                    document.getElementById('close').click(); 
+                    document.getElementById(this.menu.id).click(); 
+                    new Swal({   title:'Success', timer:1200 });
                     this.$inertia.reload();            
-                    this.$swal('Success!'); 
+                    
                 } 
             })
             .catch( error => {
@@ -103,12 +104,11 @@ export default defineComponent({
         }        
     },
     mounted () {
-        console.log(this.menu);
-        console.log('menu is: ', this.menu.id);
         this.form.restaurant_id =  window.authRestaurant.id;
         this.form.menu_name = this.menu.menu_name;
         this.form.menu_id= this.menu.id;
         this.form.description = this.menu.description;
+        this.form.img_preview = this.menu.image;
     }
    
 });

@@ -84,7 +84,7 @@
                 <thead class="lead p-2">
                     <tr class="p-2">
                         <th scope="col">#</th>
-                        <th scope="col">Time recieved</th>
+                        <th scope="col">Time received</th>
                         <th scope="col">Time completed</th>
                         <th scope="col">Order no</th>
                         <th scope="col">Type</th>

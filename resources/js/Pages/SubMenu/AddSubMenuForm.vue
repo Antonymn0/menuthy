@@ -5,7 +5,7 @@
         <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title text-center" id="exampleModalLabel">Add a section (sub menu)</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>           
@@ -40,8 +40,8 @@
                     </div>
                                   
                     <div class="text-center mx-auto ">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()" >
-                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn primary-btn mr-2" value="Save"  >
+                        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
                     </div>
                 </form> 
             </div>    
@@ -92,9 +92,12 @@ export default defineComponent({
             axios.post('/api/sub-menu', form_data)
             .then( response => {
                 if( response.status == 201){
-                    document.getElementById('close').click(); 
+                    console.log(document.getElementById('close'));
+                    document.getElementById('close').click();
+                    Swal.close();
+                    new Swal({   title:'Success', timer:1200 });
                     this.$inertia.reload();            
-                    this.$swal('Success!'); 
+                    
                 } 
             })
             .catch( error => {

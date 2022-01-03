@@ -5,7 +5,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" :id="'updateModal'+ subMenu.id + 'Label'">Update section</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" :id="subMenu.id" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>           
@@ -45,8 +45,8 @@
                         </div>
                     </div>                         
                     <div class="text-center mx-auto">
-                        <input type="submit" class="btn primary-btn mr-2" value="Save" @click="submitForm()"  >
-                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn primary-btn mr-2" value="Save"  >
+                        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
                     </div>
                 </form> 
             </div>    
@@ -73,7 +73,7 @@ export default defineComponent({
                 is_signiture: this.subMenu.is_signiture,
                 publish: this.subMenu.publish,
                 image:'',
-                img_preview:''
+                img_preview:this.subMenu.image,
             },
             errors:{},
             success:'',
@@ -98,9 +98,9 @@ export default defineComponent({
             axios.post('/api/sub-menu/' + this.subMenu.id, form_data)
             .then( response => {
             if( response.status = 201){
-                    document.getElementById('close').click(); 
-                    this.$inertia.reload();            
-                    this.$swal('Success!'); 
+                    document.getElementById(this.subMenu.id).click(); 
+                    new Swal({   title:'Success', timer:1500 });
+                    this.$inertia.reload(); 
                 } 
             })
             .catch( error => {
@@ -129,14 +129,10 @@ export default defineComponent({
             this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
             console.log(URL.createObjectURL(event.currentTarget.files[0]));
         }, 
-        logPub(){
-            console.log(this.form.publish);
-        },
+       
         mounted(){
             this.form.menu_id = this.menu_id;
             this.form.restaurant_id = this.restaurant_id;
-            console.log(this.form.menu_id);
-            console.log(this.form.restaurant_id);
         
            } 
     },

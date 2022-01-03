@@ -1,11 +1,11 @@
 <template>
   <!-- add new Menu modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal fade mx-auto " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title text-center " id="exampleModalLabel">Add new menu</h3>
-                        <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div> 
@@ -34,14 +34,14 @@
                 <small class="text-danger"> {{this.errors.image }} </small>              
             </div>
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn mr-2" @click="submitForm()"  >Save </button>
-                <button type="button" class="btn btn-default" id="close"  data-dismiss="modal">Close</button>
+                <button type="submit" class="btn primary-btn mr-2"  >Save </button>
+                <button type="button" class="btn btn-default"    data-dismiss="modal" aria-label="Close">Close</button>
             </div>
         </form>
     </div>
        </div>
-                </div>
-            </div>  
+        </div>
+    </div>  
 </template>
 
 <script>
@@ -81,9 +81,10 @@ export default defineComponent({
             axios.post('/api/menu', form_data)
             .then( response => {
                 if( response.status == 201){ 
-                    document.getElementById('close').click(); 
-                    this.$inertia.reload();            
-                    this.$swal('Success!');                  
+                   document.getElementById('close').click();
+                    new Swal({   title:'Success', timer:1200 });
+                    this.$inertia.reload(); 
+                                      
                     } 
                 })
             .catch( error => {

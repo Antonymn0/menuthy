@@ -18,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('order_number')->required();
             $table->double('amount')->required();
             $table->string('paid')->required();
-            $table->string('customer_name')->required();
-            $table->string('customer_phone')->required();
+            $table->string('customer_name')->nullable();
+            $table->string('customer_phone')->nullable();
             $table->string('car_registration_no')->nullable();
             $table->double('amount_paid')->nullable();
             $table->timestamp('paid_at')->nullable();

@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="exampleModalLabel">Add new Item</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -56,7 +56,7 @@
                         background-color: #fff;
                         background-clip: padding-box;
                         border: 1px solid #ced4da;">
-                    <option  selected >- Select -</option>
+                    <option  selected value="" >- Select -</option>
                     <option value="Alcohol">Alcohol </option>
                     <option value="Cheese">Cheese</option>
                     <option value="Caffeine">Caffeine</option>
@@ -142,8 +142,8 @@
                 </div>
             </div>  
             <div class="text-center mx-auto ">
-                <button type="submit" class="btn primary-btn mr-2 "  @click="submitForm()"  >Save </button>
-                <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn primary-btn mr-2 " >Save </button>
+                <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
             </div>
         </form>
     </div>
@@ -207,15 +207,14 @@ props:['sub_menu'],
                 form_data.append('carlories', this.form.carlories);
                 form_data.append('allergy_warning', this.form.allergy_warning);
                 if(this.form.image) form_data.append('image', this.form.image);
-                console.log(...form_data);
 
             Swal.showLoading();
             axios.post('/api/menu-item', form_data)
             .then( response => {
                 if( response.status == 201){
                     document.getElementById('close').click(); 
-                    this.$inertia.reload();            
-                    this.$swal('Success!'); 
+                    new Swal({   title:'Success', timer:1200 });
+                    this.$inertia.reload(); 
                 } 
             })
             .catch( error => {

@@ -167,7 +167,6 @@ export default {
             if( response.status = 200){
                 this.qrscans='';
                 this.current_orders = response.data.data.data;
-                console.log(this.current_orders);
                 } 
             })
             .catch( error => {
@@ -182,7 +181,6 @@ export default {
             if( response.status == 200){  
                 this.current_orders = '';             
                 this.qrscans = response.data.data;
-                console.log(this.qrscans);
                 } 
             })
             .catch( error => {

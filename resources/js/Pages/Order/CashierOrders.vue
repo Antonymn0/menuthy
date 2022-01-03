@@ -86,7 +86,7 @@
                 <thead class="lead p-2">
                     <tr class="p-2">
                         <th scope="col">#</th>
-                        <th scope="col">Time recieved </th>
+                        <th scope="col">Time received </th>
                         <th scope="col">Time completed </th>
                         <th scope="col">Order no</th>
                         <th scope="col">Type</th>
@@ -268,7 +268,7 @@ export default {
             if(order.status == 'received'){ alert('Order not Processed, mark it complete or processing first in order to pay.'); return; }
             if(confirm("Confirm you have recieved " + window.authRestaurant.currency +' ' + order.amount + " for this order?"))
             {            
-                axios.get('/api/order/mark-paid/' + id + '/' + order.amount + '/' + date)
+                axios.get('/api/order/mark-paid/' + order.id + '/' + order.amount + '/' + date)
                 .then( response => {
                     if( response.status == 200){
                         this. refreshOrders();

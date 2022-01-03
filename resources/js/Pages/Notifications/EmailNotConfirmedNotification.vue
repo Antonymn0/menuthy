@@ -32,7 +32,6 @@ export default {
         sendVerificationEmail(email){
             axios.get('api/send-email-verification/' + email)
                 .then( response => {
-                  console.log(response);
                 if( response.status == 200){
                     this.message = 'We have sent a verification link to your email address. Please check your inbox and click the link to verify.'
                     } 
