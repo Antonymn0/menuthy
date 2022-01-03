@@ -9,10 +9,8 @@ use App\Mail\WelcomeEmail;
 use App\Mail\ConfirmEmail;
 use Illuminate\Support\Facades\Mail;
 
-class userCreatedListener 
-{
-
-    
+class userCreatedListener implements shouldQueue
+{   
      public  $user;
     /**
      * Create the event listener.
