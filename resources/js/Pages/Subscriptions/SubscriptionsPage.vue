@@ -16,19 +16,19 @@
 
         <div class="fade-in"> 
             <div class="bill-period mx-auto pt-5"> 
-                <div class="px-1">
+                <div class="px-1" >
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
                         updatePackagePrice(33, 66, 133,266),
                         updatePeriod('monthly')                     
-                      ]"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
+                      ]" style="cursor:pointer"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>
-                <div class="px-1">
+                <div class="px-1" >
                     <p class="yearly shadow "  
                     @click.prevent="[toggleYearlyTabs($event, 'yearly'), 
                      updatePackagePrice(333, 777, 1333, 2777),
                      updatePeriod('yearly')
-                    ]">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
+                    ]" style="cursor:pointer">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
             </div>
             
