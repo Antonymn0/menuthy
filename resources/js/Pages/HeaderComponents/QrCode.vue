@@ -8,7 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header pb-1 m-0">
-                <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your device  </h4>
+                <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your devices  </h4>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -16,7 +16,7 @@
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
                         <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
-                        <li > <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
+                        <li  v-if="this.user.package_type == 'premium' ||  this.user.package_type == 'pro'"> <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
                     </ul>
              
                     <div class="tab-content">

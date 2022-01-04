@@ -30,7 +30,7 @@
                                 <a class="nav-link " aria-current="page" href="#">Design</a>
                             </li> -->
                              <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
-                                <a class="nav-link " aria-current="page" href="#">Reports</a>
+                                <a class="nav-link " aria-current="page" href="/reports">Reports</a>
                             </li>
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -44,7 +44,7 @@
                         </ul>
                     </li> -->
                     <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
-                        <a class="nav-link " aria-current="page" href="#">Reports</a>
+                        <a class="nav-link " aria-current="page" href="/reports">Reports</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Settings</a>
