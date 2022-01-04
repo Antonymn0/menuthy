@@ -31,8 +31,8 @@
                     ]" style="cursor:pointer">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
             </div>
-            <p class="mx-auto w-auto text-center  table-responsive"> <b> Your current subscription </b> <br>
-                <table class="table-sm w-auto mx-auto table-striped border table-bordered rounded p-3" style="background-color:rgb(239 236 236);                    ">
+            <p class="mx-auto w-auto text-center text-muted table-responsive"> <b> Your current subscription </b> <br>
+                <table class="table-sm w-auto mx-auto table-striped border table-bordered rounded p-3 shadow" style="background-color:rgb(239 236 236);                    ">
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
@@ -56,7 +56,7 @@
                     </tr>
                 </table>
             </p>
-            <p class="text-center">
+            <p class="text-center text-muted">
                 Toggle test subscription:  
                 <select name="" class="p-2 rounded" id="" @change.prevent='togglePackage()' v-model="this.packageType">
                     <option value="" selected> -Select-</option>

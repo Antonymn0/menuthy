@@ -38,8 +38,6 @@
         "qrcode": "^1.4.4",
         "v-pagination-3": "^0.1.7",
         "vue-audio-better": "^3.0.1",
-        "vue-chart-3": "^3.0.4",
-        "vue-chartjs": "^3.5.1",
         "vue-countries-cities": "^1.0.0",
         "vue-country-code-select": "^1.6.7",
         "vue-country-flag-next": "^2.3.2",
