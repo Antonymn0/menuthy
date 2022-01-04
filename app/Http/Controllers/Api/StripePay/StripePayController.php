@@ -125,11 +125,11 @@ class StripePayController extends Controller
         $ex_date = null;
 
         // monthy subscription
-        if($payment_obj->amount_paid == 60 || $payment_obj->amount_paid == 120 || $payment_obj->amount_paid == 240) $days =30;
-        if($payment_obj->amount_paid == 120 || $payment_obj->amount_paid == 240 || $payment_obj->amount_paid == 480) $days =30;
+        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $days =30;
+        
         //yearly subsciption
-        if($payment_obj->amount_paid == 600 || $payment_obj->amount_paid == 1200 || $payment_obj->amount_paid == 2400) $days =365;
-        if($payment_obj->amount_paid == 1200 || $payment_obj->amount_paid == 2400 || $payment_obj->amount_paid == 4800) $days =365;
+        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $days =365;
+       
 
         $ex_date = Carbon::now()->addDays($days);
         return $ex_date;
@@ -141,22 +141,18 @@ class StripePayController extends Controller
     public function getPackageType($payment_obj){
         $package_type ='';
             // monthly 
-        if($payment_obj->amount_paid == 60 ) $package_type = 'basic';
-        if($payment_obj->amount_paid == 120 ) $package_type = 'pro';
-        if($payment_obj->amount_paid == 240 ) $package_type = 'advanced';
+        if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
+        if($payment_obj->amount_paid == 66 ) $package_type = 'lite';
+        if($payment_obj->amount_paid == 133 ) $package_type = 'pro';
+        if($payment_obj->amount_paid == 266 ) $package_type = 'premium';
         
-        if($payment_obj->amount_paid == 120 ) $package_type = 'basic';
-        if($payment_obj->amount_paid == 240 ) $package_type = 'pro';
-        if($payment_obj->amount_paid == 480 ) $package_type = 'advanced';
         
         //yearly
-        if($payment_obj->amount_paid == 600 ) $package_type = 'basic';
-        if($payment_obj->amount_paid == 1200) $package_type = 'pro';
-        if($payment_obj->amount_paid == 2400 ) $package_type = 'advanced';
-        
-        if($payment_obj->amount_paid == 1200 ) $package_type = 'basic';
-        if($payment_obj->amount_paid == 2400) $package_type = 'pro';
-        if($payment_obj->amount_paid == 4800 ) $package_type = 'advanced';
+        if($payment_obj->amount_paid == 333 ) $package_type = 'starter';
+        if($payment_obj->amount_paid == 777) $package_type = 'lite';
+        if($payment_obj->amount_paid == 1333 ) $package_type = 'pro';
+        if($payment_obj->amount_paid == 2777 ) $package_type = 'premium';
+
 
         return $package_type;
     }

@@ -243,7 +243,7 @@
                      <p class="order-btn pt-2 mt-2 arabic">                        
                         <span   v-if="this.user.package_type == 'premium'"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
-                          <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
+                            <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
                                     <option value="1" default selected> 1</option>
