@@ -333,7 +333,7 @@ export default {
 
 <style scoped>
     button{
-        font-size:1.2rem;
+        font-size:1.1rem;
     }
     .parent{
         font-family:Poppins !important;
