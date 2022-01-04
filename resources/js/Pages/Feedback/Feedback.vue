@@ -162,9 +162,11 @@ export default {
             }
         },
          fetchOrders(search_term){ 
+            this.qrscans='';
+            if(this.authUser.package_type == 'starter' || this.authUser.package_type == 'null') return;
             axios.get('/orders/'+ this.restaurant.id + '/' + search_term)
             .then( response => {
-            if( response.status = 200){
+            if( response.status == 200){
                 this.qrscans='';
                 this.current_orders = response.data.data.data;
                 } 

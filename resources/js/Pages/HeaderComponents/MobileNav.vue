@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/menus">Menus</a>
                     </li>
-                    <li class="nav-item dropdown" v-if="this.user.registration_status !== 'trial'">
+                    <li class="nav-item dropdown" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Orders
                             </a>
@@ -43,7 +43,7 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li> -->
-                    <li class="nav-item" v-if="this.user.registration_status !== 'trial'">
+                    <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
                         <a class="nav-link " aria-current="page" href="#">Reports</a>
                     </li>
                     <!-- <li class="nav-item">

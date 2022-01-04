@@ -26,6 +26,10 @@
         <p class=" text-center">
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
+         <p class="text-center"> <small>
+                 <span style="color:#f89a42;">Phone:</span>  <span>{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
+                 <span style="color:#f89a42;">Email:</span>  <span>{{this.restaurant.restaurant_email}}</span>
+        </small> </p>
     </div>
 
 <!--Restaurant info Modal -->
@@ -48,6 +52,7 @@
             <p class=" text-center">
                 <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
             </p>
+           
             <div class="p-0 m-0  mx-auto">
                 <p class="  ">
                      <small class="text-left" v-if="this.restaurant.restaurant_email"> Email: <span v-if="this.restaurant.restaurant_email !=='null' "> {{ this.restaurant.restaurant_email}}</span>  </small> <br>
@@ -73,9 +78,8 @@
 </div>
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
-        <div class="cart-items d-flex flex-row-reverse">
-            
-            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.User.package_type != null">
+        <div class="cart-items d-flex flex-row-reverse">            
+            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter'">
               <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
             </div>
         </div>
@@ -128,27 +132,28 @@
                     <!--type hints -->
                     <div class=" radio-btns m-1 arabic">                       
                         <div class="radio-btns-inner arabic d-flex mb-1 align-content-between ">
-                            <div class="form-check form-check-inline d-flex align-items-center">
+                            <div class="form-check form-check-inline d-flex align-items-center" v-if="this.user.package_type !== 'starter'">
                                 <i class="bi bi-dot pr-0 mr-0" ></i> 
                                 <label class="form-check-label" > Dine in</label>
                             </div>
-                            <div class="form-check form-check-inline d-flex align-items-center">
+                            <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' ">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label">Take away</label>
                             </div>
-                            <!-- <div class="form-check form-check-inline d-flex align-items-center align-content-between">
+                             <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'pro' ||  this.user.package_type == 'premium' ">
+                                <i class="bi bi-dot"></i> 
+                                <label class="form-check-label" >Drive through</label>
+                            </div>
+                            <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium'">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Delivery</label>
                             </div>                            
-                            <div class="form-check form-check-inline d-flex align-items-center align-content-between">
-                                <i class="bi bi-dot"></i> 
-                                <label class="form-check-label" >Drive through</label>
-                            </div>     -->
+                               
                         </div> 
                     </div>
                     <p class="arabic order-btn text-left pt-1 mt-2 mb-1" >
                         <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
-                            <a href="#" class=" " @click.prevent="addToCart(menu_item)"  v-if="this.User.package_type != null">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
+                            <a href="#" class=" " @click.prevent="addToCart(menu_item)"   v-if="this.user.package_type !== 'starter'">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
                         <span class="arabic px-2 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                             <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -231,13 +236,12 @@
                             <span v-if="this.item.allergy_warning !== 'null'">Allergy warning: &nbsp;  {{capitalize(this.item.allergy_warning)}} </span>
                         </p>
                         <p class="arabic">
-                            <span class="mr-2" v-if="this.item.carlories !== 1"> Carlories:  {{this.item.carlories}} </span> &nbsp; &nbsp;
+                            <span class="mr-2" v-if="this.item.carlories !== 1"> Carlories:  {{this.item.carlories}} &nbsp; &nbsp;</span> 
                              <span v-if="this.item.food_origin && this.item.food_origin !== 'null' ">Origin:  {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
-                     <p class="order-btn pt-2 mt-2 arabic">
-                        <span  v-if="this.User.package_type != null" class="button">   </span>                          
-                        <span  v-if="this.User.package_type != null"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                     <p class="order-btn pt-2 mt-2 arabic">                        
+                        <span   v-if="this.user.package_type == 'premium'"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
                           <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -332,30 +336,31 @@
                         <small> --  Cart is empty, Please add some items --</small>
                     </div>
                     <div class="pop-up-text  py-2">                       
-                        <!-- radio buttons -->
-                    <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0"> 
-                        <div class="form-check form-check-inline">
+                    <!-- radio buttons -->
+                    <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0" v-if="this.user.package_type !== 'starter'"> 
+                        <div class="form-check form-check-inline" >
                             <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine in </small> </label>
                         </div>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Take away </small> </label>
                         </div>
-                        <!-- <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Delivery" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Delivery</label>
-                        </div>  -->
-                        <!-- <div class="form-check form-check-inline">
+                       
+                        <div class="form-check form-check-inline" v-if="this.user.package_type == 'pro' || this.user.package_type == 'premium'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id">Drive through</label>
-                        </div>  -->
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive through </small></label>
+                        </div> 
+                        <div class="form-check form-check-inline"  v-if="this.user.package_type == 'premium'">
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Home Delivery" @change.prevent="detectOrderType(this.order_type)">
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Delivery </small> </label>
+                        </div> 
                        <br>
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">                           
                             <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
-                            <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
+                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter'  "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
@@ -372,13 +377,17 @@
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_phone" id="phone"  placeholder="Phone no" required>
                                 <small class="text-danger">{{this.errors.customer_phone}}</small>
                             </div>
-                            <div class="form-group text-left" v-if="this.order_type == 'Drive through'">
-                                <label for="car_reg">Car registration <small>(Optional)</small> </label>
+                            <div class="form-group text-left" v-if="this.order_type == 'Drive Through'">
+                                <label for="car_reg">Car registration  </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.car_registration_no" id="ca_reg"  placeholder="Car registration no" required>
                                 <small class="text-danger">{{this.errors.car_registration_no}}</small>
                             </div>
+                            <div class="form-group text-left" v-if="this.order_type == 'Home Delivery'">
+                                <label for="car_reg">Your Address </label>
+                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.address" id="ca_reg"  placeholder="Address" required>
+                                <small class="text-danger">{{this.errors.address}}</small>
+                            </div>
                             <p class="order-btn text-center mt-2 mb-1 mx-auto">                           
-                                <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
                                 <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Place order </button></span> 
                                 <span  v-if="this.User.package_type != null"> <button class="py-2  m-1 px-4 " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
                                 <small class="text-danger"> {{this .errors.cart_empty}} </small>
@@ -453,6 +462,7 @@ export default {
         car_registration_no:'',
         customer_name:'',
         customer_phone:'',
+        address:'',
         spinner:'',
         show_res_info:false,
       }
@@ -668,6 +678,7 @@ export default {
         order_data.append('customer_name', this.customer_name);
         order_data.append('customer_phone', this.customer_phone);
         order_data.append('car_registration_no', this.car_registration_no);
+        order_data.append('delivery_address', this.address);
 
         if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
         else order_data.append('table_number', 1); //default table number is 1
@@ -721,6 +732,9 @@ export default {
         else delete this.errors.customer_phone;
 
         if(this.car_registration_no =='' && this.order_type == 'Drive through') this.errors.car_registration_no ="Please provide your car plate number";
+        else delete this.errors.car_registration_no;
+
+        if(this.address =='' && this.order_type == 'Home delivery') this.errors.address ="Please provide your delivery  address";
         else delete this.errors.car_registration_no;
 
       },
@@ -814,7 +828,7 @@ select:focus{
 .cart-preview{
     position:absolute;
     width:auto;  
-    top:-8rem ; 
+    top:-8.3rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -1294,7 +1308,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-6rem ;
+        top:-6.3rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;

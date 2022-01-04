@@ -33,7 +33,7 @@ class Order extends Model
         'car_registration_no',
         'order_type',
         'table_number',
-       
+        'delivery_address',
         'deleted_at',
         'completed_at',
         'canceled_at',

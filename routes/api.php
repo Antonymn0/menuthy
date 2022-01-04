@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +148,28 @@ if (App::environment('production')) {
     Route::post('stripe-pay-checkout',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'checkout'])->name('stripe-checkout');
     Route::get('/stripe-webhook',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'handleChargeEvents'])->name('stripe-charge-succsessfull');
     Route::post('/stripe-webhook',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'handleChargeEvents'])->name('stripe-charge-succsessfull');
+
+
+
+
+Route::get('/simulate-package/{id}/{package_name}/{period}', function ($id, $package_name, $period) {  
+  $days = 0;
+  if($period == 'monthly') $days = 30;
+  else $days = 365;
+    $user = User::findOrFail($id);
+    $user->update([
+      'package_type'=> $package_name,
+      'registration_date' => Carbon::now(),
+      'registration_expiry' => Carbon::now()->addDays($days),
+      'package_period' => $period,
+      'registration_status' => 'registered',
+    ]);
+    return response()->json([
+      'success' => true,
+      'message' => 'package toggled',
+      'data' => $user
+    ],200);
+});
 
 
 Route::fallback(function() {

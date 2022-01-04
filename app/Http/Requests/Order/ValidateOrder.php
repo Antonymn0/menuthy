@@ -29,6 +29,7 @@ class ValidateOrder extends FormRequest
             'car_registration_no' => ['nullable','string'],
             'order_number' => ['required','string'],       
             'customer_name' => ['nullable','string'],       
+            'delivery_address' => ['nullable','string'],       
             'customer_phone' => ['nullable','string'],       
             'amount' => ['required','regex:/^[0-9]+(\.[0-9]{1,2})?$/'],
             'paid' => ['required','string'],

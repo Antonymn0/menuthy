@@ -55,7 +55,17 @@
                         <td v-else>{{formatDate(this.user.trial_expiry)}}</td>
                     </tr>
                 </table>
-
+            </p>
+            <p class="text-center">
+                Toggle test subscription:  
+                <select name="" class="p-2 rounded" id="" @change.prevent='togglePackage()' v-model="this.packageType">
+                    <option value="" selected> -Select-</option>
+                    <option value="starter"> Starter</option>
+                    <option value="lite"> Lite</option>
+                    <option value="pro"> Pro</option>
+                    <option value="premium"> Premium</option>
+                </select>
+                <span class="text-success">{{this.success}}</span>
             </p>
 <!-- ------------------------ Monthly package panels------------------------------------------ -->
         <div class="monthly-panels  ">            
@@ -90,7 +100,7 @@
                     </div>
                     <div> 
                         <div class="shadow "> 
-                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " style="position:relative; margin-left:20% "> Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
+                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.lite.price}}</span>
@@ -194,13 +204,17 @@ export default {
     },
     data(){
          return{
-             user: window.authUser,
+            user: window.authUser,
+            plan_period:'monthly' ,
+            packageType:'', 
+            success:'',
+
             starter:{
                 'name' : 'Menuthy starter plan',
                 'price' : 33,
                 'description' : 'Menuthy STARTER plan subscription',
                 'plan_period' : this.period(),
-                'type' : 'stater',
+                'type' : 'starter',
                 'specification': ''
                 },
             lite:{
@@ -226,11 +240,35 @@ export default {
                 'plan_period' : this.period(),
                 'type' : 'premium',
                 'specification': ''
-                },
-            plan_period:'monthly'            
+                },          
         }
     },
     methods:{ 
+        togglePackage(){
+            var period_andom = ['monthly', 'yearly'];
+            period_andom = period_andom[Math.floor(Math.random()*period_andom.length)];
+            this.success = '';
+            axios.get('api/simulate-package/' + this.user.id + '/' + this.packageType+ '/' + period_andom )
+            .then( payload => {
+                this.success = ' Loading';
+                axios.get('api/user/' + this.user.id  )
+                .then( payload => {
+                    console.log(payload);
+                    this.user= payload.data.data;
+                    this.success = ' Success!';                
+                })
+                .catch( error => {
+                    this.success = '';
+                this.$swal('Failed!');
+                    console.log(error);                    
+                });
+            })
+            .catch( error => {
+                this.success = '';
+               this.$swal('Failed!');
+                console.log(error);                    
+            });
+        },
         capitalize(string) {
            if(string) return string.charAt(0).toUpperCase() + string.slice(1);
         },  

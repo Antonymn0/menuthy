@@ -94,6 +94,7 @@
                         <th scope="col">Table</th>
                         <th scope="col">Customer name</th>
                         <th scope="col">Customer Phone</th>
+                        <th scope="col">Delivery address</th>
                         <th scope="col">Car Reg</th>
                         <th scope="col">Amount due</th>
                         <th scope="col">Paid</th>
@@ -116,6 +117,7 @@
                         <td v-else>1</td>
                         <td  class="">{{order.customer_name}}</td>
                         <td  class="">{{order.customer_phone}}</td>
+                        <td  class="">{{order.delivery_address}}</td>
                         <td  class="">{{order.car_registration_no}}</td>
                         <td v-if="order.amount" class="">{{order.amount}}</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
