@@ -100,7 +100,7 @@
                     </div>
                     <div> 
                         <div class="shadow "> 
-                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
+                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " style="position:absolute;" > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.lite.price}}</span>

@@ -29,24 +29,31 @@ export default {
         },
 
         config : {
-            type: 'bar',
+            type: 'line',
             data: this.data,
-             options: {
-                title: {
-                    display: true,
-                    text: 'Test Chart'
-                }
+            options: {
+                
             }
         },        
      }
     },
     mounted(){
-     new Chart(
-        document.getElementById('myChart').getContext('2d'),
-        this.config
-        );
+        var el =document.getElementById('myChart').getContext('2d');
+        var xValues = [50,60,70,80,90,100,110,120,130,140,150];
+        var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+        new Chart(el, {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                backgroundColor: "rgba(0,0,0,1.0)",
+                borderColor: "rgba(0,0,0,0.1)",
+                data: yValues
+                }]
+            },
+            options:{ }
+            });
     }
-    
   
 }
 </script>

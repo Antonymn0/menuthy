@@ -83,8 +83,7 @@ export default defineComponent({
                 if( response.status == 201){ 
                    document.getElementById('close').click();
                     new Swal({   title:'Success', timer:1200 });
-                    this.$inertia.reload(); 
-                                      
+                    this.$inertia.reload();                                 
                     } 
                 })
             .catch( error => {
