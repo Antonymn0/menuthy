@@ -165,6 +165,7 @@ export default {
                 form_data.append('city', this.form.city);
                 form_data.append('timezone', this.form.timezone);
                 form_data.append('phone', this.form.phone);
+                form_data.append('role', this.form.role);
                
                 if(this.form.image) form_data.append('image', this.form.image);
                 form_data.append('_method', 'PUT');
@@ -172,10 +173,10 @@ export default {
                 Swal.showLoading();
             axios.post('/api/user/' + this.form.user_id, form_data)
             .then( response => {
-            if( response.status = 200){
+            if( response.status == 200){
                 this.$refs.form.reset();
-                new Swal({ title: "Success!",timer: 1800  });
-                   
+                document.getElementById('close').click();
+                new Swal({ title: "Success!",timer: 1800  });                   
                 } 
             })
             .catch( error => {
@@ -184,9 +185,20 @@ export default {
             });
         },
         fileUpload(event){
-            this.form.image = event.target.files[0];
-            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
-            console.log(URL.createObjectURL(event.currentTarget.files[0]));
+            this.form.image = event.target.files[0]; 
+            if(this.form.image.size > 2048 * 1024){
+              this.errors.image = "Image too big. Select an image less than 2mb."; 
+              return;
+           } 
+           if(this.form.image['type'] === 'image/jpeg' || this.form.image['type'] === 'image/jpg' || this.form.image['type'] === 'image/png' || this.form.image['type'] === 'image/gif'){
+              this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]); 
+              delete this.errors.image
+              return;
+           } 
+           else {
+               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.form.img_preview = '';
+           }
         }, 
         validateEmail(){
             if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
@@ -227,7 +239,8 @@ export default {
         if(window.authUser.country !== 'null') this.form.country = window.authUser.country;
         if(window.authUser.timezone !== 'null') this.form.timezone = window.authUser.timezone;
        if(window.authUser.city !== 'null') this.form.city = window.authUser.city;
-       if(window.authUser.role !== 'null') this.form.role = window.authUser.role;
+        this.form.role = window.authUser.role;
+       
         
     }
     

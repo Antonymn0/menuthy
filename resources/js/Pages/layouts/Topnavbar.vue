@@ -16,7 +16,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/menus">Menus</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" v-if="this.user.registration_status !== 'trial'">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Orders
                                  </a>
@@ -29,7 +29,7 @@
                              <!-- <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="#">Design</a>
                             </li> -->
-                             <li class="nav-item">
+                             <li class="nav-item" v-if="this.user.registration_status !== 'trial'">
                                 <a class="nav-link " aria-current="page" href="#">Reports</a>
                             </li>
                             <!-- <li class="nav-item dropdown">
@@ -73,8 +73,9 @@
 export default {
     data(){
         return{
-                restaurant_name: window.authRestaurant.restaurant_name.toLowerCase().replace(/ /g,"-"),
-                restaurant_id: window.authRestaurant.id,
+            restaurant_name: window.authRestaurant.restaurant_name.toLowerCase().replace(/ /g,"-"),
+            restaurant_id: window.authRestaurant.id,
+            user: window.authUser,
         }
     },
 }

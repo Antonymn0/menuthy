@@ -26,7 +26,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable()->unique();
             $table->string('registration_status')->nullable()->default('trial');
             $table->string('package_type')->nullable();
+            $table->string('package_period')->nullable();
+            $table->dateTime('trial_date')->nullable();
             $table->dateTime('trial_expiry')->nullable();
+            $table->dateTime('registration_date')->nullable();
             $table->dateTime('registration_expiry')->nullable();
             $table->string('address')->nullable();
             $table->text('biography')->nullable();

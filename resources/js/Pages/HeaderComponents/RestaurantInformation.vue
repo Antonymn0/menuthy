@@ -9,7 +9,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="">Update Restaurant Infomation</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput2">Business Email</label>
+                                    <label for="exampleFormControlInput2">Restaurant Email</label>
                                     <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" required>
                                    <small class="p-1 text-danger">{{ errors.email}} </small>                                     
                                 </div> 
@@ -123,8 +123,8 @@
                             </div>
                         </div>                         
                         <div class="d-flex justify-content-center">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="submitForm()" data-dismiss="modal">Update</button>
-                          <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
+                          <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
+                          <button type="button" class="btn btn-default btn-lg m-1" >Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
                      
@@ -840,8 +840,8 @@ export default {
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {
             if( response.status = 200){
-                new Swal({ title: "Success!",timer: 1800  });
-                // console.log(response);
+                document.getElementById('close').click();
+                new Swal({ title: "Success!",timer: 1500  });
                 } 
             })
             .catch( error => {
@@ -856,9 +856,20 @@ export default {
             });
         },
         fileUpload(event){
-            this.form.image = event.target.files[0];
-            this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]);
-            console.log(URL.createObjectURL(event.currentTarget.files[0]));
+            this.form.image = event.target.files[0]; 
+            if(this.form.image.size > 2048 * 1024){
+              this.errors.image = "Image too big. Select an image less than 2mb."; 
+              return;
+           } 
+           if(this.form.image['type'] === 'image/jpeg' || this.form.image['type'] === 'image/jpg' || this.form.image['type'] === 'image/png' || this.form.image['type'] === 'image/gif'){
+              this.form.img_preview = URL.createObjectURL(event.currentTarget.files[0]); 
+              delete this.errors.image
+              return;
+           } 
+           else {
+               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.form.img_preview = '';
+           }
         }, 
 
         validateForm () {

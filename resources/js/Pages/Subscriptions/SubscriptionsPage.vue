@@ -31,7 +31,32 @@
                     ]" style="cursor:pointer">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
             </div>
-            
+            <p class="mx-auto w-auto text-center  table-responsive"> <b> Your current subscription </b> <br>
+                <table class="table-sm w-auto mx-auto table-striped border table-bordered rounded p-3" style="background-color:rgb(239 236 236);                    ">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Package type</th>
+                        <th>Period</th>
+                        <th>Subscription date</th>
+                        <th>Expiry date</th>
+                    </tr>
+                    <tr>
+                        <td>{{capitalize(this.user.first_name)}} {{capitalize(this.user.last_name)}}</td>
+                        <td>{{this.user.email}}</td>
+
+                        <td v-if="this.user.registration_status !== 'trial' ">{{capitalize(this.user.package_type)}}</td>
+                        <td v-else>{{capitalize(this.user.registration_status)}}</td>
+
+                        <td> {{capitalize(this.user.package_period)}}</td>
+                        <td>{{formatDate(this.user.registration_date)}}</td>
+
+                        <td v-if="this.user.registration_status !== 'trial' ">{{formatDate(this.user.registration_expiry)}}</td>
+                        <td v-else>{{formatDate(this.user.trial_expiry)}}</td>
+                    </tr>
+                </table>
+
+            </p>
 <!-- ------------------------ Monthly package panels------------------------------------------ -->
         <div class="monthly-panels  ">            
             <div class="packages py-3 mt-4">
@@ -64,14 +89,14 @@
                         </div>
                     </div>
                     <div> 
-                        <div class="shadow"> 
-                            <h4 class="pb-4 mb-3 pt-1 text-dark"> Lite  <span class="m-0  px-4  float-right recomended"> Recomended</span></h4>
+                        <div class="shadow "> 
+                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " style="position:relative; margin-left:20% "> Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.lite.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                           <p class="d-table text-left mx-auto"> 
+                            <p class="d-table text-left mx-auto"> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
@@ -85,7 +110,9 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>
-                            <p class="pt-3"> <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> </p>
+                            <p class="pt-3"> 
+                                <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> 
+                                </p>
                             <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
                     </div>
@@ -144,8 +171,7 @@
                 </div>
             </div>
          </div>
-    </div>
-             
+    </div>             
     </div>
     <Footer /> 
 </div>
@@ -153,6 +179,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
@@ -167,6 +194,7 @@ export default {
     },
     data(){
          return{
+             user: window.authUser,
             starter:{
                 'name' : 'Menuthy starter plan',
                 'price' : 33,
@@ -202,7 +230,13 @@ export default {
             plan_period:'monthly'            
         }
     },
-    methods:{       
+    methods:{ 
+        capitalize(string) {
+           if(string) return string.charAt(0).toUpperCase() + string.slice(1);
+        },  
+        formatDate(date){
+            if (date) return moment(String(date)).format('ll');       
+        },
         period(){
             return this.plan_period;
         },
@@ -225,6 +259,10 @@ export default {
         },
        
         stripeCheckout(plan){
+            if(this.user.package_type == plan.type){
+                alert('You are already subscribed to this plan!');
+              return;  
+            } 
             if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;            
             const stripe = Stripe(this.stripe_public_key);
             plan.plan_period = this.plan_period;
@@ -282,13 +320,13 @@ export default {
     }
 
     .recomended{ 
-        font-size: 12px;
+        font-size: 11px;
         line-height: 2;
         font-weight: 800;
         text-transform: uppercase;
         background: #000;
         color: #ffffff;
-        transform: translateY(0) translateX(0) translateX(50px) rotate(45deg);
+        transform: translateY(0)  translateX(50px) rotate(42deg);
         box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
     }
     .shadow{

@@ -36,7 +36,8 @@
         <button type="button" class="btn-close float-right " data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="text-center pb-3">
-         <div class="header-div">
+          <h3>Contacts</h3>
+         <div class="header-div mt-1">
             <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
             <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px" data-bs-toggle="modal" data-bs-target="#headerModal">
            
@@ -49,12 +50,20 @@
             </p>
             <div class="p-0 m-0  mx-auto">
                 <p class="  ">
-                     <small class="text-left" v-if="this.restaurant.restaurant_email"> Email: {{ this.restaurant.restaurant_email}}</small> <br>
+                     <small class="text-left" v-if="this.restaurant.restaurant_email"> Email: <span v-if="this.restaurant.restaurant_email !=='null' "> {{ this.restaurant.restaurant_email}}</span>  </small> <br>
                 
-                     <small class="text-left" v-if="this.restaurant.restaurant_phone_number"> Phone: {{ this.restaurant.restaurant_phone_number}}  </small>  <br>
+                     <small class="text-left" v-if="this.restaurant.restaurant_phone_number"> Phone: <span v-if="this.restaurant.restaurant_phone_number !== 'null'"> {{ this.restaurant.restaurant_phone_number}}</span>   </small>  <br>
                
-                     <small class="text-left" v-if="this.restaurant.address"> Address: {{ this.restaurant.address}}  </small>
+                     <small class="text-left" v-if="this.restaurant.address "> Address: <span v-if="this.restaurant.address !== 'null'">{{ this.restaurant.address}} </span>  </small>
                 </p> 
+
+                <h5>Social media</h5>
+                <p style="font-size:2rem"> 
+                    <span class="p-2" v-if="this.restaurant.facebook !== 'null'"><a :href="this.restaurant.facebook" target="blank"><i class="bi bi-facebook"></i></a></span>
+                    <span class="p-2" v-if="this.restaurant.instagram !== 'null'"><a :href="this.restaurant.instagram" target="blank"><i class="bi bi-instagram" style="color:#ffb917"></i></a></span>
+                    <span class="p-2" v-if="this.restaurant.twitter !== 'null'"><a :href="this.restaurant.twitter" target="blank"><i class="bi bi-twitter"></i></a></span>
+                    <span class="p-2" v-if="this.restaurant.youtube !== 'null'"><a :href="this.restaurant.youtube" target="blank"><i class="bi bi-youtube text-danger"></i></a></span>
+                </p>
             </div>
         </div>
         <button class="btn btn-danger text-center mt-3" data-bs-dismiss="modal" aria-label="Close" > Close</button>
@@ -731,7 +740,7 @@ export default {
         this.current_menus= this.menus;
         this.current_sub_menus= this.subMenus;
         this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
-        setTimeout( this.toggle_show_res_info(), 3000); 
+        // setTimeout( this.toggle_show_res_info(), 3000); 
 
             // initialize coockies for qr scan counting - expires in 6hrs
             var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
