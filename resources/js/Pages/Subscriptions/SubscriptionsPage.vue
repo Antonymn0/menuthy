@@ -94,7 +94,7 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>                           
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.starter)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.starter)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
                             <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                                 <span class="amount">{{this.lite.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="d-table text-left mx-auto"> 
+                            <p class="d-table text-left mx-auto pb-4"> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
@@ -120,8 +120,9 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>
+                            <p> </p>
                             <p class="pt-3"> 
-                                <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe</h5>  </button> 
+                                <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe  </button> 
                                 </p>
                             <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
@@ -148,7 +149,7 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
                             <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
                     </div>
@@ -174,7 +175,7 @@
                                <span><i class="bi bi-check-lg"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span>  Accept online payments</span> <br>
                         </p>
-                        <p class="pt-3"> <button @click.prevent="stripeCheckout(this.premium)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  <h5>Subscribe </h5>  </button> </p>
+                        <p class="pt-3"> <button @click.prevent="stripeCheckout(this.premium)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
                         <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                     </div>
                 </div>
@@ -331,7 +332,9 @@ export default {
 </script>
 
 <style scoped>
-
+    button{
+        font-size:1.2rem;
+    }
     .parent{
         font-family:Poppins !important;
         padding-top:3rem;
