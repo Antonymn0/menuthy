@@ -11,6 +11,7 @@
                     <div class="single-card shadow ">
                         <p>Total orders today</p>
                         <p>56</p>
+                        <Chart />
                     </div>
                 </div>
 
@@ -66,8 +67,7 @@
         </div>
     </div>
 
-
-    <Footer />  
+    <Footer /> 
  
     
 </template>
@@ -81,6 +81,8 @@ import AddMenuForm from "../Menus/AddMenuForm";
 import EditMenuForm from "../Menus/EditMenuForm";
 import Footer from "../layouts/Footer";
 
+import Chart from '../Charts/Chart.vue';
+
 export default {
      components: {
        Header,
@@ -88,6 +90,7 @@ export default {
         Footer,
         AddMenuForm,
         EditMenuForm,
+        Chart,
 
         },
 }

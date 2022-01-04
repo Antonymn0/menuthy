@@ -177,7 +177,6 @@ export default {
             });
         },
          fetchQrScans(){ 
-             console.log(this.restaurant);
             axios.get('/qr-scans-history/'+ this.restaurant.id )
             .then( response => {
             if( response.status == 200){  
@@ -222,7 +221,6 @@ export default {
                 });                                          
             }
             return total_scans;
-
         },
         getCurrentWeekNumber(){
             var currentdate = new Date();

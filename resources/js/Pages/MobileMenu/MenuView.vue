@@ -480,7 +480,7 @@ export default {
             var item_deatails = document.getElementsByClassName('details-content')[1];
             select.addEventListener('change', function(){              
             console.log(butons); 
-            if(select.value == 'ar'){                       
+            if(select.value == 'ar' || select.value == 'ur'){                       
                 Array.from(arabic).forEach((item)=>{
                     item.classList.add('text-right');
                 });
