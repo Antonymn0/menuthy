@@ -98,6 +98,7 @@ class StripePayController extends Controller
                 'trial_expiry' => null,
                 'package_type' => $this->getPackageType($payment_obj),
                 'package_period' => $this->getPackagePeriod($payment_obj),
+                'registration_date'=> carbon::now(),
                 'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
             ]);
         };
