@@ -75,7 +75,7 @@
                 <h4 class="mt-5">A LITTLE INFO ABOUT  YOURSELF</h4>
                 <div class="pb-1">
                     <label for="full_name">Full name</label>
-                    <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" />
+                    <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" @change.prevent="testWhiteSpace(this.form.full_name)"/>
                     <small class="text-danger text-center">  {{this.errors.full_name}}</small>
                 </div>
                 <div class="pb-1">
@@ -107,8 +107,7 @@
                 <a href="/login" class="text-white button m-2 text-center pt-2" style="max-width:8rem;"> Cancel </a>
             </div> 
              </form>    
-           </div>
-       
+           </div>       
 </body>
 </html>
    
@@ -1018,7 +1017,6 @@ export default {
                 } 
             })
             .catch( error => {  
-                console.log(error.response.data); 
                 Swal.close();
                  if(error.response.status == 422) {
                      if(error.response.data.errors.email){
@@ -1065,6 +1063,13 @@ export default {
         confirmPassword(){
             if(this.form.password !== this.form.confirm_password) this.errors.confirm_password = 'Password does not match!' ;
                 else delete this.errors.confirm_password; 
+        },
+        testWhiteSpace(str){
+            if(str.indexOf(' ') >= 0) {
+                delete this.errors.full_name;
+                return; 
+                }
+            else this.errors.full_name = 'Please enter atleast 2  names' ;
         },
         validateForm(){            
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;

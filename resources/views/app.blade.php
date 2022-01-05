@@ -317,12 +317,12 @@ function toggleAccordion(){
 <script src="{{ mix('js/app.js') }}" defer></script>
 
 {{-- google translate  --}}
-<script type="text/javascript">
-    function googleTranslateElementInit() {
+<script type="text/javascript" >
+     function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages : 'ar,hi,fr,es,sw,en,ur' }, 'google_translate_element');
     }
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 
 </body>
 

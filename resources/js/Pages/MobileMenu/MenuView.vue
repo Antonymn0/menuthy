@@ -23,7 +23,7 @@
             <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
             <span v-else> Hotel name</span> 
         </h5>
-        <p class=" text-center">
+        <p class=" text-center m-0" v-if="this.restaurant.description !== 'null'">
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
          <p class="text-center"> <small>
@@ -144,10 +144,10 @@
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Drive through</label>
                             </div>
-                            <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium'">
+                            <!-- <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium'">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Delivery</label>
-                            </div>                            
+                            </div>                             -->
                                
                         </div> 
                     </div>
@@ -834,7 +834,7 @@ select:focus{
 .cart-preview{
     position:absolute;
     width:auto;  
-    top:-10.7rem ; 
+    top:-10.9rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -863,10 +863,15 @@ select:focus{
     font-family: poppins !important;
     min-height:100vh;
     width:42rem;
-    max-width:100%;
-    overflow-y:scroll;   
+    max-width:100%;  
     overflow-x:hidden;  
     margin-top:-2.5rem; 
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.parent-div::-webkit-scrollbar {
+  display: none;
 }
 
 .header-div img{
@@ -1140,10 +1145,12 @@ input[type='radio']:after {
 .radio-btns{
     padding: 5px 0;
     height:auto;
+    width:auto;
 }
 .radio-btns label{
     font-size:8pt;
 }
+
 
 //popup div
 .pop-up{

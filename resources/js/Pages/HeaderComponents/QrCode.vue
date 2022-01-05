@@ -16,7 +16,7 @@
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
                         <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
-                        <li  v-if="this.user.package_type == 'premium' ||  this.user.package_type == 'pro'"> <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
+                        <li  v-if="this.user.package_type !== 'starter' "> <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
                     </ul>
              
                     <div class="tab-content">
@@ -91,7 +91,7 @@ export default {
             qrCode:null,
             table_number:1,
             qr_table_number:1,
-            max_package_tables:1,
+            max_package_tables:50,
             tables_qr_code_link:null, 
             errors:{},       
         } 
@@ -142,7 +142,7 @@ export default {
     },
 
     mounted(){
-        this.max_package_tables= window.authUser.tables;
+        //this.max_package_tables= window.authUser.tables;
         this.qrCode = this.generateQrCode(this.restaurant.id);
     }
     
