@@ -97,6 +97,7 @@ class StripePayController extends Controller
                 'registration_status' => 'subscribed',
                 'trial_expiry' => null,
                 'package_type' => $this->getPackageType($payment_obj),
+                'period' => $this->getPackagePeriod($payment_obj),
                 'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
             ]);
         };
@@ -118,7 +119,7 @@ class StripePayController extends Controller
     } 
 
     /**
-     * return NEW expiry date AFTER subscription
+     * Return NEW expiry date AFTER subscription
      */
     public function getRegistrationExpiry($payment_obj){
         $days = 0;
@@ -133,6 +134,21 @@ class StripePayController extends Controller
 
         $ex_date = Carbon::now()->addDays($days);
         return $ex_date;
+    }   
+
+    /**
+     * Return package period AFTER subscription
+     */
+    public function getPackagePeriod($payment_obj){
+        $period = '';        
+
+        // monthy subscription
+        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $period = 'monthly';
+        
+        //yearly subsciption
+        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $period = 'yearly';
+       
+        return $period;
     }   
 
     /**
