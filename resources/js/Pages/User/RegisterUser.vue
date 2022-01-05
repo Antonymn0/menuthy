@@ -1069,7 +1069,7 @@ export default {
                 delete this.errors.full_name;
                 return; 
                 }
-            else this.errors.full_name = 'Please enter atleast 2  names' ;
+            else this.errors.full_name = 'Please use your full name' ;
         },
         validateForm(){            
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;

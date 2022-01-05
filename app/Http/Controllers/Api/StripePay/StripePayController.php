@@ -47,7 +47,6 @@ class StripePayController extends Controller
                 ],               
             ]
         ]);
-
         echo json_encode($session);        
     }
 
@@ -72,7 +71,7 @@ class StripePayController extends Controller
             $payment['amount_paid'] = $data['object']['amount'] / 100;
 
         if($event->type == 'charge.succeeded'){
-            $subscription = SubscriptionPayment::create($payment);
+            $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
             $this->updateUser($payment);
             event(new SubscriptionCreated($subscription));
             return 'Payment successfull'; 
@@ -132,7 +131,6 @@ class StripePayController extends Controller
         //yearly subsciption
         if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $days =365;
        
-
         $ex_date = Carbon::now()->addDays($days);
         return $ex_date;
     }   
