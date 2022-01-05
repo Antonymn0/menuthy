@@ -241,7 +241,7 @@
                         </p>
                      </div>
                      <p class="order-btn pt-2 mt-2 arabic">                        
-                        <span   v-if="this.user.package_type == 'premium'"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
+                        <span   v-if="this.user.package_type !== 'starter'"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
                                                    
                             <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -330,7 +330,7 @@
                                 </div>
                             </div>                            
                         </div>
-                        <p class="text-right lead mb-1 pr-5 mx-1"> Amount {{this.restaurant.currency}} {{this.total_amount}}</p>
+                        <p class="text-right lead mb-1 pr-5 mx-1" style="color:#f16730;"> Amount <b>  {{this.restaurant.currency}} {{this.total_amount}} </b></p>
                     </div>
                     <div class="text-muted py-5 lead" v-else> 
                         <small> --  Cart is empty, Please add some items --</small>
@@ -364,21 +364,16 @@
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
-                    <div class="customer-details p-2 pt-3 border  rounded m-2 mb-3 hidden" id="customer-details">
+                    <div class="customer-details p-3 border  rounded m-2 mb-3 hidden" id="customer-details" v-if="this.order_type !== '' ">
                         <h5 class=""> Please provide the details below</h5>
-                        <div>
-                            <div class="form-group text-left">
-                                <label for="name">Your name </label>
-                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" required>
-                                <small class="text-danger">{{this.errors.customer_name}}</small>
-                            </div>
-                            <div class="form-group text-left">
-                                <label for="phone">Phone no </label>
+                        <div>                           
+                            <div class="form-group text-left" v-if="this.order_type == 'Take Away' || this.order_type == 'Home Delivery'">
+                                <label for="phone">Phone number </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_phone" id="phone"  placeholder="Phone no" required>
                                 <small class="text-danger">{{this.errors.customer_phone}}</small>
-                            </div>
+                            </div>                            
                             <div class="form-group text-left" v-if="this.order_type == 'Drive Through'">
-                                <label for="car_reg">Car registration  </label>
+                                <label for="car_reg">Car registration number </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.car_registration_no" id="ca_reg"  placeholder="Car registration no" required>
                                 <small class="text-danger">{{this.errors.car_registration_no}}</small>
                             </div>
@@ -387,7 +382,12 @@
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.address" id="ca_reg"  placeholder="Address" required>
                                 <small class="text-danger">{{this.errors.address}}</small>
                             </div>
-                            <p class="order-btn text-center mt-2 mb-1 mx-auto">                           
+                            <div class="form-group text-left">
+                                <label for="name">Your name <small class="text-muted">(Optional) </small></label>
+                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" >
+                                <small class="text-danger">{{this.errors.customer_name}}</small>
+                            </div>
+                            <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">                           
                                 <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Place order </button></span> 
                                 <span  v-if="this.User.package_type != null"> <button class="py-2  m-1 px-4 " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
                                 <small class="text-danger"> {{this .errors.cart_empty}} </small>
@@ -450,7 +450,7 @@ export default {
         show_single_menu_item:false,
         is_take_away:false,
         popupVisible:false,
-        order_type:'Dine In',
+        order_type:'',
         errors:{},
         User:{},
         client_IP:'',
@@ -649,9 +649,16 @@ export default {
             return;
         }
         if(this.order_type == 'Dine In'){
+            this.cancelPlaceOrder();
             this.placeOrder();
             return;
-        }           
+        }
+        if(this.order_type == ''){
+           this.errors.order_type = "Please select order type!"; 
+           return;
+        } 
+        else delete this.errors.order_type;
+                
         document.getElementById('cart-items').classList.add('zero-height');
         document.getElementById('cart-items').classList.add('shadow');
         document.getElementById('cart-items').classList.add('border-top');
@@ -683,7 +690,6 @@ export default {
         if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
         else order_data.append('table_number', 1); //default table number is 1
 
-
         // gather order item data
         var order_items = [];
         this.cart_items.forEach((item)=>{
@@ -713,6 +719,7 @@ export default {
                         this.car_registration_no = '';
                         this.customer_name = '';
                         this.customer_phone = '';
+                        this.order_type = '';
                         } 
                     })
                 .catch( error => {
@@ -721,21 +728,20 @@ export default {
                 });
         }
       },
-      validateOrder(){
+      validateOrder(){          
         if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
         else delete this.errors.order_type;
 
-        if(this.customer_name =='' && this.order_type !== 'Dine In') this.errors.customer_name ="Please provide your name";
-        else delete this.errors.customer_name;
+        if(this.customer_phone == '' && this.order_type == 'Take Away' || this.customer_phone == '' && this.order_type == 'Home Delivery') this.errors.customer_phone = "Please provide your phone number";                    
+        else  delete this.errors.customer_phone;
 
-        if(this.customer_phone == '' && this.order_type !== 'Dine In') this.errors.customer_phone ="Please provide your phone number";
-        else delete this.errors.customer_phone;
-
-        if(this.car_registration_no =='' && this.order_type == 'Drive through') this.errors.car_registration_no ="Please provide your car plate number";
+        if(this.car_registration_no =='' && this.order_type == 'Drive Through') this.errors.car_registration_no ="Please provide your car plate number";
         else delete this.errors.car_registration_no;
 
-        if(this.address =='' && this.order_type == 'Home delivery') this.errors.address ="Please provide your delivery  address";
-        else delete this.errors.car_registration_no;
+        if(this.address =='' && this.order_type == 'Home Delivery') this.errors.address ="Please provide your delivery  address";
+        else delete this.errors.address;
+
+        console.log(this.errors);
 
       },
        getCookie() {
@@ -828,7 +834,7 @@ select:focus{
 .cart-preview{
     position:absolute;
     width:auto;  
-    top:-10.45rem ; 
+    top:-10.7rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:.5rem;
@@ -1069,11 +1075,17 @@ font-weight:300;
 }
 
 .zero-height{
-    max-height:5rem;
-    overflow-y: scroll;
+    max-height:15rem;
+    overflow:scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     i{
         display:none;
     }
+}
+//hide scroll bar
+.zero-height::-webkit-scrollbar {
+  display: none;
 }
 
 .ribbon{
@@ -1308,7 +1320,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-9.7rem ;
+        top:-10rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;
