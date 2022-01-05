@@ -97,7 +97,7 @@ class StripePayController extends Controller
                 'registration_status' => 'subscribed',
                 'trial_expiry' => null,
                 'package_type' => $this->getPackageType($payment_obj),
-                'registration_expiy'=> $this->getRegistrationExpiry($payment_obj)
+                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
             ]);
         };
     }
