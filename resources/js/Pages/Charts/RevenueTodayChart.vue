@@ -1,10 +1,10 @@
 <template>
   <div>
       <p>
-        Orders today  <br>
-        <span> <b>{{this.total_orders_today}} </b></span>
+        Revenue today  <br>
+        <span> {{this.restaurant.currency}} <b>{{this.total_revenue_today}} </b></span>
       </p>
-  <canvas id="orders_today_chart"></canvas>
+  <canvas id="revenue_today_chart"></canvas>
 </div>  
 </template>
 
@@ -14,12 +14,13 @@ import moment from 'moment';
 export default {
     props:['orders'],
     data(){
-        return{  
+        return{ 
+            restaurant: window.authRestaurant, 
             current_orders:this.orders, 
             chartBackgroundColor: [  '#d33507', '#de4f00','#e86600', '#f07c00' ],
             chartLabels: ["Dine In", "Pick Up", "Drive Through", "Home Delivery"],
             chartData: [ 25,  25, 25, 25],
-            total_orders_today:0
+            total_revenue_today:0
         }
     },
     methods:{
@@ -31,19 +32,21 @@ export default {
             var drive_through=0;
             var home_delivery=0;
             this.current_orders.forEach((order)=>{
-                if(moment(String(order.created_at)).format('YYYY-MM-DD') == date_today) {
-                    this.total_orders_today += 1;
-                    if(order.order_type == 'Dine In') dine_in +=1;
-                    if(order.order_type == 'Take Away') dine_in +=1;
-                    if(order.order_type == 'Drive Through') drive_through +=1;
-                    if(order.order_type == 'Home Delivery') home_delivery +=1;
+                if(moment(String(order.created_at)).format('YYYY-MM-DD') == date_today ) {
+                    if(order.status !== 'canceled' && order.paid == 'true'){
+                        this.total_revenue_today += order.amount;
+                        if(order.order_type == 'Dine In') dine_in += order.amount;
+                        if(order.order_type == 'Take Away') take_away += order.amount;
+                        if(order.order_type == 'Drive Through') drive_through += order.amount;
+                        if(order.order_type == 'Home Delivery') home_delivery += order.amount;
+                    }                    
                 }                
             });
             this.chartData =[dine_in, take_away, drive_through, home_delivery];
         },
 
         mountChartToDOM(){
-            var ctx =document.getElementById('orders_today_chart').getContext('2d');
+            var ctx =document.getElementById('revenue_today_chart').getContext('2d');
             new Chart(ctx, {
             type: 'pie',
             data: {

@@ -8,28 +8,24 @@
             <div class="cards text-center">
                
                 <div class="cards-inner p-2">
-                    <div class="single-card shadow ">
-                        <p>Total orders today</p>
-                        <p>56</p>
+                    <div class="single-card shadow ">                        
                         <OrdersTodayChart :orders="this.orders"/>
                     </div>
                 </div>
 
                 <div class="cards-inner p-2">
                     <div class="single-card shadow">
-                        <p>Total orders this week</p>
-                        <p>500</p>
+                        <OrdersThisWeekChart :orders="this.orders"/>
                     </div>
                 </div>
                 <div class="cards-inner p-2">
                     <div class="single-card shadow">
-                        <p>Total orders this month</p>
-                        <p>5000</p>
+                        <OrdersThisMonthChart :orders="this.orders"/>
                     </div>
                 </div>
                 <div class="cards-inner p-2">
                     <div class="single-card shadow">
-                        <p>Total orders this month chart</p>
+                        <p>Total orders this year chart</p>
                         <p>5000</p>
                     </div>
                 </div>
@@ -39,8 +35,7 @@
                
                 <div class="cards-inner p-2">
                     <div class="single-card shadow ">
-                        <p>Total revenue today</p>
-                        <p>56</p>
+                        <RevenueTodayChart :orders="this.orders"/>
                     </div>
                 </div>
 
@@ -82,6 +77,9 @@ import EditMenuForm from "../Menus/EditMenuForm";
 import Footer from "../layouts/Footer";
 
 import OrdersTodayChart from '../Charts/OrdersTodayChart';
+import OrdersThisWeekChart from '../Charts/OrdersThisWeekChart';
+import OrdersThisMonthChart from '../Charts/OrdersThisMonthChart';
+import RevenueTodayChart from '../Charts/RevenueTodayChart';
 
 export default {
      components: {
@@ -91,6 +89,9 @@ export default {
             AddMenuForm,
             EditMenuForm,
             OrdersTodayChart,
+            OrdersThisWeekChart,
+            OrdersThisMonthChart,
+            RevenueTodayChart
         },
         data(){
             return{
