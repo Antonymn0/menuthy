@@ -14,10 +14,10 @@ class AddFieldsToSubscriptionPayments extends Migration
     public function up()
     {
         Schema::table('subscription_payments', function (Blueprint $table) {
-            // $table->string('package_type')->nullable();
-            // $table->string('package_period')->nullable();
-            // $table->dateTime('registration_expiry')->nullable();
-            // $table->dateTime('registration_date')->nullable();
+            $table->string('package_type')->nullable();
+            $table->string('package_period')->nullable();
+            $table->dateTime('registration_expiry')->nullable();
+            $table->dateTime('registration_date')->nullable();
             $table->timestamp('deleted_at')->nullable(); 
         });
     }

@@ -147,7 +147,7 @@ class StripePayController extends Controller
      * Return package period AFTER subscription
      */
     public function getPackagePeriod($payment_obj){
-        $period = 'monthly';        
+        $period = '';        
 
         // monthy subscription
         if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $period = 'monthly';
@@ -162,7 +162,7 @@ class StripePayController extends Controller
      * return package type after successful subscription
      */
     public function getPackageType($payment_obj){
-        $package_type ='starter';
+        $package_type ='';
             // monthly 
         if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
         if($payment_obj->amount_paid == 66 ) $package_type = 'lite';

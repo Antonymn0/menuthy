@@ -30,7 +30,12 @@ class SubscriptionPayment extends Model
         'reciept_email',
         'reciept_number',
         'status',
-        'amount_paid'
+        'amount_paid',
+        'package_type',
+        'package_period',
+        'registration_expiry',
+        'registration_date',
+        'deleted_at'
             ];
 
     /**
