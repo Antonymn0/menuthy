@@ -85,18 +85,19 @@ import OrdersTodayChart from '../Charts/OrdersTodayChart';
 
 export default {
      components: {
-       Header,
-        Topnavbar,
-        Footer,
-        AddMenuForm,
-        EditMenuForm,
-        OrdersTodayChart,
+            Header,
+            Topnavbar,
+            Footer,
+            AddMenuForm,
+            EditMenuForm,
+            OrdersTodayChart,
         },
         data(){
             return{
                 restaurant: window.authRestaurant,
                 year: new Date().getFullYear(),
-                orders:{},
+                orders:[],
+                total_orders:0
             }
         },
         methods:{

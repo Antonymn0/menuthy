@@ -58,6 +58,23 @@
                                 </div> 
                             </div>
                         </div>
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleFormControlInput2">Timezone <small class="text-muted">({{form.timezone}}) </small></label>
+                                <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
+                                    <option selected >{{form.timezone}}</option>
+                                    <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
+                                </select>
+                            </div> 
+                             <div class="pb-1 col-md-6">
+                                <label for="timezone">Currency <small class="text-muted"> ( {{form.currency}} )</small></label>
+                                <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
+                                    <option value="#" selected> {{form.currency}}</option>
+                                    <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>
+                                </select>
+                                <small class="text-danger text-center">  {{this.errors.currency}}</small>
+                            </div>
+                        </div>
                        <div class="mx-auto p-2">
                             <label for="exampleFormControlInputimage">Image*</label>
                             <div class="image-preview mx-auto p-0 m-0 text-center">
@@ -72,23 +89,7 @@
                                 <input type="text" v-model="form.website" class="form-control p-4" id="exampleFormControlInput2" placeholder="Website">
                             </div> 
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="exampleFormControlInput2">Timezone <small class="text-muted">{{form.timezone}} </small></label>
-                                <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
-                                    <option selected >{{form.timezone}}</option>
-                                    <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
-                                </select>
-                            </div> 
-                             <div class="pb-1 col-md-6">
-                                <label for="timezone">Currency <small class="text-muted">{{form.currency}} </small></label>
-                                <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
-                                    <option value="#" selected> {{form.currency}}</option>
-                                    <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>
-                                </select>
-                                <small class="text-danger text-center">  {{this.errors.currency}}</small>
-                            </div>
-                        </div>
+                      
                          
                         <div class="pt-2">
                             <h4>Social accounts</h4>

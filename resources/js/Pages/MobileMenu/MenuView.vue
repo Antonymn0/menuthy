@@ -175,8 +175,8 @@
                 </div>    
             </div>  
             <div class="price-time text-right pt-3 pb-2 px-0 mx-0 my-auto">
-                <span>  <span class="price    "> <b> {{this.restaurant.currency}} {{menu_item.price}} </b> </span> </span> <br>
-                <span> <span class="time text-default "> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span></span>
+                 <span class="price">{{this.restaurant.currency}} {{menu_item.price}}  </span>  <br>
+                 <span class="time text-default"> <i class="bi bi-alarm pr-1 text-danger text-right" style="font-size:.7rem;"></i> <small> {{menu_item.preparation_time}} mins </small> </span>
             </div>
                  <div class="img-div ">                      
                <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
@@ -214,9 +214,9 @@
                            <span class="float-right" style="color:rgb(241, 103, 48);">  <b> {{this.restaurant.currency}} {{this.item.price}} </b> </span>
                        </p>
                    </div>                   
-                   <div class="details-content px-3 arabic" >
+                   <div class="details-content px-3 arabic">
                        <h4 class="pt-1 mx-auto arabic">{{this.item.menu_item_name}}</h4>
-                       <h6 class="mx-auto  arabic" v-if="this.item.description">{{this.item.description}}</h6>                       
+                       <h6 class="mx-auto arabic" v-if="this.item.description">{{this.item.description}}</h6>                       
                     </div>
                     <div class="details-content px-3"> 
                         <p class="labels arabic">

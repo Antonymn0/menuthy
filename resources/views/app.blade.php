@@ -318,7 +318,7 @@ function toggleAccordion(){
 
 {{-- google translate  --}}
 <script type="text/javascript" >
-     function googleTranslateElementInit() {
+    onload = function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages : 'ar,hi,fr,es,sw,en,ur' }, 'google_translate_element');
     }
 </script>

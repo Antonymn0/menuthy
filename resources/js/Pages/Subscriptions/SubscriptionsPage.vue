@@ -100,13 +100,13 @@
                     </div>
                     <div> 
                         <div class="shadow "> 
-                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right  " style="position:absolute;" > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
+                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right "  > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.lite.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
-                            <p class="d-table text-left mx-auto pb-4"> 
+                            <p class="d-table text-left mx-auto "> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
@@ -120,7 +120,6 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>
-                            <p> </p>
                             <p class="pt-3"> 
                                 <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe  </button> 
                                 </p>
