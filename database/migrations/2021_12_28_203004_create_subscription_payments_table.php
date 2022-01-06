@@ -29,6 +29,11 @@ class CreateSubscriptionPaymentsTable extends Migration
             $table->string('reciept_url')->required();
             $table->string('status')->nullable();
             $table->double('amount_paid')->required();
+            $table->string('package_type')->nullable();
+            $table->string('package_period')->nullable();
+            $table->dateTime('registration_expiry')->nullable();
+            $table->dateTime('registration_date')->nullable();
+            
             $table->timestamps();
         });
     }

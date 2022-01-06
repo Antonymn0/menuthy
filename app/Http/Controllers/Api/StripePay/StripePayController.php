@@ -69,6 +69,11 @@ class StripePayController extends Controller
             $payment['reciept_number'] = $data['object']['receipt_number'];
             $payment['reciept_url'] = $data['object']['receipt_url'];
             $payment['amount_paid'] = $data['object']['amount'] / 100;
+            $payment['package_type'] = $this->getPackageType($payment);
+            $payment['package_period'] = $this->getPackagePeriod($payment);
+            $payment['registration_expiry'] = $this->getRegistrationExpiry($payment);
+            $payment['registration_date'] =Carbon::now();
+
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
