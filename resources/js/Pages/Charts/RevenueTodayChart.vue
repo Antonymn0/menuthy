@@ -4,7 +4,7 @@
         Revenue today  <br>
         <span> {{this.restaurant.currency}} <b>{{this.total_revenue_today}} </b></span>
       </p>
-  <canvas id="revenue_today_chart"></canvas>
+  <canvas id="revenue_today_chart" class="p-5"></canvas>
 </div>  
 </template>
 

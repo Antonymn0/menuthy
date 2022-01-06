@@ -1,7 +1,7 @@
 <template>
   <div>
       <p>
-        Orders this week  <br>
+        Orders this Week  <br>
         <span> <b>{{this.total_orders_this_week}} </b></span>
       </p>
   <canvas id="orders_this_week_chart"></canvas>
