@@ -16,9 +16,9 @@ class SubscriptionController extends Controller
      */
     public function showSubscriptionsPackagesPage()
     {
-        $payments = SubscriptionPayment::paginate(ENV('API_PAGINATION',10));
+        $payments = SubscriptionPayment::all();
         $public_key = env('STRIPE_PUBLISHABLE_KEY');
-        return Inertia::render('Subscriptions/SubscriptionsPage', ['stripe_public_key' => $public_key, 'payments' => '$payments'] );
+        return Inertia::render('Subscriptions/SubscriptionsPage', ['stripe_public_key' => $public_key, 'payments' => $payments] );
     }
 
     /**
