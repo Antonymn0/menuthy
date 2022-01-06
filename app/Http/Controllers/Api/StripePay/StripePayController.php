@@ -69,13 +69,13 @@ class StripePayController extends Controller
             $payment['reciept_number'] = $data['object']['receipt_number'];
             $payment['reciept_url'] = $data['object']['receipt_url'];
             $payment['amount_paid'] = $data['object']['amount'] / 100;
+            $payment['registration_date'] =Carbon::now();
 
             $payment_obj = (object) $payment; 
-            
-            $payment['package_type'] = $this->getPackageType($payment_obj);
-            $payment['package_period'] = $this->getPackagePeriod($payment_obj);
-            $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
-            $payment['registration_date'] =Carbon::now();
+
+            $payment['package_type'] = $this->getPackageType((object) $payment);
+            $payment['package_period'] = $this->getPackagePeriod((object) $payment);
+            $payment['registration_expiry'] = $this->getRegistrationExpiry((object) $payment);
 
 
         if($event->type == 'charge.succeeded'){
@@ -131,7 +131,7 @@ class StripePayController extends Controller
      */
     public function getRegistrationExpiry($payment_obj){
         $days = 0;
-        $ex_date = null;
+        $ex_date = '';
 
         // monthy subscription
         if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $days =30;
@@ -167,8 +167,7 @@ class StripePayController extends Controller
         if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
         if($payment_obj->amount_paid == 66 ) $package_type = 'lite';
         if($payment_obj->amount_paid == 133 ) $package_type = 'pro';
-        if($payment_obj->amount_paid == 266 ) $package_type = 'premium';
-        
+        if($payment_obj->amount_paid == 266 ) $package_type = 'premium';        
         
         //yearly
         if($payment_obj->amount_paid == 333 ) $package_type = 'starter';
