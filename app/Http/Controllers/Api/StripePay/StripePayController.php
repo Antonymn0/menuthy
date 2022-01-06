@@ -73,9 +73,9 @@ class StripePayController extends Controller
 
             $payment_obj = (object) $payment; 
 
-            $payment['package_type'] = $this->getPackageType((object) $payment);
-            $payment['package_period'] = $this->getPackagePeriod((object) $payment);
-            $payment['registration_expiry'] = $this->getRegistrationExpiry((object) $payment);
+            $payment['package_type'] = $this->getPackageType($payment_obj);
+            $payment['package_period'] = $this->getPackagePeriod($payment_obj);
+            $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
 
 
         if($event->type == 'charge.succeeded'){
@@ -147,7 +147,7 @@ class StripePayController extends Controller
      * Return package period AFTER subscription
      */
     public function getPackagePeriod($payment_obj){
-        $period = '';        
+        $period = 'monthly';        
 
         // monthy subscription
         if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $period = 'monthly';
@@ -162,7 +162,7 @@ class StripePayController extends Controller
      * return package type after successful subscription
      */
     public function getPackageType($payment_obj){
-        $package_type ='';
+        $package_type ='starter';
             // monthly 
         if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
         if($payment_obj->amount_paid == 66 ) $package_type = 'lite';
