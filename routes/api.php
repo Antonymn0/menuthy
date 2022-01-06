@@ -141,7 +141,7 @@ if (App::environment('production')) {
     Route::get('/qr-code-scan/{restaurant_id}',[App\Http\Controllers\Api\QrCodeScan\QrCodeScanController::class, 'countQrCodeScan'])->name('qr-code-scan');
   
 // ------------------Reports routes ---------------------------------
- Route::get('/reports/orders//{restaurant_id}',[App\Http\Controllers\Api\Report\ReportController::class, 'fetchReportOrders'])->name('fetch-reports');
+ Route::get('/reports/orders/{restaurant_id}/{year}',[App\Http\Controllers\Api\Report\ReportController::class, 'fetchReportOrders'])->name('fetch-reports');
 
 
 

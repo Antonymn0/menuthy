@@ -11,7 +11,7 @@
                     <div class="single-card shadow ">
                         <p>Total orders today</p>
                         <p>56</p>
-                        <OrdersTodayChart />
+                        <OrdersTodayChart :orders="this.orders"/>
                     </div>
                 </div>
 
@@ -91,24 +91,33 @@ export default {
         AddMenuForm,
         EditMenuForm,
         OrdersTodayChart,
-
         },
         data(){
             return{
                 restaurant: window.authRestaurant,
-
+                year: new Date().getFullYear(),
+                orders:{},
             }
         },
-        methods:{},
+        methods:{
+            fetchOrders(){
+                axios.get('api/reports/orders/' + this.restaurant.id + '/' + this.year)
+                .then( response => {  
+                    if(response.status == 200){
+                        this.orders = response.data.data;
+                    }                             
+                })
+                .catch(error=>{
+                    new Swal({   title:'Failed!', timer:1200 });
+                    console.log(error);
+                });
+            }
+        },
         mounted(){
-            axios.get('api/reports/orders/' + this.restaurant.id)
-            .then( response => {  
-               console.log(response)            
-            })
-            .catch(error=>{
-                this.$swal('Failed');
-                console.log(error);
-            });
+            this.fetchOrders();
+        },
+        created(){
+            this.fetchOrders();
         }
 }
 </script>

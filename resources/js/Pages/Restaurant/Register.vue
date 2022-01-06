@@ -123,7 +123,7 @@ export default {
                 form_data.append('country', this.selectedCountry);
             axios.post('/api/restaurant', form_data)
             .then( response => {
-            if( response.status = 201){
+            if( response.status == 201){
                 this.$inertia.visit('/dashboard');
                 } 
             })

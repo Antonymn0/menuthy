@@ -136,7 +136,7 @@
                                 <i class="bi bi-dot pr-0 mr-0" ></i> 
                                 <label class="form-check-label" > Dine in</label>
                             </div>
-                            <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' ">
+                            <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite' ">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label">Take away</label>
                             </div>
@@ -1327,7 +1327,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-10rem ;
+        top:-9.7rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;

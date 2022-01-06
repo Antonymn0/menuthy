@@ -260,7 +260,7 @@ export default {
                     } 
                 })
                 .catch( error => {
-                    this.$swal('Error,  failed to update!'); 
+                    this.$swal('Failed!'); 
                 });
             }
         },

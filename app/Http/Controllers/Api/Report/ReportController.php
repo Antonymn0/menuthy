@@ -20,7 +20,13 @@ class ReportController extends Controller
     /**
      * get all orders and return them for reporting
      */
-    public function fetchReportOrders($resturant_id){
-        
+    public function fetchReportOrders($restaurant_id, $year=null){
+        $orders = Order::WHERE('restaurant_id', $restaurant_id)->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Orders retrieved successfully',
+            'data' => $orders
+        ]);
     }
 }

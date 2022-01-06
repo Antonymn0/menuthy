@@ -218,7 +218,7 @@ props:['sub_menu'],
                 } 
             })
             .catch( error => {
-               this.$swal('Failed, Item not added!');
+               this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },
