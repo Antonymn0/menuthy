@@ -69,8 +69,9 @@ class StripePayController extends Controller
             $payment['reciept_number'] = $data['object']['receipt_number'];
             $payment['reciept_url'] = $data['object']['receipt_url'];
             $payment['amount_paid'] = $data['object']['amount'] / 100;
-            
+
             $payment_obj = (object) $payment; 
+            
             $payment['package_type'] = $this->getPackageType($payment_obj);
             $payment['package_period'] = $this->getPackagePeriod($payment_obj);
             $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);

@@ -33,6 +33,7 @@ class CreateSubscriptionPaymentsTable extends Migration
             $table->string('package_period')->nullable();
             $table->dateTime('registration_expiry')->nullable();
             $table->dateTime('registration_date')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             
             $table->timestamps();
         });

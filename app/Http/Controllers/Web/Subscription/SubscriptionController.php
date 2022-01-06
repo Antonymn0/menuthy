@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Subscription;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\SubscriptionPayment;
 
 class SubscriptionController extends Controller
 {
@@ -15,8 +16,9 @@ class SubscriptionController extends Controller
      */
     public function showSubscriptionsPackagesPage()
     {
+        $payments = SubscriptionPayment::paginate(ENV('API_PAGINATION',10));
         $public_key = env('STRIPE_PUBLISHABLE_KEY');
-        return Inertia::render('Subscriptions/SubscriptionsPage', ['stripe_public_key' => $public_key] );
+        return Inertia::render('Subscriptions/SubscriptionsPage', ['stripe_public_key' => $public_key, 'payments' => '$payments'] );
     }
 
     /**

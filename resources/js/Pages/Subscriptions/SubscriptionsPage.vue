@@ -197,7 +197,7 @@ import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
 
 export default {
-    props:[ 'stripe_public_key'],
+    props:[ 'stripe_public_key', 'payments'],
     components:{
         Header,
         Topnavbar,
@@ -325,7 +325,7 @@ export default {
         
     },
     mounted(){
-       //
+       console.log('Payments: ', this.payments);
     }
      
 }
