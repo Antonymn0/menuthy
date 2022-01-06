@@ -11,7 +11,7 @@
                     <div class="single-card shadow ">
                         <p>Total orders today</p>
                         <p>56</p>
-                        <Chart />
+                        <OrdersTodayChart />
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@ import AddMenuForm from "../Menus/AddMenuForm";
 import EditMenuForm from "../Menus/EditMenuForm";
 import Footer from "../layouts/Footer";
 
-import Chart from '../Charts/Chart.vue';
+import OrdersTodayChart from '../Charts/OrdersTodayChart';
 
 export default {
      components: {
@@ -90,9 +90,26 @@ export default {
         Footer,
         AddMenuForm,
         EditMenuForm,
-        Chart,
+        OrdersTodayChart,
 
         },
+        data(){
+            return{
+                restaurant: window.authRestaurant,
+
+            }
+        },
+        methods:{},
+        mounted(){
+            axios.get('api/reports/orders/' + this.restaurant.id)
+            .then( response => {  
+               console.log(response)            
+            })
+            .catch(error=>{
+                this.$swal('Failed');
+                console.log(error);
+            });
+        }
 }
 </script>
 

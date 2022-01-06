@@ -134,14 +134,16 @@ if (App::environment('production')) {
     //  Parmamnently delete Payment
   Route::get('payment/parmanently-delete/{id}','Api\Payment\PaymentController@parmanentlyDelete');
 
-  
-
   // mobile menu items route
     Route::get('/{restaurant_name}/menu-item/{sub_menu_id}',[App\Http\Controllers\Web\MobileMenu\MobileMenuController::class, 'getMenuItems'])->name('mobile menu');
   
   // Qr code scans route
     Route::get('/qr-code-scan/{restaurant_id}',[App\Http\Controllers\Api\QrCodeScan\QrCodeScanController::class, 'countQrCodeScan'])->name('qr-code-scan');
   
+// ------------------Reports routes ---------------------------------
+ Route::get('/reports/orders//{restaurant_id}',[App\Http\Controllers\Api\Report\ReportController::class, 'fetchReportOrders'])->name('fetch-reports');
+
+
 
    //============================Stripe Pay checkout routes ===================//
     // stripe pay checkout route

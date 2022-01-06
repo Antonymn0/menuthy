@@ -7,11 +7,13 @@
 <script>
 
 export default {
+    props:['orders'],
     data(){
         return{     
         }
     },
     mounted(){
+        console.log(this.orders);
         var ctx =document.getElementById('myChart').getContext('2d');
         new Chart(ctx, {
         type: 'pie',
