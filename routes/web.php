@@ -81,7 +81,8 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
   
   // reports routes
-   Route::get('/reports', [App\Http\Controllers\Api\Report\ReportController::class, 'reportsPage']);
+   Route::get('/reports/summary', [App\Http\Controllers\Api\Report\ReportController::class, 'summaryReportsPage']);
+   Route::get('/reports/custom', [App\Http\Controllers\Api\Report\ReportController::class, 'customReportsPage']);
   
   // --------------------------------------------------------------------------//
   //Subsciptions packages  page routes

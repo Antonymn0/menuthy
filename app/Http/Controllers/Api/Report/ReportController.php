@@ -12,8 +12,14 @@ class ReportController extends Controller
     /**
      * render reports page
      */
-    public function reportsPage(){
-        return Inertia::render('Reports/Report');
+    public function summaryReportsPage(){
+        return Inertia::render('Reports/SummaryReport');
+    }
+    /**
+     * render reports page
+     */
+    public function customReportsPage(){
+        return Inertia::render('Reports/CustomReports');
     }
 
 
@@ -22,11 +28,12 @@ class ReportController extends Controller
      */
     public function fetchReportOrders($restaurant_id, $year=null){
         $orders = Order::WHERE('restaurant_id', $restaurant_id)->get();
-
         return response()->json([
             'success' => true,
-            'message' => 'Orders retrieved successfully',
+            'message' => 'Orders summary retrieved successfully',
             'data' => $orders
         ]);
     }
+
+ 
 }

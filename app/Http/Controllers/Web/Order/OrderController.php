@@ -26,7 +26,7 @@ class OrderController extends Controller
                     ->WHERE('restaurant_id', $restaurant_id)
                     ->orderBy('created_at','DESC')
                     ->paginate(ENV('API_PAGINATION', 15));
-        return Inertia::render('Order/KitchenOrders')->with([
+        return Inertia::render('Orders/KitchenOrders')->with([
             'orders' => $orders,
         ]);
     }
@@ -42,7 +42,7 @@ class OrderController extends Controller
                     ->WHERE('restaurant_id', $restaurant_id)                    
                     ->orderBy('created_at','DESC')
                     ->paginate(ENV('API_PAGINATION', 15));
-        return Inertia::render('Order/CashierOrders')->with([
+        return Inertia::render('Orders/CashierOrders')->with([
             'orders' => $orders,
         ]);
     }

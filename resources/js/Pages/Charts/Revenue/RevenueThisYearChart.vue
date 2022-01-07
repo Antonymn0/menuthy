@@ -20,25 +20,25 @@ export default {
             chartBackgroundColor: [  '#04B0A8', '#EA5C2B'],
             chartLabels: ["Jan", "Feb", "March", "April", 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
             chartData: [ 10, 40, 30, 40, 50, 50, 70, 80, 90, 50, 110, 120 ],
-            total_revenue_this_year:0
+            total_revenue_this_year:0,
+            months:{
+                'January' : 0,
+                'February' : 0,
+                'March' : 0,
+                'April' : 0,
+                'May' : 0,
+                'June' : 0,
+                'July' : 0,
+                'August' : 0,
+                'September' : 0,
+                'October' : 0,
+                'November' : 0,
+                'December' : 0
+                },
         }
     },
     methods:{
-        sortOrders(){          
-            var months=[];
-                months['January'] = 0;
-                months['February'] = 0;
-                months['March'] =  0;
-                months['April'] =  0;
-                months['May'] = 0;
-                months['June'] =  0; 
-                months['July'] =  0;
-                months['August'] =  0;
-                months['September'] =  0;
-                months['October']= 0;
-                months['November'] = 0;
-                months['December'] = 0;
-            
+        sortOrders(){  
             var add_months = 0;
             var start_of_year = null;
             var start_of_current_month = null;
@@ -58,28 +58,25 @@ export default {
                     if(moment(order_date).isSameOrAfter(start_of_current_month) && moment(order_date).isSameOrBefore(end_of_current_month)) {            
                         if(order.status !== 'canceled' && order.paid == 'true'){
                             this.total_revenue_this_year += order.amount;
-                            months[current_month_name] += order.amount;                            
+                            this.months[current_month_name] += order.amount;                            
                         } 
-                    }
-                
-                });
-               
+                    }                
+                });               
             }
-            this.chartData = [
-                    months['January'],
-                    months['February'],
-                    months['March'],
-                    months['April'],
-                    months['May'],
-                    months['June'],
-                    months['July'],
-                    months['August'],
-                    months['September'],
-                    months['October'],
-                    months['November'],
-                    months['December']
-                ]
-            console.log(this.chartData);
+           this.chartData = [
+                this.months.January,
+                this.months.February,
+                this.months.March,
+                this.months.April,
+                this.months.May,
+                this.months.June,
+                this.months.July,
+                this.months.August,
+                this.months.September,
+                this.months.October,
+                this.months.November,
+                this.months.December
+            ];
         },
 
         mountChartToDOM(){
