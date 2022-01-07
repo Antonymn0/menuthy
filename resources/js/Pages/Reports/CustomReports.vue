@@ -8,7 +8,7 @@
             <h2>Custom reports</h2>
             <div>
                 <div class="rounded w-50  p-1 " >
-                    <p>Filters</p>
+                    <p>Filters (incomplete)</p>
                     <div class="mb-1  p-1">
                         <p>Order type</p>
                          <div class="form-check form-check-inline" >
