@@ -1,7 +1,7 @@
 <template>
   <div>
       <p>
-        Revenue this Month  <br>
+        This Month  <br>
         <span> {{this.restaurant.currency}} <b>{{this.total_revenue_this_month}} </b></span>
       </p>
   <canvas id="revenue_this_month_chart"></canvas>

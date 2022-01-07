@@ -1,7 +1,7 @@
 <template>
   <div>
       <p>
-        Revenue this Week  <br>
+        This Week  <br>
         <span> {{this.restaurant.currency}} <b>{{this.total_revenue_this_week}} </b></span>
       </p>
   <canvas id="revenue_this_week_chart"></canvas>

@@ -11,7 +11,7 @@
             <p class="col-md-6 text-right float-right">
                 <a href="#" class="btn btn-danger daily-report"> <i class="fa fa-arrow-circle-o-up pr-2 pl-2"></i> Export daily report</a>
                 <a :href="'/' + this.authRestaurant.id + '/orders/print'" class="btn text-white px-2 mx-3" style="background-color: #36a3f7;" @click="this.showLoading()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export </a>
-                <a href="#" id="refresh" class="btn btn-primary" @click="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
+                <a href="#" id="refresh" class="btn btn-primary" @click.prevent="refreshOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
             </p>
         </div>
         <div>
