@@ -17,7 +17,7 @@ export default {
         return{  
             restaurant: window.authRestaurant,
             current_orders:this.orders, 
-            chartBackgroundColor: [ '#d33507','#d33607', '#de4f00', '#de5f00','#e86600', '#e87700', '#f07c00', '#EA5C2B', '#FF7F3F', 'E5890A', '#EA6C2B', '#EA5C2B'],
+            chartBackgroundColor: [  '#04B0A8', '#EA5C2B'],
             chartLabels: ["Jan", "Feb", "March", "April", 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
             chartData: [ 10, 40, 30, 40, 50, 50, 70, 80, 90, 50, 110, 120 ],
             total_revenue_this_year:0
@@ -92,7 +92,7 @@ export default {
                     label: "Revenue this Year",
                     backgroundColor: this.chartBackgroundColor,
                     hoverOffset: 2,
-                    borderColor: '#ffa600',
+                    borderColor: '#04B0A8',
                     borderWidth:.5,
                     fill: false,
                     tension: 0.1,

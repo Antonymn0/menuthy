@@ -4,7 +4,15 @@
         This Year  <br>
         <span> <b>{{this.total_orders_this_year}} </b></span>
       </p>
-  <canvas id="orders_this_year_chart"></canvas>
+    <canvas id="orders_this_year_chart"></canvas>
+    <div class="pt-2 ">       
+            <h6 class="pt-2  pb-0 mb-0 text-left">This Year</h6>
+            <ul class="small pl-3 p-0 mx-auto">
+                <li class="p-0 text-left">  You performed best in {{this.best_performing_month}} </li>
+                <li class="p-0 text-left">  You performed least in {{this.least_performing_month}} </li>
+            </ul>          
+     </div>
+  
 </div>  
 </template>
 
@@ -16,28 +24,41 @@ export default {
     data(){
         return{  
             current_orders:this.orders, 
-            chartBackgroundColor: [ '#d33507','#d33607', '#de4f00', '#de5f00','#e86600', '#e87700', '#f07c00', '#EA5C2B', '#FF7F3F', 'E5790A', '#EA6C2B', '#EA5C2B'],
+            chartBackgroundColor: [ '#C83F91','#Ef3F32', '#F15A2D', '#F37E31','#FCBC36', '#FFF134', '#97C63A', '#129047', '#00A49E', '#0085B4', '#005399', '#53308E'],
             chartLabels: ["Jan ", "Feb ", "March", "April", 'May ', 'June', 'July', 'Aug ', 'Sept', 'Oct ', 'Nov ', 'Dec '],
             chartData: [ 10, 40, 30, 40, 50, 50, 70, 80, 90, 50, 110, 120 ],
-            total_orders_this_year:0
+            total_orders_this_year:0,
+            best_performing_month:'No month',
+            least_performing_month:'No month',
+            months:{
+                'January' : 0,
+                'February' : 0,
+                'March' : 0,
+                'April' : 0,
+                'May' : 0,
+                'June' : 0,
+                'July' : 0,
+                'August' : 0,
+                'September' : 0,
+                'October' : 0,
+                'November' : 0,
+                'December' : 0
+                },
         }
     },
     methods:{
-        sortOrders(){          
-            var months=[];
-                months['January'] = 0;
-                months['February'] = 0;
-                months['March'] =  0;
-                months['April'] =  0;
-                months['May'] = 0;
-                months['June'] =  0; 
-                months['July'] =  0;
-                months['August'] =  0;
-                months['September'] =  0;
-                months['October']= 0;
-                months['November'] = 0;
-                months['December'] = 0;
-            
+        findBest_performing(){
+           let highest = Math.max(this.months.January, this.months.February, this.months.March, this.months.April, this.months.May, this.months.June, this.months.July, this.months.August, this.months.September, this.months.October, this.months.November, this.months.December);
+           let least = Math.min(this.months.January, this.months.February, this.months.March, this.months.April, this.months.May, this.months.June, this.months.July, this.months.August, this.months.September, this.months.October, this.months.November, this.months.December);
+           // calculate best performing
+           for(const[key, value] of Object.entries(this.months)) {
+                if(value == highest) this.best_performing_month = key;
+                if(value == least) this.least_performing_month = key; 
+                           
+            }                      
+                      
+        },
+        sortOrders(){ 
             var add_months = 0;
             var start_of_year = null;
             var start_of_current_month = null;
@@ -57,26 +78,25 @@ export default {
                     if(moment(order_date).isSameOrAfter(start_of_current_month) && moment(order_date).isSameOrBefore(end_of_current_month)) {            
                         if(order.status !== 'canceled' && order.status !== 'processing'){
                             this.total_orders_this_year += 1;
-                            months[current_month_name] += 1;                            
+                            this.months[current_month_name] += 1;                            
                         } 
                     }                
                 });               
             }
             this.chartData = [
-                    months['January'],
-                    months['February'],
-                    months['March'],
-                    months['April'],
-                    months['May'],
-                    months['June'],
-                    months['July'],
-                    months['August'],
-                    months['September'],
-                    months['October'],
-                    months['November'],
-                    months['December']
-                ]
-            console.log(this.chartData);
+                    this.months.January,
+                    this.months.February,
+                    this.months.March,
+                    this.months.April,
+                    this.months.May,
+                    this.months.June,
+                    this.months.July,
+                    this.months.August,
+                    this.months.September,
+                    this.months.October,
+                    this.months.November,
+                    this.months.December
+                ];
         },
 
         mountChartToDOM(){
@@ -92,14 +112,13 @@ export default {
                     borderColor: '#ffa600',
                     borderWidth:.5,
                     data: this.chartData,
-                }],
-                
+                }],                
             },
 
             // Configuration options go here
             options: {
                 
-            }
+                }
             });
         },
     },
@@ -107,6 +126,7 @@ export default {
         setTimeout(() => {
             this.current_orders = this.orders;
             this.sortOrders();
+            this.findBest_performing();
             this.mountChartToDOM();
         }, 1500);       
        

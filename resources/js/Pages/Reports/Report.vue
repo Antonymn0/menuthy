@@ -7,14 +7,14 @@
         <div class="px-3 parent " id="downloadable">  
             <div class="" id="title1">
                 <p class="">
-                    <span class="float-right"> <button class="btn btn-danger" @click.prevent="printThisPage()">Dowload this report</button></span>
+                    <span class="float-right"> <button class="btn btn-danger" @click.prevent="printThisPage()">Dowload this page</button></span>
                 </p>
                <h2 class="py-2 pl-1">Performance &amp;  Analysis report</h2>
             </div>          
               
             <div class="cards text-center pt-2 pb-2 text-muted" >
-                <h3 class="text-left pl-1">Order Performance</h3>
                  <h2 class="text-center p-3 hide" id="title2">{{capitalize(this.restaurant.restaurant_name)}}  Analysis report for year {{new Date().getFullYear()}}</h2>
+                <h3 class="text-left pl-1">Order Performance</h3>
                 <div class="cards-inner ">
                     <div class="single-card shadow ">                        
                         <OrdersTodayChart :orders="this.orders"/>
