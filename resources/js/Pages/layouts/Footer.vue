@@ -1,6 +1,6 @@
 <template >
-    <div class="footer">
-        <div class="border-bottom mt-2 pt-5 w-50  mx-auto"></div>
+    <div class="footer bg-danger">
+        <div class="border-bottom mt-2 pt-1 w-50  mx-auto"></div>
         <div class="  p-3">
             <p class="text-center mt-2 text-muted b">Menuthy @{{this.year()}} All rights reserved</p>
         </div>

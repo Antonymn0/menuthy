@@ -1,102 +1,105 @@
 <template >
-    <!-- --------- components ------ -->  
-        <TrialExpiryNotification /> 
-        <SubscriptionExpiryNotification /> 
-        <EmailNotConfirmedNotification />
-        <RestaurantInformation />            
-        <MobilePreview />
-        <QrCode @passQrCodeToParent="passQrCodeToDashboard($event)"/>
-        <MobileNav />
-        <Feedback />       
-        <Profile />
-   
-<!-- --------------header---------------------------- -->
-<div class="parent-header  px-5">
 
-    <div class="main-right "> 
-         <a href="/dashboard" class="float-left" >
-            <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid " alt="image-logo" style="width:250px; height:auto; "> 
-        </a>
+    <header>
+        <!-- --------- components ------ -->  
+            <TrialExpiryNotification /> 
+            <SubscriptionExpiryNotification /> 
+            <EmailNotConfirmedNotification />
+            <RestaurantInformation />            
+            <MobilePreview />
+            <QrCode @passQrCodeToParent="passQrCodeToDashboard($event)"/>
+            <MobileNav />
+            <Feedback />       
+            <Profile />
     
-    <!-- ----------------------------middle---------------------------------------- -->
-    <div class="float-left"> 
-        <div class="middle-header float-left">
-            <div class="res-name p-0"> 
-                <RestaurantName  />
-            </div>
-            <div class="other-icons pl-2"> 
-                <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
-                    <i class="bi bi-gear-fill text-white recent-link" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info">
-                        <span class="hovercard">
-                            <span class="tooltiptext">
-                            Update restaurant information.
+    <!-- --------------header---------------------------- -->
+    <div class="parent-header  px-5">
+
+        <div class="main-right "> 
+            <a href="/dashboard" class="float-left" >
+                <img :src="'/images/menuthy_logo_i_a.png'" class="mx-auto my-auto img-fluid " alt="image-logo" style="width:250px; height:auto; "> 
+            </a>
+        
+        <!-- ----------------------------middle---------------------------------------- -->
+        <div class="float-left"> 
+            <div class="middle-header float-left">
+                <div class="res-name p-0"> 
+                    <RestaurantName  />
+                </div>
+                <div class="other-icons pl-2"> 
+                    <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
+                        <i class="bi bi-gear-fill text-white recent-link" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info">
+                            <span class="hovercard">
+                                <span class="tooltiptext">
+                                Update restaurant information.
+                                </span>
                             </span>
-                        </span>
-                    </i>
-                </a>
-             
-                <a href="#" class="py-1 px-2 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
-                        <span class="hovercard">
-                            <span class="tooltiptext">
-                            Preview your menu.
+                        </i>
+                    </a>
+                
+                    <a href="#" class="py-1 px-2 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
+                            <span class="hovercard">
+                                <span class="tooltiptext">
+                                Preview your menu.
+                                </span>
                             </span>
-                        </span>
-                    </i></a>
-                <a href="" class="p-1" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
-                    <i class="bi bi-qr-code text-white recent-link">
-                        <span class="hovercard">
-                            <span class="tooltiptext">
-                            Display QR code for logging in into mobile menu.
+                        </i></a>
+                    <a href="" class="p-1" data-bs-toggle="modal" data-bs-target="#exampleModalqrCode">
+                        <i class="bi bi-qr-code text-white recent-link">
+                            <span class="hovercard">
+                                <span class="tooltiptext">
+                                Display QR code for logging in into mobile menu.
+                                </span>
                             </span>
-                        </span>
-                    </i>
-                </a>
+                        </i>
+                    </a>
+                </div>
             </div>
         </div>
+        </div>
+        <!-- ----------------------------------------user--------------------------------------------- -->
+        <div class=""> 
+            <p class="d-flex justify-content-center align-items-center"> 
+            
+            <!-- tootip + tooltip -->
+            <span class="float-left ">
+                <a href="#" class="" onclick="openFeedBack()">
+                <i class="bi bi-bell-fill text-white mr-5 recent-link" style="font-size: 1rem;font-weight: 300;">              
+                    <span class="hovercard">
+                        <span class="tooltiptext">
+                        Track orders, requests and feedback.
+                        </span>
+                    </span></i>  
+                </a> 
+            </span>           
+                <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+                    <span class=" mr-3">{{authUser.first_name}} </span>  
+                    <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px; object-fit:cover; ">
+                    <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
+                </a>             
+            
+            <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
+                <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >User Profile</a></li>                
+                <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+                <li class="dropdown-item  border-top px-2">
+                    <form action="/logout" method="POST" enctype="multipart/form-data">
+                        <div class="ml-2">
+                            <input type="hidden" name="_token" :value="csrf">    
+                            <button type="submit" class="btn-danger mx-auto"> 
+                            <i class="bi bi-box-arrow-left pr-1"></i> 
+                                Logout
+                        </button>
+                        </div>                        
+                    </form>                     
+                </li>
+            </ul> 
+            </p>
+        </div>
+        <!-- -------------------------------------------------------------------------- -->
     </div>
-    </div>
-    <!-- ----------------------------------------user--------------------------------------------- -->
-    <div class=""> 
-        <p class="d-flex justify-content-center align-items-center"> 
-          
-        <!-- tootip + tooltip -->
-         <span class="float-left ">
-             <a href="#" class="" onclick="openFeedBack()">
-              <i class="bi bi-bell-fill text-white mr-5 recent-link" style="font-size: 1rem;font-weight: 300;">              
-                <span class="hovercard">
-                    <span class="tooltiptext">
-                    Track orders, requests and feedback.
-                    </span>
-                </span></i>  
-            </a> 
-          </span>           
-            <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
-                <span class=" mr-3">{{authUser.first_name}} </span>  
-                <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px; object-fit:cover; ">
-                <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
-            </a>             
-           
-        <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
-            <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >User Profile</a></li>                
-            <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
-            <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
-            <li class="dropdown-item  border-top px-2">
-                <form action="/logout" method="POST" enctype="multipart/form-data">
-                    <div class="ml-2">
-                        <input type="hidden" name="_token" :value="csrf">    
-                        <button type="submit" class="btn-danger mx-auto"> 
-                        <i class="bi bi-box-arrow-left pr-1"></i> 
-                            Logout
-                    </button>
-                    </div>                        
-                </form>                     
-            </li>
-        </ul> 
-        </p>
-    </div>
-    <!-- -------------------------------------------------------------------------- -->
-</div>
-   
+</header> 
+ 
 </template>
 
 <script>

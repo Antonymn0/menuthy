@@ -1,12 +1,19 @@
 <template>
+<header id="header">
     <Header />
     <Topnavbar /> 
-
-    <div class="px-5 pt-2 h-100 " >
-        <div class="px-3 parent pt-5">
-            <h2 class="py-2"> Reports and Analysis </h2>
-            <div class="cards text-center">
-               
+</header>
+    <div class="px-5   " >
+        <div class="px-3 parent " id="downloadable">  
+            <div class="" id="title1">
+                <p class="">
+                    <span class="float-right"> <button class="btn btn-danger" @click.prevent="printThisPage()">Dowload this report</button></span>
+                </p>
+               <h2 class="py-2 pl-1">  Analysis report</h2>
+            </div>          
+              
+            <div class="cards text-center" >
+                 <h2 class="text-center p-3 hide" id="title2">{{capitalize(this.restaurant.restaurant_name)}}  Analysis report for year {{new Date().getFullYear()}}</h2>
                 <div class="cards-inner ">
                     <div class="single-card shadow ">                        
                         <OrdersTodayChart :orders="this.orders"/>
@@ -40,20 +47,17 @@
 
                 <div class="cards-inner ">
                     <div class="single-card shadow">
-                        <p>Total revenue this week</p>
-                        <p>500</p>
+                        <RevenueThisWeekChart :orders="this.orders"/>
                     </div>
                 </div>
                 <div class="cards-inner ">
                     <div class="single-card shadow">
-                        <p>Total revenue this month</p>
-                        <p>5000</p>
+                        <RevenueThisMonthChart :orders="this.orders"/>
                     </div>
                 </div>
                 <div class="cards-inner ">
                     <div class="single-card shadow">
-                        <p>Total revenue this month chart</p>
-                        <p>5000</p>
+                        <RevenueThisYearChart :orders="this.orders"/>
                     </div>
                 </div>
                 
@@ -61,6 +65,14 @@
         </div>
     </div>
 
+<footer>
+    <div class="">
+        <div class=""></div>
+        <div class="  p-3">
+            <p class="text-center mt-2 text-muted b">Menuthy @{{new Date().getFullYear()}} All rights reserved</p>
+        </div>
+    </div>
+</footer>
 
  
     
@@ -75,11 +87,14 @@ import AddMenuForm from "../Menus/AddMenuForm";
 import EditMenuForm from "../Menus/EditMenuForm";
 import Footer from "../layouts/Footer";
 
-import OrdersTodayChart from '../Charts/OrdersTodayChart';
-import OrdersThisWeekChart from '../Charts/OrdersThisWeekChart';
-import OrdersThisMonthChart from '../Charts/OrdersThisMonthChart';
-import OrdersThisYearChart from '../Charts/OrdersThisYearChart';
-import RevenueTodayChart from '../Charts/RevenueTodayChart';
+import OrdersTodayChart from '../Charts/Orders/OrdersTodayChart';
+import OrdersThisWeekChart from '../Charts/Orders/OrdersThisWeekChart';
+import OrdersThisMonthChart from '../Charts/Orders/OrdersThisMonthChart';
+import OrdersThisYearChart from '../Charts/Orders/OrdersThisYearChart';
+import RevenueTodayChart from '../Charts/Revenue/RevenueTodayChart';
+import RevenueThisWeekChart from '../Charts/Revenue/RevenueThisWeekChart';
+import RevenueThisMonthChart from '../Charts/Revenue/RevenueThisMonthChart';
+import RevenueThisYearChart from '../Charts/Revenue/RevenueThisYearChart';
 
 export default {
      components: {
@@ -92,7 +107,10 @@ export default {
             OrdersThisWeekChart,
             OrdersThisMonthChart,
             OrdersThisYearChart,
-            RevenueTodayChart
+            RevenueTodayChart,
+            RevenueThisWeekChart,
+            RevenueThisMonthChart,
+            RevenueThisYearChart,
         },
         data(){
             return{
@@ -103,6 +121,21 @@ export default {
             }
         },
         methods:{
+             capitalize(string) {
+                if(string) return string.charAt(0).toUpperCase() + string.slice(1);
+                else return; 
+                },
+            printThisPage(){
+                document.getElementById('header').classList.add('hide');
+                document.getElementById('title1').classList.add('hide');
+                document.getElementById('title2').classList.remove('hide');
+                window.print();
+                setTimeout(() => {
+                    document.getElementById('header').classList.remove('hide');
+                    document.getElementById('title1').classList.remove('hide');
+                    document.getElementById('title2').classList.add('hide');
+                }, 1000); 
+            },
             fetchOrders(){
                 axios.get('api/reports/orders/' + this.restaurant.id + '/' + this.year)
                 .then( response => {  
@@ -126,19 +159,26 @@ export default {
 </script>
 
 <style scoped>
+.hide{
+    display:none;
+}
 .parent{
     min-height:60vh;
+    height: auto;
     }
 .cards{
+    display: table;
     width:100%;
 }
 .cards-inner{
+    display: table-cell;
     width:25%;
     padding:.4rem;
     float:left;
 }
 .single-card{
     padding:1rem;
+    flex:1;
 }
 
 /* media queries */

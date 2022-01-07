@@ -99,8 +99,9 @@
                         </div>
                     </div>
                     <div> 
-                        <div class="shadow "> 
-                            <h4 class="pb-4 mb-3  pt-1 text-dark "> <span class="text-right "  > Lite </span>  <span class="m-0  px-4  float-right recomended"> Recommended</span></h4>
+                        <div class="shadow pt-0"> 
+                            <span class="m-0  px-4 py-0  float-right recomended"> Recommended</span> <br>
+                            <h4 class="pb-4    text-dark text-center  "> <span class="mx-auto"  > Lite </span>  </h4>
                             <p class="ty-1 price mb-0"> 
                                 <span class="currency">QAR</span>
                                 <span class="amount">{{this.lite.price}}</span>
@@ -161,18 +162,18 @@
                             <span class="period">/Month</span>                              
                         </p>
                         <p class="d-table text-left mx-auto"> 
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Drive-Thru Orders </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span>  Delivery + Driver App </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span>  Accept online payments</span> <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
+                            <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span> Drive-Thru Orders </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span>  Delivery + Driver App </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span>  Accept online payments</span> <br>
                         </p>
                         <p class="pt-3"> <button @click.prevent="stripeCheckout(this.premium)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
                         <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
@@ -366,7 +367,7 @@ export default {
         text-transform: uppercase;
         background: #000;
         color: #ffffff;
-        transform: translateY(0)  translateX(50px) rotate(42deg);
+        transform: translateY(25px)  translateX(0) translateX(45px) rotate(45deg);
         box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
     }
     .shadow{
