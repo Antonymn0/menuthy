@@ -67,7 +67,7 @@
                 </select>
                 <span class="text-success">{{this.success}}</span>
             </p>
-<!-- ------------------------ Monthly package panels------------------------------------------ -->
+<!-- ------------------------  package panels------------------------------------------ -->
         <div class="monthly-panels  ">            
             <div class="packages py-3 mt-4">
                  <p class="py-2 pb-3 text-center mx-auto mb-0" style="font-weight:500; font-size:20px;">Billed {{this.plan_period}}</p>
