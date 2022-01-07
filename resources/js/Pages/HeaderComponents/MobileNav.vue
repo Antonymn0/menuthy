@@ -43,8 +43,14 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li> -->
-                    <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
-                        <a class="nav-link " aria-current="page" href="/reports">Reports</a>
+                    <li class="nav-item dropdown" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reports
+                        </a>
+                        <ul class="dropdown-menu pr-3 ml-0 pl-0" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" aria-current="page" href="/reports/summary">Summary</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="/reports/custom">Custom</a></li>                                    
+                        </ul>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Settings</a>

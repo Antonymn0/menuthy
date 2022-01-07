@@ -138,7 +138,7 @@ export default {
                 }, 1000); 
             },
             fetchOrders(){
-                axios.get('/api/reports/orders/' + this.restaurant.id + '/' + this.year)
+                axios.get('/api/summary-reports/orders/' + this.restaurant.id )
                 .then( response => {  
                     if(response.status == 200){
                         this.orders = response.data.data;

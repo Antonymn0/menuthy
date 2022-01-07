@@ -184,8 +184,7 @@
                 
                 </tbody>
                 <tbody>
-                    <tr class="p-2 border-top">
-                        
+                    <tr class="p-2 border-top">                        
                         <td colspan="15" class="text-right border-right">
                            <b> Total orders</b> 
                         </td>
@@ -234,15 +233,12 @@ export default {
    },
    methods:{
         formatDate(date){
-            if (date) {
-                return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');
-            }
+            if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },
         capitalize(string) {
-        if(string) return string.charAt(0).toUpperCase() + string.slice(1);
-        else return;
+            if(string) return string.charAt(0).toUpperCase() + string.slice(1);
         },
-    
+
         cancelOrder(id, value){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
