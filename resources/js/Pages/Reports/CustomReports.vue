@@ -3,8 +3,8 @@
     <Header />
     <Topnavbar /> 
 </header>
-    <div class="px-5   " >        
-        <div class="px-3 py-4">
+    <div class="px-5  parent " >        
+        <div class="px-3 parent-inner py-4">
             <h2>Custom reports</h2>
             <div>
                 <div class="rounded  filters p-3 shadow" >
@@ -90,9 +90,9 @@
                         <div class="mb-1 filter-panels  border-left p-2">
                             <p class="mb-0">Table number</p>
                             <div class="form-check form-check-inline mr-3" >
-                                <label class="form-check-label p-2" for="tables1"> <small>Table number </small> </label>
                                 <input type="number" id="tables1" v-model="this.table_number" min="1" max="50" @input.prevent="updateCheckbox()">
-                            </div>
+                                <label class="form-check-label p-2" for="tables1"> <small>Table number </small> </label>
+                               </div>
                             <div class="form-check form-check-inline ml-2" >
                                 <input type="checkbox" id='tables2'   :checked='this.check_box_checked'  value="all" class="p-1" @change.prevent="updateTables()">
                                 <label class="form-check-label p-2" for="tables2" > <small>All tables </small> </label>
@@ -100,9 +100,9 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-success " @click.prevent="fetchOrders()"><span :class="this.spinner"></span>  Filter</button>
+                    <button class="btn btn-primary " @click.prevent="fetchOrders()"><span :class="this.spinner"></span>  Filter</button>
                     <span class="float-right">
-                        <button class="btn btn-primary mr-2 m-1 " @click.prevent="fetchOrdsers()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
+                        <button class="btn btn-success mr-2 m-1 " @click.prevent="fetchOrders()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
                     <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>                 
                 </div>
                 <div class="text-right">               
@@ -174,6 +174,7 @@
                     </tbody>                     
                     
                 </table> 
+                <p class="text-center"> <small>Tip: Revenue calculation does not include canceled orders.</small> </p>
                 <p class='text-center border-top mt-2 pt-1'>
                     <span> <b> Total orders: {{ this.total_orders}}</b> &nbsp; &nbsp; &nbsp;</span> 
                     <span>Received: {{ this.received}} &nbsp;&nbsp;</span> 
@@ -183,7 +184,7 @@
                     <span> <b>  Revenue: {{ this.total_revenue}} &nbsp; </b> </span>                    
                 </p> 
                 <p>
-                     <span class="italic float-right">Printed on:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span>
+                    <span class="italic float-right">Date:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span>
                 </p>
             </div>     
         </div>    
@@ -379,36 +380,36 @@ export default {
 }
 
 /* radio btns */
-input[type='radio']:after {
-        width: 15px;
-        height: 15px;
-        border-radius: 15px;
-        top: -2px;
-        left: -1px;
-        position: relative;
-        background-color: #e9e7e367;
-        content: '';
-        display: inline-block;
-        visibility: visible;
-        border: 2px solid rgb(248, 211, 108);
-    }
+// input[type='radio']:after {
+//         width: 15px;
+//         height: 15px;
+//         border-radius: 15px;
+//         top: -2px;
+//         left: -1px;
+//         position: relative;
+//         background-color: #e9e7e367;
+//         content: '';
+//         display: inline-block;
+//         visibility: visible;
+//         border: 2px solid rgb(248, 211, 108);
+//     }
 
-    input[type='radio']:checked:after {
-        width: 17px;
-        height: 17px;
-        border-radius: 15px;
-        top: -2px;
-        left: 0;
-        position: relative;
-        background-color: $orange;
-        content: '';
-        display: inline-block;
-        visibility: visible;
-        border: 3px solid $orange;
-    }
-    .filters{
+//     input[type='radio']:checked:after {
+//         width: 17px;
+//         height: 17px;
+//         border-radius: 15px;
+//         top: -2px;
+//         left: 0;
+//         position: relative;
+//         background-color: $orange;
+//         content: '';
+//         display: inline-block;
+//         visibility: visible;
+//         border: 3px solid $orange;
+//     }
+//     .filters{
 
-    }
+//     }
     .filter-panels{
         width:auto;
         display: inline-block;
@@ -416,7 +417,14 @@ input[type='radio']:after {
 
 /* media queries */
 @media only screen and (max-width: 750px) {
-  
+  .parent{
+      padding-right:5px !important;
+      padding-left:5px !important
+  }
+  .parent-inner{
+      padding-right:5px !important;
+      padding-left:5px !important;
+  }
 }
 /* media queries */
 @media only screen and (max-width: 600px) {
