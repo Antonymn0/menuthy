@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\WelcomeEmail;
 use App\Mail\ConfirmEmail;
+use App\Mail\Admin\NotifyAdminNewUserCreated;
 use Illuminate\Support\Facades\Mail;
 
 class userCreatedListener implements shouldQueue
@@ -35,5 +36,8 @@ class userCreatedListener implements shouldQueue
             // send welcome email and confirmation emails
           Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
           Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+
+          // notify admin new user registered email
+          Mail::to(env('ADMIN_EMAIL'))->send(new NotifyAdminNewUserCreated($event->user));
     }
 }

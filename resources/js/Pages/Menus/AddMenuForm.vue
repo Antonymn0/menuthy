@@ -81,9 +81,9 @@ export default defineComponent({
             axios.post('/api/menu', form_data)
             .then( response => {
                 if( response.status == 201){ 
-                   document.getElementById('close').click();
-                    new Swal({   title:'Success', timer:1200 });
-                    this.$inertia.reload();                                 
+                   document.getElementById('close').click(); 
+                    this.$inertia.reload();                                        
+                    new Swal({   title:'Success', timer:1200 });           
                     } 
                 })
             .catch( error => {

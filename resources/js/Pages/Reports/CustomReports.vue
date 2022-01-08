@@ -31,8 +31,7 @@
                             <div class="form-check form-check-inline" >
                                 <input class="form-check-input" id="all1" value="all"   v-model="this.order_type" name="order_type" type="radio" >
                                 <label class="form-check-label" for="all1"> <small>All </small> </label>
-                            </div>
-                        
+                            </div>                        
                         </div>
                         <!-- ---------------------------- -->
                         <div class="mb-1 filter-panels p-2 border-left">
@@ -56,10 +55,8 @@
                             <div class="form-check form-check-inline" >
                                 <input class="form-check-input p-2" id="last_90_days" value="last 90 days"   v-model="this.period" name="period" type="radio" >
                                 <label class="form-check-label" for="last_90_days"> <small> Last 90 days </small> </label>
-                            </div>
-                        
-                        </div>
-                    
+                            </div>                        
+                        </div>                    
                     </div>
                     <!-- ---------------------------- -->
                     <div class="p-2">
@@ -100,15 +97,15 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-primary " @click.prevent="fetchOrders()"><span :class="this.spinner"></span>  Filter</button>
+                    <button class="btn btn-primary " @click.prevent="fetchOrders()"> Filter</button> 
                     <span class="float-right">
+                        <span class="text-center" :class="this.spinner"></span> 
                         <button class="btn btn-success mr-2 m-1 " @click.prevent="fetchOrders()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
                     <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>                 
                 </div>
                 <div class="text-right">               
                     </div>
-            </div>
-            
+            </div>            
             <div class="p-2 py-4 table-responsive" id="downloadable" > 
                 <div class="text-center hide" id="hidden">
                     <h2>{{this.restaurant.restaurant_name}} </h2>
@@ -174,7 +171,7 @@
                     </tbody>                     
                     
                 </table> 
-                <p class="text-center"> <small>Tip: Revenue calculation does not include canceled orders.</small> </p>
+                <p class="text-center"> <small>Tip: Revenue calculation does not include canceled and unpaid orders.</small> </p>
                 <p class='text-center border-top mt-2 pt-1'>
                     <span> <b> Total orders: {{ this.total_orders}}</b> &nbsp; &nbsp; &nbsp;</span> 
                     <span>Received: {{ this.received}} &nbsp;&nbsp;</span> 

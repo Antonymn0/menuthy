@@ -30,7 +30,7 @@
                     <a href="#" class="p-1" data-toggle="modal" data-target="#exampleModalEditRestaurant" >
                         <i class="bi bi-gear-fill text-white recent-link" data-toggle="tooltip" data-placement="bottom" title="Edit restaurant Info">
                             <span class="hovercard">
-                                <span class="tooltiptext">
+                                <span class="tooltiptext border">
                                 Update restaurant information.
                                 </span>
                             </span>
@@ -39,7 +39,7 @@
                 
                     <a href="#" class="py-1 px-2 recent-link" data-toggle="modal" data-target="#exampleModalEditmobileMenu"> <i class="bi bi-eye text-white">
                             <span class="hovercard">
-                                <span class="tooltiptext">
+                                <span class="tooltiptext border">
                                 Preview your menu.
                                 </span>
                             </span>
@@ -66,7 +66,7 @@
                 <a href="#" class="" onclick="openFeedBack()">
                 <i class="bi bi-bell-fill text-white mr-5 recent-link" style="font-size: 1rem;font-weight: 300;">              
                     <span class="hovercard">
-                        <span class="tooltiptext">
+                        <span class="tooltiptext border">
                         Track orders, requests and feedback.
                         </span>
                     </span></i>  

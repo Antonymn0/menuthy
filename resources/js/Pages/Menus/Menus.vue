@@ -66,8 +66,6 @@
                 <AddMenuForm    :restaurant_id="restaurant_id"/>
             </div>
         </div>
- 
-
 
     <Footer />
 </template>

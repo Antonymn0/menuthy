@@ -31,7 +31,7 @@
                               <a :href="this.qrCode" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                             </p>
                             <p class="d-flex justify-content-center align-items-center p-2">                                
-                                <button type="button" class="btn btn-success pr-3 pl-3 mr-2" @click.prevent="dowloadQrCode('mobile')">Download</button>
+                                <button type="button" class="btn btn-success pr-3 pl-3 mr-2" @click.prevent="dowloadQrCode('mobile')"><span :class="this.spinner"></span> Download</button>
                                 <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
@@ -64,7 +64,7 @@
                                 </div> 
                                 <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2">
                                     <button type="button" class="btn btn-primary col-sm-3 m-1 row"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)"> Generate</button>
-                                    <button type="button"  class="btn btn-success col-sm-3 m-1 row" @click.prevent="dowloadQrCode('tables')" > Dowload </button>
+                                    <button type="button"  class="btn btn-success col-sm-3 m-1 row" @click.prevent="dowloadQrCode('tables')" ><span :class="this.spinner"></span> Dowload </button>
                                     <button type="button"  class="btn btn-danger col-sm-3 m-1 row" data-bs-dismiss="modal"> Cancel</button>
 
                                 </div>
@@ -93,12 +93,13 @@ export default {
             qr_table_number:1,
             max_package_tables:50,
             tables_qr_code_link:null, 
-            errors:{},       
+            errors:{},
+            spinner:''       
         } 
     },
     methods:{
         // mobile qr code
-        generateQrCode(restaurant_id){
+        generateQrCode(restaurant_id){            
             axios.get('/api/qrcode-generate/'+ restaurant_id)
             .then( response => {
             if( response.status == 200){
@@ -120,8 +121,9 @@ export default {
             this.qr_table_number =   table_number;       
         },
 
-        dowloadQrCode(canvas_id){
+        dowloadQrCode(canvas_id){            
             this.generateTablesQrCode(this.table_number);
+            this.spinner = 'spinner-border spinner-border-sm';
             var el = document.getElementById(canvas_id);
             var canvas = el.getElementsByTagName('canvas')[0];
             let downloadLink = document.createElement('a');
@@ -131,6 +133,7 @@ export default {
                 downloadLink.setAttribute('href', url);
                 downloadLink.click();
                 });
+            this.spinner = '';
         },
         maxTableNumber(){
             if(this.table_number > this.max_package_tables){
