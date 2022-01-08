@@ -101,6 +101,7 @@
                     <span class="float-right">
                         <span class="text-center" :class="this.spinner"></span> 
                         <button class="btn btn-success mr-2 m-1 " @click.prevent="fetchOrders()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
+                        <a href="/reports/summary" class="btn btn-secondary"><i class="bi bi-file-earmark-text"></i> Summary report</a>
                     <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>                 
                 </div>
                 <div class="text-right">               

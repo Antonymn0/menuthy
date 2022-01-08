@@ -7,7 +7,8 @@
         <div class="px-3 parent " id="downloadable">  
             <div class="" id="title1">
                 <p class="">
-                    <span class="float-right"> <button class="btn btn-danger" @click.prevent="printThisPage()">Dowload this page</button></span>
+                    <span class="float-right"> <button class="btn btn-danger m-1" @click.prevent="printThisPage()"><i class="bi bi-download"></i> Dowload </button></span>
+                    <span><a href="/reports/custom" class="btn btn-danger m-1 float-right"><i class="bi bi-file-earmark-text"></i> Custom report</a></span>
                 </p>
                <h2 class="py-2 pl-1">Performance &amp;  Analysis report</h2>
             </div>          
