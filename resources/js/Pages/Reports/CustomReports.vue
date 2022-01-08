@@ -97,15 +97,21 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-primary " @click.prevent="fetchOrders()"> Filter</button> 
-                    <span class="float-right">
-                        <span class="text-center" :class="this.spinner"></span> 
-                        <button class="btn btn-success mr-2 m-1 " @click.prevent="fetchOrders()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
-                        <a href="/reports/summary" class="btn btn-secondary"><i class="bi bi-file-earmark-text"></i> Summary report</a>
-                    <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>                 
+                    <p class="d-flex justify-content-between mb-0">
+                        <span  class="text-left mr-4">
+                            <button class="btn btn-primary text-left" @click.prevent="fetchOrders()"> Filter</button> 
+                        </span>
+                        <span class="">
+                            <span class="float-left" :class="this.spinner"></span> 
+                            <button class="btn btn-success mr-2 m-1 " @click.prevent="fetchOrders()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
+                            <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> 
+                            <a href="/reports/summary" class="btn btn-secondary"><i class="bi bi-file-earmark-text"></i> Summary report</a>
+                        </span> 
+                    </p>                  
+                                    
                 </div>
                 <div class="text-right">               
-                    </div>
+                 </div>
             </div>            
             <div class="p-2 py-4 table-responsive" id="downloadable" > 
                 <div class="text-center hide" id="hidden">
@@ -181,8 +187,8 @@
                     <span>Canceled: {{ this.canceled}} &nbsp; &nbsp;&nbsp;</span>  
                     <span> <b>  Revenue: {{ this.total_revenue}} &nbsp; </b> </span>                    
                 </p> 
-                <p>
-                    <span class="italic float-right">Date:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span>
+                <p class="text-right text-muted">
+                    <span class="italic ">Date:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span>
                 </p>
             </div>     
         </div>    

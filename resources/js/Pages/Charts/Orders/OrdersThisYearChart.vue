@@ -54,8 +54,7 @@ export default {
            for(const[key, value] of Object.entries(this.months)) {
                 if(value == highest) this.best_performing_month = key;
                 if(value == least) this.least_performing_month = key;                            
-            }                      
-                      
+            }        
         },
         sortOrders(){ 
             var add_months = 0;

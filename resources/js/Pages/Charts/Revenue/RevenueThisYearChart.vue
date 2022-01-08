@@ -5,6 +5,13 @@
         <span> {{this.restaurant.currency}} <b>{{this.total_revenue_this_year}} </b></span>
       </p>
   <canvas id="revenue_this_year_chart"></canvas>
+  <div class="pt-2 ">       
+        <h6 class="pt-2  pb-0 mb-0 text-left">This Year</h6>
+        <ul class="small pl-3 p-0 mx-auto">
+            <li class="p-0 text-left">  You killed it in {{this.best_performing_month}} </li>
+            <li class="p-0 text-left">  You performed least in {{this.least_performing_month}} </li>
+        </ul>          
+     </div>
 </div>  
 </template>
 
@@ -21,6 +28,8 @@ export default {
             chartLabels: ["Jan", "Feb", "March", "April", 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
             chartData: [ 10, 40, 30, 40, 50, 50, 70, 80, 90, 50, 110, 120 ],
             total_revenue_this_year:0,
+            best_performing_month:'No month',
+            least_performing_month:'No month',
             months:{
                 'January' : 0,
                 'February' : 0,
@@ -38,6 +47,15 @@ export default {
         }
     },
     methods:{
+        findBest_performing(){
+           let highest = Math.max(this.months.January, this.months.February, this.months.March, this.months.April, this.months.May, this.months.June, this.months.July, this.months.August, this.months.September, this.months.October, this.months.November, this.months.December);
+           let least = Math.min(this.months.January, this.months.February, this.months.March, this.months.April, this.months.May, this.months.June, this.months.July, this.months.August, this.months.September, this.months.October, this.months.November, this.months.December);
+           // calculate best performing
+           for(const[key, value] of Object.entries(this.months)) {
+                if(value == highest) this.best_performing_month = key;
+                if(value == least) this.least_performing_month = key;                            
+            }                    
+        },
         sortOrders(){  
             var add_months = 0;
             var start_of_year = null;
@@ -106,6 +124,7 @@ export default {
         setTimeout(() => {
             this.current_orders = this.orders;
             this.sortOrders();
+            this.findBest_performing();
             this.mountChartToDOM();
         }, 1500);       
   

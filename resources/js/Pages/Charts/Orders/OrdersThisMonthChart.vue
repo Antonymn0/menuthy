@@ -23,7 +23,7 @@ export default {
     data(){
         return{  
             current_orders:this.orders, 
-            chartBackgroundColor: [ '#FCBC36', '#F37E31','#E8302E','#EA4E1A','#B5CE4D', '#129047' ],
+            chartBackgroundColor: [ '#97C63A', '#F37E31','#E8302E','#EA4E1A','#B5CE4D', '#129047' ],
             chartLabels: ["Dine In", "Pick Up",'Canceled', "Drive Through", "Home Delivery"],
             chartData: [25,  25, 10, 25, 25],
             dine_in:0,

@@ -3,12 +3,12 @@
     <Header />
     <Topnavbar /> 
 </header>
-    <div class="px-5   " >
-        <div class="px-3 parent " id="downloadable">  
+    <div class="px-5  parent " >
+        <div class="px-3 parent-inner " id="downloadable">  
             <div class="" id="title1">
-                <p class="">
-                    <span class="float-right"> <button class="btn btn-danger m-1" @click.prevent="printThisPage()"><i class="bi bi-download"></i> Dowload </button></span>
-                    <span><a href="/reports/custom" class="btn btn-danger m-1 float-right"><i class="bi bi-file-earmark-text"></i> Custom report</a></span>
+                <p class="text-right">
+                    <span class=""> <button class="btn btn-danger m-1" @click.prevent="printThisPage()"><i class="bi bi-download"></i> Dowload </button></span>
+                    <span><a href="/reports/custom" class="btn btn-secondary m-1 "><i class="bi bi-file-earmark-text"></i> Custom report</a></span>
                 </p>
                <h2 class="py-2 pl-1">Performance &amp;  Analysis report</h2>
             </div>          
@@ -65,6 +65,9 @@
                 
             </div>
         </div>
+         <p class="text-center text-muted pt-3">
+            <span class="italic ">Date:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span>
+        </p>
     </div>
 
 <footer>
@@ -131,11 +134,15 @@ export default {
                 document.getElementById('header').classList.add('hide');
                 document.getElementById('title1').classList.add('hide');
                 document.getElementById('title2').classList.remove('hide');
+                document.getElementsByClassName('parent-inner')[0].classList.remove('px-3');
+                document.getElementsByClassName('parent')[0].classList.remove('px-5');
                 window.print();
                 setTimeout(() => {
                     document.getElementById('header').classList.remove('hide');
                     document.getElementById('title1').classList.remove('hide');
                     document.getElementById('title2').classList.add('hide');
+                    document.getElementsByClassName('parent-inner')[0].classList.add('px-3');
+                    document.getElementsByClassName('parent')[0].classList.add('px-5');
                 }, 1000); 
             },
             fetchOrders(){
@@ -184,13 +191,21 @@ export default {
 }
 
 /* media queries */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 950px) {
     .h-100{
         padding-left:0 !important;
         padding-right:0 !important;
     }
     .cards-inner{
     width:49%;
+    }
+    .parent{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+    .parent-inner{
+        padding-left:5px !important;
+        padding-right:5px !important;
     }
 }
 /* media queries */

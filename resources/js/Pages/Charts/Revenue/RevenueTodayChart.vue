@@ -5,11 +5,11 @@
         <span> {{this.restaurant.currency}} <b>{{this.total_revenue_today}} </b></span>
       </p>
   <canvas id="revenue_today_chart" class=""></canvas>
-   <div class="pt-2 ">       
+   <div class="pt-2 pb-3">       
         <h6 class="pt-2  pb-0 mb-0 text-left">Today</h6>
         <ul class="small pl-3 p-0 mx-auto">
-            <li class="p-0 text-left"> You earned more from {{best_performing_orders}} orders  </li>
-        </ul>          
+            <li class="p-0 text-left"> Earned more from {{best_performing_orders}} orders  </li>
+        </ul> 
     </div>
 </div>  
 </template>
