@@ -7,93 +7,106 @@
         <div class="px-3 py-4">
             <h2>Custom reports</h2>
             <div>
-                <div class="rounded w-50  p-1 " >
-                    <p>Filters (incomplete)</p>
-                    <div class="mb-1  p-1">
-                        <p>Order type</p>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="dine_in" value="Dine In"  v-model="this.order_type" name="order_type" type="radio" >
-                            <label class="form-check-label" for="dine_in"> <small>Dine in </small> </label>
-                        </div>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="take_away" value="Take Away"   v-model="this.order_type" name="order_type" type="radio" >
-                            <label class="form-check-label" for="take_away"> <small>Pick Up </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="drive_through" value="Drive Through"   v-model="this.order_type" name="order_type" type="radio" >
-                            <label class="form-check-label" for="drive_through"> <small>Drive Through </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="home_delivery" value="Home Delivery"   v-model="this.order_type" name="order_type" type="radio" >
-                            <label class="form-check-label" for="home_delivery"> <small>Home Delivery </small> </label>
-                        </div>
-                       
-                    </div>
-                    <!-- ---------------------------- -->
-                    <div class="mb-1  p-1">
-                        <p>Order status</p>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="recieved" value="received"  v-model="this.order_status" name="order_status" type="radio" >
-                            <label class="form-check-label" for="recieved"> <small>Recieved </small> </label>
-                        </div>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="processing" value="processing"   v-model="this.order_status" name="order_status" type="radio" >
-                            <label class="form-check-label" for="processing"> <small>Processing </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="completed" value="completed"   v-model="this.order_status" name="order_status" type="radio" >
-                            <label class="form-check-label" for="completed"> <small>Completed </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="canceled" value="canceled"   v-model="this.order_status" name="order_status" type="radio" >
-                            <label class="form-check-label" for="canceled"> <small>Canceled </small> </label>
-                        </div>
+                <div class="rounded  filters p-3 shadow" >
+                    <div class="p-2 mr-3">
+                        <h4 class="">Filters </h4>
+                        <div class="mb-1 filter-panels p-1 mr-1 border-left">
+                            <p class="mb-0">Order type</p>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="dine_in" value="Dine In"  v-model="this.order_type" name="order_type" type="radio" >
+                                <label class="form-check-label" for="dine_in"> <small>Dine in </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="take_away" value="Take Away"   v-model="this.order_type" name="order_type" type="radio" >
+                                <label class="form-check-label" for="take_away"> <small>Pick Up </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="drive_through" value="Drive Through"   v-model="this.order_type" name="order_type" type="radio" >
+                                <label class="form-check-label" for="drive_through"> <small>Drive Through </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="home_delivery" value="Home Delivery"   v-model="this.order_type" name="order_type" type="radio" >
+                                <label class="form-check-label" for="home_delivery"> <small>Home Delivery </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="all1" value="all"   v-model="this.order_type" name="order_type" type="radio" >
+                                <label class="form-check-label" for="all1"> <small>All </small> </label>
+                            </div>
                         
+                        </div>
+                        <!-- ---------------------------- -->
+                        <div class="mb-1 filter-panels p-2 border-left">
+                            <p class="mb-0">Date range</p>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="today" value="today"  v-model="this.period" name="period" type="radio" >
+                                <label class="form-check-label" for="today"> <small>Today </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="last_3_days" value="last 3 days"   v-model="this.period" name="period" type="radio" >
+                                <label class="form-check-label" for="last_3_days"> <small>Last 3 days </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="last_7_days" value="last 7 days"   v-model="this.period" name="period" type="radio" >
+                                <label class="form-check-label" for="last_7_days"> <small> Last 7 days</small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input p-2" id="last_30_days" value="last 30 days"   v-model="this.period" name="period" type="radio" >
+                                <label class="form-check-label" for="last_30_days"> <small> Last 30 days </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input p-2" id="last_90_days" value="last 90 days"   v-model="this.period" name="period" type="radio" >
+                                <label class="form-check-label" for="last_90_days"> <small> Last 90 days </small> </label>
+                            </div>
+                        
+                        </div>
+                    
                     </div>
                     <!-- ---------------------------- -->
-                    <div class="mb-1  p-1">
-                        <p>Date range</p>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="today" value="today"  v-model="this.period" name="period" type="radio" >
-                            <label class="form-check-label" for="today"> <small>Today </small> </label>
+                    <div class="p-2">
+                    <div class="mb-1 filter-panels border-left p-2 mr-3">
+                            <p class="mb-0">Order status</p>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="recieved" value="received"  v-model="this.order_status" name="order_status" type="radio" >
+                                <label class="form-check-label" for="recieved"> <small>Recieved </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="processing" value="processing"   v-model="this.order_status" name="order_status" type="radio" >
+                                <label class="form-check-label" for="processing"> <small>Processing </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="completed" value="completed"   v-model="this.order_status" name="order_status" type="radio" >
+                                <label class="form-check-label" for="completed"> <small>Completed </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="canceled" value="canceled"   v-model="this.order_status" name="order_status" type="radio" >
+                                <label class="form-check-label" for="canceled"> <small>Canceled </small> </label>
+                            </div>
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" id="all2" value="all"   v-model="this.order_status" name="order_status" type="radio" >
+                                <label class="form-check-label" for="all2"> <small>All </small> </label>
+                            </div>                        
                         </div>
-                         <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="last_3_days" value="last 3 days"   v-model="this.period" name="period" type="radio" >
-                            <label class="form-check-label" for="last_3_days"> <small>Last 3 days </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input" id="last_7_days" value="last 7 days"   v-model="this.period" name="period" type="radio" >
-                            <label class="form-check-label" for="last_7_days"> <small> Last 7 days</small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input p-2" id="last_30_days" value="last 30 days"   v-model="this.period" name="period" type="radio" >
-                            <label class="form-check-label" for="last_30_days"> <small> Last 30 days </small> </label>
-                        </div>
-                        <div class="form-check form-check-inline" >
-                            <input class="form-check-input p-2" id="last_90_days" value="last 90 days"   v-model="this.period" name="period" type="radio" >
-                            <label class="form-check-label" for="last_90_days"> <small> Last 90 days </small> </label>
-                        </div>
-                      
-                    </div>
-                    <!-- ---------------------------- -->
-                    <div class="mb-1  p-1">
-                        <p>Table number</p>
-                         <div class="form-check form-check-inline mr-3" >
-                            <label class="form-check-label p-2" for="tables"> <small>Table number </small> </label>
-                            <input type="number" v-model="this.table_number" min="1" max="50">
-                        </div>
-                         <div class="form-check form-check-inline ml-2" >
-                            <input type="checkbox" v-model="this.table_number"  checked  value="all" class="p-1">
-                            <label class="form-check-label p-2" for="tables" > <small>All tables </small> </label>
-                        </div>
+                        <!-- ---------------------------- -->
+                        <div class="mb-1 filter-panels  border-left p-2">
+                            <p class="mb-0">Table number</p>
+                            <div class="form-check form-check-inline mr-3" >
+                                <label class="form-check-label p-2" for="tables1"> <small>Table number </small> </label>
+                                <input type="number" id="tables1" v-model="this.table_number" min="1" max="50" @input.prevent="updateCheckbox()">
+                            </div>
+                            <div class="form-check form-check-inline ml-2" >
+                                <input type="checkbox" id='tables2'   :checked='this.check_box_checked'  value="all" class="p-1" @change.prevent="updateTables()">
+                                <label class="form-check-label p-2" for="tables2" > <small>All tables </small> </label>
+                            </div>
 
+                        </div>
                     </div>
-
+                    <button class="btn btn-success " @click.prevent="fetchOrders()"><span :class="this.spinner"></span>  Filter</button>
+                    <span class="float-right">
+                        <button class="btn btn-primary mr-2 m-1 " @click.prevent="fetchOrdsers()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> 
+                    <button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>                 
                 </div>
                 <div class="text-right">               
-                    <span><button class="btn btn-primary mr-2 m-1 " @click.prevent="fetchOrdsers()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button> </span>
-                    <span><button class="btn btn-danger m-1 " @click.prevent="dowloadReport()"><i class="bi bi-download"></i> Download </button> </span>    
-                </div>
+                    </div>
             </div>
             
             <div class="p-2 py-4 table-responsive" id="downloadable" > 
@@ -234,12 +247,30 @@ export default {
                 completed:0,
                 canceled:0,
                 total_revenue:0,
-                period:'all',
+                period:'today',
                 order_type:'all',
                 table_number:'all', 
-                order_status:'all'          }
+                order_status:'all' ,
+                spinner:'',
+                check_box_checked:true
+                }
         },
         methods:{
+            updateCheckbox(){
+                this.check_box_checked = false;
+            },
+            updateTables(){
+                if(this.check_box_checked === true){
+                    this.check_box_checked = false;
+                    this.table_number = 1;                    
+                }                
+                else{
+                    this.check_box_checked = true;
+                    this.table_number = 'all';
+                }
+               console.log(this.table_number) ;
+               console.log(this.check_box_checked) ;
+            },
             capitalize(string) {
                 if(string) return string.charAt(0).toUpperCase() + string.slice(1);
                 else return; 
@@ -259,7 +290,8 @@ export default {
                 }, 1000); 
             },
             fetchOrders(sort_term){
-                axios.get('/api/custom-reports/orders/' + this.restaurant.id + '/' + sort_term)
+                this.spinner = 'spinner-border spinner-border-sm';
+                axios.get('/api/custom-reports/orders/' + this.restaurant.id + '/' + this.period + '/' + this.order_type + '/' + this.table_number + '/' + this.order_status)
                 .then( response => {  
                     if(response.status == 200){
                         this.total_orders = 0;
@@ -270,14 +302,16 @@ export default {
                         this.total_revenue =0;
                         this.current_orders = response.data.data;
                         this.sortOrders();
+                        this.spinner ='';
                     }                             
                 })
                 .catch(error=>{
+                    this.spinner ='';
                     new Swal({   title:'Failed!', timer:1200 });
                     console.log(error);
                 });
             },
-            loadOrders(){
+            loadOrders(){                
                 axios.get('/api/custom-reports/orders/' + this.restaurant.id + '/' + this.period + '/' + this.order_type + '/' + this.table_number + '/' + this.order_status)
                 .then( response => {  
                     if(response.status == 200){
@@ -371,6 +405,13 @@ input[type='radio']:after {
         display: inline-block;
         visibility: visible;
         border: 3px solid $orange;
+    }
+    .filters{
+
+    }
+    .filter-panels{
+        width:auto;
+        display: inline-block;
     }
 
 /* media queries */
