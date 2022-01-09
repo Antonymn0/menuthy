@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="exampleModalLabel">Add new Item</h3>
-                    <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="closeAddMenu" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -212,7 +212,7 @@ props:['sub_menu'],
             axios.post('/api/menu-item', form_data)
             .then( response => {
                 if( response.status == 201){
-                    document.getElementById('close').click(); 
+                    document.getElementById('closeAddMenu').click(); 
                     new Swal({   title:'Success', timer:1200 });
                     this.$inertia.reload(); 
                 } 

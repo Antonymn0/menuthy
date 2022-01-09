@@ -7,7 +7,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="">Update Profile Infomation</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="closeProfile" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -69,7 +69,7 @@
                         </div>
                                        
                         <div class=" d-flex justify-content-center align-items-ceneter p-3">
-                          <button type="submit" class="btn primary-btn btn-lg m-1" @click="submitForm()" data-dismiss="modal">Update</button>
+                          <button type="submit" class="btn primary-btn btn-lg m-1"  >Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" data-dismiss="modal">Cancel</button> <br>
                            <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
                       </div>
@@ -175,7 +175,7 @@ export default {
             .then( response => {
             if( response.status == 200){
                 this.$refs.form.reset();
-                document.getElementById('close').click();
+                document.getElementById('closeProfile').click();
                 new Swal({ title: "Success!",timer: 1800  });                   
                 } 
             })

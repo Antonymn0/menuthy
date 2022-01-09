@@ -9,7 +9,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="">Update Restaurant Infomation</h3>
-                    <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="closeRestaurant" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -841,7 +841,7 @@ export default {
             axios.post('/api/restaurant/' + this.form.restaurant_id, form_data)
             .then( response => {
             if( response.status = 200){
-                document.getElementById('close').click();
+                document.getElementById('closeRestaurant').click();
                 new Swal({ title: "Success!",timer: 1500  });
                 } 
             })
