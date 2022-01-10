@@ -17,8 +17,7 @@ class Order extends Model
      *
      * @var string[]
      */
-    protected $fillable = [
-        
+    protected $fillable = [        
         'restaurant_id',
         'transaction_id',
         'order_number',       
@@ -28,6 +27,8 @@ class Order extends Model
         'paid_at',
         'number_of_items',
         'status',
+        'longitude',
+        'latitude', 
         'customer_name',
         'customer_phone',
         'car_registration_no',
@@ -37,7 +38,6 @@ class Order extends Model
         'deleted_at',
         'completed_at',
         'canceled_at',
-
 
     ];
 

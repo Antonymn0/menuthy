@@ -359,8 +359,8 @@
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">                           
-                            <!-- <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 disabled" disabled>Pay now </button></span>  -->
-                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter'  "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Order now </button></span> <br>
+                            <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 btn-secondary disabled" disabled>Pay now </button></span> 
+                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter'  "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Pay Later </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
@@ -388,8 +388,9 @@
                                 <small class="text-danger">{{this.errors.customer_name}}</small>
                             </div>
                             <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">                           
-                                <span  v-if="this.User.package_type != null"> <button class="p-2 px-3 m-1 " @click="placeOrder()" > <span :class="this.spinner"></span> Place order </button></span> 
-                                <span  v-if="this.User.package_type != null"> <button class="py-2  m-1 px-4 " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
+                                <span  v-if="this.User.package_type == 'premium'"> <button class="p-2 px-3 m-1 btn-secondary disabled"  > <span :class="this.spinner"></span> Pay now </button></span> 
+                                <span  v-if="this.User.package_type !== null"> <button class="p-2 px-3 m-1 " @click.prevent="placeOrder()" > <span :class="this.spinner"></span> Pay later </button></span> 
+                                <span  v-if="this.User.package_type !==null"> <button class="py-2  m-1 px-4  " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
                                 <small class="text-danger"> {{this .errors.cart_empty}} </small>
                             </p>
                         </div>
@@ -666,13 +667,17 @@ export default {
         document.getElementById('place-order-btn').classList.add('hidden');
         return;
     } ,
+
+    // ------------place order --------------------
     placeOrder(){
         this.validateOrder();
         if(Object.keys(this.errors).length) return;
         if(!Object.keys(this.cart_items).length){
             this.errors.cart_empty = "Cart Empty. Please add some items";
             return;
-        }           
+        }  
+        if(this.order_type == 'Home Delivery') this.getLocation(); 
+        // return;        
         // gather order data
         var order_data = new FormData();            
         order_data.append('order_number', Date.now());            
@@ -726,8 +731,20 @@ export default {
                     this.$swal('Error, Order failed!');                
                     console.log(error.response);                    
                 });
-        }
-      },
+            }
+        },
+        // --------------------- get geolocation ---------/
+      getLocation() {
+        navigator.geolocation.getCurrentPosition( position => {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                },
+                error => {
+                    console.log(error.message);
+                },
+            );
+        },        
+
       validateOrder(){          
         if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
         else delete this.errors.order_type;
@@ -740,8 +757,6 @@ export default {
 
         if(this.address =='' && this.order_type == 'Home Delivery') this.errors.address ="Please provide your delivery  address";
         else delete this.errors.address;
-
-        console.log(this.errors);
 
       },
        getCookie() {
@@ -793,11 +808,9 @@ export default {
                     .catch( error => {
                         this.$swal('Failed record scan!');                
                         console.log(error.response);                    
-                    });
-                    
+                    });                    
                 }
-            }  
-                   
+            }                  
     }
  
 };
