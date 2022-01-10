@@ -77,6 +77,10 @@ class OrderController extends Controller
             'status' => $value,
             'canceled_at' => $date,
             ]);
+        if($value =='delivered') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            'delivered_at' => $date,
+            ]);
         if($value =='processing') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
             ]);

@@ -38,6 +38,7 @@ class Order extends Model
         'deleted_at',
         'completed_at',
         'canceled_at',
+        'delivered_at',
 
     ];
 

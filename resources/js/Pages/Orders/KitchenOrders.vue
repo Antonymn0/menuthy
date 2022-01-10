@@ -20,7 +20,6 @@
                 ref="audio"
                 src="/audio/beep-4.mp3">
             </audio>
-
         </div>
 
         <div class="filter-div row">
@@ -86,6 +85,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Time received</th>
                         <th scope="col">Time completed</th>
+                        <th scope="col">Time delivered</th>
+                        <th scope="col">Time canceled</th>
                         <th scope="col">Order no</th>
                         <th scope="col">Type</th>
                         <th scope="col">No of Items</th>
@@ -102,20 +103,30 @@
                     <tr class="accordion border-bottom" onclick="toggleAccordion()">
                         <th scope="row">{{index +1}}</th>
                         <td>{{formatDate(order.created_at)}}</td>
-                        <td>{{formatDate(order.completed_at)}}</td>
+                         <td v-if="order.completed_at">{{formatDate(order.completed_at)}}</td>
+                        <td v-else>-</td>
+                        <td v-if="order.delivered_at">{{formatDate(order.delivered_at)}}</td>
+                        <td v-else>-</td>
+                        <td v-if="order.canceled_at">{{formatDate(order.canceled_at)}}</td>
+                        <td v-else>-</td>
                         <td>{{order.order_number}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
-                        <td v-if="order.number_of_items" class="lead">{{order.number_of_items}}</td>
+                        <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
                         <td v-if="order.table_number >0" class="">{{order.table_number}}</td>
                         <td v-else>-</td>   
-                        <td  class="">{{order.customer_name}}</td>
-                        <td  class="">{{order.customer_phone}}</td>
-                        <td  class="">{{order.delivery_address}}</td>
-                        <td  class="">{{order.car_registration_no}}</td>                    
+                        <td  class="" v-if="order.customer_name">{{order.customer_name}}</td>
+                        <td v-else>-</td>
+                        <td  class="" v-if="order.customer_pnone">{{order.customer_phone}}</td>
+                        <td v-else>-</td>
+                        <td  class="" v-if="order.delivery_address">{{order.delivery_address}}</td>
+                        <td v-else>-</td>
+                        <td  class="" v-if="order.car_registation_no">{{order.car_registration_no}}</td> 
+                        <td v-else>-</td>                   
                         <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
-                        <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>                        
+                        <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>                        
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
                             <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
                             <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
@@ -153,6 +164,7 @@
                                             <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                                            <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
                                       </tr>
                                     </thead>
                                  </table>
@@ -167,7 +179,7 @@
                 </tbody>
                 <tbody>
                     <tr class="p-2 border-top">
-                        <td colspan="10" class="text-right border-right">
+                        <td colspan="13" class="text-right border-right">
                            <b> Total orders</b> 
                         </td>
                         <td class="">
@@ -177,10 +189,11 @@
                 </tbody>
                
             </table>
-             <Pagination :data="this.current_orders" />
+            <p class="small text-muted text-center">Tip: A beep sound for Received orders. </p>
+             
         </div>
     </div>
-
+<Pagination :data="this.current_orders" />
  <Footer />
 
 </template>
@@ -370,7 +383,6 @@ export default {
                    
             });
         },
-
         refreshOrders(){
             axios.get( '/' + this.authRestaurant.restaurant_name + '/orders/' + this.authRestaurant.id + '/refresh')
             .then( response => {

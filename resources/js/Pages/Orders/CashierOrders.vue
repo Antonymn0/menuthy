@@ -84,6 +84,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Time received </th>
                         <th scope="col">Time completed </th>
+                        <th scope="col">Time delivered </th>
+                        <th scope="col">Time canceled </th>
                         <th scope="col">Order no</th>
                         <th scope="col">Type</th>
                         <th scope="col">No/Items</th>
@@ -105,20 +107,28 @@
                     <tr class="accordion border-bottom" onclick="toggleAccordion()">
                         <th scope="row">{{index +1}}</th>
                         <td>{{formatDate(order.created_at)}}</td>
-                        <td>{{formatDate(order.completed_at)}}</td>
+                        <td v-if="order.completed_at">{{formatDate(order.completed_at)}}</td>
+                        <td v-else>-</td>
+                        <td v-if="order.delivered_at">{{formatDate(order.delivered_at)}}</td>
+                        <td v-else>-</td>
+                        <td v-if="order.canceled_at">{{formatDate(order.canceled_at)}}</td>
+                        <td v-else>-</td>
                         <td>{{order.order_number}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
                         <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
                         <td v-if="order.table_number >0" class="">{{order.table_number}}</td>
                         <td v-else>-</td>
-                        <td  class="">{{order.customer_name}}</td>
-                        <td  class="">{{order.customer_phone}}</td>
+                        <td  class="" v-if="order.customer_name">{{order.customer_name}}</td>
+                        <td v-else>-</td>
+                        <td  class="" v-if="order.customer_pnone">{{order.customer_phone}}</td>
+                        <td v-else>-</td>
                         <td v-if="order.delivery_address" class="">
                             Geolocation:<span v-if="order.latitude && order.longitude" class="text-primary">Yes</span> <span v-else class="text-danger">No</span> <br>
                             Address: {{order.delivery_address}} 
                         </td>
-                        <td  v-else class="">N/A</td>
-                        <td  class="">{{order.car_registration_no}}</td>
+                        <td  v-else class="">-</td>
+                        <td  class="" v-if="order.car_registation_no">{{order.car_registration_no}}</td> 
+                        <td v-else>-</td> 
                         <td v-if="order.amount" class="">{{order.amount}}</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td>
@@ -127,11 +137,12 @@
                         <td v-if="order.transaction_id == 'cash' "> {{capitalize(order.transaction_id)}}</td>
                          <td v-else> {{order.transaction_id}}</td>
                         <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>
-                        <td v-else></td>                       
+                        <td v-else>-</td>                       
                         <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td class=" mx-auto  m-1 " v-if="order.status !== 'canceled'">
                             <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click.prevent="markAsPaid(order)">Pay</a>
                             <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
@@ -173,6 +184,7 @@
                                             <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
                                             <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                                            <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
                                             <td v-if="order.paid =='false'" class="text-danger">No</td>
                                             <td v-if="order.paid =='true'" class="text-primary">Yes</td>
                                       </tr>
@@ -189,7 +201,7 @@
                 </tbody>
                 <tbody>
                     <tr class="p-2 border-top">                        
-                        <td colspan="15" class="text-right border-right">
+                        <td colspan="18" class="text-right border-right">
                            <b> Total orders</b> 
                         </td>
                         <td class="">
@@ -207,12 +219,13 @@
 
 </template>
 <script>
+import moment from 'moment';
+
 import Pagination from "../Pagination/Pagination";
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
 
-import moment from 'moment';
 
 export default { 
     props:['orders', 'posts'],
@@ -298,7 +311,7 @@ export default {
                    
             });
         },
-         searchOrderNo(order_no){
+        searchOrderNo(order_no){
             this.errors = {};
             this.current_orders = [];
             console.log(order_no);

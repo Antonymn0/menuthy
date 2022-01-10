@@ -17,8 +17,9 @@ class AddDeliveryAddressToOrders extends Migration
             // $table->timestamp('completed_at')->nullable();
             // $table->timestamp('canceled_at')->nullable();
             // $table->string('delivery_address')->nullable();
-            $table->string('longitude')->nullable();
-            $table->string('latitude')->nullable();
+            // $table->string('longitude')->nullable();
+            // $table->string('latitude')->nullable();
+            $table->dateTime('delivered_at')->nullable();
         });
     }
 

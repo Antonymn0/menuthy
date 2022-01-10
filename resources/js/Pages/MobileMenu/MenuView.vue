@@ -468,8 +468,8 @@ export default {
         address:'',
         spinner:'',
         show_res_info:false,
-        latitude:'',
-        longitude:''
+        latitude:'25.286106',
+        longitude:'-51.534817'
       }
   },
   methods:{
@@ -759,19 +759,19 @@ export default {
         },
             // --------------------- get geolocation ---------/
         getGeoLocation() {
-            console.log('geolocating...')
-            navigator.geolocation.getCurrentPosition( position => {                
-                    this.latitude = position.coords.latitude;
-                    this.longitude = position.coords.longitude;
-                    console.log('Geolocating complete!');
-                    this.sendOrder();
-                },
-                error => {   
-                    alert('Location access is required for effective service. Please make sure it is enabled.');   
-                    console.log(error.message);
-                },
-               
-            );
+            console.log('geolocating...');
+            this.sendOrder();
+            // navigator.geolocation.getCurrentPosition( position => {                
+            //         this.latitude = position.coords.latitude;
+            //         this.longitude = position.coords.longitude;
+            //         console.log('Geolocating complete!');
+            //         this.sendOrder();
+            //     },
+            //     error => {   
+            //         alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
+            //         console.log(error.message);
+            //     },               
+            // );
         },        
 
         validateOrder(){          
