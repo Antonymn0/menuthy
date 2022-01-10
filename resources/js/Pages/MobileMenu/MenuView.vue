@@ -27,8 +27,8 @@
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
          <p class="text-center"> <small>
-                 <span style="color:#f89a42;">Phone:</span>  <span>{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
-                 <span style="color:#f89a42;">Email:</span>  <span>{{this.restaurant.restaurant_email}}</span>
+                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number  ">Phone:</span>  <span>{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
+                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_email ">Email:</span>  <span>{{this.restaurant.restaurant_email}}</span>
         </small> </p>
     </div>
 
@@ -1327,7 +1327,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-9.2rem ;
+        top:-9rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;

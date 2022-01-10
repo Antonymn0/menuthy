@@ -82,11 +82,12 @@
                             </p>
                             <p class="d-table text-left mx-auto"> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Unlimited Items </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> Unlimited Table Scans </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Cloud POS </span> <br>
@@ -109,11 +110,12 @@
                             </p>
                             <p class="d-table text-left mx-auto "> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Unlimited Items </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Unlimited Table Scans </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
@@ -137,11 +139,12 @@
                             </p>
                            <p class="d-table text-left mx-auto"> 
                                <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Unlimited Items </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> Unlimited Table Scans </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
@@ -163,11 +166,12 @@
                         </p>
                         <p class="d-table text-left mx-auto"> 
                             <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code Menu </span>  <br>
+                               <span><i class="bi bi-check-lg"></i>  </span> <span> Unlimited Items </span> <br>
                             <span><i class="bi bi-check-lg"></i>  </span> <span> Admin Dashboard </span> <br>
                             <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                             <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                             <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                            <span><i class="bi bi-check-lg"></i>  </span> <span> QR Code </span> <br>
+                            <span><i class="bi bi-check-lg"></i> </span> <span> Unlimited Table Scans </span> <br>
                             <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                             <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                             <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>

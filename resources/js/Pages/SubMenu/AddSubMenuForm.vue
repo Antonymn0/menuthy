@@ -10,7 +10,7 @@
             </button>
         </div>           
             <div class="modal-body p-5">
-                <form action="" enctype="multipart/form-data" @submit.prevent="submitForm">
+                <form action="" enctype="multipart/form-data" ref="form" @submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Section name* <small class="text-muted">max: 30 Characters</small></label>
                         <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="30" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
@@ -96,7 +96,7 @@ export default defineComponent({
                     Swal.close();
                     new Swal({   title:'Success', timer:1200 });
                     this.$inertia.reload();           
-                    
+                    this.$refs.form.reset();
                 } 
             })
             .catch( error => {

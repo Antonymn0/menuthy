@@ -23,7 +23,7 @@ export default {
         return{  
             restaurant: window.authRestaurant,
             current_orders:this.orders, 
-            chartBackgroundColor: [ '#E8302E', '#04B0A8','#EA4E1A','#B5CE4D', '#FFF134' ],
+            chartBackgroundColor: [ '#97C63A', '#E8302E','#0085B4', '#04B0A8' ],
             chartLabels: ["Dine In", "Pick Up", "Drive Through", "Home Delivery"],
             chartData: [ 25,  25, 25, 25],
             dine_in:0,

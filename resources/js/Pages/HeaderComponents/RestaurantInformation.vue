@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Restaurant Email</label>
                                     <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" required>
-                                   <small class="p-1 text-danger">{{ errors.email}} </small>                                     
+                                   <small class="p-1 text-danger">{{ errors.restaurant_email}} </small>                                     
                                 </div> 
                             </div>
                         </div>
@@ -874,16 +874,21 @@ export default {
         }, 
 
         validateForm () {
-
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'Restaurant name field is required' ;
-            else delete this.errors.restaurant_name;  
+            else delete this.errors.restaurant_name; 
 
-            if(this.form.email){
-                var is_valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.form.email);
+            if(!this.form.restaurant_email) this.errors.restaurant_email = 'Restaurant Email field is required' ;
+            else delete this.errors.restaurant_email; 
+
+            if(!this.form.currency) this.errors.currency = 'Currency field is required' ;
+            else delete this.errors.currency;  
+
+            if(this.form.restaurant_email){
+                var is_valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.form.restaurant_email);
                 if(!is_valid){
-                    this.errors.email = 'Enter a valid Email address' ;
+                    this.errors.restaurant_email = 'Invalid Email address' ;
                 }else{
-                   delete this.errors.email;  
+                   delete this.errors.restaurant_email;  
                 }
             }             
                   
@@ -908,6 +913,7 @@ export default {
         if(window.authRestaurant.twitter !== 'null') this.form.twitter = window.authRestaurant.twitter;
         if(window.authRestaurant.instagram !== 'null') this.form.instagram = window.authRestaurant.instagram;
         if(window.authRestaurant.youtube !== 'null') this.form.youtube = window.authRestaurant.youtube;
+        if(window.authRestaurant.image !== 'null') this.form.img_preview = window.authRestaurant.image;
     }
     
 }

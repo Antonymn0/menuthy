@@ -10,7 +10,7 @@
                     </button>
                 </div>
     <div class="modal-body p-5">
-        <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
+        <form action="api/menu" enctype="multipart/form-data" ref="form" @submit.prevent="submitForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Item name* <small class="text-muted">max: 30 Characters</small></label>
                 <input type="text" maxlength="30" v-model="form.menu_item_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
@@ -215,6 +215,7 @@ props:['sub_menu'],
                     document.getElementById('closeAddMenu').click(); 
                     new Swal({   title:'Success', timer:1200 });
                     this.$inertia.reload(); 
+                    this.$refs.form.reset();
                 } 
             })
             .catch( error => {

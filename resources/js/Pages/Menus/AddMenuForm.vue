@@ -10,7 +10,7 @@
                         </button>
                     </div> 
     <div class="modal-body p-5">
-        <form action="/upload"  enctype="multipart/form-data" @submit.prevent = "submitForm()">
+        <form action="/upload"  enctype="multipart/form-data" ref="form" @submit.prevent = "submitForm()">
             <div class="form-group">
                 <label for="exampleFormControlInput1" >Menu name</label>
                 <input type="text" maxlength="25" v-model="form.menu_name" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Menu name here...">
@@ -83,7 +83,8 @@ export default defineComponent({
                 if( response.status == 201){ 
                    document.getElementById('closeAddMenu').click(); 
                     this.$inertia.reload();                                        
-                    new Swal({   title:'Success', timer:1200 });           
+                    new Swal({   title:'Success', timer:1200 });   
+                    this.$refs.form.reset();  
                     } 
                 })
             .catch( error => {

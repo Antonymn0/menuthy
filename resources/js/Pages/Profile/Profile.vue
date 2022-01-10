@@ -174,7 +174,6 @@ export default {
             axios.post('/api/user/' + this.form.user_id, form_data)
             .then( response => {
             if( response.status == 200){
-                this.$refs.form.reset();
                 document.getElementById('closeProfile').click();
                 new Swal({ title: "Success!",timer: 1800  });                   
                 } 
@@ -201,7 +200,7 @@ export default {
            }
         }, 
         validateEmail(){
-            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+            if(!this.regex.test(this.form.email)) this.errors.email = 'Invalid email!' ;
              else delete this.errors.email;
         },
         validateForm () {
@@ -213,7 +212,7 @@ export default {
             else delete this.errors.last_name;  
 
             if(!this.form.email) this.errors.email = 'Email field is required' ;
-            else delete this.errors.email;  
+            else delete this.errors.email;             
 
             if(this.form.email){
                 var is_valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.form.email);
@@ -238,7 +237,8 @@ export default {
         if(window.authUser.address !== 'null') this.form.address = window.authUser.address;
         if(window.authUser.country !== 'null') this.form.country = window.authUser.country;
         if(window.authUser.timezone !== 'null') this.form.timezone = window.authUser.timezone;
-       if(window.authUser.city !== 'null') this.form.city = window.authUser.city;
+        if(window.authUser.city !== 'null') this.form.city = window.authUser.city;
+        if(window.authUser.image !== 'null') this.form.img_preview = window.authUser.image;
         this.form.role = window.authUser.role;
        
         

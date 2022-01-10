@@ -31,7 +31,7 @@
                               <a :href="this.qrCode" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                             </p>
                             <p class="d-flex justify-content-center align-items-center p-2">                                
-                                <button type="button" class="btn btn-success pr-3 pl-3 mr-2" @click.prevent="dowloadQrCode('mobile')"><span :class="this.spinner"></span> Download</button>
+                                <button type="button" class="btn btn-success pr-3 pl-3 mr-2" @click.prevent="dowloadQrCode('mobile')"> Download</button>
                                 <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Cancel</button>
                             </p>
                         </div>
@@ -64,7 +64,7 @@
                                 </div> 
                                 <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2">
                                     <button type="button" class="btn btn-primary col-sm-3 m-1 row"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)"> Generate</button>
-                                    <button type="button"  class="btn btn-success col-sm-3 m-1 row" @click.prevent="dowloadQrCode('tables')" ><span :class="this.spinner"></span> Dowload </button>
+                                    <button type="button"  class="btn btn-success col-sm-3 m-1 row" @click.prevent="dowloadQrCode('tables')" > Dowload </button>
                                     <button type="button"  class="btn btn-danger col-sm-3 m-1 row" data-bs-dismiss="modal"> Cancel</button>
 
                                 </div>
