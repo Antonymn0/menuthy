@@ -767,7 +767,6 @@ export default {
                     this.sendOrder();
                 },
                 error => {   
-                    this.errors.location ="Please allow location access ";
                     alert('Location access is required for effective service. Please make sure it is enabled.');   
                     console.log(error.message);
                 },
