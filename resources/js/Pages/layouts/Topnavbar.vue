@@ -21,9 +21,9 @@
                                     Orders
                                  </a>
                                 <ul class="dropdown-menu pr-3 ml-0 pl-0" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Cashier</a></li>
-                                    <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Kitchen</a></li>
-                                    
+                                    <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant_id"> <i class="bi bi-layer-backward"></i> Kitchen</a></li> 
+                                    <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant_id"> <i class="bi bi-cart-check pr-1"></i> Cashier</a></li>                                   
+                                    <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/delivery/' + this.restaurant_id"> <i class="bi bi-truck"></i> Delivery</a></li>                                    
                                 </ul>
                             </li>
                             <li class="nav-item dropdown" v-if="this.user.registration_status !== 'trial'  && this.user.package_type !== 'starter'">

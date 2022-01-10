@@ -27,8 +27,8 @@
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
          <p class="text-center"> <small>
-                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number  ">Phone:</span>  <span>{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
-                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_email ">Email:</span>  <span>{{this.restaurant.restaurant_email}}</span>
+                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number !== 'null' ">Phone:</span>  <span v-if="this.restaurant.restaurant_phone_number !== 'null' ">{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
+                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_email !== 'null' ">Email:</span>  <span v-if="this.restaurant.restaurant_email !== 'null' ">{{this.restaurant.restaurant_email}}</span>
         </small> </p>
     </div>
 
@@ -79,7 +79,7 @@
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">            
-            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter'">
+            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
               <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
             </div>
         </div>
@@ -132,11 +132,11 @@
                     <!--type hints -->
                     <div class=" radio-btns m-1 arabic">                       
                         <div class="radio-btns-inner arabic d-flex mb-1 align-content-between ">
-                            <div class="form-check form-check-inline d-flex align-items-center" v-if="this.user.package_type !== 'starter'">
+                            <div class="form-check form-check-inline d-flex align-items-center" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' && this.user.table_number > 0">
                                 <i class="bi bi-dot pr-0 mr-0" ></i> 
                                 <label class="form-check-label" > Dine in</label>
                             </div>
-                            <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite' ">
+                            <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite' && this.user.registration_status !== 'trial'">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label">Take away</label>
                             </div>
@@ -144,10 +144,10 @@
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Drive through</label>
                             </div>
-                            <!-- <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium'">
+                            <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium' && this.user.table_number == 0">
                                 <i class="bi bi-dot"></i> 
                                 <label class="form-check-label" >Delivery</label>
-                            </div>                             -->
+                            </div>                            
                                
                         </div> 
                     </div>
@@ -182,7 +182,6 @@
                <a href="#" @click.prevent="viewItemDetails(menu_item)" data-bs-toggle="modal" data-bs-target="#detailsModal"  data-backdrop="static" data-keyboard="false"> <img :src="menu_item.image" alt="menu-image" class="rounded"></a> 
              </div>     
         </div>
-
         </div>        
     </div>
     <div v-else class="text-center py-5">
@@ -279,8 +278,7 @@
                         <a class="menu-list p-2" href="#"   @click="fetchMenus( menu.id)"  > {{ capitalize(menu.menu_name) }} </a> 
                     </li>
                 </ul>
-            </div>
-            
+            </div>            
             </div>
         </div>
     </div> 
@@ -294,7 +292,7 @@
          <div class="pop-up " >
                 <div class=" rounded" style="border-radius:15px; overflow:hidden">
                     <div class="pop-up-img ">
-                        <span class="p-2   back-btn " id="close" @click="togglepopUp()" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
+                        <span class="p-2   back-btn " id="close"  data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
                     <h4 class="pt-3 pb-1">{{this.cart_items.length}} items in the Cart</h4>
                     <div class="popup-items-div mt-2" id="cart-items" v-if="this.cart_items.length" >
@@ -338,7 +336,7 @@
                     <div class="pop-up-text  py-2">                       
                     <!-- radio buttons -->
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0" v-if="this.user.package_type !== 'starter'"> 
-                        <div class="form-check form-check-inline" >
+                        <div class="form-check form-check-inline" v-if="this.user.table_number > 0">
                             <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine in </small> </label>
                         </div>
@@ -352,15 +350,17 @@
                             <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive through </small></label>
                         </div> 
                         <div class="form-check form-check-inline"  v-if="this.user.package_type == 'premium'">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Home Delivery" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Delivery </small> </label>
+                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r4' + menu_item.id" value="Home Delivery" @change.prevent="detectOrderType(this.order_type)">
+                            <label class="form-check-label" :for=" 'r4' + menu_item.id"> <small> Delivery </small> </label>
                         </div> 
                        <br>
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
-                        <p class="order-btn  mt-2 mx-auto" id="place-order-btn">                           
+                        <p class="order-btn  mt-2 mx-auto" id="place-order-btn">  
+                            <span :class="this.spinner" class="text-center"></span>  <br> 
                             <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 btn-secondary disabled" disabled>Pay now </button></span> 
-                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter'  "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" > <span :class="this.spinner"></span> Pay Later </button></span> <br>
+                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type == 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Pay Later </button></span> <br>
+                            <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type !== 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Place order </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
                         </p>
                     </div>
@@ -378,7 +378,7 @@
                                 <small class="text-danger">{{this.errors.car_registration_no}}</small>
                             </div>
                             <div class="form-group text-left" v-if="this.order_type == 'Home Delivery'">
-                                <label for="car_reg">Your Address </label>
+                                <label for="car_reg">Your Address <small v-if="this.errors.location" class="text-primary">( {{this.errors.location}} )</small> </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.address" id="ca_reg"  placeholder="Address" required>
                                 <small class="text-danger">{{this.errors.address}}</small>
                             </div>
@@ -387,14 +387,14 @@
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" >
                                 <small class="text-danger">{{this.errors.customer_name}}</small>
                             </div>
-                            <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">                           
-                                <span  v-if="this.User.package_type == 'premium'"> <button class="p-2 px-3 m-1 btn-secondary disabled"  > <span :class="this.spinner"></span> Pay now </button></span> 
-                                <span  v-if="this.User.package_type !== null"> <button class="p-2 px-3 m-1 " @click.prevent="placeOrder()" > <span :class="this.spinner"></span> Pay later </button></span> 
+                            <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">
+                                                <span :class="this.spinner" class="text-center"></span>  <br>         
+                                <span  v-if="this.User.package_type == 'premium'"> <button class="p-2 px-3 m-1 btn-secondary disabled"  >  Pay now </button></span> 
+                                <span  v-if="this.User.package_type !== null"> <button class="p-2 px-3 m-1 " @click.prevent="placeOrder()" >  Pay later </button></span> 
                                 <span  v-if="this.User.package_type !==null"> <button class="py-2  m-1 px-4  " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
                                 <small class="text-danger"> {{this .errors.cart_empty}} </small>
                             </p>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -459,6 +459,8 @@ export default {
         cart_item_qty:[], //keeps track of individual cart item qty in an array
         total_amount:0,
         item:{},
+        order_data:'',
+        order_items:[],
         language:'',
         car_registration_no:'',
         customer_name:'',
@@ -466,6 +468,8 @@ export default {
         address:'',
         spinner:'',
         show_res_info:false,
+        latitude:'',
+        longitude:''
       }
   },
   methods:{
@@ -616,202 +620,231 @@ export default {
             Swal.close();            
         },
 
-      fetchMenuItems( sub_menu_id){
-          Swal.showLoading();
-           axios.get('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id)
-            .then( response => {
-            if( response.status = 200){
-                this.menu_items = response.data.data;
-                Swal.close();
-                } 
-            })
-            .catch( error => {
-                this.$swal('Failed to fecth!');                
-                console.log(error.response);                    
-            });
-      },
-    cancelPlaceOrder(){
-        document.getElementById('cart-items').classList.remove('zero-height');
-        document.getElementById('customer-details').classList.add('hidden');
-        document.getElementById('place-order-btn').classList.remove('hidden');
-        document.getElementById('cart-items').classList.remove('shadow');
-        document.getElementById('cart-items').classList.remove('border-top');
-        this.errors = {};
-        this.spinner ='';
-    },
-    detectOrderType(order_type){
-        if(order_type == 'Dine In') this.cancelPlaceOrder();
-        return;
-    },
-    pre_placeOrder(){
-        if(Object.keys(this.errors).length) return;
-        if(!Object.keys(this.cart_items).length){
-            this .errors.cart_empty = "Cart Empty. Please add some items";
-            return;
-        }
-        if(this.order_type == 'Dine In'){
-            this.cancelPlaceOrder();
-            this.placeOrder();
-            return;
-        }
-        if(this.order_type == ''){
-           this.errors.order_type = "Please select order type!"; 
-           return;
-        } 
-        else delete this.errors.order_type;
-                
-        document.getElementById('cart-items').classList.add('zero-height');
-        document.getElementById('cart-items').classList.add('shadow');
-        document.getElementById('cart-items').classList.add('border-top');
-        document.getElementById('customer-details').classList.remove('hidden');
-        document.getElementById('place-order-btn').classList.add('hidden');
-        return;
-    } ,
-
-    // ------------place order --------------------
-    placeOrder(){
-        this.validateOrder();
-        if(Object.keys(this.errors).length) return;
-        if(!Object.keys(this.cart_items).length){
-            this.errors.cart_empty = "Cart Empty. Please add some items";
-            return;
-        }  
-        if(this.order_type == 'Home Delivery') this.getLocation(); 
-        // return;        
-        // gather order data
-        var order_data = new FormData();            
-        order_data.append('order_number', Date.now());            
-        order_data.append('restaurant_id', this.restaurant.id);
-        order_data.append('amount', this.total_amount);
-        order_data.append('paid', 'false');
-        order_data.append('number_of_items', this.cart_items.length);
-        order_data.append('status', 'received');
-        order_data.append('order_type', this.order_type);
-        order_data.append('customer_name', this.customer_name);
-        order_data.append('customer_phone', this.customer_phone);
-        order_data.append('car_registration_no', this.car_registration_no);
-        order_data.append('delivery_address', this.address);
-
-        if(this.User.table_number) order_data.append('table_number', parseInt(this.User.table_number) );
-        else order_data.append('table_number', 1); //default table number is 1
-
-        // gather order item data
-        var order_items = [];
-        this.cart_items.forEach((item)=>{
-            var elmnt = {};
-            elmnt.item_name = item.menu_item_name;
-            elmnt.menu_item_id = item.id;
-            elmnt.price_per_item = item.price;
-            elmnt.preparation_time = item.preparation_time;
-            elmnt.quantity = this.cart_item_qty[item.id]; // get item quantity
-            elmnt.amount = item.price * this.cart_item_qty[item.id]; // multiply price by quantity
-            order_items.push(elmnt);
-        });
-
-        order_data.append('order_items', JSON.stringify(order_items)); //append order items data to form
-        
-        if(window.confirm("Place a " + this.order_type  + ' order?')){
-            this.spinner = 'spinner-border spinner-border-sm';           
-            axios.post('/api/order', order_data)
+        fetchMenuItems( sub_menu_id){
+            Swal.showLoading();
+            axios.get('/api/' + this.restaurant_name + '/menu-item/' + sub_menu_id)
                 .then( response => {
-                    if( response.status = 201){
-                        this.$swal( 'Order placed!'); 
-                        this.cart_items = [];
-                        this.cart_item_qty=[];
-                        this.spinner = '';
-                        this.cancelPlaceOrder();
-                        document.getElementById('close').click();
-                        this.car_registration_no = '';
-                        this.customer_name = '';
-                        this.customer_phone = '';
-                        this.order_type = '';
-                        } 
-                    })
+                if( response.status = 200){
+                    this.menu_items = response.data.data;
+                    Swal.close();
+                    } 
+                })
                 .catch( error => {
-                    this.$swal('Error, Order failed!');                
+                    this.$swal('Failed to fecth!');                
                     console.log(error.response);                    
                 });
+        },
+        cancelPlaceOrder(){
+            document.getElementById('cart-items').classList.remove('zero-height');
+            document.getElementById('customer-details').classList.add('hidden');
+            document.getElementById('place-order-btn').classList.remove('hidden');
+            document.getElementById('cart-items').classList.remove('shadow');
+            document.getElementById('cart-items').classList.remove('border-top');
+            this.errors = {};
+            this.spinner ='';
+        },
+        detectOrderType(order_type){
+            if(order_type == 'Dine In') this.cancelPlaceOrder();
+            return;
+        },
+        pre_placeOrder(){
+            if(Object.keys(this.errors).length) return;
+            if(!Object.keys(this.cart_items).length){
+                this .errors.cart_empty = "Cart Empty. Please add some items";
+                return;
+            }
+            if(this.order_type == 'Dine In'){
+                this.cancelPlaceOrder();
+                this.placeOrder();
+                return;
+            }
+            if(this.order_type == ''){
+            this.errors.order_type = "Please select order type!"; 
+            return;
+            } 
+            else delete this.errors.order_type;
+                    
+            document.getElementById('cart-items').classList.add('zero-height');
+            document.getElementById('cart-items').classList.add('shadow');
+            document.getElementById('cart-items').classList.add('border-top');
+            document.getElementById('customer-details').classList.remove('hidden');
+            document.getElementById('place-order-btn').classList.add('hidden');
+            return;
+        } ,
+
+        // ------------place order --------------------
+        placeOrder(){ 
+            console.log('Place order');       
+            if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
+            if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
+            },
+        sendOrder(){
+            console.log('Send order');
+            this.validateOrder();
+            if(Object.keys(this.errors).length) return;
+            if(!Object.keys(this.cart_items).length){
+                console.log('Cart empty');
+                this.errors.cart_empty = "Cart Empty. Please add some items";
+                return;
+            }
+            console.log('Send order2');
+            this.getOrderData();  // gather order data        
+            this.getOrderItems();  // gather order items data 
+            this.order_data.append('order_items', JSON.stringify(this.order_items)); //append order items order data to form            
+            console.log(...this.order_data);
+            if(window.confirm("Place a " + this.order_type  + ' order?')){
+                this.spinner = 'spinner-border spinner-border-sm';
+                axios.post('/api/order', this.order_data)
+                    .then( response => {
+                        console.log("Order sent...")
+                        if( response.status == 201){ 
+                            this.cart_items = [];
+                            this.cart_item_qty=[];
+                            this.spinner = '';
+                            this.car_registration_no = '';
+                            this.customer_name = '';
+                            this.customer_phone = '';
+                            this.order_type = '';
+                            this.order_data = '';
+                            this.order_items = [];
+                            this.longitude = '';
+                            this.latitude = '';
+                            this.address = '';
+                            this.cancelPlaceOrder();
+                            document.getElementById('close').click();  
+                            console.log(response.data);
+                            this.$swal( 'Order placed!') ; 
+                            console.log(this.latitude, this.longitude);                    
+                            } 
+                        })
+                    .catch( error => {
+                        this.$swal('Error, Order failed!');                
+                        console.log(error.response);                    
+                    });
             }
         },
-        // --------------------- get geolocation ---------/
-      getLocation() {
-        navigator.geolocation.getCurrentPosition( position => {
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
+        getOrderData(){ 
+            // gather order data  
+            this.order_data =new FormData();          
+            this.order_data.append('order_number', Date.now());            
+            this.order_data.append('restaurant_id', this.restaurant.id);
+            this.order_data.append('amount', this.total_amount);
+            this.order_data.append('paid', 'false');
+            this.order_data.append('number_of_items', this.cart_items.length);
+            this.order_data.append('status', 'received');
+            this.order_data.append('order_type', this.order_type);
+            this.order_data.append('customer_name', this.customer_name);
+            this.order_data.append('customer_phone', this.customer_phone);
+            this.order_data.append('car_registration_no', this.car_registration_no);
+            this.order_data.append('delivery_address', this.address);
+            if(this.latitude !== '') this.order_data.append('latitude', this.latitude);
+            if(this.longitude !== '') this.order_data.append('longitude', this.longitude);
+            if(this.User.table_number > 0) this.order_data.append('table_number', parseInt(this.User.table_number) );
+            else this.order_data.append('table_number', -1); //default table number is 1 
+        },
+        getOrderItems(){
+            // gather order items data
+            var items = [];
+            this.cart_items.forEach((item)=>{
+                var elmnt = {};
+                elmnt.item_name = item.menu_item_name;
+                elmnt.menu_item_id = item.id;
+                elmnt.price_per_item = item.price;
+                elmnt.preparation_time = item.preparation_time;
+                elmnt.quantity = this.cart_item_qty[item.id]; // get item quantity
+                elmnt.amount = item.price * this.cart_item_qty[item.id]; // multiply price by quantity
+                items.push(elmnt);
+            });
+            this.order_items = items;
+        },
+            // --------------------- get geolocation ---------/
+        getGeoLocation() {
+            console.log('geolocating...')
+            navigator.geolocation.getCurrentPosition( position => {                
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                    console.log('Geolocating complete!');
+                    this.sendOrder();
                 },
-                error => {
+                error => {   
+                    this.errors.location ="Please allow location access ";
+                    alert('Location access is required for effective service. Please make sure it is enabled.');   
                     console.log(error.message);
                 },
             );
         },        
 
-      validateOrder(){          
-        if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
-        else delete this.errors.order_type;
+        validateOrder(){          
+            if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
+            else delete this.errors.order_type;
 
-        if(this.customer_phone == '' && this.order_type == 'Take Away' || this.customer_phone == '' && this.order_type == 'Home Delivery') this.errors.customer_phone = "Please provide your phone number";                    
-        else  delete this.errors.customer_phone;
+            if(this.customer_phone == '' && this.order_type == 'Take Away' || this.customer_phone == '' && this.order_type == 'Home Delivery') this.errors.customer_phone = "Please provide your phone number";                    
+            else  delete this.errors.customer_phone;
 
-        if(this.car_registration_no =='' && this.order_type == 'Drive Through') this.errors.car_registration_no ="Please provide your car plate number";
-        else delete this.errors.car_registration_no;
+            if(this.car_registration_no =='' && this.order_type == 'Drive Through') this.errors.car_registration_no ="Please provide your car plate number";
+            else delete this.errors.car_registration_no;
 
-        if(this.address =='' && this.order_type == 'Home Delivery') this.errors.address ="Please provide your delivery  address";
-        else delete this.errors.address;
+            
+            if(this.order_type == 'Home Delivery'){
+                if(this.address =='' ) this.errors.address ="Please provide your delivery  address";
+                else delete this.errors.address;
 
-      },
-       getCookie() {
-            var current_cookie = document.cookie;
-            return current_cookie.includes('qr_code_scans=');
-        }, 
-        toggle_show_res_info(){
-            this.show_res_info = false;
+                if(this.latitude =='' && this.longitude == '') this.errors.location ="Please allow location access ";
+                else delete this.errors.location;
+            }            
         },
-        
-  },
+        getCookie() {
+                var current_cookie = document.cookie;
+                return current_cookie.includes('qr_code_scans=');
+            }, 
+        toggle_show_res_info(){
+                this.show_res_info = false;
+            },        
+    },
 
-  mounted(){     
-        this.menu_items = this.menuItems;
-        this.User= this.user;
-        this.current_menus= this.menus;
-        this.current_sub_menus= this.subMenus;
-        this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
-        // setTimeout( this.toggle_show_res_info(), 3000); 
+    mounted(){     
+            this.menu_items = this.menuItems;
+            this.User= this.user;
+            this.current_menus= this.menus;
+            this.current_sub_menus= this.subMenus;
+            this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
+            // setTimeout( this.toggle_show_res_info(), 3000); 
 
-            // initialize coockies for qr scan counting - expires in 6hrs
-            var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
-            var cookie_obj = {
-                'name':'qr_code_scans',
-                'website' : 'menuthy',
-                'restaurant_name' : this.restaurant.restaurant_name,
-                'restaurant_id' : this.restaurant.id,
-                'scan_counted' : false,
-                }  
+                // initialize coockies for qr scan counting - expires in 6hrs
+                var expiry_time = Math.round( Date.now()/ 1000) + 4300 ; // expire in 6hrs
+                var cookie_obj = {
+                    'name':'qr_code_scans',
+                    'website' : 'menuthy',
+                    'restaurant_name' : this.restaurant.restaurant_name,
+                    'restaurant_id' : this.restaurant.id,
+                    'scan_counted' : false,
+                    }  
 
-                // check if coockie exists first, if it doesnt create one              
-            var isset_cookie = document.cookie.includes('qr_code_scans');
-            if(!isset_cookie){
-                document.cookie = JSON.stringify(cookie_obj) + ';' + 'expires=' + expiry_time + ';';             
-            }
-            if(isset_cookie){                          
-                var old_cookie = document.cookie.split(';');
-                var newcookie = JSON.parse(old_cookie[0]);             
-                // see if restaurant is registered in the cookie 
-                if(newcookie.restaurant_id == this.restaurant.id && newcookie.scan_counted == true) return; // if restaurant is in the cookie dont count the scan
-                else{  
-                    axios.get('/api/qr-code-scan/'  + this.restaurant.id)
-                    .then( response => {
-                        if( response.status = 200){
-                            newcookie.scan_counted = true;
-                            document.cookie =  JSON.stringify(newcookie)+ ';' + 'expires=' + expiry_time;
-                        } 
-                    })
-                    .catch( error => {
-                        this.$swal('Failed record scan!');                
-                        console.log(error.response);                    
-                    });                    
+                    // check if coockie exists first, if it doesnt create one              
+                var isset_cookie = document.cookie.includes('qr_code_scans');
+                if(!isset_cookie){
+                    document.cookie = JSON.stringify(cookie_obj) + ';' + 'expires=' + expiry_time + ';';             
                 }
-            }                  
-    }
+                if(isset_cookie){                          
+                    var old_cookie = document.cookie.split(';');
+                    var newcookie = JSON.parse(old_cookie[0]);             
+                    // see if restaurant is registered in the cookie 
+                    if(newcookie.restaurant_id == this.restaurant.id && newcookie.scan_counted == true) return; // if restaurant is in the cookie dont count the scan
+                    else{  
+                        axios.get('/api/qr-code-scan/'  + this.restaurant.id)
+                        .then( response => {
+                            if( response.status = 200){
+                                newcookie.scan_counted = true;
+                                document.cookie =  JSON.stringify(newcookie)+ ';' + 'expires=' + expiry_time;
+                            } 
+                        })
+                        .catch( error => {
+                            this.$swal('Failed record scan!');                
+                            console.log(error.response);                    
+                        });                    
+                    }
+                }                  
+        }
  
 };
 </script>

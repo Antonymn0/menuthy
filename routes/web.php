@@ -74,6 +74,7 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     // orders routes
     Route::get('/{restaurant_name}/orders/kitchen/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'kitchenOrders'])->name('kitchen-orders');
     Route::get('/{restaurant_name}/orders/cashier/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'cashierOrders'])->name('cashier-orders');
+    Route::get('/{restaurant_name}/orders/delivery/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'deliveryOrders'])->name('delivery-orders');
     Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
     Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
     Route::get('/orders/{restaurant_id}/type/{order_type}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTypes']);
@@ -89,6 +90,7 @@ Route::middleware(['auth', 'is_user'])->group(function () {
   Route::get('subscription', [App\Http\Controllers\Web\Subscription\SubscriptionController::class, 'showSubscriptionsPackagesPage'])->name('show-packages');
   
   }); 
+
 
 
 //=====================Protected SUPER ADMIN ROUTES ====================//

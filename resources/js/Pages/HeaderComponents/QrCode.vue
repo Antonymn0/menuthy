@@ -8,21 +8,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header pb-1 m-0">
-                <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Conect your devices  </h4>
+                <h4 class="modal-title pr-2" id="exampleModalqrCodeLabel">Generate QR code  </h4>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body fade-in">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Mobile</a> </li>
-                        <li  v-if="this.user.package_type !== 'starter' "> <a data-toggle="tab" href="#tables" class="btn card ml-1">Tables</a> </li>
+                        <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Basic</a> </li>
+                        <li  v-if="this.user.package_type !== 'starter' "> <a data-toggle="tab" href="#tables" class="btn card ml-1">Dine In</a> </li>
                     </ul>
              
                     <div class="tab-content">
                         <!-- mobile qr code  -->
                         <div id="mobile" class="tab-pane  active pt-3">
-                             <small> Mobile</small>
+                             <small> Pick Up | Drive Through | Delivery</small>
                              <div class="d-flex justify-content-center align-items-center fade-in"> 
                                 <vue-qrcode :value="this.qrCode" :options="{ width: 200 }"></vue-qrcode>
                             </div>
@@ -37,8 +37,9 @@
                         </div>
                         <!-- Tables qr code  -->
                         <div id="tables" class="tab-pane ">
+                            <small> Dine In Tables</small>
                            <div class="">    
-                                <h5 class="text-center m-0 mt-3 text-danger">  Table {{this.qr_table_number}}</h5>                                               
+                                <h6 class="text-center m-0 mt-3 text-danger">  Table {{this.qr_table_number}}</h6>                                               
                             <div class="d-flex justify-content-center align-items-center fade-in">                                                   
                                     <vue-qrcode
                                         :value="this.tables_qr_code_link"
@@ -93,6 +94,7 @@ export default {
             qr_table_number:1,
             max_package_tables:50,
             tables_qr_code_link:null, 
+            base_qr_code_link:'',
             errors:{},
             spinner:''       
         } 
@@ -103,9 +105,10 @@ export default {
             axios.get('/api/qrcode-generate/'+ restaurant_id)
             .then( response => {
             if( response.status == 200){
-                this.qrCode = response.data;
-                this.tables_qr_code_link = this.qrCode + '/1';
-                this.$emit('passQrCodeToParent',this.qrCode);
+                this.base_qr_code_link = response.data;
+                this.qrCode = this.base_qr_code_link + '/0';
+                this.tables_qr_code_link = this.base_qr_code_link +'/1' ;
+                this.$emit('passQrCodeToParent',this.base_qr_code_link)
                 } 
             })
             .catch( error => {
@@ -117,7 +120,7 @@ export default {
             // tables qr code
         generateTablesQrCode(table_number){
             if(this.table_number > this.max_package_tables)  return;               
-            this.tables_qr_code_link = this.qrCode + '/' + table_number;  
+            this.tables_qr_code_link = this.base_qr_code_link + '/' + table_number;  
             this.qr_table_number =   table_number;       
         },
 

@@ -105,9 +105,9 @@
                         <td>{{formatDate(order.completed_at)}}</td>
                         <td>{{order.order_number}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
-                         <td v-if="order.number_of_items" class="lead">{{order.number_of_items}}</td>
-                        <td v-if="order.table_number" class="lead">{{order.table_number}}</td>
-                        <td v-else>1</td>   
+                        <td v-if="order.number_of_items" class="lead">{{order.number_of_items}}</td>
+                        <td v-if="order.table_number >0" class="">{{order.table_number}}</td>
+                        <td v-else>-</td>   
                         <td  class="">{{order.customer_name}}</td>
                         <td  class="">{{order.customer_phone}}</td>
                         <td  class="">{{order.delivery_address}}</td>

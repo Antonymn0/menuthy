@@ -108,12 +108,16 @@
                         <td>{{formatDate(order.completed_at)}}</td>
                         <td>{{order.order_number}}</td>
                         <td>{{capitalize(order.order_type)}}</td>
-                         <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
-                        <td v-if="order.table_number" class="">{{order.table_number}}</td>
-                        <td v-else>1</td>
+                        <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
+                        <td v-if="order.table_number >0" class="">{{order.table_number}}</td>
+                        <td v-else>-</td>
                         <td  class="">{{order.customer_name}}</td>
                         <td  class="">{{order.customer_phone}}</td>
-                        <td  class="">{{order.delivery_address}}</td>
+                        <td v-if="order.delivery_address" class="">
+                            Geolocation:<span v-if="order.latitude && order.longitude" class="text-primary">Yes</span> <span v-else class="text-danger">No</span> <br>
+                            Address: {{order.delivery_address}} 
+                        </td>
+                        <td  v-else class="">N/A</td>
                         <td  class="">{{order.car_registration_no}}</td>
                         <td v-if="order.amount" class="">{{order.amount}}</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
@@ -203,7 +207,7 @@
 
 </template>
 <script>
-import Pagination from "../Pagination/Pagination.vue";
+import Pagination from "../Pagination/Pagination";
 import Header from "../layouts/Header";
 import Topnavbar from "../layouts/Topnavbar";
 import Footer from "../layouts/Footer";
@@ -214,7 +218,7 @@ export default {
     props:['orders', 'posts'],
     components:{
         Pagination,
-         Header,
+        Header,
         Topnavbar,
         Footer,
     },

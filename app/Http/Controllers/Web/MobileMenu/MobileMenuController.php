@@ -185,6 +185,7 @@ public function fetchMainMenu($restaurant_name, $menu_id){
 
                     //pass table number to user object if isset() true
                     if(isset($table_number)) $user->table_number = $table_number;  
+                    if($table_number == 0) $user->table_number = 0;  
 
                     return ['user' =>$user, 'restaurant' => $restaurant];
                }

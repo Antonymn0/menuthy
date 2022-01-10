@@ -48,6 +48,22 @@ class OrderController extends Controller
     }
 
     /**
+     * Display orders to cashier.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deliveryOrders($restaurant_name, $restaurant_id)
+    {
+        $orders = Order::with(['OrderItem'])
+                ->WHERE('restaurant_id', $restaurant_id)                    
+                ->orderBy('created_at','DESC')
+                ->paginate(ENV('API_PAGINATION', 15));
+        return Inertia::render('Orders/DeliveryOrders')->with([
+            'orders' => $orders,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
