@@ -14,9 +14,9 @@ class AddColumnsToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('package_period')->nullable();
-            $table->dateTime('trial_date')->nullable();
-            $table->dateTime('registration_date')->nullable();
+            // $table->string('package_period')->nullable();
+            // $table->dateTime('trial_date')->nullable();
+            // $table->dateTime('registration_date')->nullable();
         });
     }
 
