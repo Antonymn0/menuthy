@@ -770,6 +770,7 @@ export default {
                     alert('Location access is required for effective service. Please make sure it is enabled.');   
                     console.log(error.message);
                 },
+               
             );
         },        
 
@@ -782,7 +783,6 @@ export default {
 
             if(this.car_registration_no =='' && this.order_type == 'Drive Through') this.errors.car_registration_no ="Please provide your car plate number";
             else delete this.errors.car_registration_no;
-
             
             if(this.order_type == 'Home Delivery'){
                 if(this.address =='' ) this.errors.address ="Please provide your delivery  address";
