@@ -67,8 +67,7 @@ class OrderController extends Controller
      * 
      * @return response
      */
-    public function markOrder($id, $value, $date){
-        
+    public function markOrder($id, $value, $date){ 
         if($value =='completed') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
             'completed_at' => $date,
@@ -86,7 +85,7 @@ class OrderController extends Controller
             ]);
         
         return response()->json([
-            'success' => true,
+           'success' => true,
            'message' => 'Order marked ' . $value,
            'data' => true,
         ], 200);        
@@ -108,6 +107,25 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
            'message' => 'Order marked  as paid',
+           'data' => true,
+        ], 200);        
+    }
+    /**
+     * mark order as paid item
+     * 
+     * @param $id $amount
+     * 
+     * @return response
+     */
+    public function markOrderCollectCash($id, $amount, $date){
+        $order= Order::WHERE('id', $id)->first()->update([
+            'cash_collected' => 'true',
+            'amount_collected' => $amount,
+            'cash_collected_at' => $date,
+            ]);
+        return response()->json([
+            'success' => true,
+           'message' => 'Order cash collected successfully',
            'data' => true,
         ], 200);        
     }

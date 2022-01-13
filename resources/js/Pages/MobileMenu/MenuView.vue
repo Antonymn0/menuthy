@@ -79,7 +79,7 @@
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">            
-            <div class="cart-preview mr-2 "  data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
+            <div class="cart-preview mr-2 " id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
               <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
             </div>
         </div>
@@ -134,7 +134,7 @@
                         <div class="radio-btns-inner arabic d-flex mb-1 align-content-between ">
                             <div class="form-check form-check-inline d-flex align-items-center" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' && this.user.table_number > 0">
                                 <i class="bi bi-dot pr-0 mr-0" ></i> 
-                                <label class="form-check-label" > Dine in</label>
+                                <label class="form-check-label" > Dine-In</label>
                             </div>
                             <div class="form-check form-check-inline d-flex align-items-center"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite' && this.user.registration_status !== 'trial'">
                                 <i class="bi bi-dot"></i> 
@@ -142,7 +142,7 @@
                             </div>
                              <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'pro' ||  this.user.package_type == 'premium' ">
                                 <i class="bi bi-dot"></i> 
-                                <label class="form-check-label" >Drive through</label>
+                                <label class="form-check-label" >Drive-Thru</label>
                             </div>
                             <div class="form-check form-check-inline d-flex align-items-center align-content-between" v-if="this.user.package_type == 'premium' && this.user.table_number == 0">
                                 <i class="bi bi-dot"></i> 
@@ -200,7 +200,7 @@
             <div class="modal-content shadow mx-auto" style="width:400px; max-width:98%;">
             <div class="modal-header px-2">
                 <h4 class="modal-title col-xs-6 mx-auto" id="detailsModalLabel" style="color:rgb(241, 103, 48);">
-                    <span class="back-btn"   data-bs-dismiss="modal"><i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" ></i> </span>
+                    <span class="back-btn" id="detailsModal"  data-bs-dismiss="modal"> <i class="bi bi-arrow-left rounded-circle shadow px-2 py-1" ></i> </span>
                     <span>Item details </span>                    
                 </h4>
             </div>
@@ -239,9 +239,8 @@
                              <span v-if="this.item.food_origin && this.item.food_origin !== 'null' ">Origin:  {{capitalize(this.item.food_origin)}}  </span>
                         </p>
                      </div>
-                     <p class="order-btn pt-2 mt-2 arabic">                        
-                        <span   v-if="this.user.package_type !== 'starter'"> <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span> 
-                                                   
+                     <p class="order-btn pt-2 mt-2 arabic"  v-if="this.user.registration_status !== 'trial' && this.user.package_type !== 'starter' ">                        
+                        <span  > <a href="#" class="py-2 mr-3 " @click.prevent="addToCart(this.item)" >Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a></span>         
                             <span class=" arabic rounded counter" v-if="this.cart_item_qty[this.item.id] ">
                                 <label :for="this.item.id" class="font-weight-lighter pr-1"> Qty </label>
                                 <select :name="this.item.id" :id="this.item.id" class="rounded" :ref="this.item.id" v-model="this.cart_item_qty[this.item.id]" @change="this.calculateTotalAmount">
@@ -255,8 +254,9 @@
                                     <option value="8" > 8</option>
                                 </select>
                                 {{this.cart_item_qty[this.item.id]}}
-                                <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
+                                <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> <br>
                             </span>
+                            <span v-if="this.is_item_in_cart == true"><small class="text-success">Item already in cart!</small></span>
                         </p>
                 </div>
             </div>            
@@ -338,7 +338,7 @@
                     <div class=" radio-btns-popup py-1 pb-2 pl-0 ml-0" v-if="this.user.package_type !== 'starter'"> 
                         <div class="form-check form-check-inline" v-if="this.user.table_number > 0">
                             <input class="form-check-input"    v-model="this.order_type" type="radio" :name="menu_item.id" :id=" 'r1' + menu_item.id " value="Dine In" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine in </small> </label>
+                            <label class="form-check-label" :for=" 'r1' + menu_item.id "> <small>Dine-In </small> </label>
                         </div>
                         <div class="form-check form-check-inline"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away" @change.prevent="detectOrderType(this.order_type)">
@@ -347,7 +347,7 @@
                        
                         <div class="form-check form-check-inline" v-if="this.user.package_type == 'pro' || this.user.package_type == 'premium'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive through </small></label>
+                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive-Thru </small></label>
                         </div> 
                         <div class="form-check form-check-inline"  v-if="this.user.package_type == 'premium'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r4' + menu_item.id" value="Home Delivery" @change.prevent="detectOrderType(this.order_type)">
@@ -459,6 +459,7 @@ export default {
         cart_item_qty:[], //keeps track of individual cart item qty in an array
         total_amount:0,
         item:{},
+        is_item_in_cart:false,
         order_data:'',
         order_items:[],
         language:'',
@@ -468,8 +469,9 @@ export default {
         address:'',
         spinner:'',
         show_res_info:false,
-        latitude:'25.286106',
-        longitude:'-51.534817'
+        latitude:'',
+        longitude:''
+
       }
   },
   methods:{
@@ -537,22 +539,28 @@ export default {
             this.item = menu_item;
         },
         addToCart(menu_item){
-            var is_item_in_cart=false;
+            this.is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
-                    is_item_in_cart = true;
+                    this.is_item_in_cart = true;// prevent adding multiple items in the cart 
                     return;
                 }                      
-            }); // prevent adding multiple items in the cart 
-            if(!is_item_in_cart) {
+            }); 
+            if(!this.is_item_in_cart) {
                 var menu_item_id = menu_item.id;
                 this.cart_item_qty[menu_item_id]= 1;
                 this.cart_items.push(menu_item);   
-                this.calculateTotalAmount(); ;
+                this.calculateTotalAmount(); 
+                document.getElementById('detailsModal').click();
+                document.getElementById('cart-preview').classList.add('glow');
+               setTimeout(() => {
+                   document.getElementById('cart-preview').classList.remove('glow');
+               }, 350);
             }
             delete this .errors.cart_empty ;
         },
         removeFromCart(item_id){
+            this.is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == item_id){
                     var index = this.cart_items.indexOf(item); // remove item from cart
@@ -569,6 +577,7 @@ export default {
             else delete this.errors.cart_empty;
         },
         calculateTotalAmount(){
+            this.is_item_in_cart=false;
               var total = 0;
               this.cart_items.forEach((item)=>{
                   var qty = this.cart_item_qty[item.id]; // get item quatntity from tracker variable
@@ -698,6 +707,7 @@ export default {
                     .then( response => {
                         console.log("Order sent...")
                         if( response.status == 201){ 
+                            this.is_item_in_cart=false;
                             this.cart_items = [];
                             this.cart_item_qty=[];
                             this.spinner = '';
@@ -714,7 +724,8 @@ export default {
                             document.getElementById('close').click();  
                             console.log(response.data);
                             this.$swal( 'Order placed!') ; 
-                            console.log(this.latitude, this.longitude);                    
+                            console.log(this.latitude, this.longitude);  
+
                             } 
                         })
                     .catch( error => {
@@ -761,17 +772,17 @@ export default {
         getGeoLocation() {
             console.log('geolocating...');
             this.sendOrder();
-            // navigator.geolocation.getCurrentPosition( position => {                
-            //         this.latitude = position.coords.latitude;
-            //         this.longitude = position.coords.longitude;
-            //         console.log('Geolocating complete!');
-            //         this.sendOrder();
-            //     },
-            //     error => {   
-            //         alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
-            //         console.log(error.message);
-            //     },               
-            // );
+            navigator.geolocation.getCurrentPosition( position => {                
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                    console.log('Geolocating complete!');
+                    this.sendOrder();
+                },
+                error => {   
+                    alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
+                    console.log(error.message);
+                },               
+            );
         },        
 
         validateOrder(){          
@@ -788,7 +799,7 @@ export default {
                 if(this.address =='' ) this.errors.address ="Please provide your delivery  address";
                 else delete this.errors.address;
 
-                if(this.latitude =='' && this.longitude == '') this.errors.location ="Please allow location access ";
+                if(this.latitude =='' || this.longitude == '') this.errors.location ="Please allow location access ";
                 else delete this.errors.location;
             }            
         },
@@ -801,9 +812,11 @@ export default {
             },        
     },
 
-    mounted(){     
+    mounted(){             
             this.menu_items = this.menuItems;
             this.User= this.user;
+            if(this.user.table_number >0) this.order_type = "Dine In";
+            if(this.user.table_number < 1) this.order_type = "Drive Through";
             this.current_menus= this.menus;
             this.current_sub_menus= this.subMenus;
             this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
@@ -891,6 +904,12 @@ select:focus{
     color:#fff;
     cursor: pointer;
     box-shadow: 7px 7px 15px 5px rgba(128, 63, 2, 0.205);
+    transition: transform .2s; /* Animation */
+}
+.glow{
+    border-radius: 13px;
+    transform: scale(1.05);
+    transition: transform .2s; /* Animation */
 }
 .cart-preview:hover{
     background-color: rgb(248, 137, 33);

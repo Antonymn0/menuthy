@@ -75,7 +75,7 @@
                 <h4 class="mt-5">A LITTLE INFO ABOUT  YOURSELF</h4>
                 <div class="pb-1">
                     <label for="full_name">Full name</label>
-                    <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" @change.prevent="testWhiteSpace(this.form.full_name)"/>
+                    <input type="text"  placeholder="Full name" id="full_name" v-model="form.full_name" />
                     <small class="text-danger text-center">  {{this.errors.full_name}}</small>
                 </div>
                 <div class="pb-1">
@@ -1062,16 +1062,14 @@ export default {
         },
         confirmPassword(){
             if(this.form.password !== this.form.confirm_password) this.errors.confirm_password = 'Password does not match!' ;
-                else delete this.errors.confirm_password; 
+            else delete this.errors.confirm_password; 
         },
-        testWhiteSpace(str){
-            if(str.indexOf(' ') >= 0) {
-                delete this.errors.full_name;
-                return; 
-                }
-            else this.errors.full_name = 'Please use your full name' ;
-        },
-        validateForm(){            
+            
+
+        validateForm(){  
+            if(this.form.full_name =='') this.errors.full_name = 'Please provide your name' ;
+            else delete this.errors.full_name  ;
+
             if(!this.form.restaurant_name) this.errors.restaurant_name = 'This field is required!' ;
                 else delete this.errors.restaurant_name;  
 
@@ -1088,7 +1086,7 @@ export default {
                 else delete this.errors.currency;  
 
             if(!this.form.full_name) this.errors.full_name = 'This field is required!' ;
-                else delete this.errors.full_name;  
+             else delete this.errors.full_name;  
 
             if(!this.form.email) this.errors.email = 'This field is required!' ;
             else delete this.errors.email;

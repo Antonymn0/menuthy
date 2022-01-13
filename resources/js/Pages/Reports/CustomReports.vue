@@ -144,15 +144,19 @@
                             <th scope="col">Status</th>                                 
                             <th scope="col">Time received </th>
                             <th scope="col">Time completed </th>  
+                            <th scope="col">Time canceled </th>  
                         </tr>
                     </thead>                
                     <tbody v-for="(order, index) in this.current_orders" :key="order.id">
                         <tr >
                             <td> <b>{{index +1}} </b> </td>
                             <td>{{order.order_number}}</td>
-                            <td>{{order.order_type}}</td>
+                            <td v-if="order.order_type == 'Dine In' ">Dine-In</td>
+                            <td v-if="order.order_type == 'Drive Through' ">Drive-Thru</td>
+                            <td v-if="order.order_type !== 'Drive Through' && order.order_type !== 'Dine In' ">{{capitalize(order.order_type)}}</td>
                             <td>{{order.number_of_items}}</td>
-                            <td>{{order.table_number}}</td>
+                            <td v-if="order.table_number >0">{{order.table_number}}</td>
+                            <td v-else>-</td>
                             <td>{{capitalize(order.customer_name)}}</td>
                             <td>{{order.customer_phone}}</td>
                             <td>{{order.delivery_address}}</td>
@@ -167,6 +171,7 @@
                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                             <td>{{formatDate(order.created_at)}}</td>
                             <td>{{formatDate(order.completed_at)}}</td> 
+                            <td>{{formatDate(order.canceled_at)}}</td> 
                         </tr>                         
                                                           
                     </tbody> 

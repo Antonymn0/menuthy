@@ -195,7 +195,7 @@ export default {
               return;
            } 
            else {
-               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.errors.image = " Allowed types jpg/png/jpeg/gif";
                this.form.img_preview = '';
            }
         }, 

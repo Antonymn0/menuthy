@@ -42,7 +42,7 @@
                         <th>Expiry date</th>
                     </tr>
                     <tr>
-                        <td>{{capitalize(this.user.first_name)}} {{capitalize(this.user.last_name)}}</td>
+                        <td>{{capitalize(this.user.first_name)}} <span v-if="this.user.last_name !== 'null'">{{capitalize(this.user.last_name)}} </span></td>
                         <td>{{this.user.email}}</td>
 
                         <td v-if="this.user.registration_status !== 'trial' ">{{capitalize(this.user.package_type)}}</td>

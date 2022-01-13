@@ -19,7 +19,10 @@ class AddDeliveryAddressToOrders extends Migration
             // $table->string('delivery_address')->nullable();
             // $table->string('longitude')->nullable();
             // $table->string('latitude')->nullable();
-            $table->dateTime('delivered_at')->nullable();
+            // $table->dateTime('delivered_at')->nullable();
+             $table->string('cash_collected')->nullable();
+             $table->double('amount_collected')->nullable();
+             $table->dateTime('cash_collected_at')->nullable();
         });
     }
 

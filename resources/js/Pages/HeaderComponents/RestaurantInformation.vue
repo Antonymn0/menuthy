@@ -53,7 +53,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput2">Restaurant Email</label>
-                                    <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" required>
+                                    <input type="email" v-model="form.restaurant_email" class="form-control p-4" id="exampleFormControlInput2" placeholder="Email@example.com" >
                                    <small class="p-1 text-danger">{{ errors.restaurant_email}} </small>                                     
                                 </div> 
                             </div>
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                        <div class="mx-auto p-2">
-                            <label for="exampleFormControlInputimage">Image*</label>
+                            <label for="exampleFormControlInputimage">Image* <small class="text-muted"> (Max size 2mb)</small></label>
                             <div class="image-preview mx-auto p-0 m-0 text-center">
                                 <img :src="form.img_preview" alt="" >  <br>
                                 <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
@@ -88,8 +88,7 @@
                                 <label for="exampleFormControlInput2">Website</label>
                                 <input type="text" v-model="form.website" class="form-control p-4" id="exampleFormControlInput2" placeholder="Website">
                             </div> 
-                        </div>
-                      
+                        </div>                      
                          
                         <div class="pt-2">
                             <h4>Social accounts</h4>
@@ -99,11 +98,13 @@
                                         <label for="exampleFormControlInput2">Facebook</label>
                                         <i class="bi bi-facebook p-2"></i>
                                         <input type="text" v-model="form.facebook" class="form-control p-4 " name="facebook" id="exampleFormControlInput2" placeholder="Facebook">
+                                        <small class="text-danger">{{this.errors.facebook}}</small>
                                     </div> 
                                     <div class="form-group">
                                         <label for="exampleFormControlInput2">Twitter</label>
                                         <i class="bi bi-twitter p-2"></i>
                                         <input type="text" v-model="form.twitter" class="form-control p-4" name="twitter" id="exampleFormControlInput2" placeholder="Twitter">
+                                        <small class="text-danger">{{this.errors.twitter}}</small>
                                     </div> 
                                 </div>
                                 <div class="col-md-6">
@@ -111,6 +112,7 @@
                                         <label for="exampleFormControlInput2">Youtube</label>
                                         <i class="bi bi-youtube p-2"></i>
                                         <input type="text" v-model="form.youtube" class="form-control p-4" name="youtube" id="exampleFormControlInput2" placeholder="Youtube">
+                                        <small class="text-danger">{{this.errors.youtube}}</small>
                                     </div> 
                                     <div>
                                         <input type="hidden" v-model="form.user_id" name="user_id">                                   
@@ -119,6 +121,7 @@
                                         <label for="exampleFormControlInput2">Instagram</label>
                                         <i class="bi bi-instagram p-2"></i>
                                         <input type="text" v-model="form.instagram" class="form-control p-4" name="instagram" id="exampleFormControlInput2" placeholder="Instagram">
+                                        <small class="text-danger">{{this.errors.instagram}}</small>
                                     </div>                                     
                                 </div>
                             </div>
@@ -126,9 +129,9 @@
                         <div class="d-flex justify-content-center">
                           <button type="submit" class="btn primary-btn btn-lg m-1" >Update</button>
                           <button type="button" class="btn btn-default btn-lg m-1" >Cancel</button> <br>
-                           <p v-if="Object.keys(this.errors).length" class="text-danger p-2"> Errors in the form! </p>
+                           
                       </div>
-                     
+                     <p v-if="Object.keys(this.errors).length" class="text-danger text-center p-2"> Errors in the form! </p>
                     </form>
                 </div>                
                 </div>
@@ -868,7 +871,7 @@ export default {
               return;
            } 
            else {
-               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.errors.image = " Allowed types jpg/png/jpeg/gif";
                this.form.img_preview = '';
            }
         }, 
@@ -890,7 +893,29 @@ export default {
                 }else{
                    delete this.errors.restaurant_email;  
                 }
-            }             
+            } 
+
+            delete this.errors.facebook;
+            delete this.errors.youtube;
+            delete this.errors.instagram;
+            delete this.errors.twitter;
+            if(this.form.facebook !== ''  && this.form.facebook !== 'null' && this.form.facebook !== null) {                                    
+                if(! /^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(this.form.facebook)) this.errors.facebook ="Invalid link";
+                else delete this.errors.facebook;              
+            }           
+            if(this.form.youtube !== '' && this.form.youtube !== 'null' && this.form.youtube !== null) {                                   
+                if(! /^(https?:\/\/)?((w{3}\.)?)youtube.com\/.*/i.test(this.form.youtube)) this.errors.youtube ="Invalid link";
+                else delete this.errors.youtube;               
+            }           
+            if(this.form.instagram !== ''  && this.form.instagram !== 'null' && this.form.instagram !== null) {                                    
+                if(! /^(https?:\/\/)?((w{3}\.)?)instagram.com\/.*/i.test(this.form.instagram)) this.errors.instagram ="Invalid link";
+                else delete this.errors.instagram;             
+            }           
+            if(this.form.twitter !== ''  && this.form.twitter !== 'null' && this.form.twitter !== null) {                
+                if(! /^(https?:\/\/)?((w{3}\.)?)twitter.com\/.*/i.test(this.form.twitter)) this.errors.twitter ="Invalid link";
+                else delete this.errors.twitter;              
+            } 
+            console.log((this.form.twitter))  ;        
                   
         } 
         

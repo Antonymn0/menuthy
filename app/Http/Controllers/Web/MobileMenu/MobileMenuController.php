@@ -178,7 +178,8 @@ public function fetchMainMenu($restaurant_name, $menu_id){
                     $user = new \stdClass();
                     
                     $user->package_type = $restaurant_owner->package_type;
-                    $user->registration_expiry = $restaurant_owner->registration_expir;
+                    $user->registration_status = $restaurant_owner->registration_status;
+                    $user->registration_expiry = $restaurant_owner->registration_expiry;
                     $user->trial_expiry = $restaurant_owner->trial_expiry;
                     $user->city = $restaurant_owner->city;
                     $user->timezone = $restaurant_owner->timezone;

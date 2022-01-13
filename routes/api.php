@@ -46,6 +46,9 @@ if (App::environment('production')) {
   Route::get('order/mark/{id}/{value}/{date}','Api\Order\OrderController@markOrder');
   // mark 
   Route::get('order/mark-paid/{id}/{value}/{date}','Api\Order\OrderController@markOrderpaid');
+  // mark 
+  Route::get('order/collect-cash/{id}/{amount}/{date}','Api\Order\OrderController@markOrdercollectCash');
+
     // Restore order
   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
    //  Parmamnently delete order

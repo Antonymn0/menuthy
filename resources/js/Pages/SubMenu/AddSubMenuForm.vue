@@ -12,17 +12,17 @@
             <div class="modal-body p-5">
                 <form action="" enctype="multipart/form-data" ref="form" @submit.prevent="submitForm">
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Section name* <small class="text-muted">max: 30 Characters</small></label>
+                        <label for="exampleFormControlInput1">Section name* <small class="text-muted">Max: 30 characters</small></label>
                         <input type="text" class="form-control p-4" name="sub_menu_name" maxlength="30" v-model="form.sub_menu_name" id="exampleFormControlInput1"  placeholder="menu name here..." required>
                     </div>
                 
                     <div class="form-group">
-                        <label for="maneu-name">Description <small class="text-muted">max: 50 Characters</small></label>
+                        <label for="maneu-name">Description <small class="text-muted">Max: 50 characters</small></label>
                         <textarea maxlength="40"  class="form-control p-3" v-model="form.description" id="" cols="10" rows="5"></textarea>
                         <small class="text-danger"> {{ this.errors.description}} </small>
                     </div>
                      <div class="mx-auto p-2">
-                        <label for="exampleFormControlInputimage">Image*  <small class="text-muted"> (max size 2mb)</small></label>
+                        <label for="exampleFormControlInputimage">Image*  <small class="text-muted"> (Max size 2mb)</small></label>
                         <div class="image-preview mx-auto p-0 m-0 text-center">
                             <img :src="form.img_preview" alt="" >  <br>
                             <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
@@ -33,7 +33,7 @@
                         <span clas='col-xs-8'>  Publish </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class=""  v-model="form.publish" @click="logPub">
+                                <input type="checkbox" class="" :checked="form.publish"  v-model="form.publish" @click="logPub">
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -130,7 +130,7 @@ export default defineComponent({
               return;
            } 
            else {
-               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.errors.image = " Allowed types jpg/png/jpeg/gif";
                this.form.img_preview = '';
            }
         },

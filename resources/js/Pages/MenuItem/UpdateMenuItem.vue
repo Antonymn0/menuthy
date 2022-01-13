@@ -13,13 +13,13 @@
                 <div class="modal-body p-5">
                     <form action="api/menu" enctype="multipart/form-data" @submit.prevent="submitForm">
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Item name* <small class="text-muted">max: 30 Characters</small></label>
+                            <label for="exampleFormControlInput1">Item name* <small class="text-muted">Max: 30 characters</small></label>
                             <input type="text" @input="logInput" v-model="form.menu_item_name" maxlength="30" class="form-control p-4"  id="exampleFormControlInput1" name="menu_name" placeholder="Item name here..." required>
                             <small class="text-danger"> {{this.errors.menu_item_name }} </small>
                         </div>                        
                     
                         <div class="form-group">
-                            <label for="maneu-name">Description* <small class="text-muted">max: 50 Characters</small></label>
+                            <label for="maneu-name">Description* <small class="text-muted">Max: 50 characters</small></label>
                             <textarea name="description" v-model="form.description" maxlength="50" class="form-control p-3"  id="" cols="10" rows="5"  placeholder="Describe the menu" required></textarea>
                             <small class="text-danger"> {{ this.errors.description}} </small>
                         </div>  
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="maneu-name">Ingredients  <small class="text-muted">(Use comma, seperated)</small></label>
+                            <label for="maneu-name">Ingredients  <small class="text-muted">(Use comma-seperated text)</small></label>
                             <textarea name="description" v-model="form.ingredients" class="form-control p-3" id="" cols="10" rows="5"></textarea>              
                         </div>   
                     <div>
@@ -65,7 +65,7 @@
                  </select>
             </div>
              <div class="mx-auto p-2">
-                <label for="exampleFormControlInputimage">Image*  <small class="text-muted"> (max size 2mb)</small></label>
+                <label for="exampleFormControlInputimage">Image*  <small class="text-muted"> (Max size 2mb)</small></label>
                 <div class="image-preview mx-auto p-0 m-0 text-center">
                     <img :src="form.img_preview" alt="" style="min-height:7rem; min-width:7rem; border-radius:15px;">  <br>
 
@@ -88,7 +88,7 @@
                         </span>                                    
                     </div>
                     <div class="row custom-control p-3  custom-switch  ">
-                    <span clas='col-xs-8'>  Mark item as new </span>
+                    <span clas='col-xs-8'>  Mark item as New </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="p-2" name="is_new" v-model="form.is_new" :checked="form.is_new">
@@ -97,7 +97,7 @@
                         </span>                                    
                     </div> 
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as hot </span>
+                        <span clas='col-xs-8'>  Mark item as Hot </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="p-2" name="is_new" v-model="form.is_hot" :checked="form.is_hot">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-md-6">  
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as veg </span>
+                        <span clas='col-xs-8'>  Mark item as Veg </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class=""  v-model="form.is_veg" :checked="form.is_veg">
@@ -118,7 +118,7 @@
                         </span>                                    
                     </div>                                     
                     <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as halal </span>
+                        <span clas='col-xs-8'>  Mark item as Halal </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="" v-model="this.form.is_halal" :checked="this.form.is_halal">
@@ -127,7 +127,7 @@
                         </span>                                    
                     </div>
                       <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as signature </span>
+                        <span clas='col-xs-8'>  Mark item as Signature </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" :checked="form.is_signiture">
@@ -142,7 +142,7 @@
                 </div>
             </div>   
             <div class=" text-center mx-auto">
-                <button type="submit" class="btn primary-btn mr-2 "   >Save </button>
+                <button type="submit" class="btn primary-btn mr-2 " >Save </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </form>
@@ -262,7 +262,7 @@ components: { Multiselect },
               return;
            } 
            else {
-               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.errors.image = " Allowed types jpg/png/jpeg/gif";
                this.form.img_preview = '';
                this.form.image = '';
            }

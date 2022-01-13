@@ -20,7 +20,10 @@ class Order extends Model
     protected $fillable = [        
         'restaurant_id',
         'transaction_id',
-        'order_number',       
+        'order_number',
+        'cash_collected',
+        'amount_collected',
+        'cash_collected_at',       
         'amount',
         'paid',
         'amount_paid',

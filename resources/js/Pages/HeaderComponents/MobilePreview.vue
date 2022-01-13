@@ -19,8 +19,11 @@
                   <iframe :src="this.preview_link"  style="width:100%;border:none; height:100%; margin:1px 0px;" />
                 </div>
           </div>
-
-      </div>                
+      </div>
+      <p class="px-5 text-muted small">
+         Note: Kindly note the preview version resembles only the content of your menu 
+         to view the live version please use this link:
+          <a :href="this.preview_link" target="_blank" style="text-decoration:none; color:#e6034b; cursor:pointer;" >menuthy/{{this.restaurant.restaurant_name}}</a> </p>                
       </div>
   </div>
 </div> 
@@ -29,6 +32,7 @@
 
 <script>
 export default {
+  
 data(){
   return{
     preview_link:'',
@@ -36,6 +40,9 @@ data(){
   }
 },
   methods:{
+    loadLink(link){
+      this.$inertia.visit(link);
+    },
       // generate preview link
       getQqrCodeLink(){
             axios.get('/api/qrcode-generate/'+ this.restaurant.id)
@@ -51,9 +58,12 @@ data(){
             });
         },
   },
+  created(){
+    this.restaurant = window.authRestaurant;
+  },
   mounted(){
     this.restaurant = window.authRestaurant;
-     this.getQqrCodeLink();
+    this.getQqrCodeLink();
     
   },
     

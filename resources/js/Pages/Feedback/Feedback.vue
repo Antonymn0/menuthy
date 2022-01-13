@@ -6,7 +6,7 @@
         <div id="feedBack1" class="sidenav shadow">
             <a href="javascript:void(0)" class="closebtn" onclick="closeFeedBack()">&times;</a>
                 <div class="d-flex justify-content-start pt-2 pb-0 px-5 border-bottom" >
-                   <h5 class="pr-4 orders f-back-links mb-0 active" @click="[fetchOrders('today'), toggleActive($event)]" v-if="this.authUser.package_type !== 'starter' ">Orders </h5> 
+                   <h5 class="pr-4 orders f-back-links mb-0 active" @click="[fetchOrders('today'), toggleActive($event)]" v-if="this.authUser.package_type !== 'starter' && this.authUser.registration_status !== 'trial'">Orders </h5> 
                     <!-- <h5 class="feedback f-back-links pr-4 mb-0" @click="[fetchFeedback(), toggleActive($event)]"> Feedback</h5> -->
                     <h5 class="feedback f-back-links pr-4 mb-0" @click="[fetchQrScans(), toggleActive($event)]"> QR scans</h5>
                 </div>

@@ -100,6 +100,7 @@
                         <th scope="col">Transaction id</th>
                         <th scope="col">Paid at</th>
                         <th scope="col">Status</th>
+                        <th scope="col">View details</th>
                     <th scope="col">Action</th>                   
                      </tr>
                 </thead>
@@ -114,7 +115,9 @@
                         <td v-if="order.canceled_at">{{formatDate(order.canceled_at)}}</td>
                         <td v-else>-</td>
                         <td>{{order.order_number}}</td>
-                        <td>{{capitalize(order.order_type)}}</td>
+                        <td v-if="order.order_type == 'Dine In' ">Dine-In</td>
+                        <td v-if="order.order_type == 'Drive Through' ">Drive-Thru</td>
+                        <td v-if="order.order_type !== 'Drive Through' && order.order_type !== 'Dine In' ">{{capitalize(order.order_type)}}</td>
                         <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
                         <td v-if="order.table_number >0" class="">{{order.table_number}}</td>
                         <td v-else>-</td>
@@ -143,6 +146,7 @@
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
+                        <td>View details</td>
                         <td class=" mx-auto  m-1 " v-if="order.status !== 'canceled'">
                             <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click.prevent="markAsPaid(order)">Pay</a>
                             <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
@@ -156,7 +160,7 @@
                     <tr class="panel alert-danger " style="display:none;" >
                         <td> </td>
                         <td> </td>
-                        <td colspan="9" class="">
+                        <td colspan="10" class="">
                             <div class="table-responsive text-center mb-2" v-if="order.order_item">
                                 <h5 class="">Order items</h5>
                                 <table class="table table2 rounded p-3 alert-danger mb-2 mx-auto">
@@ -177,7 +181,8 @@
                                             <td> {{item.order_number}} </td>
                                             <td> {{item.item_name}} </td>
                                             <td> {{item.quantity}} </td>
-                                            <td> {{order.table_number}} </td>
+                                            <td v-if="order.table_number >0"> {{order.table_number}} </td>
+                                            <td v-else>-</td>
                                             <td> {{item.preparation_time}} </td>
                                             <td> {{formatDate(item.created_at)}} </td>
                                             <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>

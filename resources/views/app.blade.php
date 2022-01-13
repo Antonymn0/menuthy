@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -197,25 +197,25 @@ animation-duration: 1s;
 }
 </style>
 
-
 </head>
 
 <body class=" " >
 
     @if(Auth::check())
+    
         <script>
-            // pass Auth::user object to javascript
+            // pass Auth::user object from php to javascript
             window.authUser={!! json_encode(Auth::user()); !!};   
-            window.authRestaurant={!! json_encode(Auth::user()->restaurant()); !!};   
+            window.authRestaurant={!! json_encode(Auth::user()->restaurant()); !!};
         </script>
         @inertia
         @routes 
         
-    @elseif(Auth::guest())
-       
+    @elseif(Auth::guest())       
         @inertia
         @routes 
     @else
+   
         <script>
             // else auth user null
             window.authUser=null;
@@ -325,7 +325,7 @@ function toggleAccordion(){
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 
 {{-- google map CDN --}}
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap" ></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK_v1OGUFLivx3Q759Z-CEUIY0apEQmPU&callback=" ></script>
 
 </body>
 

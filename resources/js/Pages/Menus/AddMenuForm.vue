@@ -26,7 +26,7 @@
                  <small class="text-danger"> {{ errors.description}} </small>
             </div>
              <div class="mx-auto p-2">
-                <label for="exampleFormControlInputimage">Image* <small class="text-muted"> (max size 2mb)</small></label>
+                <label for="exampleFormControlInputimage">Image* <small class="text-muted"> (Max size 2mb)</small></label>
                 <div class="image-preview mx-auto p-0 m-0 text-center">
                     <img :src="form.img_preview" alt="" >  <br>
                     <input type="file"  name="image" class=" btn-sm btn alert-danger text-white m-2"  id="exampleFormControlInputimage"  placeholder="Preparation time"  @change="fileUpload">
@@ -109,7 +109,7 @@ export default defineComponent({
               return;
            } 
            else {
-               this.errors.image = "Bad image. Allowed types jpg/png/jpeg/gif";
+               this.errors.image = " Allowed types jpg/png/jpeg/gif";
                this.form.img_preview = '';
            }
         },    

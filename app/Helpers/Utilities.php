@@ -15,7 +15,7 @@ class Utilities{
 
       if(count($names) == 2) $validated['last_name'] = $names[1];
 
-      if(count($names) == 1) $validated['last_name'] = $names[0];
+      if(count($names) == 1) $validated['last_name'] = 'null'; //$names[0];
 
       if(count($names) == 3) $validated['middle_name'] = $names[1];
 

@@ -1,4 +1,6 @@
 <template>
+
+    <div id="parent">
     <div>
         <Header />
         <Topnavbar /> 
@@ -17,8 +19,7 @@
                Delivery Orders
             </h2>
             <p class="col-md-6 float-right text-right">
-                <a href="#" class="btn btn-danger daily-report"> <i class="fa fa-arrow-circle-o-up pr-2 pl-2 m-1"></i> Export daily report</a>
-                <a :href="'/' + this.authRestaurant.id + '/orders/print'" class="btn text-white px-2 mx-3 my-1" style="background-color: #36a3f7;" @click="this.showLoading()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export </a>
+                <button class="btn text-white px-2 mx-3 my-1" style="background-color: #36a3f7;" @click.prevent="this.printThisPage()"> <i class="fa fa-arrow-circle-o-up pr-2" ></i>Export Today's Report</button>
                 <a href="#" class="btn btn-primary m-1" @click.prevent="fetchOrders()">  <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</a>
             </p> 
         </div>
@@ -26,6 +27,143 @@
             <table class="table table-light table-borderless bg-white table-hover table-striped align-middle" style="overflow:scroll">
                 <thead class="lead p-2">
                     <tr class="p-2">
+                        <th scope="col">#</th>
+                        <th scope="col">Order no</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer Phone</th>
+                        <th scope="col">Delivery address</th>
+                        <th scope="col">Cash collected</th>
+                        <th scope="col">Paid</th>
+                        <th scope="col">View details</th>                       
+                     </tr>                   
+                </thead>
+                <tbody v-for="(order, index) in this.current_orders" :key="order.id">
+                    <tr v-if=" order.status !== 'received' && order.order_type == 'Home Delivery'">
+                        <td>{{index +1}}</td>
+                        <td>{{order.order_number}}</td>
+                        <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
+                        <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'canceled'" class="text-danger">{{capitalize(order.status)}}</td>
+                        <td  class="">{{order.customer_name}}</td>
+                        <td  class="">{{order.customer_phone}}</td>
+                        <td v-if="order.delivery_address" class="">
+                            <span v-if="order.latitude && order.longitude" class=" btn badge btn-primary" @click.prevent="updateCurrentOrder(order)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Geolocation</span> <br>
+                        </td>
+                        <td v-if="order.cash_collected =='true'" class="text-success">Yes</td>
+                        <td v-else class="text-danger">No</td>
+                        <td v-if="order.paid =='false'" class="text-danger">No</td>
+                        <td v-if="order.paid =='true'" class="text-primary">Yes</td> 
+                        <td><span class="badge btn btn-secondary p-1" data-bs-toggle="modal" @click.prevent="updateCurrentOrder(order)" data-bs-target="#detailsModal">Details</span></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <p class="small text-muted text-center">Tip: A beep sound for Completed orders. </p>
+        </div>        
+        </div>        
+    </div>
+    <div>
+         <!------------ Order details popup modal Modal ---------------->
+    <div class="modal fade " id="detailsModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  mx-auto">
+        <div class="modal-content p-3">
+        <div class="px-3 py-2 text-muted">
+            <button type="button" class="btn-close float-right" id="closeDeliver" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h3 class="modal-title pt-2 bold" id="staticBackdropLabel">Order details </h3>
+            <div class="pt-2 border-top">
+                <p>
+                    <span class="bold"> Customer name: </span>
+                    <span> {{this.current_order.customer_name}}</span> <br>
+                    
+                    <span class="bold"> Customer phone: </span>
+                    <span> {{this.current_order.phone_number}}</span> <br>
+                    <span class="bold"> Delivery address: </span>
+                    <span> Geolocation: <span class="text-primary" v-if="this.current_order.latitude">Yes</span> <span v-else class="text-danger">No</span><br/> 
+                    <span class="ml-5"> {{this.current_order.delivery_address}}</span> </span> <br>
+                </p>
+                <p>
+                    <span class="bold"> Order number: </span>
+                    <span> {{this.current_order.order_number}}</span> <br>
+                    <span class="bold"> Order type: </span>
+                    <span> {{this.current_order.order_type}}</span> <br>
+                    <span class="bold"> Number of items: </span>
+                    <span> {{this.current_order.number_of_items}}</span> <br>
+                    <span class="bold"> Amount due: </span>
+                    <span>{{this.authRestaurant.currency}} {{this.current_order.amount}}</span> <br>
+                    <span class="bold "> Status: </span>
+                    <span class="border-bottom" style="color:#6cb2eb"> {{this.capitalize(this.current_order.status)}}</span> <br>
+                </p>
+                <p>
+                    <span class="bold"> Cash collected: </span>
+                    <span v-if="this.current_order.cash_collected == 'true'" class="text-success"> Yes</span>
+                    <span v-if="this.current_order.cash_collected == 'false'" class="text-danger"> No</span> <br>
+                    <span class="bold"> Amount collected: </span>
+                    <span v-if="this.current_order.amount_collected">{{this.authRestaurant.currency}} {{this.current_order.amount_collected}}</span> <br>
+                    <span class="bold"> Cash collected at: </span>
+                    <span>{{this.formatDate(this.current_orders.cash_collected_at)}}</span> <br>
+
+                    <span class="bold"> Paid: </span>
+                    <span v-if="this.current_order.paid == 'true'" class="text-success"> Yes</span> 
+                    <span v-if="this.current_order.paid == 'false'" class="text-danger">No</span> <br>
+                    <span class="bold"> Paid at: </span>
+                    <span > {{this.formatDate(this.current_order.paid_at)}} </span>  <br>                               
+                    <span class="bold"> Amount paid: </span>
+                    <span > {{this.authRestaurant.currency}} {{this.current_order.amount_paid}}</span>    <br/>                              
+                    <span class="bold"> Transaction id: </span>
+                    <span > {{this.current_order.transaction_id}}</span>                                 
+                </p>
+                <p>
+                    <span class="bold">Order received at: </span>
+                    <span> {{this.formatDate(this.current_order.created_at)}}</span> <br>
+                    <span class="bold">Order completed at: </span>
+                    <span> {{this.formatDate(this.current_order.completed_at)}}</span> <br/>
+                    <span class="bold">Order delivered at: </span>
+                    <span> {{this.formatDate(this.current_order.delivered_at)}}</span> <br/>
+                    <span class="bold">Order canceled at: </span>
+                    <span> {{this.formatDate(this.current_order.canceled_at)}}</span> <br/>
+                </p>
+            </div> 
+            <div class="table-responsive">
+                <h5 class="bold">Items</h5>
+                <table class="table-striped table-sm border p-3">
+                    <thead>
+                        <th>#</th>
+                        <th>Order number</th>
+                        <th>Item name</th>
+                        <th>Qty</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody v-for="(order, index) in this.current_order.order_item" :key="index">
+                        <td>{{index +1}}</td>
+                        <td>{{this.current_order.order_number}}</td>
+                        <td>{{order.item_name}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{this.capitalize(this.current_order.status)}}</td>
+                    </tbody>
+                </table>
+            </div>          
+
+        </div>
+        <div class="modal-footer px-1">
+            <button type="button" class="btn btn-success" @click.prevent="collectCash(this.current_order)">Collect Cash</button>
+            <button type="button" class="btn btn-primary" @click.prevent="markDelivered(this.current_order.id, 'delivered')">Mark Delivered</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        </div>
+        </div>
+    <!-- ----------------------------------------------------------- -->
+    </div>
+    </div>
+    </div>
+    </div>
+<!-- ---------------------------------------------------------------------------- -->
+    <div class="px-3 pt-3 text-center hidden" id="download">
+        <h3>{{this.capitalize(this.authRestaurant.restaurant_name)}} Delivery Orders</h3>
+        <span class="pb-2">Date:  {{ this.formatDate(new Date())}}</span>
+          <table class="table table-light table-borderless bg-white table-hover table-striped align-middle" style="overflow:scroll">
+                <thead class="lead p-2">
+                     <tr class="p-2">
                         <th scope="col">#</th>
                         <th scope="col">Time received </th>
                         <th scope="col">Time completed </th>
@@ -38,65 +176,48 @@
                         <th scope="col">Customer Phone</th>
                         <th scope="col">Delivery address</th>
                         <th scope="col">Amount due</th>
+                        <th scope="col">Cash collected</th>
+                        <th scope="col">Amount collected_at</th>
                         <th scope="col">Paid</th>
                         <th scope="col">Amount paid</th>
                         <th scope="col">Transaction id</th>
                         <th scope="col">Paid at</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>                   
-                     </tr>                   
+                    <th scope="col">Action</th>                   
+                     </tr>                 
                 </thead>
-                 <tbody v-for="(order, index) in this.current_orders" :key="order.id">
-                    <tr v-if=" order.status !== 'recieved' && order.order_type == 'Home Delivery'">
+                <tbody v-for="(order, index) in this.current_orders" :key="order.id">
+                    <tr v-if=" order.status !== 'received' && order.order_type == 'Home Delivery'">
                         <td>{{index +1}}</td>
-                        <td>{{formatDate(order.created_at)}}</td>
-                        <td v-if="order.completed_at">{{formatDate(order.completed_at)}}</td>
-                        <td v-else>-</td>
-                        <td v-if="order.delivered_at">{{formatDate(order.delivered_at)}}</td>
-                        <td v-else>-</td>
-                        <td v-if="order.canceled_at">{{formatDate(order.canceled_at)}}</td>
-                        <td v-else>-</td>
+                        <td>{{order.created_at}}</td>
+                        <td>{{order.completed_at}}</td>
+                        <td>{{order.delivered_at}}</td>
+                        <td>{{order.canceled_at}}</td>
                         <td>{{order.order_number}}</td>
-                        <td>{{capitalize(order.order_type)}}</td>
-                        <td v-if="order.number_of_items" class="">{{order.number_of_items}}</td>
-                        <td  class="">{{order.customer_name}}</td>
-                        <td  class="">{{order.customer_phone}}</td>
-                        <td v-if="order.delivery_address" class="">
-                            <span v-if="order.latitude && order.longitude" class=" btn badge btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Geolocation</span> <br>
-                            Address: {{order.delivery_address}} 
-                            <MapLocation :order='order'/>
-                        </td>
-                        <td  v-else class="">-</td>
-                        <td v-if="order.amount" class="">{{order.amount}}</td>
-                        <td v-if="order.paid =='false'" class="text-danger">No</td>
-                        <td v-if="order.paid =='true'" class="text-primary">Yes</td>
-                        <td v-if="order.amount_paid" class="">{{order.amount_paid}}</td>
-                        <td v-else>0</td>
-                        <td v-if="order.transaction_id == 'cash' "> {{capitalize(order.transaction_id)}}</td>
-                        <td v-if="!order.transaction_id  ">-</td>
-                        <td v-else> {{order.transaction_id}}</td>
-                        <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>
-                        <td v-else>-</td> 
-                        <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
-                        <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
-                        <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
-                        <td v-if="order.status == 'canceled'" class="text-danger">{{capitalize(order.status)}}</td>
-                        <td class=" mx-auto  m-1 ">
-                            <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' && order.status !== 'canceled' " @click.prevent="markAsPaid(order)">Pay</a>
-                            <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
-                            <a href="#" class="badge badge-primary btn m-1 " v-if="order.status !== 'delivered' && order.status !== 'canceled'"  @click.prevent="markDelivered(order.id, 'delivered')" >Delivered</a>
-                            <a href="#" class="badge badge-primary btn m-1 disabled "  v-if="order.status == 'canceled' || order.status == 'delivered'"  >Delivered</a>
-                            <!-- <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order.id, 'canceled')">Cancel</a> -->
-                        </td> 
+                        <td>{{order.order_type}}</td>
+                        <td>{{order.number_of_items}}</td>
+                        <td>{{order.customer_name}}</td>
+                        <td>{{order.customer_phone}}</td>
+                        <td>{{order.delivery_address}}</td>
+                        <td>{{order.amount}}</td>
+                        <td>{{order.cash_collected}}</td>
+                        <td>{{order.cash_collected_at}}</td>
+                        <td>{{order.paid}}</td>
+                        <td>{{order.transaction_id}}</td>
+                        <td>{{order.paid_at}}</td>
+                        <td>{{order.status}}</td>
+                        
                     </tr>
                 </tbody>
             </table>
-            <p class="small text-muted text-center">Tip: A beep sound for Completed orders. </p>
-        </div>        
-        </div>        
+            <h6> <span class="italic py-3">Date:&nbsp;&nbsp; {{new Date().toLocaleString()}} &nbsp;&nbsp;</span></h6>
     </div>
+    <div id="footer">
+      <MapLocation :order='this.current_order'/>
     <Pagination :data="this.current_orders" />
-    <Footer />
+    <Footer />  
+    </div>
+    
 </template>
 
 <script>
@@ -120,8 +241,8 @@ export default {
         return{
             authRestaurant: window.authRestaurant,
             authUser: window.authUser,
+            current_order:{},
             current_orders:{},
-
         }
     },
     methods:{
@@ -131,14 +252,71 @@ export default {
         capitalize(string) {
             if(string) return string.charAt(0).toUpperCase() + string.slice(1);
         },
+        updateCurrentOrder(order){
+            this.current_order = order;
+        },
         markDelivered(id, value){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            if(this.current_order.status == 'delivered'){
+                alert("Order already delivered!");
+                return;
+            }
+            if(this.current_order.status !== 'delivered' && this.current_order.status !== 'completed'){
+                alert("Order not processed yet!");
+                return;
+            }
+            if(!this.current_order.cash_collected ){
+                alert("Cash not collected!");
+                return;
+            }
             if(confirm("Are you sure you want to mark this order delivered?"))
             {            
                 axios.get('/api/order/mark/' + id + '/' + value + '/' + date)
                 .then( response => {
+                    console.log(response);
                     if( response.status == 200){
+                        this.fetchOrders();
+                    } 
+                    new Swal({
+                        title:'Order successfuly delivered!',
+                        timer:1200
+                    });
+                    document.getElementById('closeDeliver').click();
+                })
+                .catch( error => {
+                    this.$swal('Failed!'); 
+                });
+            }
+        },
+        collectCash(order){
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            if(this.current_order.paid == 'true'){
+                alert("Order already paid");
+                return;
+            }
+           if(this.current_order.status == 'delivered' ){
+                alert("Order already delivered and cash collected!");
+                return;
+            }
+            if(this.current_order.status !== 'delivered' && this.current_order.status !== 'completed'){
+                alert("Order not processed yet!");
+                return;
+            }
+            if(this.current_order.cash_collected == 'true' ){
+                alert("Cash already collected!");
+                return;
+            }
+            if(confirm("Collect " + this.authRestaurant.currency + ' ' + this.current_order.amount + " for this order?"))
+            {            
+                axios.get('/api/order/collect-cash/' + order.id + '/' + order.amount + '/' + date)
+                .then( response => {
+                    if( response.status == 200){
+                        new Swal({
+                            title:'Cash successfuly collected!',
+                            timer:1200
+                        }); 
                         this.fetchOrders();
                     } 
                 })
@@ -174,25 +352,45 @@ export default {
                 console.log(error.response.data.errors);                    
             });
         },
+        printThisPage(){
+            console.log('Printing...')
+            document.getElementById('download').classList.remove('hidden');
+            document.getElementById('parent').classList.add('hidden');
+            document.getElementById('footer').classList.add('hidden');
+            window.print();
+            setTimeout(() => {
+                document.getElementById('parent').classList.remove('hidden');
+                document.getElementById('footer').classList.remove('hidden');
+                document.getElementById('download').classList.add('hidden');
+            }, 1000);
+            console.log('Printing...')
+        },
     },
+   
     mounted(){
-        setInterval(this.fetchOrders(), 30000);
-        
-                
+        setInterval(this.fetchOrders(), 30000);                 
     }
 }
 </script>
 
 <style scoped>
+.bold{
+      font-weight:600;
+  }
+  .hidden{
+    display:none;
+}
+
     /* media queries */
 @media only screen and (max-width: 750px) {
   .px-5{
-      padding-right:5px !important;
-      padding-left:5px !important
+      padding-right:1px !important;
+      padding-left:1px !important
   }
   .px-3{
-      padding-right:5px !important;
-      padding-left:5px !important;
+      padding-right:3px !important;
+      padding-left:3px !important;
   }
+  
 }
 </style>

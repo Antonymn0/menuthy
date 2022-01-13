@@ -1,16 +1,16 @@
 <template >
 
     <header>
-        <!-- --------- components ------ -->  
-            <TrialExpiryNotification /> 
-            <SubscriptionExpiryNotification /> 
-            <EmailNotConfirmedNotification />
-            <RestaurantInformation />            
-            <MobilePreview />
-            <QrCode @passQrCodeToParent="passQrCodeToDashboard($event)"/>
-            <MobileNav />
-            <Feedback />       
-            <Profile />
+    <!-- --------- components ------ -->  
+        <TrialExpiryNotification /> 
+        <SubscriptionExpiryNotification /> 
+        <EmailNotConfirmedNotification />
+        <RestaurantInformation />            
+        <MobilePreview />
+        <QrCode @passQrCodeToParent="passQrCodeToDashboard($event)"/>
+        <MobileNav />
+        <Feedback />       
+        <Profile />
     
     <!-- --------------header---------------------------- -->
     <div class="parent-header  px-5">
@@ -64,7 +64,7 @@
             <!-- tootip + tooltip -->
             <span class="float-left ">
                 <a href="#" class="" onclick="openFeedBack()">
-                <i class="bi bi-bell-fill text-white mr-5 recent-link" style="font-size: 1rem;font-weight: 300;">              
+                <i class="bi bi-bell-fill text-white mr-4 recent-link" style="font-size: 1rem;font-weight: 300;">              
                     <span class="hovercard">
                         <span class="tooltiptext border">
                         Track orders, requests and feedback.
@@ -73,8 +73,8 @@
                 </a> 
             </span>           
                 <a style="font-size: 1rem;font-weight: 300; text-decoration:none;" class="user-div  text-white pr-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
-                    <span class=" mr-3">{{authUser.first_name}} </span>  
-                    <img  v-if="authUser.image"  :src="authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px; object-fit:cover; ">
+                    <span class=" mr-3">{{this.authUser.first_name}} </span>  
+                    <img  v-if="this.authUser.image"  :src="this.authUser.image"  alt="profile-image" class="rounded-circle mr-5" style="width:50px; height:50px; object-fit:cover; ">
                     <span v-else class="rounded-circle ml-2 " ><i class="bi bi-person-circle p-1" style="font-size:2.5rem;"></i></span>
                 </a>             
             
@@ -85,7 +85,7 @@
                 <li class="dropdown-item  border-top px-2">
                     <form action="/logout" method="POST" enctype="multipart/form-data">
                         <div class="ml-2">
-                            <input type="hidden" name="_token" :value="csrf">    
+                            <input type="hidden" name="_token" :value="this.csrf">    
                             <button type="submit" class="btn-danger mx-auto"> 
                             <i class="bi bi-box-arrow-left pr-1"></i> 
                                 Logout
@@ -124,7 +124,7 @@ export default {
     components:{
         RestaurantName,
         RestaurantInformation,
-       SubscriptionExpiryNotification, 
+        SubscriptionExpiryNotification, 
         TrialExpiryNotification,
         EmailNotConfirmedNotification,
         MobilePreview,
@@ -133,19 +133,27 @@ export default {
         QrCode,
         Feedback,
     },
-    created() {
-        // console.log(this.authUser);
+    data(){
+        return{
+            Qr_code_link:''
+        }
     },
+  
     methods:{
         passQrCodeToDashboard(qrCode){
             this.$emit('passQrCode',qrCode);
         },
         logout(){
-             this.$inertia.visit('/logout');
+            this.$inertia.visit('/logout');
         }
     },
+    created() {
+        this.authUser = window.authUser;
+        this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); //csrf token
+    },
     mounted(){
-        //
+        this.authUser = window.authUser;
+        this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); //csrf token
     }
 }
 </script>
