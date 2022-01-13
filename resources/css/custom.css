@@ -1,0 +1,35 @@
+/* gradient glow animation  */
+.animated-button1 {
+  padding:.5rem;
+  -webkit-transform: translate(0%, 0%);
+          transform: translate(0%, 0%);
+  overflow: hidden; 
+
+}
+.animated-button1:hover::before {
+  opacity: 0.2;
+}
+.animated-button1 div {
+  position: absolute;  
+}
+.animated-button1 div:nth-child(3) {
+  bottom: 0px;
+  left: 0px;
+  width: 90%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(43, 8, 8, 0)), to(#f1673062));
+  background: linear-gradient(to right, rgba(43, 8, 8, 0), #f1673062);
+  -webkit-animation: 2s animateBottom linear infinite;
+          animation: 2s animateBottom linear infinite;
+}
+@keyframes animateBottom {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+

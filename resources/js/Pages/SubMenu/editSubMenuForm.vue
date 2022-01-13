@@ -1,6 +1,6 @@
 <template>   
  <!-- add sub Menu modal -->
-      <div class="modal fade text-left" :id="'updateModal'+  subMenu.id" tabindex="-1" role="dialog" :aria-labelledby="'updateModal'+  subMenu.id + 'Label'" aria-hidden="true">
+      <div  class="modal fade text-left" :id="'updateModal'+  subMenu.id" tabindex="-1" role="dialog" :aria-labelledby="'updateModal'+  subMenu.id + 'Label'" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -140,7 +140,7 @@ export default defineComponent({
                this.form.img_preview = '';
            }
         }, 
-       
+
         mounted(){
             this.form.menu_id = this.menu_id;
             this.form.restaurant_id = this.restaurant_id;

@@ -146,7 +146,7 @@
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
-                        <td>View details</td>
+                        <td> <span class="badge btn-danger  p-1" @click="expandRow($event)"> Details <i class="bi bi-caret-down-fill"></i></span> </td>
                         <td class=" mx-auto  m-1 " v-if="order.status !== 'canceled'">
                             <a href="#" class="badge badge-success btn m-1" v-if="order.paid =='false' " @click.prevent="markAsPaid(order)">Pay</a>
                             <a href="#" class="badge badge-success btn m-1 disabled" v-else >Pay</a>
@@ -254,6 +254,9 @@ export default {
        }
    },
    methods:{
+       expandRow(event){
+           event.target.parentElement.click();
+       },
         formatDate(date){
             if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },

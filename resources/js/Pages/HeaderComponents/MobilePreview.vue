@@ -20,9 +20,9 @@
                 </div>
           </div>
       </div>
-      <p class="px-5 text-muted small">
-         Note: Kindly note the preview version resembles only the content of your menu 
-         to view the live version please use this link:
+      <p class="px-5 text-muted small text-center">
+         Note: The preview version shows the content of your menu.
+         To view the live version please use the link below: <br>
           <a :href="this.preview_link" target="_blank" style="text-decoration:none; color:#e6034b; cursor:pointer;" >menuthy/{{this.restaurant.restaurant_name}}</a> </p>                
       </div>
   </div>

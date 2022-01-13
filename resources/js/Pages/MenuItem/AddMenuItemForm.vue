@@ -127,7 +127,7 @@
                         </span>                                    
                     </div>
                       <div class="row custom-control p-3  custom-switch  ">
-                        <span clas='col-xs-8'>  Mark item as Signature </span>
+                        <span clas='col-xs-8'>  Mark  as Signature Item </span>
                         <span class="col-xs-4">
                             <label class="switch ">
                                 <input type="checkbox" class="" name="is_signiture" v-model="form.is_signiture" checked="form.is_signiture">

@@ -16,7 +16,7 @@
         <p class="mt-4"> A list of sections under {{this.menu.menu_name.toUpperCase()}} menu</p>  
 
         <div class="row pr-0 " >
-            <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">  
+            <div class="menu-card p-0  p-1" v-for="(subMenu) in this.subMenus" :key="subMenu.id">
                
                  <div class="card p-0 text-center fade-in borderless " style="border-radius:15px;overflow:hidden" >
                      <div class=" cursor-pointer" style="background-color:#efeff3; cursor: pointer; background-size:cover">                     
@@ -24,7 +24,7 @@
                          <ul class="dropdown-menu rounded ">
                             <li><p class="text-center">  <b> Actions</b> </p></li>
                             <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Add</a></li>
-                            <li><a class="dropdown-item" href="#" data-toggle="modal" v-bind:data-target="'#updateModal' + subMenu.id">Edit</a></li>
+                            <li><a class="dropdown-item" href="#" @click="updateCurentSubMenu(subMenu)" data-toggle="modal" v-bind:data-target="'#updateModal' + subMenu.id">Edit</a></li>
                             <li><a class="dropdown-item" href="#" @click="duplicateSubMenu(subMenu.id)">Duplicate</a></li>
                             <li><a class="dropdown-item" href="#" @click="deleteSubMenu(subMenu.id)">Delete</a></li>                   
                         </ul>                        
@@ -32,7 +32,7 @@
                              <img v-if = "subMenu.image  " :src="subMenu.image"  class="img-fluid" style="height:27vh; width:100%; object-fit: cover;"/>                       
                              <i v-else class="fa fa-cutlery text-center" aria-hidden="true" style="font-size:12rem; color:#999; "></i>
                         </a>
-                        <editSubMenuForm :menu_id = "this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
+                        <editSubMenuForm :menu_id="this.form.menu_id" :restaurant_id="this.form.restaurant_id" :subMenu="subMenu"/> 
                     </div>
                     <div class="pl-3 pt-2">
                         <div class="d-flex align-items-center pb-0 mb-0  justify-content-between">
@@ -98,13 +98,18 @@ export default {
   data(){
       return{
           form:{
+              
             menu_id: this.menu.id,
             restaurant_id: this.restaurant_id,
+            current_submenu:{}
           },
           
       }
   },
   methods:{
+      updateCurrentSubMenu(submenu){
+          this.current_submenu = submenu;
+      },
       capitalize(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
         },
@@ -113,7 +118,7 @@ export default {
             axios.delete('/api/sub-menu/' + id)
             .then( response => {
             if( response.status = 200){
-                this.$swal('Success, Section deleted!');
+                this.$swal('Success!');
                 this.$inertia.reload();
                 }                
             });
@@ -126,7 +131,7 @@ export default {
                 this.$inertia.reload();
             })
             .catch(error=>{
-                this.$swal('Error, Failed to duplicate!');
+                this.$swal('Failed !');
                 console.log(error);
             });
         },
@@ -139,16 +144,16 @@ export default {
         togglePublish(id, state){
             axios.get('/api/sub-menu/toggle-publish/' + id + '/' + state)
             .then( response => {
-                this.$inertia.reload();
+                this.$inertia.visit('/sub-menu/'+ this.restaurant_id);
             })
             .catch(error=>{
-                this.$swal('Error, Failed to publish!');
+                this.$swal('Failed! ');
                 console.log(error);
             });
         } , 
   },
   mounted(){
-   //
+   this.current_submenus = this.subMenus;
      
   },
 };

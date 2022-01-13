@@ -27,6 +27,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/cashier/' + this.restaurant.id">  Cashier</a></li>
                         <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/kitchen/' + this.restaurant.id">  Kitchen</a></li>                              
+                        <li><a class="dropdown-item" :href=" '/' + this.restaurant_name + '/orders/delivery/' + this.restaurant.id">  delivery</a></li>                              
                     </ul>
                     </li>
                     <!-- <li class="nav-item">

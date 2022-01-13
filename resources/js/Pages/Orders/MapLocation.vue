@@ -34,8 +34,8 @@ export default {
             order_no:this.order.order_number,
             current_position: {}, 
             destination:{
-                lat: 0.0074,
-                lng: 37.0722
+                lat: 0,
+                lng: 0
                 },
             distance:'0 M',
             duration:'0 min'

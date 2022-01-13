@@ -55,7 +55,7 @@
                         <td v-else class="text-danger">No</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td> 
-                        <td><span class="badge btn btn-secondary p-1" data-bs-toggle="modal" @click.prevent="updateCurrentOrder(order)" data-bs-target="#detailsModal">Details</span></td>
+                        <td><span class="badge btn btn-secondary p-1" data-bs-toggle="modal" @click.prevent="updateCurrentOrder(order)" data-bs-target="#detailsModal">Details <i class="bi bi-caret-up"></i></span></td>
                         
                     </tr>
                 </tbody>

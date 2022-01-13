@@ -78,9 +78,17 @@
 </div>
 
 <!-- -----------------------------cart items preview button----------------------------------------------- -->
-        <div class="cart-items d-flex flex-row-reverse">            
-            <div class="cart-preview mr-2 " id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
-              <span> <i class="bi bi-cart-plus"></i> </span> <span> {{this.cart_items.length}} items</span> 
+        <div class="cart-items d-flex flex-row-reverse">                       
+            <div class="cart-preview mr-2 p-0" id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
+              <div class="p-2" id="animate-glow" >
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                <span> <i class="bi bi-cart-plus"></i> &nbsp;</span> 
+                <span> {{this.cart_items.length}} items</span>              
+              </div>
+               
             </div>
         </div>
     <!-- ------------------------------------------------------------ -->
@@ -170,7 +178,10 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>     
+                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
+
+                        <span v-if="this.is_item_in_cart == true && this.item_in_cart == menu_item.id "><small class="text-success p-0">Item already in cart!</small></span>
+                         <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span>
                      </p>
                 </div>    
             </div>  
@@ -255,8 +266,9 @@
                                 </select>
                                 {{this.cart_item_qty[this.item.id]}}
                                 <span @click="removeFromCart(this.item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> <br>
-                            </span>
-                            <span v-if="this.is_item_in_cart == true"><small class="text-success">Item already in cart!</small></span>
+                            </span> 
+                            <span v-if="this.is_item_in_cart == true"><small class="text-success p-0">Item already in cart!</small></span>
+                            <span v-if="this.item_added_to_cart == true"><small class="text-primary p-0">Item added to cart...</small></span>
                         </p>
                 </div>
             </div>            
@@ -344,12 +356,13 @@
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Take away </small> </label>
                         </div>
-                       
-                        <div class="form-check form-check-inline" v-if="this.user.package_type == 'pro' || this.user.package_type == 'premium'">
-                            <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive-Thru </small></label>
+                       <span v-if="this.user.table_number <1"> 
+                            <div class="form-check form-check-inline" v-if="this.user.package_type == 'pro' || this.user.package_type == 'premium'">
+                                <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r3' + menu_item.id" value="Drive Through" @change.prevent="detectOrderType(this.order_type)">
+                                <label class="form-check-label" :for=" 'r3' + menu_item.id"> <small> Drive-Thru </small></label>
                         </div> 
-                        <div class="form-check form-check-inline"  v-if="this.user.package_type == 'premium'">
+                        </span>
+                        <div class="form-check form-check-inline"  v-if="this.user.package_type == 'premium' && this.user.table_number<1">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r4' + menu_item.id" value="Home Delivery" @change.prevent="detectOrderType(this.order_type)">
                             <label class="form-check-label" :for=" 'r4' + menu_item.id"> <small> Delivery </small> </label>
                         </div> 
@@ -460,6 +473,8 @@ export default {
         total_amount:0,
         item:{},
         is_item_in_cart:false,
+        item_added_to_cart:false,
+        item_in_cart:null,
         order_data:'',
         order_items:[],
         language:'',
@@ -543,19 +558,29 @@ export default {
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
                     this.is_item_in_cart = true;// prevent adding multiple items in the cart 
+                    this.item_in_cart = menu_item.id                    
+                    setTimeout(() => {
+                        this.is_item_in_cart = false; 
+                        this.item_in_cart = null; 
+                    }, 1500);
                     return;
                 }                      
             }); 
             if(!this.is_item_in_cart) {
+                document.getElementById('animate-glow').classList.add('animated-button1');                
                 var menu_item_id = menu_item.id;
                 this.cart_item_qty[menu_item_id]= 1;
                 this.cart_items.push(menu_item);   
                 this.calculateTotalAmount(); 
-                document.getElementById('detailsModal').click();
-                document.getElementById('cart-preview').classList.add('glow');
-               setTimeout(() => {
-                   document.getElementById('cart-preview').classList.remove('glow');
-               }, 350);
+                this.item_added_to_cart = true;
+                this.item_in_cart = menu_item.id 
+                setTimeout(() => {
+                    this.item_added_to_cart = false;
+                    this.item_in_cart = null;
+                   document.getElementById('detailsModal').click();  
+               }, 1500);
+                
+               
             }
             delete this .errors.cart_empty ;
         },
@@ -564,16 +589,18 @@ export default {
             this.cart_items.forEach((item)=>{
                 if(item.id == item_id){
                     var index = this.cart_items.indexOf(item); // remove item from cart
-                    this.cart_items.splice(index, 1); 
-
-                    delete this.cart_item_qty[item_id];   
+                    this.cart_items.splice(index, 1);
+                    delete this.cart_item_qty[item_id];  
                     
                 } ;
                 if(!this.cart_items.length) this.cart_item_qty = [];
 
                 this.calculateTotalAmount(); 
             });
-            if(!Object.keys(this.cart_items).length) this.errors.cart_empty = "Cart Empty. Pease add some items";
+            if(!Object.keys(this.cart_items).length) {
+                this.errors.cart_empty = "Cart Empty. Pease add some items";
+                document.getElementById('animate-glow').classList.remove('animated-button1');
+                }
             else delete this.errors.cart_empty;
         },
         calculateTotalAmount(){
@@ -721,11 +748,11 @@ export default {
                             this.latitude = '';
                             this.address = '';
                             this.cancelPlaceOrder();
-                            document.getElementById('close').click();  
+                            document.getElementById('close').click();
+                            document.getElementById('animate-glow').classList.remove('animated-button1');
                             console.log(response.data);
                             this.$swal( 'Order placed!') ; 
-                            console.log(this.latitude, this.longitude);  
-
+                            console.log(this.latitude, this.longitude); 
                             } 
                         })
                     .catch( error => {
@@ -864,7 +891,12 @@ export default {
 
 <style lang="scss" >
 @import "../../../sass/app.scss"; 
+@import "../../../css/custom.css"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+
+
+
 
 select{
     border: 1px solid $orange;
@@ -895,7 +927,7 @@ select:focus{
     top:-10.3rem ; 
     font-size:.9rem;
     z-index: 1000;
-    padding:.5rem;
+    padding:0rem;
     border-radius: 10px;
     background-color: rgb(248, 154, 66);
     border:1px solid rgb(240, 120, 8);
@@ -905,6 +937,7 @@ select:focus{
     cursor: pointer;
     box-shadow: 7px 7px 15px 5px rgba(128, 63, 2, 0.205);
     transition: transform .2s; /* Animation */
+    overflow:hidden;
 }
 .glow{
     border-radius: 13px;
