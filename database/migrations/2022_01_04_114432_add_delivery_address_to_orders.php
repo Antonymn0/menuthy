@@ -14,9 +14,9 @@ class AddDeliveryAddressToOrders extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->timestamp('completed_at')->nullable();
-            $table->timestamp('canceled_at')->nullable();
-            $table->string('delivery_address')->nullable();
+            // $table->timestamp('completed_at')->nullable();
+            // $table->timestamp('canceled_at')->nullable();
+            // $table->string('delivery_address')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->dateTime('delivered_at')->nullable();
