@@ -162,7 +162,7 @@
                     <p class="arabic order-btn text-left pt-1 mt-2 mb-1" stle="position:relative">
                             <span style="position: relative;"> </span>                          
                         <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 "> 
-                            <a href="#" class=" " @click.prevent="[addToCart(menu_item),  this.tossItem($event)]"   v-if="this.user.package_type !== 'starter'">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
+                            <a href="#" class=" " @click.prevent="[addToCart( menu_item), this.tossItem($event)]"   v-if="this.user.package_type !== 'starter'">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
                         <span class="arabic px-2 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                             <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -179,10 +179,10 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic " @click.prevent="[this.addToCart(menu_item), this.tossItem($event)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
+                        <span class="open ">  <button class=" arabic " @click.prevent="[this.addToCart($event,menu_item)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
 
                         <span v-if="this.is_item_in_cart == true && this.item_in_cart == menu_item.id "><small class="text-success p-0">Item already in cart!</small></span>
-                         <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span>
+                         <!-- <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span> -->
                      </p>
                 </div>    
             </div>  
@@ -574,7 +574,7 @@ export default {
         viewItemDetails(menu_item){
             this.item = menu_item;
         },
-        addToCart(menu_item){
+        addToCart( menu_item){
             this.is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
@@ -606,6 +606,7 @@ export default {
             delete this .errors.cart_empty ;
         },
         tossItem(event){ 
+             if(this.is_item_in_cart) return;
             var rect = document.getElementById('cart-preview').getBoundingClientRect();
             var margin = 0;        
             let w = window.screen.width;
@@ -627,7 +628,7 @@ export default {
                 host.appendChild(toss_el);
                
            var tossInterval = setInterval(() => {
-                if(document.getElementById("tossing-item").getBoundingClientRect().left >= cart_left){
+                if(document.getElementById("tossing-item").getBoundingClientRect().left >= cart_left || margin_left > 1000){
                     clearInterval(tossInterval);
                     document.getElementById("tossing-item").remove();
                 } 
@@ -635,13 +636,12 @@ export default {
                 document.getElementById("tossing-item").style.left =  margin_left + "px";
                 document.getElementById("tossing-item").style.top =  margin_top + "px";
               
-                margin_top -= 30;
-                margin_left += 30;
-                if(margin_left > cart_left) margin_left = 0;
-                if(margin_right > cart_right) margin_right = 0;
+                margin_top -= 15;
+                margin_left += 15;
+               
                 console.log('top: ' + margin_top);
                 console.log('left:' + margin_left);
-            }, 200);
+            }, 50);
                      
         },
         removeFromCart(item_id){
