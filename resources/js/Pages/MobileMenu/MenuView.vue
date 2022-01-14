@@ -14,14 +14,14 @@
     <div :class="this.blur +' p-0' "> 
     <div class="header-div">
         <span class="arrow-left p-0 m-0 shadow rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">       
-        <i class="bi bi-justify-left"></i>
+            <i class="bi bi-justify-left"></i>
         </span>
         <img :src=" this.restaurant.image"  v-if="this.restaurant.image"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
         <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="min-width:100px; height:100px; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#headerModal">
       <span class="res-contacts" v-if="this.show_res_info">Click the image to see contacts.</span>
         <h5 class="pt-2 mb-0 text-center">
             <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
-            <span v-else> Hotel name</span> 
+            <span v-else> Hotel </span> 
         </h5>
         <p class=" text-center m-0" v-if="this.restaurant.description !== 'null'">
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
@@ -30,6 +30,21 @@
                  <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number !== 'null' ">Phone:</span>  <span v-if="this.restaurant.restaurant_phone_number !== 'null' ">{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
                  <span style="color:#f89a42;" v-if="this.restaurant.restaurant_email !== 'null' ">Email:</span>  <span v-if="this.restaurant.restaurant_email !== 'null' ">{{this.restaurant.restaurant_email}}</span>
         </small> </p>
+        <!-- -----------------------------cart items preview button----------------------------------------------- -->
+        <div class="cart-items d-flex flex-row-reverse">                       
+            <div class="cart-preview mr-2 p-0" id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
+              <div class="p-2" id="animate-glow" >
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                <span> <i class="bi bi-cart-plus"></i> &nbsp;</span> 
+                <span> {{this.cart_items.length}} items</span>              
+              </div>
+               
+            </div>
+        </div>
+    <!-- ------------------------------------------------------------ -->
     </div>
 
 <!--Restaurant info Modal -->
@@ -61,7 +76,6 @@
                
                      <small class="text-left" v-if="this.restaurant.address "> Address: <span v-if="this.restaurant.address !== 'null'">{{ this.restaurant.address}} </span>  </small>
                 </p> 
-
                 <h5>Social media</h5>
                 <p style="font-size:2rem"> 
                     <span class="p-2" v-if="this.restaurant.facebook !== 'null'"><a :href="this.restaurant.facebook" target="blank"><i class="bi bi-facebook"></i></a></span>
@@ -77,21 +91,7 @@
   </div>
 </div>
 
-<!-- -----------------------------cart items preview button----------------------------------------------- -->
-        <div class="cart-items d-flex flex-row-reverse">                       
-            <div class="cart-preview mr-2 p-0" id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
-              <div class="p-2" id="animate-glow" >
-                 <div></div>
-                 <div></div>
-                 <div></div>
-                 <div></div>
-                <span> <i class="bi bi-cart-plus"></i> &nbsp;</span> 
-                <span> {{this.cart_items.length}} items</span>              
-              </div>
-               
-            </div>
-        </div>
-    <!-- ------------------------------------------------------------ -->
+
 
     <div class="slider-div" id="slider-div">        
         <div v-if="this.current_sub_menus.length" :class="blur" > 
@@ -521,8 +521,8 @@ export default {
             var radiobtn_inner= document.getElementsByClassName('radio-btns-inner');
             var butons =  document.getElementsByClassName('ord-btn');
             var item_deatails = document.getElementsByClassName('details-content')[1];
-            select.addEventListener('change', function(){              
-            console.log(butons); 
+            document.getElementById('cart-preview').style.top='4.2rem';
+            select.addEventListener('change', function(){  
             if(select.value == 'ar' || select.value == 'ur'){                       
                 Array.from(arabic).forEach((item)=>{
                     item.classList.add('text-right');
@@ -1098,9 +1098,9 @@ select:focus{
     cursor: pointer;     
 }
 .cart-preview{
-    position:absolute;
+    position:fixed;
     width:auto;  
-    top:-10.3rem ; 
+    top:2rem ; 
     font-size:.9rem;
     z-index: 1000;
     padding:0rem;
@@ -1600,7 +1600,7 @@ input[type='radio']:after {
 /* media queries */
 @media only screen and (max-width: 500px) {
     .cart-preview{
-        top:-9rem ;
+        top:2rem ;
         font-size:.7rem;
         padding:7px;
         margin-right: 0 !important;
