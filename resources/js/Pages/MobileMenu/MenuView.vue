@@ -124,8 +124,8 @@
         <p v-if="this.description"> {{this.description}} </p>
     </div>
     <!-- ---------------------item panels------------------------------ -->
-    <div v-if="menu_items.length" class="items-panel"> 
-        
+    <div v-if="menu_items.length" class="items-panel">  
+
     <div class="items-div "  v-for="menu_item in menu_items" :key="menu_item.id">
         <div class="row items-div-inner my-2 shadow border" v-if="menu_item.publish == 'true'">
             
@@ -159,9 +159,10 @@
                                
                         </div> 
                     </div>
-                    <p class="arabic order-btn text-left pt-1 mt-2 mb-1" >
-                        <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 ">                             
-                            <a href="#" class=" " @click.prevent="addToCart(menu_item)"   v-if="this.user.package_type !== 'starter'">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
+                    <p class="arabic order-btn text-left pt-1 mt-2 mb-1" stle="position:relative">
+                            <span style="position: relative;"> </span>                          
+                        <span  v-if="this.User.package_type != null" class="button arabic ord-btn arabic py-2 "> 
+                            <a href="#" class=" " @click.prevent="[addToCart(menu_item),  this.tossItem($event)]"   v-if="this.user.package_type !== 'starter'">Add <i class="bi bi-cart-plus" style="font-size:1rem;"></i> </a>
                         </span>
                         <span class="arabic px-2 rounded counter" v-if="this.cart_item_qty[menu_item.id] ">
                             <label :for="menu_item.id" class="font-weight-lighter pr-1"> Qty </label>
@@ -178,7 +179,7 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic " @click.prevent="addToCart(menu_item)" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
+                        <span class="open ">  <button class=" arabic " @click.prevent="[this.addToCart(menu_item), this.tossItem($event)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
 
                         <span v-if="this.is_item_in_cart == true && this.item_in_cart == menu_item.id "><small class="text-success p-0">Item already in cart!</small></span>
                          <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span>
@@ -383,21 +384,27 @@
                             <div class="form-group text-left" v-if="this.order_type == 'Take Away' || this.order_type == 'Home Delivery'">
                                 <label for="phone">Phone number </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_phone" id="phone"  placeholder="Phone no" required>
+                                <i class="bi bi-telephone px-2 float-right " style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.customer_phone}}</small>
                             </div>                            
                             <div class="form-group text-left" v-if="this.order_type == 'Drive Through'">
                                 <label for="car_reg">Car registration number </label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.car_registration_no" id="ca_reg"  placeholder="Car registration no" required>
+                                <i class="bi bi-truck px-2 float-right " style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.car_registration_no}}</small>
                             </div>
+                           
                             <div class="form-group text-left" v-if="this.order_type == 'Home Delivery'">
-                                <label for="car_reg">Your Address <small v-if="this.errors.location" class="text-primary">( {{this.errors.location}} )</small> </label>
-                                <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.address" id="ca_reg"  placeholder="Address" required>
+                                <label for="car_reg">Address <small v-if="this.errors.location" class="text-primary">( {{this.errors.location}} )</small> </label>  
+                                <textarea class="form-control p-4"   v-model="this.address" id="ca_reg"  placeholder="Address" required></textarea>
+                                <i class="bi bi-envelope px-2 float-right " style="position:relative; right:1.2rem; top:-5.6rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.address}}</small>
-                            </div>
+                            </div>                            
+        
                             <div class="form-group text-left">
                                 <label for="name">Your name <small class="text-muted">(Optional) </small></label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" >
+                                <i class="bi bi-fonts px-2 float-right " style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.customer_name}}</small>
                             </div>
                             <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">
@@ -413,8 +420,21 @@
             </div>
          </div>
   </div>
-</div>      
+</div> 
 
+ <div class="form-group text-left">
+    <div class="form-group w-100 goog" style="position:relative">
+        <label for="searchInput">Pick up location (Incomplete) </label> <br>
+        <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" @focus.prevent="this.googlePlacesAutoComplete()" > 
+            <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i> 
+    </div>
+    <!-- Google map -->
+    <div class="pb-3 hidden" id="map-container">
+        <div id="map" class="mx-auto pt-0 mt-0" > </div> 
+        <button class="btn btn-danger float-right m-1" @click.prevent="hideMap()">Close</button> 
+     </div>
+      
+</div>
 <!-- ------------- Translate button--------------------- -->
 <div>
 <div class="translate-btn">
@@ -484,12 +504,13 @@ export default {
         address:'',
         spinner:'',
         show_res_info:false,
-        latitude:'',
-        longitude:''
+        latitude:null,
+        longitude:null,      
 
       }
   },
   methods:{
+      
       // align arabic content
        alignArabic(){
             var el = document.getElementById('google_translate_element');
@@ -583,6 +604,45 @@ export default {
                
             }
             delete this .errors.cart_empty ;
+        },
+        tossItem(event){ 
+            var rect = document.getElementById('cart-preview').getBoundingClientRect();
+            var margin = 0;        
+            let w = window.screen.width;
+            let margin_top = 0;  
+            let margin_bottom = 0;  
+            let margin_left = 0;  
+            let margin_right = 0;
+            let cart_left = rect.left;
+            let cart_right = rect.right;
+            let cart_bottom = rect.bottom;
+            // create node element
+            var toss_parent = document.createElement("div");
+                toss_parent.style.position = 'relative';
+            var toss_el = document.createElement("span");
+                toss_el.id ='tossing-item';
+                toss_el.classList.add('tossing-item') ;
+                // toss_parent.appendchild(toss_el);
+            var host = event.target.parentElement.parentElement.firstChild
+                host.appendChild(toss_el);
+               
+           var tossInterval = setInterval(() => {
+                if(document.getElementById("tossing-item").getBoundingClientRect().left >= cart_left){
+                    clearInterval(tossInterval);
+                    document.getElementById("tossing-item").remove();
+                } 
+
+                document.getElementById("tossing-item").style.left =  margin_left + "px";
+                document.getElementById("tossing-item").style.top =  margin_top + "px";
+              
+                margin_top -= 30;
+                margin_left += 30;
+                if(margin_left > cart_left) margin_left = 0;
+                if(margin_right > cart_right) margin_right = 0;
+                console.log('top: ' + margin_top);
+                console.log('left:' + margin_left);
+            }, 200);
+                     
         },
         removeFromCart(item_id){
             this.is_item_in_cart=false;
@@ -795,7 +855,11 @@ export default {
             });
             this.order_items = items;
         },
-            // --------------------- get geolocation ---------/
+            // ---------------------google maps geolocation ---------/
+         hideMap(){
+          document.getElementById('map').classList.remove('map-styles');
+          document.getElementById('map-container').classList.add('hidden');
+        },   
         getGeoLocation() {
             console.log('geolocating...');
             this.sendOrder();
@@ -811,6 +875,100 @@ export default {
                 },               
             );
         },        
+     
+        googlePlacesAutoComplete() {
+            console.log("Autocomplete");            
+            var el1 = document.getElementById('map').classList.contains('map-styles');
+            if(el1 == false ){
+                document.getElementById('map').classList.add('map-styles');
+                document.getElementById('map-container').classList.remove('hidden');
+                console.log('map not visible');                
+                var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 25.2854, lng: 51.5310},
+                zoom: 13
+                });
+                var input = document.getElementById('searchInput');
+                // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                // autocomplete.bindTo('bounds', map);
+
+                var infowindow = new google.maps.InfoWindow();
+                var marker = new google.maps.Marker({
+                    map: map,
+                    anchorPoint: new google.maps.Point(0, -29)
+                });
+            }
+            autocomplete.addListener('place_changed', function() {
+                infowindow.close();;
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    window.alert("Autocomplete returned location contains no geometry");
+                    return;
+                }
+                var place_lat = place.geometry.location.lat();
+                var place_lng = place.geometry.location.lng();
+                this.latitude = place_lat;
+                this.longitude = place_lng;
+                console.log(this.latitude);
+
+                console.log('place changed'); 
+                // ----------------------------------------------------------
+                console.log("Load selected location");
+                var markers = [
+                        {
+                        "title": place.name,
+                        "lat": place.geometry.location.lat(),
+                        "lng": place.geometry.location.lng(),
+                        "description": place.name
+                        },                    
+                    ];    
+                var mapOptions = {
+                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+                    zoom: 2,            
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var latlngbounds = new google.maps.LatLngBounds();
+                var geocoder = geocoder = new google.maps.Geocoder();
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                for (var i = 0; i < markers.length; i++) {
+                    var data = markers[i]
+                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: data.title,
+                        draggable: true,
+                        animation: google.maps.Animation.DROP
+                    });
+                    (function (marker, data) {
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            infoWindow.setContent(data.description);
+                            infoWindow.open(map, marker);
+                        });
+                        google.maps.event.addListener(marker, "dragend", function (e) {
+                            var lat, lng, address;
+                            geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    lat = marker.getPosition().lat();
+                                    lng = marker.getPosition().lng();
+                                    address = results[0].formatted_address;
+                                    this.latitude = lat;
+                                    this.longitude = lng;
+                                    alert("Latitude: " + lat + "\nLongitude: " + lng + "\nAddress: " + address);
+                                }
+                            });
+                        });
+                    })(marker, data);
+                    latlngbounds.extend(marker.position);
+                }
+                var bounds = new google.maps.LatLngBounds();
+                map.setCenter(latlngbounds.getCenter());
+                map.fitBounds(latlngbounds);  
+                map.fitBounds(latlngbounds);
+            });   
+              
+        },
 
         validateOrder(){          
             if( this.order_type == '') this.errors.order_type =  'Please choose  order type';
@@ -839,7 +997,7 @@ export default {
             },        
     },
 
-    mounted(){             
+    mounted(){          
             this.menu_items = this.menuItems;
             this.User= this.user;
             if(this.user.table_number >0) this.order_type = "Dine In";
@@ -894,10 +1052,28 @@ export default {
 @import "../../../css/custom.css"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+.tossing-item {
+        height: 1rem;
+        width: 1rem;
+        background-color: $orange;
+        border-radius: 50%;
+        border:1px solid orange;
+        position:absolute;
+        z-index:1000;
+        left:0;
+        top:0;
+      }
 
-
-
-
+// * google map styles */
+.goog input:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
+.map-styles{
+    width:98%;
+     min-height:300px;
+}
 select{
     border: 1px solid $orange;
     color: rgb(141, 101, 101);
@@ -1050,7 +1226,7 @@ select:focus{
 }
 .items-div-inner{
     border-radius:15px;
-    overflow:hidden;
+    // overflow:hidden;
 }
 .img-div{
     object-fit:cover;

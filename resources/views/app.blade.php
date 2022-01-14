@@ -324,8 +324,9 @@ function toggleAccordion(){
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 
-{{-- google map CDN --}}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK_v1OGUFLivx3Q759Z-CEUIY0apEQmPU&callback=" ></script>
+{{-- google maps CDN --}}
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK_v1OGUFLivx3Q759Z-CEUIY0apEQmPU&callback=" ></script> --}}
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK_v1OGUFLivx3Q759Z-CEUIY0apEQmPU&libraries=places&callback="></script>
 
 </body>
 

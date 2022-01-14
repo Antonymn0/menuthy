@@ -49,7 +49,7 @@
                         <td  class="">{{order.customer_name}}</td>
                         <td  class="">{{order.customer_phone}}</td>
                         <td v-if="order.delivery_address" class="">
-                            <span v-if="order.latitude && order.longitude" class=" btn badge btn-primary" @click.prevent="updateCurrentOrder(order)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Geolocation</span> <br>
+                            <span v-if="order.latitude && order.longitude" class=" btn badge btn-primary" @click.prevent="updateCurrentOrder(order)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Location <i class="bi bi-geo-alt"></i></span> <br>
                         </td>
                         <td v-if="order.cash_collected =='true'" class="text-success">Yes</td>
                         <td v-else class="text-danger">No</td>
