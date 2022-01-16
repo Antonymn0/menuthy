@@ -32,14 +32,14 @@
         </small> </p>
         <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">                       
-            <div class="cart-preview mr-2 p-0" id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
+            <div class="cart-preview mr-2 p-0 " id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
               <div class="p-2" id="animate-glow" >
                  <div></div>
                  <div></div>
                  <div></div>
                  <div></div>
                 <span> <i class="bi bi-cart-plus"></i> &nbsp;</span> 
-                <span> {{this.cart_items.length}} items</span>              
+                <span> {{this.cart_items.length}} </span>              
               </div>
                
             </div>
@@ -90,8 +90,6 @@
     </div>
   </div>
 </div>
-
-
 
     <div class="slider-div" id="slider-div">        
         <div v-if="this.current_sub_menus.length" :class="blur" > 
@@ -182,7 +180,7 @@
                         <span class="open ">  <button class=" arabic " @click.prevent="[addToCart( menu_item), this.tossItem($event)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
 
                         <span v-if="this.is_item_in_cart == true && this.item_in_cart == menu_item.id "><small class="text-success p-0">Item already in cart!</small></span>
-                         <!-- <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span> -->
+                         <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span>
                      </p>
                 </div>    
             </div>  
@@ -399,12 +397,27 @@
                                 <textarea class="form-control p-4"   v-model="this.address" id="ca_reg"  placeholder="Address" required></textarea>
                                 <i class="bi bi-envelope px-2 float-right " style="position:relative; right:1.2rem; top:-5.6rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.address}}</small>
-                            </div>                            
-                            <div class="form-group text-left">
+                            </div> 
+                            <div>
+                                <p class="form-check form-check-inline">
+                                    <span class="form-check form-check-inline">Location: </span>
+                                     <span class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="auto" value="auto" >
+                                        <label class="form-check-label" for="auto">Auto </label>
+                                    </span>
+                                        &nbsp; &nbsp;
+                                    <span class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="manual" value="manual" >
+                                        <label class="form-check-label" for="manual">Select </label>
+                                    </span>                                     
+                                </p>
+                            </div>                           
+                            <div class="form-group text-left py-2" v-if="this.location_type == 'manual'" style="transition: all 1.5s ease;">
                                 <div class="form-group w-100 goog mb-0 pb-0" style="position:relative; ">
-                                    <label for="searchInput">Pick up location (Incomplete) </label> <br>
+                                    <label for="searchInput">Set pick-up location  </label> <br>
                                     <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" v-model="this.autocomplete_location" @focus.prevent="this.googlePlacesAutoComplete()" > 
                                     <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem" @click.prevent="this.googlePlacesAutoComplete()"></i> 
+                                     <small class="text-danger"> {{this.errors.autocomplete_location}} </small>
                                 </div>
                                <!-- Google map div container-->
                                 <div class="pb-3 hidden  shadow" id="map-container" sryle="transition: all 1.5s ease;">
@@ -509,7 +522,8 @@ export default {
         show_res_info:false,
         latitude:null,
         longitude:null,  
-        autocomplete_location:null
+        autocomplete_location:null,
+        location_type:'auto',
 
       }
   },
@@ -601,9 +615,11 @@ export default {
                 this.calculateTotalAmount(); 
                 this.item_added_to_cart = true;
                 this.item_in_cart = menu_item.id 
+                document.getElementById('cart-preview').classList.add('shake');
                 setTimeout(() => {
                     this.item_added_to_cart = false;
                     this.item_in_cart = null;
+                    document.getElementById('cart-preview').classList.remove('shake');
                    document.getElementById('detailsModal').click();  
                }, 1500);
                 
@@ -612,7 +628,8 @@ export default {
             delete this .errors.cart_empty ;
         },
         tossItem(event){ 
-             if(this.is_item_in_cart) return;
+            return;
+            if(this.is_item_in_cart) return;
             var rect = document.getElementById('cart-preview').getBoundingClientRect();
             var cart_offset = document.getElementById('cart-preview').offsetTop
             var margin = 0;        
@@ -870,18 +887,28 @@ export default {
           document.getElementById('map-container').classList.add('hidden');
         },   
         getGeoLocation() {
+            if(this.location_type == 'manual') {
+              if(document.getElementById('searchInput').value =='')  {
+                  this.errors.autocomplete_location= 'Please select location';
+              }
+              else{
+                delete this.errors.autocomplete_location;
+                this.sendOrder();
+                return;
+              }
+                
+            }
             console.log('geolocating...');
-            this.sendOrder();
             navigator.geolocation.getCurrentPosition( position => {                
-                    this.latitude = position.coords.latitude;
-                    this.longitude = position.coords.longitude;
-                    console.log('Geolocating complete!');
-                    this.sendOrder();
-                },
-                error => {   
-                    alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
-                    console.log(error.message);
-                },               
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                console.log('Geolocating complete!');
+                this.sendOrder();
+            },
+            error => {   
+                alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
+                console.log(error.message);
+            },               
             );
         },        
      
@@ -917,17 +944,17 @@ export default {
                             lat = marker.getPosition().lat();
                             lng = marker.getPosition().lng();
                             address = results[0].formatted_address;
-                        }                                
-                    });
-                    setTimeout(() => {
-                        console.log(lat );
-                        this.formatted_address = address;
-                        this.latitude = lat;
-                        this.longitude = lng;
-                        document.getElementById('address').innerHTML = address;
-                        document.getElementById('searchInput').value = address;
-                    }, 500);                              
-                            
+                        }  
+                                                
+                    });                                            
+                           setTimeout(() => {
+                            console.log(lat );
+                            this.formatted_address = address;
+                            this.latitude = lat;
+                            this.longitude = lng;
+                            document.getElementById('address').innerHTML = address;
+                            document.getElementById('searchInput').value = address;
+                        }, 500);   
                 });   
 
             autocomplete.addListener('place_changed', function() {
@@ -1060,6 +1087,11 @@ export default {
     width:98%;
     min-height:300px;
     transition: all 1.5s ease;
+    -moz-transition: height .5s;
+  -ms-transition: height .5s;
+  -o-transition: height .5s;
+  -webkit-transition: height .5s;
+  transition: height .5s;
 }
 select{
     border: 1px solid $orange;
