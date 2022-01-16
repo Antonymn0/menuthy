@@ -400,9 +400,24 @@
                                 <i class="bi bi-envelope px-2 float-right " style="position:relative; right:1.2rem; top:-5.6rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.address}}</small>
                             </div>                            
-        
                             <div class="form-group text-left">
-                                <label for="name">Your name <small class="text-muted">(Optional) </small></label>
+                                <div class="form-group w-100 goog mb-0 pb-0" style="position:relative; ">
+                                    <label for="searchInput">Pick up location (Incomplete) </label> <br>
+                                    <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" v-model="this.autocomplete_location" @focus.prevent="this.googlePlacesAutoComplete()" > 
+                                    <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem" @click.prevent="this.googlePlacesAutoComplete()"></i> 
+                                </div>
+                               <!-- Google map div container-->
+                                <div class="pb-3 hidden  shadow" id="map-container" sryle="transition: all 1.5s ease;">
+                                    <p> 
+                                        <span style="font-weight:600"> Location:</span>   <span id="address">{{this.autocomplete_location}}</span> <br>
+                                       
+                                    </p>
+                                    <div id="map" class="mx-auto pt-0 mt-0" > </div> 
+                                  <p class="mb-0 p-2"> <span class="small text-center py-3 mx-1 my-auto">Tip: Drag the pin on the map to set the location</span> <button class="btn btn-danger btn-sm float-right  " @click.prevent="hideMap()">Close map</button> </p>
+                                </div>      
+                            </div>
+                            <div class="form-group text-left">
+                                <label for="name">Name <small class="text-muted">(Optional) </small></label>
                                 <input type="text" class="form-control p-4"  name="sub_menu_name"  v-model="this.customer_name" id="name"  placeholder="Your name" >
                                 <i class="bi bi-fonts px-2 float-right " style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.customer_name}}</small>
@@ -422,26 +437,14 @@
   </div>
 </div> 
 
- <div class="form-group text-left">
-    <div class="form-group w-100 goog" style="position:relative">
-        <label for="searchInput">Pick up location (Incomplete) </label> <br>
-        <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" @focus.prevent="this.googlePlacesAutoComplete()" > 
-            <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem"></i> 
-    </div>
-    <!-- Google map -->
-    <div class="pb-3 hidden" id="map-container">
-        <div id="map" class="mx-auto pt-0 mt-0" > </div> 
-        <button class="btn btn-danger float-right m-1" @click.prevent="hideMap()">Close</button> 
-     </div>
-      
-</div>
+
 <!-- ------------- Translate button--------------------- -->
 <div>
-<div class="translate-btn">
-    <div class="translate-btn-inner shadow">
-       <div id="google_translate_element" @click="alignArabic()"></div>
+    <div class="translate-btn">
+        <div class="translate-btn-inner shadow">
+        <div id="google_translate_element" @click="alignArabic()"></div>
+        </div>
     </div>
-</div>
 </div>
 
 </div>
@@ -505,7 +508,8 @@ export default {
         spinner:'',
         show_res_info:false,
         latitude:null,
-        longitude:null,      
+        longitude:null,  
+        autocomplete_location:null
 
       }
   },
@@ -521,7 +525,7 @@ export default {
             var radiobtn_inner= document.getElementsByClassName('radio-btns-inner');
             var butons =  document.getElementsByClassName('ord-btn');
             var item_deatails = document.getElementsByClassName('details-content')[1];
-            document.getElementById('cart-preview').style.top='4.2rem';
+            document.getElementById('cart-preview').style.top='4.3rem';
             select.addEventListener('change', function(){  
             if(select.value == 'ar' || select.value == 'ur'){                       
                 Array.from(arabic).forEach((item)=>{
@@ -575,6 +579,8 @@ export default {
             this.item = menu_item;
         },
         addToCart( menu_item){
+            var viewportWidth = window.innerWidth;
+            console.log( viewportWidth);
             this.is_item_in_cart=false;
             this.cart_items.forEach((item)=>{
                 if(item.id == menu_item.id) {
@@ -608,6 +614,7 @@ export default {
         tossItem(event){ 
              if(this.is_item_in_cart) return;
             var rect = document.getElementById('cart-preview').getBoundingClientRect();
+            var cart_offset = document.getElementById('cart-preview').offsetTop
             var margin = 0;        
             let w = window.screen.width;
             let margin_top = 0;  
@@ -616,6 +623,7 @@ export default {
             let margin_right = 0;
             let cart_left = rect.left;
             let cart_right = rect.right;
+            let cart_top = rect.top;
             let cart_bottom = rect.bottom;
             // create node element
             var toss_parent = document.createElement("div");
@@ -633,15 +641,16 @@ export default {
                     document.getElementById("tossing-item").remove();
                 } 
 
-                document.getElementById("tossing-item").style.left =  margin_left + "px";
-                document.getElementById("tossing-item").style.top =  margin_top + "px";
+                document.getElementById("tossing-item").style.left =  '100vw';
+                document.getElementById("tossing-item").style.top =   '-100vh';
               
                 margin_top -= 15;
                 margin_left += 15;
                
                 console.log('top: ' + margin_top);
                 console.log('left:' + margin_left);
-            }, 50);
+            }, 500);
+            
                      
         },
         removeFromCart(item_id){
@@ -877,95 +886,71 @@ export default {
         },        
      
         googlePlacesAutoComplete() {
-            console.log("Autocomplete");            
+            console.log("Autocomplete"); 
+            var lat, lng, address;
             var el1 = document.getElementById('map').classList.contains('map-styles');
-            if(el1 == false ){
+            if(el1 == true ) return;
                 document.getElementById('map').classList.add('map-styles');
                 document.getElementById('map-container').classList.remove('hidden');
                 console.log('map not visible');                
                 var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 25.2854, lng: 51.5310},
-                zoom: 13
+                    center: {lat: 25.2854, lng: 51.5310},
+                    zoom: 13
                 });
+                var marker = new google.maps.Marker({
+                        position: {lat: 25.2854, lng: 51.5310},
+                        map: map,
+                        draggable: true,
+                    });
                 var input = document.getElementById('searchInput');
                 // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
                 var autocomplete = new google.maps.places.Autocomplete(input);
-                // autocomplete.bindTo('bounds', map);
+                autocomplete.bindTo('bounds', map);
 
-                var infowindow = new google.maps.InfoWindow();
-                var marker = new google.maps.Marker({
-                    map: map,
-                    anchorPoint: new google.maps.Point(0, -29)
-                });
-            }
+                var infowindow = new google.maps.InfoWindow(); 
+                var geocoder = geocoder = new google.maps.Geocoder();
+
+                google.maps.event.addListener(marker, "dragend", function (e) {                            
+                    geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            lat = marker.getPosition().lat();
+                            lng = marker.getPosition().lng();
+                            address = results[0].formatted_address;
+                        }                                
+                    });
+                    setTimeout(() => {
+                        console.log(lat );
+                        this.formatted_address = address;
+                        this.latitude = lat;
+                        this.longitude = lng;
+                        document.getElementById('address').innerHTML = address;
+                        document.getElementById('searchInput').value = address;
+                    }, 500);                              
+                            
+                });   
+
             autocomplete.addListener('place_changed', function() {
-                infowindow.close();;
+                infowindow.close();
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     window.alert("Autocomplete returned location contains no geometry");
                     return;
                 }
+                var position = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }
                 var place_lat = place.geometry.location.lat();
                 var place_lng = place.geometry.location.lng();
                 this.latitude = place_lat;
                 this.longitude = place_lng;
-                console.log(this.latitude);
+                this.autocomplete_location = place.formatted_address;
+                document.getElementById('searchInput').value = place.name + ', ' + place.formatted_address;
 
-                console.log('place changed'); 
-                // ----------------------------------------------------------
-                console.log("Load selected location");
-                var markers = [
-                        {
-                        "title": place.name,
-                        "lat": place.geometry.location.lat(),
-                        "lng": place.geometry.location.lng(),
-                        "description": place.name
-                        },                    
-                    ];    
-                var mapOptions = {
-                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-                    zoom: 2,            
-                };
-                var infoWindow = new google.maps.InfoWindow();
-                var latlngbounds = new google.maps.LatLngBounds();
-                var geocoder = geocoder = new google.maps.Geocoder();
-                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                for (var i = 0; i < markers.length; i++) {
-                    var data = markers[i]
-                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: data.title,
-                        draggable: true,
-                        animation: google.maps.Animation.DROP
-                    });
-                    (function (marker, data) {
-                        google.maps.event.addListener(marker, "click", function (e) {
-                            infoWindow.setContent(data.description);
-                            infoWindow.open(map, marker);
-                        });
-                        google.maps.event.addListener(marker, "dragend", function (e) {
-                            var lat, lng, address;
-                            geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-                                if (status == google.maps.GeocoderStatus.OK) {
-                                    lat = marker.getPosition().lat();
-                                    lng = marker.getPosition().lng();
-                                    address = results[0].formatted_address;
-                                    this.latitude = lat;
-                                    this.longitude = lng;
-                                    alert("Latitude: " + lat + "\nLongitude: " + lng + "\nAddress: " + address);
-                                }
-                            });
-                        });
-                    })(marker, data);
-                    latlngbounds.extend(marker.position);
-                }
-                var bounds = new google.maps.LatLngBounds();
-                map.setCenter(latlngbounds.getCenter());
-                map.fitBounds(latlngbounds);  
-                map.fitBounds(latlngbounds);
+                console.log('place changed');  
+                marker.setAnimation(null);
+                map.setCenter(position);                    
+                marker.setAnimation(google.maps.Animation.DROP)   
+                marker.setPosition(position);           
+                             
             });   
               
         },
@@ -1036,7 +1021,7 @@ export default {
                             } 
                         })
                         .catch( error => {
-                            this.$swal('Failed record scan!');                
+                            this.$swal('Failed to scan!');                
                             console.log(error.response);                    
                         });                    
                     }
@@ -1062,6 +1047,7 @@ export default {
         z-index:1000;
         left:0;
         top:0;
+        transition: all 1.5s ease;
       }
 
 // * google map styles */
@@ -1072,7 +1058,8 @@ export default {
 }
 .map-styles{
     width:98%;
-     min-height:300px;
+    min-height:300px;
+    transition: all 1.5s ease;
 }
 select{
     border: 1px solid $orange;

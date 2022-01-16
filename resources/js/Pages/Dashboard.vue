@@ -61,7 +61,7 @@
                         Try our contactless online ordering solution!
                     </h1>
                     <p style=" max-width: 470px;">
-                        Get started with FineDine Delivery & Pick-up Menu for online ordering with no excessive commission or use 
+                        Get started with Menuthy Delivery & Pick-up Menu for online ordering with no excessive commission or use 
                         QR Menu for a contactless dine-in experience.                          
                     </p>
                    <p class="p-2 btn btn-lg bg-white ">
