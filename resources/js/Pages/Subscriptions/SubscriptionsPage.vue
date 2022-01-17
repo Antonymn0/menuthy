@@ -317,7 +317,7 @@ export default {
                 text:"Use the same email address you used to register your menuthy account."
                 });
             Swal.showLoading();
-            axios.post('api/stripe-pay-checkout', form_data )
+            axios.post('api/stripe-pay-subscription-checkout', form_data )
             .then( payload => {
                 stripe.redirectToCheckout({sessionId: payload.data.id});
             })

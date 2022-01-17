@@ -370,7 +370,7 @@
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">  
                             <span :class="this.spinner" class="text-center"></span>  <br> 
-                            <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 btn-secondary disabled" disabled>Pay now </button></span> 
+                            <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 " @click.prevent="payNow()">Pay now </button></span> 
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type == 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Pay Later </button></span> <br>
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type !== 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Place order </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
@@ -621,8 +621,7 @@ export default {
                     this.item_in_cart = null;
                     document.getElementById('cart-preview').classList.remove('shake');
                    document.getElementById('detailsModal').click();  
-               }, 1500);
-                
+               }, 1500);                
                
             }
             delete this .errors.cart_empty ;
@@ -800,6 +799,21 @@ export default {
             if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
             if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
             },
+        payNow(){
+            if(!this.user.stripe_publishable_key) return;
+            this.getOrderData();  // gather order data 
+            const stripe = Stripe(this.user.stripe_publishable_key);
+
+            axios.post('/api/stripe-pay-order-checkout', this.order_data )
+            .then( payload => {
+                console.log(payload);
+                stripe.redirectToCheckout({sessionId: payload.data.id});
+            })
+            .catch( error => {
+               this.$swal('Failed!');
+                console.log(error.response);                    
+            });
+        },
         sendOrder(){
             console.log('Send order');
             this.validateOrder();
@@ -810,9 +824,7 @@ export default {
                 return;
             }
             console.log('Send order2');
-            this.getOrderData();  // gather order data        
-            this.getOrderItems();  // gather order items data 
-            this.order_data.append('order_items', JSON.stringify(this.order_items)); //append order items order data to form            
+            this.getOrderData();  // gather order data 
             console.log(...this.order_data);
             if(window.confirm("Place a " + this.order_type  + ' order?')){
                 this.spinner = 'spinner-border spinner-border-sm';
@@ -865,6 +877,7 @@ export default {
             if(this.longitude !== '') this.order_data.append('longitude', this.longitude);
             if(this.User.table_number > 0) this.order_data.append('table_number', parseInt(this.User.table_number) );
             else this.order_data.append('table_number', -1); //default table number is 1 
+            this.getOrderItems();  // gather order items data 
         },
         getOrderItems(){
             // gather order items data
@@ -880,6 +893,7 @@ export default {
                 items.push(elmnt);
             });
             this.order_items = items;
+            this.order_data.append('order_items', JSON.stringify(this.order_items)); //append order items to order data  form  
         },
             // ---------------------google maps geolocation ---------/
          hideMap(){

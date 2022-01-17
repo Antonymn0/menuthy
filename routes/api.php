@@ -151,13 +151,15 @@ if (App::environment('production')) {
 
    //============================Stripe Pay  routes ===================//
     //  stripe inf outes 
-    Route::post('banking/update-stripe-info','Api\Banking\BankingController@updateStripeInfo');
+    Route::post('/banking/update-stripe-info','Api\Banking\BankingController@updateStripeInfo');
 
-    // stripe pay checkout route
-    Route::post('stripe-pay-checkout',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'checkout'])->name('stripe-checkout');
+    // stripe pay package subscription checkout route
+    Route::post('/stripe-pay-subscription-checkout',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'subscriptionCheckout'])->name('stripe-subscription-checkout');
     // Route::get('/stripe-webhook',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'handleChargeEvents'])->name('stripe-charge-succsessfull');
     Route::post('/stripe-webhook',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'handleChargeEvents'])->name('stripe-charge-succsessfull');
-
+  
+    // stripe pay order checkout route
+    Route::post('/stripe-pay-order-checkout',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'orderCheckout'])->name('stripe-order-checkout');
 
 
 

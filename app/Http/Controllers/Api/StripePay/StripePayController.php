@@ -19,7 +19,7 @@ class StripePayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkout(Request $request)
+    public function subscriptionCheckout(Request $request)
     {     
         if(!isset($request->user_data)) return;
         $url = url('');
@@ -89,8 +89,7 @@ class StripePayController extends Controller
             event(new SubscriptionFailed($payment));
             return 'Subscription failed';
         } 
-        else return 'Unhandled webhook event';
-        
+        else return 'Unhandled webhook event';        
     }
 
 /**
