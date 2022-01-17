@@ -43,6 +43,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\User\emailVerified' => [
             'App\Listeners\User\emailVerifiedListener'
         ],
+         // stripe info updated event
+        'App\Events\User\stripeInfoUpdated' => [
+            'App\Listeners\User\stripeInfoUpdatedListener'
+        ],
 
          // order events
         'App\Events\Order\orderCreated' => [

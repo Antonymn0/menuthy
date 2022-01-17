@@ -183,6 +183,7 @@ public function fetchMainMenu($restaurant_name, $menu_id){
                     $user->trial_expiry = $restaurant_owner->trial_expiry;
                     $user->city = $restaurant_owner->city;
                     $user->timezone = $restaurant_owner->timezone;
+                    $user->stripe_publishable_key = $restaurant_owner->stripe_publishable_key;
 
                     //pass table number to user object if isset() true
                     if(isset($table_number)) $user->table_number = $table_number;  

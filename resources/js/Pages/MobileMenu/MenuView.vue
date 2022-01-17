@@ -1009,7 +1009,7 @@ export default {
             },        
     },
 
-    mounted(){          
+    mounted(){         
             this.menu_items = this.menuItems;
             this.User= this.user;
             if(this.user.table_number >0) this.order_type = "Dine In";

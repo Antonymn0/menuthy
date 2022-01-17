@@ -113,7 +113,10 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
 
   });  
-    
+  
+  // banking routes 
+Route::get('/banking/','Api\Banking\BankingController@showBankingPage');
+
     //========================= Stripe checkout callback routes ======================
  // stripe succsess route
     Route::get('/payment-success',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'successful'])->name('stripe-checkout-successful');

@@ -50,7 +50,9 @@ class User extends Authenticatable
         'email_verified_at',
         'gender',
         'tables',
-
+        'stripe_publishable_key',
+        'stripe_secret_key',
+        'stripe_info_updated_at',
         'suspended_by',
         'avatar',
         'name',
@@ -66,6 +68,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'stripe_secret_key',
     ];
 
     /**

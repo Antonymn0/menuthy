@@ -999,7 +999,6 @@ export default {
     methods:{
         submitForm() {
             this.validateForm();
-            console.log(this.errors);
             if(Object.keys(this.errors).length) return;
             var user_data = new FormData();
                 user_data.append('full_name', this.form.full_name);
@@ -1091,7 +1090,7 @@ export default {
             if(!this.form.email) this.errors.email = 'This field is required!' ;
             else delete this.errors.email;
 
-            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+            if(!this.regex.test(this.form.email)) this.errors.email = 'Invalid email!' ;
              else delete this.errors.email;
 
             if(!this.form.password) this.errors.password = 'This field is required!' ;
