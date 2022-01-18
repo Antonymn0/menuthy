@@ -87,7 +87,7 @@ class OrderPaymentsController extends Controller
      */
     public function handleOrderWebhook(Request $event){        
         $data = $event -> data;
-        if($event->type == 'charge.succeeded') return $event->data->object;
+        if($event->type == 'charge.succeeded') return $data['object']['payment_intent'];
         if($event->type == 'charge.failed') return 'Failed';
         return $data;
     }
