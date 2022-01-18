@@ -89,6 +89,13 @@ class OrderPaymentsController extends Controller
         $data = $event -> data;
         if($event->type == 'charge.succeeded'){
             $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
+            $order->update([
+                'transaction_id' => $data['object']['payment_intent'],
+                'amount_paid' => $data['object']['amount'] / 100,
+                'paid_at' => Carbon::now(),
+                'paid' => 'true',
+                'reciept_url'=> $data['object']['receipt_url'],
+            ]);
             return $order;
         } 
 

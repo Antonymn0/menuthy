@@ -44,8 +44,8 @@ class Order extends Model
         'delivered_at',
         'mode_of_payment',
         'stripe_session_id',
-        'stripe_payment_intent_id'
-
+        'stripe_payment_intent_id',
+        'reciept_url'
     ];
 
     /**
