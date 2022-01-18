@@ -85,7 +85,7 @@ class OrderPaymentsController extends Controller
     /**
      * Handle stripe order payments webhook call backs
      */
-    public function handleOrderWebhook($request){        
+    public function handleOrderWebhook(Request $event){        
         $data = $event -> data;
         if($event->type == 'charge.succeeded') return 'Success';
         if($event->type == 'charge.failed') return 'Failed';
