@@ -101,6 +101,7 @@ class OrderController extends Controller
         $order= Order::WHERE('id', $id)->first()->update([
             'paid' => 'true',
             'transaction_id' => 'cash',
+            'mode_of_payment' => 'cash',
             'amount_paid' => $amount,
             'paid_at' => $date,
             ]);

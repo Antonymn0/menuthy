@@ -142,7 +142,7 @@
                         <td v-else>0</td>
                         <td v-if="order.transaction_id == 'cash' "> 
                             <span>{{capitalize(order.transaction_id)}}</span> <br>
-                            <span v-if="order.mode_of_payment='stripe' && order.reciept_url" class="text-center"><a :href="order.reciept_url" class="btn-primary badge"> Reciept</a></span>
+                            <span v-if="order.mode_of_payment == 'stripe' && order.reciept_url" class="text-center"><a :href="order.reciept_url" class="btn-primary badge"> Reciept</a></span>
 
                         </td>
                          <td v-else> {{order.transaction_id}}</td>

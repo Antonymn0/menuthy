@@ -101,7 +101,7 @@
                      </tr>
                 </thead>
                 <tbody v-for="(order, index) in this.current_orders.data" :key="order.id" >
-                    <tr class="accordion border-bottom" onclick="toggleAccordion()">
+                    <tr class="accordion border-bottom" onclick="toggleAccordion()" >
                         <th scope="row">{{index +1}}</th>
                         <td>{{formatDate(order.created_at)}}</td>
                          <td v-if="order.completed_at">{{formatDate(order.completed_at)}}</td>
