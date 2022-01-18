@@ -766,7 +766,7 @@ export default {
                     'name': 'Ugandan shilling',
                     'symbol': '&#85;&#83;&#104;'},
 
-                {'code': 'KSH',
+                {'code': 'KES',
                     'countryname': 'Kenya',
                     'name': 'Kenyan shilling',
                     'symbol': '&#85;&#83;&#104;'},

@@ -45,7 +45,7 @@
                     <i class="bi bi-dot"></i> We use this information to help process payments from your customers direct into your account. <br>
                     <i class="bi bi-dot"></i> Make sure this Stripe account is dedicated to Menuthy payments only. <br>
                     <i class="bi bi-dot"></i> Your information is save, we do not share it with third parties. <br>
-                    <i class="bi bi-dot"></i> Stripe credentials are available on you <a href='https://dashboard.stripe.com/dashboard'> Stripe dashboard </a> <br>
+                    <i class="bi bi-dot"></i> Stripe credentials are available on your <a href='https://dashboard.stripe.com/dashboard'> Stripe dashboard </a> <br>
                     <i class="bi bi-dot"></i> For any questions  regarding paymnents, please do not hesistate to contact us.
 
                 </p>
@@ -134,10 +134,10 @@ export default {
             axios.post('api/banking/update-stripe-info', form_data)
             .then( response => {
                 this.form.stripe_status = 'Secret key Validated';
-                console.log(response);
                 if( response.status == 200){ 
+                    this.errors ={};
                     this.form.spinner= null;
-                    this.form.stripe_status = '.' ;
+                    this.form.stripe_status = 'Success, Stripe info has been updated!' ;
                     this.is_public_key_valid = false
                     this.$inertia.reload();                                        
                     new Swal({   title:'Success', timer:1200 });   
