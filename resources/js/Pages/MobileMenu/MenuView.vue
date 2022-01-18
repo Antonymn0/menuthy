@@ -802,7 +802,7 @@ export default {
             },
         payNow(){
             if(!this.user.stripe_publishable_key) {
-                alert('This restaurant has no set up any payment method yet!');
+                alert('Operation not possible! n/ This restaurant has no set up any payment method yet!');
                 return;
                 } 
             this.getOrderData();  // gather order data 
