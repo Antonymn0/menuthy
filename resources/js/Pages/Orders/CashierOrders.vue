@@ -140,12 +140,12 @@
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td>
                         <td v-if="order.amount_paid" class="">{{order.amount_paid}}</td>
                         <td v-else>0</td>
-                        <td v-if="order.transaction_id == 'cash' "> 
-                            <span>{{capitalize(order.transaction_id)}}</span> <br>
-                            <span v-if="order.mode_of_payment == 'stripe' && order.reciept_url" class="text-center"><a :href="order.reciept_url" class="btn-primary badge"> Reciept</a></span>
-
-                        </td>
-                         <td v-else> {{order.transaction_id}}</td>
+                        <td> 
+                            <span v-if="order.transaction_id == 'cash' ">{{capitalize(order.transaction_id)}}</span>
+                            <span v-if="order.mode_of_payment == 'stripe' ">{{order.transaction_id}}</span> <br>
+                            <span v-if="order.mode_of_payment == 'stripe' && order.paid == 'true' && order.reciept_url !== null" class="text-center"><a :href="order.reciept_url" target="blank" class="btn-primary badge"> Reciept</a></span>
+                            <span v-if="order.transaction_id !== 'cash' &&  order.mode_of_payment !== 'stripe'">{{capitalize(order.transaction_id)}}</span>
+                        </td>                       
                         <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>
                         <td v-else>-</td>                       
                         <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>

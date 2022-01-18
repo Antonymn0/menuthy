@@ -132,9 +132,18 @@
                         <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td> 
                         <td> <span class="badge btn-danger  p-1" @click="expandRow($event)"> Details <i class="bi bi-caret-down-fill"></i></span> </td>                      
                         <td class=" mx-auto  m-1 " v-if="order.status != 'canceled'">
-                            <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
-                            <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
-                            <!-- <a href="#" class="badge badge-danger btn m-1" @click.prevent="cancelOrder(order .id, 'canceled')">Cancel</a> -->
+                            <span v-if="order.mode_of_payment =='stripe' && order.paid == 'true'">
+                                <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
+                                <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
+                            </span>
+                            <span v-if="order.mode_of_payment =='stripe' && order.paid == 'false'">
+                                <button class="disabled p-2 btn-default badge">Payment pending...</button>
+                            </span>
+                            <span v-if="order.mode_of_payment !=='stripe'">
+                                <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
+                                <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>                               
+                            </span>
+                           
                         </td> 
                         <td v-else class="">
                             <a href="#" class="badge badge-danger btn ml-3  disabled" >Canceled</a>
