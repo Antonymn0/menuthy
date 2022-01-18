@@ -9,23 +9,31 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Restaurant;
 use App\Models\MenuItem;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Carbon\Carbon;
+use App\Http\Requests\Order\ValidateOrder;
+use App\Events\Order\orderCreated;
 
 class OrderPaymentsController extends Controller
 {
     /**
      * order stripe payment.
-     *
+     * 
+     *@param  \Illuminate\Http\Request\ValidateOrder  $request
      * @return \Illuminate\Http\Response
      */
-    public function orderCheckout(Request $request)
-    { 
+    public function orderCheckout(ValidateOrder $request)
+    {  
+        $order_data = $request->validated(); 
+
         $restaurant =  Restaurant::findOrFail($request->restaurant_id);
         // get user object associated with the restaurant 
         $user = User::findOrfail($restaurant->user_id); 
         if(!isset($request)) return;
         if(!isset($restaurant)) return;
         if(!isset($user)) return;
+
         $url = url('');
         $order_items = json_decode($request->order_items);
         $current_order_items = []; 
@@ -54,65 +62,90 @@ class OrderPaymentsController extends Controller
             array_push($line_items, $line_item); 
             // push $order_item into $current_order_items
             array_push($current_order_items, $order_item);
-        }     
+        }
         
-        // Initialize stripe pay checkout
+        // Initialize stripe pay checkout session
         $apiKey = Stripe::setApiKey($user->stripe_secret_key);
         $stripe = new \Stripe\StripeClient($user->stripe_secret_key);
 
         $session = $stripe->checkout->sessions->create([
-            'success_url' => $url .'/payment-success',
-            'cancel_url' => $url .'/payment-fail',
+            'success_url' => $url .'/order-payment-success?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $url .'/order-payment-fail',
             'payment_method_types' => ['card'],
             'mode' => 'payment',
             'line_items' => $line_items,
+            'metadata' => [
+                        'order_number'=> $request->order_number,
+                     ]
         ]); 
+        $this->storeOrder( $request, $session);
        echo json_encode($session);  
     }
     
+    /**
+     * Handle stripe order payments webhook call backs
+     */
+    public function handleOrderWebhook($request){        
+        $data = $event -> data;
+        if($event->type == 'charge.succeeded') return 'Success';
+        if($event->type == 'charge.failed') return 'Failed';
+        return $data;
+    }
+
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created order in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request\ValidateOrder  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function storeOrder(Request $request, $stripe_session)
+    {       
+        $data = $request->validated();  
+        $data['mode_of_payment'] ='stripe';
+        $data['stripe_session_id'] =$stripe_session->id;
+        $data['stripe_payment_intent_id'] =$stripe_session->payment_intent;
+      
+        $order = Order::create($data);
+        
+        // save data for order items after order is created
+        $orderItems = json_decode($request->order_items);
+        $newOrderItems =array() ;   
+        foreach($orderItems as $item){
+            foreach($item as $key =>$value){         
+                $newOrderItems[$key] = $value;               
+                $newOrderItems['order_number'] = $order->order_number;               
+                $newOrderItems['order_id'] = $order->id;                          
+            } 
+            OrderItem::create($newOrderItems);            
+        }
+        event(new orderCreated($order));
+        return  true;           
+           
+    }
+    /**
+     * successful stripe payment callback route
+     */
+    public function successful(Request $request){
+        // $apiKey = Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+
+        // $session = \Stripe\Checkout\Session::retrieve($request->get('session_id'),['expand'=>[ 'line_items']]);
+        // $line_items = $stripe->checkout->sessions->allLineItems($request->get('session_id'), ['limit' => 20]);
+       
+        return Inertia::render('MobileMenu/SuccessPage');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    * successful stripe payment callback route
+    */
+    public function failed(){
+        return Inertia::render('MobileMenu/FailedPage');
+    } 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
+
+
+
+
+

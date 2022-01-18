@@ -95,6 +95,7 @@
                         <th scope="col">Delivery address</th>
                         <th scope="col">Car Reg</th>
                         <th scope="col">Amount due</th>
+                        <th scope="col">Payment method</th>
                         <th scope="col">Paid</th>
                         <th scope="col">Amount paid</th>
                         <th scope="col">Transaction id</th>
@@ -133,6 +134,8 @@
                         <td  class="" v-if="order.car_registation_no">{{order.car_registration_no}}</td> 
                         <td v-else>-</td> 
                         <td v-if="order.amount" class="">{{order.amount}}</td>
+                        <td v-if="order.mode_of_payment"> {{this.capitalize(order.mode_of_payment)}} </td>
+                        <td v-else>-</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td>
                         <td v-if="order.amount_paid" class="">{{order.amount_paid}}</td>

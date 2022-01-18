@@ -23,6 +23,10 @@ class AddDeliveryAddressToOrders extends Migration
             //  $table->string('cash_collected')->nullable();
             //  $table->double('amount_collected')->nullable();
             //  $table->dateTime('cash_collected_at')->nullable();
+
+            // $table->string('mode_of_payment')->nullable();
+            $table->string('stripe_session_id')->nullable();
+            $table->string('stripe_payment_intent_id')->nullable();
         });
     }
 

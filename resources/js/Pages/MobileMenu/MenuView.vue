@@ -369,7 +369,7 @@
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">  
-                            <span :class="this.spinner" class="text-center"></span>  <br> 
+                            <span :class="this.order_spinner" class="text-center"></span>  <br> 
                             <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 " @click.prevent="payNow()">Pay now </button></span> 
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type == 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Pay Later </button></span> <br>
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type !== 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Place order </button></span> <br>
@@ -398,7 +398,7 @@
                                 <i class="bi bi-envelope px-2 float-right " style="position:relative; right:1.2rem; top:-5.6rem; font-size:1.25rem"></i>
                                 <small class="text-danger">{{this.errors.address}}</small>
                             </div> 
-                            <div>
+                            <div v-if="this.order_type =='Home Delivery'">
                                 <p class="form-check form-check-inline">
                                     <span class="form-check form-check-inline">Location: </span>
                                      <span class="form-check form-check-inline">
@@ -412,7 +412,7 @@
                                     </span>                                     
                                 </p>
                             </div>                           
-                            <div class="form-group text-left py-2" v-if="this.location_type == 'manual'" style="transition: all 1.5s ease;">
+                            <div class="form-group text-left py-2" v-if="this.location_type == 'manual' && this.order_type =='Home Delivery'" style="transition: all 1.5s ease;">
                                 <div class="form-group w-100 goog mb-0 pb-0" style="position:relative; ">
                                     <label for="searchInput">Set pick-up location  </label> <br>
                                     <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" v-model="this.autocomplete_location" @focus.prevent="this.googlePlacesAutoComplete()" > 
@@ -420,7 +420,7 @@
                                      <small class="text-danger"> {{this.errors.autocomplete_location}} </small>
                                 </div>
                                <!-- Google map div container-->
-                                <div class="pb-3 hidden  shadow" id="map-container" sryle="transition: all 1.5s ease;">
+                                <div class="pb-3 hidden  shadow" id="map-container"  style="transition: all 1.5s ease;">
                                     <p> 
                                         <span style="font-weight:600"> Location:</span>   <span id="address">{{this.autocomplete_location}}</span> <br>
                                        
@@ -524,6 +524,7 @@ export default {
         longitude:null,  
         autocomplete_location:null,
         location_type:'auto',
+        order_spinner:null,
 
       }
   },
@@ -800,8 +801,12 @@ export default {
             if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
             },
         payNow(){
-            if(!this.user.stripe_publishable_key) return;
+            if(!this.user.stripe_publishable_key) {
+                alert('This restaurant has no set up any payment method yet!');
+                return;
+                } 
             this.getOrderData();  // gather order data 
+            this.order_spinner = 'spinner-border spinner-border-sm';
             const stripe = Stripe(this.user.stripe_publishable_key);
 
             axios.post('/api/stripe-pay-order-checkout', this.order_data )
@@ -810,6 +815,7 @@ export default {
                 stripe.redirectToCheckout({sessionId: payload.data.id});
             })
             .catch( error => {
+                this.order_spinner = null;
                this.$swal('Failed!');
                 console.log(error.response);                    
             });

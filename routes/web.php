@@ -122,6 +122,11 @@ Route::get('/banking/','Api\Banking\BankingController@showBankingPage');
     Route::get('/payment-success',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'successful'])->name('stripe-checkout-successful');
     // stripe cancel checkout route
     Route::get('/payment-fail',[App\Http\Controllers\Api\StripePay\StripePayController::class, 'failed'])->name('stripe-checkout-failed');
+ 
+ // stripe order succsess route
+    Route::get('order-payment-success',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'successful'])->name('order-checkout-successful');
+    // order cancel checkout route
+    Route::get('/order-payment-fail',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'failed'])->name('order-checkout-failed');
 
 
 Auth::routes([
@@ -134,7 +139,7 @@ Auth::routes([
 Route::fallback(function() {
         return response()->json([
             'success'=> false,
-            'message' => 'Page not found',
+            'message' => 'Route not found',
             ], 404);
 });
  

@@ -18,9 +18,9 @@ class AddColumnsToUsers extends Migration
             // $table->dateTime('trial_date')->nullable();
             // $table->dateTime('registration_date')->nullable();
             
-            $table->text('stripe_publishable_key')->nullable();
-            $table->text('stripe_secret_key')->nullable();
-            $table->dateTime('stripe_info_updated_at')->nullable();
+            // $table->text('stripe_publishable_key')->nullable();
+            // $table->text('stripe_secret_key')->nullable();
+            // $table->dateTime('stripe_info_updated_at')->nullable();
 
         });
     }

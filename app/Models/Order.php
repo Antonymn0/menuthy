@@ -42,6 +42,9 @@ class Order extends Model
         'completed_at',
         'canceled_at',
         'delivered_at',
+        'mode_of_payment',
+        'stripe_session_id',
+        'stripe_payment_intent_id'
 
     ];
 
