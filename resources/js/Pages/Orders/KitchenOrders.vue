@@ -137,7 +137,7 @@
                                 <a href="#" class="badge badge-success btn m-1" @click.prevent="markOrder(order.id, 'completed')">Complete</a>
                             </span>
                             <span v-if="order.mode_of_payment =='stripe' && order.paid == 'false'">
-                                <button class="disabled p-2 btn-default badge">Payment pending...</button>
+                                <button class="disabled p-2 btn-default badge text-dark">Payment pending...</button>
                             </span>
                             <span v-if="order.mode_of_payment !=='stripe'">
                                 <a href="#" class="badge badge-primary btn ml-3 mb-2" @click.prevent="markOrder(order.id, 'processing')">Processing</a>
@@ -152,10 +152,12 @@
                     <tr class="panel alert-danger " style="display:none;" >
                         <td> </td>
                         <td> </td>
-                        <td colspan="5" class="">
+                        <td colspan="10" class="">
                             <div class="table-responsive text-center mb-2" v-if="order.order_item">
+
                                 <h5 class="">Order items</h5>
-                                <table class="table-md  table2 alert-danger rounded p-3 mb-2 mx-auto">
+
+                                <table class="table-md  table2 alert-danger rounded p-3 mb-2 mx-auto" v-if="order.mode_of_payment !== 'stripe'">
                                     <thead >
                                         <th># </th>
                                         <th>Order  no </th>
@@ -165,7 +167,7 @@
                                         <th>Ready Time </th>
                                         <th>status </th>
                                     </thead>
-                                    <thead> 
+                                    <tbody  > 
                                         <tr v-for="(item, index) in order.order_item" :key="index" class="border-bottom"> 
                                             <th> {{index +1}} </th>
                                             <td> {{item.order_number}} </td>
@@ -180,8 +182,37 @@
                                             <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                                             <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
                                       </tr>
-                                    </thead>
+                                    </tbody>
                                  </table>
+
+                                <table class="table-md  table2 alert-danger rounded p-3 mb-2 mx-auto" v-if="order.mode_of_payment == 'stripe' && order.paid=='true'">
+                                    <thead >
+                                        <th># </th>
+                                        <th>Order  no </th>
+                                        <th>Order name </th>
+                                        <th>Qty </th>
+                                        <th>Table no</th>
+                                        <th>Ready Time </th>
+                                        <th>status </th>
+                                    </thead>
+                                    <tbody  > 
+                                        <tr v-for="(item, index) in order.order_item" :key="index" class="border-bottom"> 
+                                            <th> {{index +1}} </th>
+                                            <td> {{item.order_number}} </td>
+                                            <td> {{item.item_name}} </td>
+                                            <td> {{item.quantity}} </td>
+                                            <td v-if="order.table_number >0"> {{order.table_number}} </td>
+                                            <td v-else>-</td>
+                                            <td> {{item.preparation_time}} </td>
+                                            <td v-if="order.status == 'received'" class="text-success">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'canceled'" class="text-danger">{{ capitalize(order.status) }}</td>
+                                            <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
+                                            <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
+                                            <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
+                                      </tr>
+                                    </tbody>
+                                 </table> 
+                                    <p  v-if="order.mode_of_payment == 'stripe' && order.paid =='false'" class="text-center"> <span class="text-default lead border p-2 my-3"> Payment Pending... </span> </p>
                              </div>
                              <div v-else>
                                  <p class="text-muted py-3 text-center"> No records to show</p>
