@@ -28,7 +28,7 @@ class AddDeliveryAddressToOrders extends Migration
             // $table->string('stripe_session_id')->nullable();
             // $table->string('stripe_payment_intent_id')->nullable();
 
-            $table->string('reciept_url')->nullable();
+            // $table->string('reciept_url')->nullable();
         });
     }
 
