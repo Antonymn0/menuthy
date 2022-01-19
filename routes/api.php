@@ -38,7 +38,7 @@ if (App::environment('production')) {
    Route::get('send-email-verification/{email}','Web\Auth\EmailVerificationController@sendVerificationEmailLink');
 
   // -------------------------------------------------------------------------------------//
-    // Item API routes
+    // Order API routes
   Route::apiResource('order','Api\Order\OrderController');
     // Get deleted orders
   Route::get('order/fetch-deleted','Api\Order\OrderController@fetchDeleted');
@@ -48,6 +48,8 @@ if (App::environment('production')) {
   Route::get('order/mark-paid/{id}/{value}/{date}','Api\Order\OrderController@markOrderpaid');
   // mark 
   Route::get('order/collect-cash/{id}/{amount}/{date}','Api\Order\OrderController@markOrdercollectCash');
+  //tack order
+  Route::get('/track-order/{order_id}','Api\Order\OrderController@trackOrder');
 
     // Restore order
   Route::get('order/restore/{id}','Api\Order\OrderController@restore');
@@ -160,6 +162,8 @@ if (App::environment('production')) {
   
     // stripe pay order checkout route
     Route::post('/stripe-pay-order-checkout',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'orderCheckout'])->name('stripe-order-checkout');
+    // stripe pay order checkout route force expire session
+    Route::get('/stripe-pay-order-checkout-expire-session/{restaurant_id}/{stripe_session_id}',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'forceStripeSessionExpire'])->name('stripe-order-checkout-session-expire');
     // order payment webhook 
     Route::post('/stripe-order-webhook',[App\Http\Controllers\Api\StripePay\OrderPaymentsController::class, 'handleOrderWebhook'])->name('stripe-order-webhook');
 

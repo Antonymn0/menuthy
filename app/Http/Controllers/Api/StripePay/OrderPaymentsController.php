@@ -70,7 +70,7 @@ class OrderPaymentsController extends Controller
 
         $session = $stripe->checkout->sessions->create([
             'success_url' => $url .'/order-payment-success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $url .'/order-payment-fail',
+            'cancel_url' => $url .'/order-payment-fail/'.$request->restaurant_id . '/' . $request->table_number . '/' . $request->order_number,
             'payment_method_types' => ['card'],
             'mode' => 'payment',
             'line_items' => $line_items,
@@ -87,8 +87,10 @@ class OrderPaymentsController extends Controller
      */
     public function handleOrderWebhook(Request $event){        
         $data = $event -> data;
+        // update order status if charge succeeded
         if($event->type == 'charge.succeeded'){
             $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
+            if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return;
             $order->update([
                 'transaction_id' => $data['object']['payment_intent'],
                 'amount_paid' => $data['object']['amount'] / 100,
@@ -96,16 +98,20 @@ class OrderPaymentsController extends Controller
                 'paid' => 'true',
                 'reciept_url'=> $data['object']['receipt_url'],
             ]);
-            return $order;
+            return true;
+        }
+        // update order failed if charge failed
+        if($event->type == 'charge.failed'){
+            $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
+            $order->update([
+                'transaction_id' => 'Stripe Payment failed to process!'
+            ]);
         } 
-
-        if($event->type == 'charge.failed') return 'Failed';
-        return $data;
     }
 
 
     /**
-     * Store a newly created order in storage.
+     * Store a newly created order in storage after stripe session is created.
      *
      * @param  \Illuminate\Http\Request\ValidateOrder  $request
      * @return \Illuminate\Http\Response
@@ -135,24 +141,40 @@ class OrderPaymentsController extends Controller
            
     }
     /**
-     * successful stripe payment callback route
+     * successful stripe ceckout session callback route
      */
-    public function successful(Request $request){
-        // $apiKey = Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-
-        // $session = \Stripe\Checkout\Session::retrieve($request->get('session_id'),['expand'=>[ 'line_items']]);
-        // $line_items = $stripe->checkout->sessions->allLineItems($request->get('session_id'), ['limit' => 20]);
-       
-        return Inertia::render('MobileMenu/SuccessPage');
+    public function successful(Request $request){;
+        $order = Order::where('stripe_session_id', $request->get('session_id'))->first();
+       $link =  '/restaurant/menu/' . $order->restaurant_id . '/' . $order->table_number;
+       $link =url($link);
+        return Inertia::render('MobileMenu/SuccessPage', ['order'=>$order, 'link' => $link]);
     }
 
     /**
-    * successful stripe payment callback route
+    * failed stripe checkout session callback route
     */
-    public function failed(){
-        return Inertia::render('MobileMenu/FailedPage');
+    public function failed($restaurant_id, $table_number, $order_number){
+        $order = Order::where('order_number', $order_number)->first();
+        $link =  '/restaurant/menu/' . $restaurant_id . '/' . $table_number;
+        $link = url($link) ;
+        return Inertia::render('MobileMenu/FailedPage',['link' => $link, 'order' => $order]); 
+       
     } 
+
+    /**
+     * Force stripe session expire is user cances checkout session
+     */
+    public function forceStripeSessionExpire ($restaurant_id, $stripe_session_id){
+        $restaurant = Restaurant::findOrFail($restaurant_id);
+        $user = User::findOrFail($restaurant->user_id);
+        $stripe = new \Stripe\StripeClient( $user->stripe_secret_key  );
+        $stripe->checkout->sessions->expire( $stripe_session_id, [] );
+        return response()->json([
+            'success' => true,
+            'message' => 'Stripe checkout session forced expire successfully ',
+            'data' => true
+        ], 200);
+    }
 
 }
 

@@ -32,7 +32,7 @@
         </small> </p>
         <!-- -----------------------------cart items preview button----------------------------------------------- -->
         <div class="cart-items d-flex flex-row-reverse">                       
-            <div class="cart-preview mr-2 p-0 " id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
+            <div class="cart-preview mr-3 p-0 " id="cart-preview" data-bs-toggle="modal" data-bs-target="#popupModal"  data-backdrop="static" data-keyboard="false" v-if="this.user.package_type !== 'starter' && this.user.registration_status !== 'trial' ">
               <div class="p-2" id="animate-glow" >
                  <div></div>
                  <div></div>
@@ -369,7 +369,7 @@
                         <small class="text-danger pb-2"> {{this.errors.order_type}}</small>
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">  
-                            <span :class="this.order_spinner" class="text-center"></span>  <br> 
+                            <span :class="this.order_spinner" class="text-center" v-if="this.order_type == 'Dine In' "></span>  <br> 
                             <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 " @click.prevent="payNow()">Pay now </button></span> 
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type == 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Pay Later </button></span> <br>
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type !== 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Place order </button></span> <br>
@@ -436,8 +436,8 @@
                                 <small class="text-danger">{{this.errors.customer_name}}</small>
                             </div>
                             <p class="order-btn text-center mt-2 mb-1 mx-auto" v-if="this.User.package_type !== 'starter'">
-                                                <span :class="this.spinner" class="text-center"></span>  <br>         
-                                <span  v-if="this.User.package_type == 'premium'"> <button class="p-2 px-3 m-1 btn-secondary disabled"  >  Pay now </button></span> 
+                                <span :class="this.order_spinner" class="text-center"></span>  <br>          
+                                <span  v-if="this.User.package_type == 'premium'"> <button class="p-2 px-3 m-1  " @click.prevent="payNow()" >  Pay now </button></span> 
                                 <span  v-if="this.User.package_type !== null"> <button class="p-2 px-3 m-1 " @click.prevent="placeOrder()" >  Pay later </button></span> 
                                 <span  v-if="this.User.package_type !==null"> <button class="py-2  m-1 px-4  " @click="cancelPlaceOrder()" > <span ></span> Cancel </button></span> <br>
                                 <small class="text-danger"> {{this .errors.cart_empty}} </small>
@@ -450,7 +450,6 @@
   </div>
 </div> 
 
-
 <!-- ------------- Translate button--------------------- -->
 <div>
     <div class="translate-btn">
@@ -460,15 +459,79 @@
     </div>
 </div>
 
+<div style="position:relative" v-if="Object.keys(this.menuthy_orders).length">   
+    <!-- ------------ track order button --------------- -->
+    <div  style="position:absolute; bottom:0; right:2rem;" @click.prevent="fetchLocalStorage()">
+        <div class="track-order" data-bs-toggle="modal" data-bs-target="#trackOrderModal">
+            <span class="p-2 bg-white"><i class="bi bi-broadcast-pin"></i> Track  orders</span>
+        </div>
+    </div>
 </div>
 
+<!-- --------------------- Track order modal ------------------ -->
+<div class="track-order-modal">
+    <div class="modal fade" id="trackOrderModal" tabindex="-1" aria-labelledby="trackOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="px-2 pt-2">        
+        <button type="button" class="btn-close float-right " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="text-center py-2">
+          
+         <div class="header-div mt-1">
+            <img :src=" this.restaurant.image"  v-if="this.restaurant.image" style="width:50px; height:50px"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
+            <img src="/images/hotel_logo_placeholder.svg" v-else alt="" style="width:50px; height:50px" data-bs-toggle="modal" data-bs-target="#headerModal">
+           
+            <h5 class="pt-2 mb-0 text-center">
+                <span v-if="this.restaurant.restaurant_name !== null"> {{ capitalize(this.restaurant.restaurant_name) }}</span>
+                <span v-else> Hotel name</span> 
+            </h5>
+            <p class=" text-center">
+                <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
+            </p>           
+        </div>
+        <div class="table-responsive shadow px-2 text-center">
+            <h3>Track your Order</h3>
+            <table class="table-sm p-3">
+                <thead class="p-2">
+                    <th> #</th>                    
+                    <th> Order id </th>                    
+                    <th> Order type </th>                     
+                    <th> Status </th>                    
+                    <th> Paid </th>                     
+                    <th> Time recieved </th>                   
+                </thead>
+                <tr v-for="(order, index) in this.menuthy_orders" :key="index" class="p-2"> 
+                    <td> {{index +1}} </td>
+                    <td> {{order.order_number}} </td>
+                    <td>{{ this.capitalize( order.order_type)}} </td>
+                    <td v-if="order.status == 'received' " class="text-secondary"> {{capitalize(order.status)}} </td>
+                    <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
+                    <td v-if="order.status == 'processing' " class="text-default"> {{capitalize(order.status)}}</td>
+                    <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
+                    <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
+                    <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
+                    <td v-if="order.paid == 'true'" class="text-success"> {{capitalize(order.paid)}}</td>
+                    <td v-if="order.paid == 'false'" class="text-danger"> {{capitalize(order.paid)}}</td>
+                    <td> {{formatDate(order.created_at)}} </td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-danger text-center mt-3" data-bs-dismiss="modal" aria-label="Close" > Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
+</div>
 </body>
 </html>
 
 </template>
 
 <script> 
+import moment from 'moment';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide,Navigation } from 'vue3-carousel';
 import { Modal } from 'bootstrap';
@@ -525,10 +588,14 @@ export default {
         autocomplete_location:null,
         location_type:'auto',
         order_spinner:null,
+        menuthy_orders:[],
 
       }
   },
   methods:{
+       formatDate(date){
+            if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
+        },
       
       // align arabic content
        alignArabic(){
@@ -800,18 +867,18 @@ export default {
             if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
             if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
             },
-        payNow(){
+        payNow(){            
             if(!this.user.stripe_publishable_key) {
                 alert('Operation not possible! n/ This restaurant has no set up any payment method yet!');
                 return;
                 } 
+            if(!confirm('Proceed to checkout?')) return;
             this.getOrderData();  // gather order data 
             this.order_spinner = 'spinner-border spinner-border-sm';
             const stripe = Stripe(this.user.stripe_publishable_key);
 
             axios.post('/api/stripe-pay-order-checkout', this.order_data )
             .then( payload => {
-                console.log(payload);
                 stripe.redirectToCheckout({sessionId: payload.data.id});
             })
             .catch( error => {
@@ -820,24 +887,45 @@ export default {
                 console.log(error.response);                    
             });
         },
+        fetchLocalStorage(){
+            this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')); 
+            var tracked_orders =[]           
+            this.menuthy_orders.forEach((order) =>{
+                axios.get('/api/track-order/'  + order.id)
+                    .then( response => {
+                        tracked_orders.push(response.data.data);
+                        console.log(response.data.data);
+                    })
+                    .catch( error => {
+                        this.$swal('Failed to track!');                
+                        console.log(error.response);                    
+                    });                 
+                });
+            setTimeout(() => {
+                localStorage.setItem('menuthy_orders', JSON.stringify(tracked_orders));
+                this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders'));
+            }, 1500);
+            
+        },
         sendOrder(){
-            console.log('Send order');
             this.validateOrder();
             if(Object.keys(this.errors).length) return;
             if(!Object.keys(this.cart_items).length){
-                console.log('Cart empty');
                 this.errors.cart_empty = "Cart Empty. Please add some items";
                 return;
             }
-            console.log('Send order2');
             this.getOrderData();  // gather order data 
-            console.log(...this.order_data);
             if(window.confirm("Place a " + this.order_type  + ' order?')){
                 this.spinner = 'spinner-border spinner-border-sm';
                 axios.post('/api/order', this.order_data)
                     .then( response => {
                         console.log("Order sent...")
                         if( response.status == 201){ 
+                            // save order into local storage for tracking
+                            var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
+                            local_storage.push(response.data.data) 
+                            localStorage.setItem('menuthy_orders', JSON.stringify(local_storage));
+                            
                             this.is_item_in_cart=false;
                             this.cart_items = [];
                             this.cart_item_qty=[];
@@ -1028,7 +1116,7 @@ export default {
                 this.show_res_info = false;
             },        
     },
-
+  
     mounted(){         
             this.menu_items = this.menuItems;
             this.User= this.user;
@@ -1037,6 +1125,8 @@ export default {
             this.current_menus= this.menus;
             this.current_sub_menus= this.subMenus;
             this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
+            this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
+            
             // setTimeout( this.toggle_show_res_info(), 3000); 
 
                 // initialize coockies for qr scan counting - expires in 6hrs
@@ -1083,6 +1173,25 @@ export default {
 @import "../../../sass/app.scss"; 
 @import "../../../css/custom.css"; 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.track-order{
+    position:fixed;
+    bottom:3rem;
+    z-index: 1000;
+    font-weight:600;
+    border: 1px solid orange;
+    border-radius:25px;
+    cursor:pointer;
+    overflow:hidden
+
+}
+.track-order:active{
+    background-color:#fefefe;
+    border: 1px solid rgba(255, 166, 0, 0.438);
+    border-radius:26px;
+    
+
+}
 
 .tossing-item {
         height: 1rem;

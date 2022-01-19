@@ -212,4 +212,16 @@ class OrderController extends Controller
         ], 200);
     }
 
+    /**
+     * Track order 
+     * @param $order_id
+     */
+    public function trackOrder($order_id){
+        $order = Order::findOrFail($order_id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Order tracked successfully!',
+            'data' => $order
+        ], 200);
+    }
 }
