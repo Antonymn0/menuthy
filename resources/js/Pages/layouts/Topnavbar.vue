@@ -35,8 +35,8 @@
                                     <li><a class="dropdown-item" aria-current="page" href="/reports/custom">Custom</a></li>                                    
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="/banking">Banking</a>
+                            <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type == 'premium'">
+                                <a class="nav-link " href="/banking">Bank Settings</a>
                             </li>
                              <!-- <li class="nav-item">
                                 <a class="nav-link " aria-current="page" href="#">Design</a>

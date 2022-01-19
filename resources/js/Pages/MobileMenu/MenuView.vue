@@ -401,33 +401,36 @@
                             <div v-if="this.order_type =='Home Delivery'">
                                 <p class="form-check form-check-inline">
                                     <span class="form-check form-check-inline">Location: </span>
-                                     <span class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="auto" value="auto" >
+                                     <span class="form-check form-check-inline" >
+                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="auto" value="auto" @change.prevent="this.getGeoLocation()" >
                                         <label class="form-check-label" for="auto">Auto </label>
                                     </span>
                                         &nbsp; &nbsp;
                                     <span class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="manual" value="manual" >
+                                        <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="manual" value="manual" @change.prevent="this.googlePlacesAutoComplete()">
                                         <label class="form-check-label" for="manual">Select </label>
                                     </span>                                     
                                 </p>
-                            </div>                           
-                            <div class="form-group text-left py-2" v-if="this.location_type == 'manual' && this.order_type =='Home Delivery'" style="transition: all 1.5s ease;">
-                                <div class="form-group w-100 goog mb-0 pb-0" style="position:relative; ">
-                                    <label for="searchInput">Set pick-up location  </label> <br>
-                                    <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" v-model="this.autocomplete_location" @focus.prevent="this.googlePlacesAutoComplete()" > 
-                                    <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem" @click.prevent="this.googlePlacesAutoComplete()"></i> 
-                                     <small class="text-danger"> {{this.errors.autocomplete_location}} </small>
-                                </div>
-                               <!-- Google map div container-->
-                                <div class="pb-3 hidden  shadow" id="map-container"  style="transition: all 1.5s ease;">
-                                    <p> 
-                                        <span style="font-weight:600"> Location:</span>   <span id="address">{{this.autocomplete_location}}</span> <br>
-                                       
+                            </div> 
+
+                            <!-- Google map div container-->
+                                <div class="pb-3 hidden  shadow" id="map-container"  style="transition: all 1.5s ease;" v-if="this.location_type == 'auto' ">
+                                    <p class="text-left"> 
+                                        <span style="font-weight:600 text-left"> Location:</span>   <span id="address">{{this.autocomplete_location}}</span>                                        
                                     </p>
                                     <div id="map" class="mx-auto pt-0 mt-0" > </div> 
                                   <p class="mb-0 p-2"> <span class="small text-center py-3 mx-1 my-auto">Tip: Drag the pin on the map to set the location</span> <button class="btn btn-danger btn-sm float-right  " @click.prevent="hideMap()">Close map</button> </p>
-                                </div>      
+                                </div>    
+
+                            <div class="form-group text-left py-2" v-if="this.location_type == 'manual' && this.order_type =='Home Delivery'" style="transition: all 1.5s ease;">
+                                <div class="form-group w-100 goog mb-0 pb-0" style="position:relative; ">
+                                    <label for="searchInput">Set pick-up location  </label> <br>
+                                    <input type="text" id="searchInput" class="border form-control  p-4" placeholder="Search location" v-model="this.autocomplete_location"  > 
+                                    <i class="bi bi-geo-alt px-2 float-right bg-white" style="position:relative; right:1.2rem; top:-2.3rem; font-size:1.25rem" @click.prevent="this.googlePlacesAutoComplete()"></i> 
+                                     <small class="text-default text-left"> <span style="font-weight:600"> Location: </span>  {{ this.autocomplete_location}} </small>
+                                     <small class="text-danger"> {{this.errors.autocomplete_location}} </small>
+                                </div>
+                                   
                             </div>
                             <div class="form-group text-left">
                                 <label for="name">Name <small class="text-muted">(Optional) </small></label>
@@ -468,7 +471,7 @@
     </div>
 </div>
 
-<!-- --------------------- Track order modal ------------------ -->
+<!-- --------------------- Track orders modal ------------------ -->
 <div class="track-order-modal shadow">
     <div class="modal fade" id="trackOrderModal" tabindex="-1" aria-labelledby="trackOrderModalLabel" aria-hidden="true">
   <div class="modal-dialog shadow" >
@@ -622,17 +625,17 @@ export default {
        formatDate(date){
             if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },
-      expandRow(event){
-        var acc = document.getElementsByClassName("accordion");
-        var rows= document.getElementsByClassName('panel');
-        for (let i=0; i< rows.length; i++){
-            rows[i].style.display = "none";             
-        }
-        var panel = event.target.parentElement.parentElement.nextSibling;
-        if(panel.style.display == "table-row") panel.style.display = "none";
-        else  panel.style.display = "table-row";      
-        
-    },
+        expandRow(event){
+            var acc = document.getElementsByClassName("accordion");
+            var rows= document.getElementsByClassName('panel');
+            for (let i=0; i< rows.length; i++){
+                rows[i].style.display = "none";             
+            }
+            var panel = event.target.parentElement.parentElement.nextSibling;
+            if(panel.style.display == "table-row") panel.style.display = "none";
+            else  panel.style.display = "table-row";      
+            
+        },
       // align arabic content
        alignArabic(){
             var el = document.getElementById('google_translate_element');
@@ -884,10 +887,11 @@ export default {
                 return;
             }
             if(this.order_type == ''){
-            this.errors.order_type = "Please select order type!"; 
-            return;
+                this.errors.order_type = "Please select order type!"; 
+                return;
             } 
             else delete this.errors.order_type;
+            if(this.order_type == "Home Delivery") this.getGeoLocation();
                     
             document.getElementById('cart-items').classList.add('zero-height');
             document.getElementById('cart-items').classList.add('shadow');
@@ -899,17 +903,20 @@ export default {
 
         // ------------place order --------------------
         placeOrder(){ 
-            console.log('Place order');       
-            if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
-            if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
+            console.log('Place order');  
+            this.sendOrder();
+            // if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
+            // if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
             },
-        payNow(){            
+        payNow(){   
+            this.validateOrder();
+            if(Object.keys(this.errors).length) return;     
             if(!this.user.stripe_publishable_key) {
                 alert('Operation not possible! n/ This restaurant has no set up any payment method yet!');
                 return;
-                } 
+                }                          
+            this.getOrderData();  // gather order data    
             if(!confirm('Proceed to checkout?')) return;
-            this.getOrderData();  // gather order data 
             this.order_spinner = 'spinner-border spinner-border-sm';
             const stripe = Stripe(this.user.stripe_publishable_key);
 
@@ -1048,23 +1055,42 @@ export default {
           document.getElementById('map-container').classList.add('hidden');
         },   
         getGeoLocation() {
-            if(this.location_type == 'manual') {
-              if(document.getElementById('searchInput').value =='')  {
-                  this.errors.autocomplete_location= 'Please select location';
-              }
-              else{
-                delete this.errors.autocomplete_location;
-                this.sendOrder();
-                return;
-              }
-                
-            }
+            if(this.location_type == 'manual') return;
             console.log('geolocating...');
             navigator.geolocation.getCurrentPosition( position => {                
                 this.latitude = position.coords.latitude;
                 this.longitude = position.coords.longitude;
                 console.log('Geolocating complete!');
-                this.sendOrder();
+                document.getElementById('map-container').classList.remove('hidden')
+                document.getElementById('map').classList.add('map-styles');;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: this.latitude, lng: this.longitude},
+                    zoom: 13
+                });
+                var marker = new google.maps.Marker({
+                        position: {lat: this.latitude, lng: this.longitude},
+                        map: map,
+                        draggable: false,
+                        animation:google.maps.Animation.DROP,
+                    });
+                google.maps.event.addListener(marker, "dragend", function (e) {                            
+                    geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            lat = marker.getPosition().lat();
+                            lng = marker.getPosition().lng();
+                            address = results[0].formatted_address;
+                        }                                                 
+                    });                                            
+                    setTimeout(() => {
+                        console.log(lat );
+                        this.formatted_address = address;
+                        this.latitude = lat;
+                        this.longitude = lng;
+                        document.getElementById('address').innerHTML = address;
+                        document.getElementById('searchInput').value = address;
+                    }, 500);   
+                });
+                // this.sendOrder();
             },
             error => {   
                 alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
@@ -1074,49 +1100,15 @@ export default {
         },        
      
         googlePlacesAutoComplete() {
-            console.log("Autocomplete"); 
-            var lat, lng, address;
-            var el1 = document.getElementById('map').classList.contains('map-styles');
-            if(el1 == true ) return;
-                document.getElementById('map').classList.add('map-styles');
-                document.getElementById('map-container').classList.remove('hidden');
-                console.log('map not visible');                
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: 25.2854, lng: 51.5310},
-                    zoom: 13
-                });
-                var marker = new google.maps.Marker({
-                        position: {lat: 25.2854, lng: 51.5310},
-                        map: map,
-                        draggable: true,
-                    });
-                var input = document.getElementById('searchInput');
-                // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-                var autocomplete = new google.maps.places.Autocomplete(input);
-                autocomplete.bindTo('bounds', map);
-
-                var infowindow = new google.maps.InfoWindow(); 
-                var geocoder = geocoder = new google.maps.Geocoder();
-
-                google.maps.event.addListener(marker, "dragend", function (e) {                            
-                    geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            lat = marker.getPosition().lat();
-                            lng = marker.getPosition().lng();
-                            address = results[0].formatted_address;
-                        }  
-                                                
-                    });                                            
-                           setTimeout(() => {
-                            console.log(lat );
-                            this.formatted_address = address;
-                            this.latitude = lat;
-                            this.longitude = lng;
-                            document.getElementById('address').innerHTML = address;
-                            document.getElementById('searchInput').value = address;
-                        }, 500);   
-                });   
+            if(this.location_type !== 'manual') return;
+            console.log("Autocomplete intialize..."); 
+            console.log(this.autocomplete_location);
+            console.log(this.latitude, this.longitude);
+            var lat, lng, address;        
+            console.log('map not visible');
+            var input = document.getElementById('searchInput');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            var infowindow = new google.maps.InfoWindow();               
 
             autocomplete.addListener('place_changed', function() {
                 infowindow.close();
@@ -1124,23 +1116,14 @@ export default {
                 if (!place.geometry) {
                     window.alert("Autocomplete returned location contains no geometry");
                     return;
-                }
-                var position = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }
-                var place_lat = place.geometry.location.lat();
-                var place_lng = place.geometry.location.lng();
-                this.latitude = place_lat;
-                this.longitude = place_lng;
+                } 
+                this.latitude = place.geometry.location.lat();
+                this.longitude = place.geometry.location.lng();
                 this.autocomplete_location = place.formatted_address;
-                document.getElementById('searchInput').value = place.name + ', ' + place.formatted_address;
-
-                console.log('place changed');  
-                marker.setAnimation(null);
-                map.setCenter(position);                    
-                marker.setAnimation(google.maps.Animation.DROP)   
-                marker.setPosition(position);           
-                             
+                document.getElementById('searchInput').value =  place.formatted_address;
+                console.log(this.latitude, this.longitude);
             });   
-              
+                           
         },
 
         validateOrder(){          
@@ -1157,7 +1140,7 @@ export default {
                 if(this.address =='' ) this.errors.address ="Please provide your delivery  address";
                 else delete this.errors.address;
 
-                if(this.latitude =='' || this.longitude == '') this.errors.location ="Please allow location access ";
+                if(this.latitude == null || this.longitude == null) this.errors.location ="Please allow location access ";
                 else delete this.errors.location;
             }            
         },
@@ -1179,6 +1162,7 @@ export default {
             this.current_sub_menus= this.subMenus;
             this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
             this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
+            
             
             // setTimeout( this.toggle_show_res_info(), 3000); 
 
@@ -1266,6 +1250,10 @@ export default {
     border-color: initial;
     box-shadow: none;
 }
+.pac-container {
+     z-index: 10000 !important;
+     top:2rem;
+    }
 .map-styles{
     width:98%;
     min-height:300px;
