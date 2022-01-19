@@ -471,12 +471,12 @@
 <!-- --------------------- Track order modal ------------------ -->
 <div class="track-order-modal">
     <div class="modal fade" id="trackOrderModal" tabindex="-1" aria-labelledby="trackOrderModalLabel" aria-hidden="true">
-  <div class="modal-dialog ">
+  <div class="modal-dialog shadow">
     <div class="modal-content">
       <div class="px-2 pt-2">        
         <button type="button" class="btn-close float-right " data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="text-center py-2">
+      <div class="text-center py-2 shadow">
           
          <div class="header-div mt-1">
             <img :src=" this.restaurant.image"  v-if="this.restaurant.image" style="width:50px; height:50px"  alt="restaurant-logo" data-bs-toggle="modal" data-bs-target="#headerModal">
