@@ -511,8 +511,8 @@
                     <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
                     <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
                     <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
-                    <td v-if="order.paid == 'true'" class="text-success"> {{capitalize(order.paid)}}</td>
-                    <td v-if="order.paid == 'false'" class="text-danger"> {{capitalize(order.paid)}}</td>
+                    <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
+                    <td v-if="order.paid == 'false'" class="text-danger"> No</td>
                     <td> {{formatDate(order.created_at)}} </td>
                 </tr>
             </table>
