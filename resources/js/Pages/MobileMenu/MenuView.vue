@@ -461,7 +461,7 @@
 
 <div style="position:relative" v-if="Object.keys(this.menuthy_orders).length">   
     <!-- ------------ track order button --------------- -->
-    <div  style="position:absolute; bottom:0; right:2rem;" @click.prevent="fetchLocalStorage()">
+    <div  style="position:absolute; bottom:0; right:2rem;" class="w-auto" @click.prevent="fetchLocalStorage()">
         <div class="track-order" data-bs-toggle="modal" data-bs-target="#trackOrderModal">
             <span class="p-2 bg-white"><i class="bi bi-broadcast-pin"></i> Track  orders</span>
         </div>
@@ -469,9 +469,9 @@
 </div>
 
 <!-- --------------------- Track order modal ------------------ -->
-<div class="track-order-modal">
+<div class="track-order-modal shadow">
     <div class="modal fade" id="trackOrderModal" tabindex="-1" aria-labelledby="trackOrderModalLabel" aria-hidden="true">
-  <div class="modal-dialog shadow">
+  <div class="modal-dialog shadow" >
     <div class="modal-content">
       <div class="px-2 pt-2">        
         <button type="button" class="btn-close float-right " data-bs-dismiss="modal" aria-label="Close"></button>
@@ -490,9 +490,9 @@
                 <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
             </p>           
         </div>
-        <div class="table-responsive shadow px-2 text-center">
-            <h3>Track your Order</h3>
-            <table class="table-sm p-3">
+        <div class="table-responsive shadow px-2 text-center track-your-order" >
+            <h3 style="position:sticky; top:0; background:#fff;">Track your Orders</h3>
+            <table class="table-sm p-3 track-your-order">
                 <thead class="p-2">
                     <th> #</th>                    
                     <th> Order id </th>                    
@@ -500,21 +500,48 @@
                     <th> Status </th>                    
                     <th> Paid </th>                     
                     <th> Time recieved </th>                   
+                    <th> Action </th>                   
                 </thead>
-                <tr v-for="(order, index) in this.menuthy_orders" :key="index" class="p-2"> 
-                    <td> {{index +1}} </td>
-                    <td> {{order.order_number}} </td>
-                    <td>{{ this.capitalize( order.order_type)}} </td>
-                    <td v-if="order.status == 'received' " class="text-secondary"> {{capitalize(order.status)}} </td>
-                    <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
-                    <td v-if="order.status == 'processing' " class="text-default"> {{capitalize(order.status)}}</td>
-                    <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
-                    <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
-                    <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
-                    <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
-                    <td v-if="order.paid == 'false'" class="text-danger"> No</td>
-                    <td> {{formatDate(order.created_at)}} </td>
-                </tr>
+                <tbody v-for="(order, index) in this.menuthy_orders" :key="index" class=""> 
+                    <tr  class="p-2 border-top accordion" style="" v-if="order.restaurant_id == this.restaurant.id"> 
+                        <td> {{index +1}} </td>
+                        <td> {{order.order_number}} </td>
+                        <td>{{ this.capitalize( order.order_type)}} </td>
+                        <td v-if="order.status == 'received' " class="text-secondary"> {{capitalize(order.status)}} </td>
+                        <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
+                        <td v-if="order.status == 'processing' " class="text-default"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
+                        <td v-if="order.paid == 'false'" class="text-danger"> No</td>
+                        <td> {{formatDate(order.created_at)}} </td>
+                        <td><span class="btn-secondary p-2 badge" @click.prevent="expandRow($event)" style="cusor:pointer"> Deatails </span> </td>
+                    </tr>
+                    <tr class="panel  " style="display:none;" v-if="order.restaurant_id == this.restaurant.id"> 
+                        <td colspan="7">
+                            <div class="table-responsive text-center alert-danger p-1 mx-3 mb-3 pt-0 mt-0 mx-auto">
+                                <h5> Items </h5>
+                                <table class="table-sm text-center mx-auto" id="innerTable"> 
+                                    <thead>
+                                        <th>Item name</th>
+                                        <th>Qty</th>
+                                        <th>Preparation Time</th>
+                                        <th>Price</th>
+                                    </thead>
+                                    <tbody  v-for="(item, index) in order.order_item" :key="index">
+                                        <tr> 
+                                            <td>{{item.item_name}}</td>
+                                            <td>{{item.quantity}}</td>
+                                            <td>{{item.preparation_time}} <small> mins </small></td>
+                                            <td> <small> {{this.restaurant.currency}} </small> {{item.price_per_item}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>                    
+                    </tr>
+                </tbody>
             </table>
         </div>
         <button class="btn btn-danger text-center mt-3" data-bs-dismiss="modal" aria-label="Close" > Close</button>
@@ -523,7 +550,6 @@
   </div>
 </div>
 </div>
-
 </div>
 </body>
 </html>
@@ -596,7 +622,17 @@ export default {
        formatDate(date){
             if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },
-      
+      expandRow(event){
+        var acc = document.getElementsByClassName("accordion");
+        var rows= document.getElementsByClassName('panel');
+        for (let i=0; i< rows.length; i++){
+            rows[i].style.display = "none";             
+        }
+        var panel = event.target.parentElement.parentElement.nextSibling;
+        if(panel.style.display == "table-row") panel.style.display = "none";
+        else  panel.style.display = "table-row";      
+        
+    },
       // align arabic content
        alignArabic(){
             var el = document.getElementById('google_translate_element');
@@ -891,20 +927,38 @@ export default {
             this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')); 
             var tracked_orders =[]           
             this.menuthy_orders.forEach((order) =>{
-                axios.get('/api/track-order/'  + order.id)
+                if(order.restaurant_id == this.restaurant.id){
+                    // refresh order status from remote 
+                    axios.get('/api/track-order/'  + order.id)
                     .then( response => {
-                        tracked_orders.push(response.data.data);
+                        // if order is not expired retain it, else discard it
+                        let is_order_expired = this.is_order_expired(response.data.data);
+                        if( ! is_order_expired){
+                            tracked_orders.push(response.data.data);
+                        }                        
                     })
                     .catch( error => {
                         this.$swal('Tracking failed!');                
                         console.log(error.response);                    
-                    });                 
+                    });
+                }                                 
                 });
             setTimeout(() => {
                 localStorage.setItem('menuthy_orders', JSON.stringify(tracked_orders));
                 this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders'));
-            }, 1500);
+            }, 2500);
             
+        },
+        is_order_expired(order){
+            // check if order was fulfilled more than 45 minutes ago
+            var is_order_expired = false;
+            var time_now = moment(new Date()).format("YYYY-MM-DD HH:mm");
+            var order_date = null;
+            if(order.order_type !== 'Home Delivery') order_date = moment(order.completed_at).add(45, 'minutes').format("YYYY-MM-DD HH:mm");
+            if(order.order_type == 'Home Delivery') order_date = moment(order.delivered_at).add(45, 'minutes').format("YYYY-MM-DD HH:mm");
+            if(order.status == 'canceled') order_date = moment(order.canceled_at).add(45, 'minutes').format("YYYY-MM-DD HH:mm");
+            is_order_expired = moment(time_now).isAfter(order_date) ;
+           return is_order_expired;            
         },
         sendOrder(){
             this.validateOrder();
@@ -1175,14 +1229,15 @@ export default {
 
 .track-order{
     position:fixed;
-    bottom:3rem;
+    width:auto;
+    bottom:2.5rem;
     z-index: 1000;
     font-weight:600;
     border: 1px solid orange;
     border-radius:25px;
     cursor:pointer;
-    overflow:hidden
-
+    overflow:hidden;
+    transition:height 0.35s ease;
 }
 .track-order:active{
     background-color:#fefefe;
@@ -1290,6 +1345,16 @@ select:focus{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+.track-your-order{
+    max-height:25rem;
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.track-your-order::-webkit-scrollbar {
+  display: none;
+}
+
 .parent-div::-webkit-scrollbar {
   display: none;
 }

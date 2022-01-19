@@ -185,7 +185,7 @@
                                     </thead>
                                     <thead> 
                                         <tr v-for="(item, index) in order.order_item" :key="index" class="border-bottom"> 
-                                            <th> {{index}} </th>
+                                            <th> {{index +1}} </th>
                                             <td> {{item.order_number}} </td>
                                             <td> {{item.item_name}} </td>
                                             <td> {{item.quantity}} </td>

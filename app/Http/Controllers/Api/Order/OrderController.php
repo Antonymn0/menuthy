@@ -217,7 +217,8 @@ class OrderController extends Controller
      * @param $order_id
      */
     public function trackOrder($order_id){
-        $order = Order::findOrFail($order_id);
+        $order = Order::with(['OrderItem'])
+        ->findOrFail($order_id);
         return response()->json([
             'success' => true,
             'message' => 'Order tracked successfully!',
