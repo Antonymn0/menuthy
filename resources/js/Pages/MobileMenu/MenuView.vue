@@ -894,10 +894,9 @@ export default {
                 axios.get('/api/track-order/'  + order.id)
                     .then( response => {
                         tracked_orders.push(response.data.data);
-                        console.log(response.data.data);
                     })
                     .catch( error => {
-                        this.$swal('Failed to track!');                
+                        this.$swal('Tracking failed!');                
                         console.log(error.response);                    
                     });                 
                 });
