@@ -90,7 +90,7 @@ class OrderPaymentsController extends Controller
 
         // transform request $event for serialization
         $new_event = (object) $event->all(); 
-        event(new SubscriptionPaymentWebhook( $new_event ));
+        event(new OrderPaymentWebhook( $new_event ));
         return true;  
 
         // $data = $event -> data;
