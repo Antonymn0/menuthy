@@ -6,6 +6,7 @@
 <div class="parent">       
         <div class="">
             <div class="header text-center">
+                <a href="#" onclick="history.back()"> <i class="bi bi-chevron-left"></i> Back to dashboard</a>
                 <h1> How much does Menuthy cost? </h1> 
                 <p class="text-muted">There is a reason why we are the best in the market. </p> 
             </div>
