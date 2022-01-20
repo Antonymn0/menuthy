@@ -57,8 +57,8 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleSubscriptionWebhook(Request $event){
-        event(new SubscriptionPaymentWebhook($event));
-        return 'Webhook passed to event listerner';
+        // event(new SubscriptionPaymentWebhook($event));
+        return $event -> data;
         // $data = $event -> data;
         // $payment =  array();
         //     $payment['customer_name'] = $data['object']['billing_details']['name'];
