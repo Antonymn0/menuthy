@@ -46,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
          // stripe subscription webhook event
         'App\Events\StripeWebhooks\SubscriptionPaymentWebhook' => [
             'App\Listeners\StripeWebhooks\SubscriptionPaymentWebhookListener'
+            
         ],
          // stripe order payment webhook event
         'App\Events\StripeWebhooks\OrderPaymentWebhook' => [
