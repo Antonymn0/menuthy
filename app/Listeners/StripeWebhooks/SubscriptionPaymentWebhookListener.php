@@ -35,7 +35,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
      * handle chargesuccessful  events
      *  */ 
     public function handleSubscriptionWebhook($event){
-        dd($request);
+        dd($event);
         $event = (object) $event; 
         $data = $event -> data;
         $payment =  array();
