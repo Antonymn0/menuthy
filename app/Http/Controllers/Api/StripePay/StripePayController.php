@@ -57,43 +57,11 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleSubscriptionWebhook(Request $event){
-        event(new SubscriptionPaymentWebhook( (object) $event->all() ));
-        return true;
-        // $data = $event -> data;
-        // $payment =  array();
-        //     $payment['customer_name'] = $data['object']['billing_details']['name'];
-        //     $payment['email'] = $data['object']['billing_details']['email'];
-        //     //$payment['phone'] = $data['object']['billing_details']['phone'];
-        //     $payment['currency'] = $data['object']['currency'];
-        //     $payment['customer_id'] = $data['object']['customer'];
-        //     $payment['paid'] = $data['object']['paid'];
-        //     $payment['payment_intent'] = $data['object']['payment_intent'];
-        //     $payment['payment_method'] = $data['object']['payment_method'];
-        //     $payment['reciept_email'] = $data['object']['receipt_email'];
-        //     $payment['reciept_number'] = $data['object']['receipt_number'];
-        //     $payment['reciept_url'] = $data['object']['receipt_url'];
-        //     $payment['amount_paid'] = $data['object']['amount'] / 100;
-        //     $payment['registration_date'] =Carbon::now();
-
-        //     $payment_obj = (object) $payment; 
-
-        //     $payment['package_type'] = $this->getPackageType($payment_obj);
-        //     $payment['package_period'] = $this->getPackagePeriod($payment_obj);
-        //     $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
-
-
-        // if($event->type == 'charge.succeeded'){
-        //     $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
-        //     $this->updateUser($payment);
-        //     event(new SubscriptionCreated($subscription));
-        //     return 'Payment successfull'; 
-        // } 
-        // if($event->type == 'charge.failed'){  
-        //     $payment = (object) $payment;         //convert array to object
-        //     event(new SubscriptionFailed($payment));
-        //     return 'Subscription failed';
-        // } 
-        // else return 'Unhandled webhook event';        
+        
+        // transform request $event for serialization
+        $new_event = (object) $event->all();
+        event(new SubscriptionPaymentWebhook( $new_event ));
+        return true;                
     }
 
 /**
