@@ -353,7 +353,7 @@
                         </div>
                         <div class="form-check form-check-inline"  v-if="this.user.package_type !== 'starter' && this.user.package_type !== 'lite'">
                             <input class="form-check-input" type="radio" v-model="this.order_type" :name="menu_item.id" :id=" 'r2' +  menu_item.id" value="Take Away" @change.prevent="detectOrderType(this.order_type)">
-                            <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Take away </small> </label>
+                            <label class="form-check-label" :for=" 'r2' +  menu_item.id"> <small>Pick-up </small> </label>
                         </div>
                        <span v-if="this.user.table_number <1"> 
                             <div class="form-check form-check-inline" v-if="this.user.package_type == 'pro' || this.user.package_type == 'premium'">

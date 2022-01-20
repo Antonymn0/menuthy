@@ -332,7 +332,7 @@ export default {
                    
             });
         },
-         searchOrderNo(order_no){
+      searchOrderNo(order_no){
             this.errors = {};
             this.current_orders = [];
             console.log(order_no);
@@ -440,7 +440,8 @@ export default {
                 // scan response for new orders
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
-                    if(order.status == 'received'){                        
+                    if(order.status == 'received'){  
+                        if(order.mode_of_payment == 'stripe' && order.paid == 'false') return; // dont play sound for unpaid stipe orders                    
                         try {
                            this.$refs.audio.play();
                         return; 
