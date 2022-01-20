@@ -27,7 +27,7 @@ class OrderPaymentWebhookListener implements shouldQueue
      * @param  \App\Events\Stripe\OrderPaymentWebhook  $event
      * @return void
      */
-    public function handle(OrderPaymentWebhook $event)
+    public function handle( $event)
     {
         $this->handleOrderWebhook( $event->event);
     }
