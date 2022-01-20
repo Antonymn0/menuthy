@@ -43,6 +43,7 @@
                         <td>{{index +1}}</td>
                         <td>{{order.order_number}}</td>
                         <td v-if="order.status == 'processing'" class="text-primary">{{capitalize(order.status)}}...</td>
+                        <td v-if="order.status == 'transit'" class="text-primary">{{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'completed'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'delivered'" class="text-muted">{{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'canceled'" class="text-danger">{{capitalize(order.status)}}</td>
@@ -55,7 +56,10 @@
                         <td v-else class="text-danger">No</td>
                         <td v-if="order.paid =='false'" class="text-danger">No</td>
                         <td v-if="order.paid =='true'" class="text-primary">Yes</td> 
-                        <td><span class="badge btn btn-secondary p-1" data-bs-toggle="modal" @click.prevent="updateCurrentOrder(order)" data-bs-target="#detailsModal">Details <i class="bi bi-caret-up"></i></span></td>
+                        <td>
+                            <span class="badge btn btn-secondary p-1 m-1" data-bs-toggle="modal" @click.prevent="updateCurrentOrder(order)" data-bs-target="#detailsModal">Details <i class="bi bi-caret-up"></i></span>
+                            <span class="badge btn btn-primary p-1 m-1"   @click.prevent="markTransit(order, 'transit')" >Pick order </span>
+                        </td>
                         
                     </tr>
                 </tbody>
@@ -262,7 +266,7 @@ export default {
                 alert("Order already delivered!");
                 return;
             }
-            if(this.current_order.status !== 'delivered' && this.current_order.status !== 'completed'){
+            if(this.current_order.status == 'received' || this.current_order.status == 'processing'){
                 alert("Order not processed yet!");
                 return;
             }
@@ -289,6 +293,35 @@ export default {
                 });
             }
         },
+        markTransit(order, value){
+            var date= new Date();
+            date = moment(date).format("YYYY-MM-DD HH:mm:ss");
+            if(order.status == 'received' || order.status == 'processing'){
+                alert('Order not ready for pick up!');
+                return;
+            }
+            if(order.status == 'delivered' || order.status == 'canceled'){
+                alert('Order already delivered or it has been canceled!');
+                return;
+            }
+            if(!confirm("Pick this order and mark it as transit?")) return;                       
+                axios.get('/api/order/mark/' + order.id + '/' + value + '/' + date)
+                .then( response => {
+                    console.log(response);
+                    if( response.status == 200){
+                        this.fetchOrders();
+                    } 
+                    new Swal({
+                        title:'Success!',
+                        timer:1200
+                    });
+                    document.getElementById('closeDeliver').click();
+                })
+                .catch( error => {
+                    this.$swal('Failed!'); 
+                });
+            
+        },
         collectCash(order){
             var date= new Date();
             date = moment(date).format("YYYY-MM-DD HH:mm:ss");
@@ -297,10 +330,10 @@ export default {
                 return;
             }
            if(this.current_order.status == 'delivered' ){
-                alert("Order already delivered and cash collected!");
+                alert("Order already delivered !");
                 return;
             }
-            if(this.current_order.status !== 'delivered' && this.current_order.status !== 'completed'){
+           if(this.current_order.status == 'received' || this.current_order.status == 'processing'){
                 alert("Order not processed yet!");
                 return;
             }

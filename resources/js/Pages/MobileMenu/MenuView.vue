@@ -1,14 +1,6 @@
 <template>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-   </head>
-<body>    
+
+  
 
 <div class="parent-div mx-auto shadow px-1 ">
     <div :class="this.blur +' p-0' "> 
@@ -299,9 +291,9 @@
 <!--cart items Modal -->
 <div class="modal fade mx-auto text-center" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="exampleModalLabel" data-bs-keyboard="false"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow" >
+    <div class="modal-content shadow h-auto" >
          <div class="pop-up " >
-                <div class=" rounded" style="border-radius:15px; overflow:hidden">
+                <div class=" rounded" style="border-radius:15px; overflow:hidden; ">
                     <div class="pop-up-img ">
                         <span class="p-2   back-btn " id="close"  data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"> <i class="bi bi-arrow-left shadow rounded-circle px-2 py-1" style="background:rgba(248, 143, 6, 0.808);" > </i></span>          
                     </div>
@@ -400,7 +392,7 @@
                             </div> 
                             <div v-if="this.order_type =='Home Delivery'">
                                 <p class="form-check form-check-inline">
-                                    <span class="form-check form-check-inline">Location: </span>
+                                    <span class="form-check form-check-inline"> Location mode: </span>
                                      <span class="form-check form-check-inline" >
                                         <input class="form-check-input" type="radio" v-model="this.location_type" name="location" id="auto" value="auto" @change.prevent="this.getGeoLocation()" >
                                         <label class="form-check-label" for="auto">Auto </label>
@@ -411,15 +403,20 @@
                                         <label class="form-check-label" for="manual">Select </label>
                                     </span>                                     
                                 </p>
+                                <div id="location-hidden-fields" @click.prevent="this.updateHiddenFields()">
+                                    <span> <input type="hidden" id="lat-hide" v-model="this.latitude" > </span>
+                                    <span> <input type="hidden" id="lng-hide" v-model="this.longitude" > </span>
+                                    <span> <input type="hidden" id="address-hide" v-model="this.autocomplete_location" > </span>
+                                </div>                                
                             </div> 
 
                             <!-- Google map div container-->
                                 <div class="pb-3 hidden  shadow" id="map-container"  style="transition: all 1.5s ease;" v-if="this.location_type == 'auto' ">
-                                    <p class="text-left"> 
-                                        <span style="font-weight:600 text-left"> Location:</span>   <span id="address">{{this.autocomplete_location}}</span>                                        
+                                    <p class="text-left small"> 
+                                        <span style="font-weight:600 text-left "> Your Location:</span>   <span id="address" >{{this.autocomplete_location}}</span>                                        
                                     </p>
                                     <div id="map" class="mx-auto pt-0 mt-0" > </div> 
-                                  <p class="mb-0 p-2"> <span class="small text-center py-3 mx-1 my-auto">Tip: Drag the pin on the map to set the location</span> <button class="btn btn-danger btn-sm float-right  " @click.prevent="hideMap()">Close map</button> </p>
+                                  <!-- <p class="mb-0 p-2"> <span class="small text-center py-3 mx-1 my-auto">Tip: Drag the pin on the map to set the location</span> <button class="btn btn-danger btn-sm float-right  " @click.prevent="hideMap()">Close map</button> </p> -->
                                 </div>    
 
                             <div class="form-group text-left py-2" v-if="this.location_type == 'manual' && this.order_type =='Home Delivery'" style="transition: all 1.5s ease;">
@@ -515,7 +512,7 @@
                         <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
                         <td v-if="order.status == 'completed' " class="text-default"> {{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
-                        <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'transit' " class="text-primary"> {{capitalize(order.status)}}...</td>
                         <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
 
                         <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
@@ -556,8 +553,7 @@
 </div>
 </div>
 </div>
-</body>
-</html>
+
 
 </template>
 
@@ -624,6 +620,7 @@ export default {
       }
   },
   methods:{
+       
        formatDate(date){
             if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },
@@ -1052,7 +1049,13 @@ export default {
             this.order_data.append('order_items', JSON.stringify(this.order_items)); //append order items to order data  form  
         },
             // ---------------------google maps geolocation ---------/
-         hideMap(){
+        updateHiddenFields(){
+            this.latitude = parseFloat(document.getElementById('lat-hide').value);
+            this.longitude = parseFloat(document.getElementById('lng-hide').value);
+            this.autocomplete_location = document.getElementById('address-hide').value;
+            console.log('Hidden inputs: ', this.latitude, this.longitude, this.autocomplete_location);
+        },    
+        hideMap(){
           document.getElementById('map').classList.remove('map-styles');
           document.getElementById('map-container').classList.add('hidden');
         },   
@@ -1061,7 +1064,7 @@ export default {
             console.log('geolocating...');
             navigator.geolocation.getCurrentPosition( position => {                
                 this.latitude = position.coords.latitude;
-                this.longitude = position.coords.longitude;
+                this.longitude = position.coords.longitude;                
                 console.log('Geolocating complete!');
                 document.getElementById('map-container').classList.remove('hidden')
                 document.getElementById('map').classList.add('map-styles');;
@@ -1075,33 +1078,40 @@ export default {
                         draggable: false,
                         animation:google.maps.Animation.DROP,
                     });
-                google.maps.event.addListener(marker, "dragend", function (e) {                            
-                    geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            lat = marker.getPosition().lat();
-                            lng = marker.getPosition().lng();
-                            address = results[0].formatted_address;
-                        }                                                 
-                    });                                            
-                    setTimeout(() => {
-                        console.log(lat );
-                        this.formatted_address = address;
-                        this.latitude = lat;
-                        this.longitude = lng;
-                        document.getElementById('address').innerHTML = address;
-                        document.getElementById('searchInput').value = address;
-                    }, 500);   
-                });
-                // this.sendOrder();
-            },
-            error => {   
-                alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
-                console.log(error.message);
-            },               
+
+                var latlng = {
+                            lat: this.latitude,
+                            lng: this.longitude
+                        };
+                var geocoder = new google.maps.Geocoder;
+                geocoder.geocode({
+                        'location': latlng
+                    }, function(results, status) {
+                        if (status === 'OK') {
+                            if (results[0]) {
+                                //This is you formatted address
+                                document.getElementById('lat-hide').value = position.coords.longitude; 
+                                document.getElementById('lng-hide').value = position.coords.longitude;
+                                document.getElementById('address-hide').value = results[0].formatted_address;
+                                document.getElementById('location-hidden-fields').click();
+                            } else {
+                                window.alert('Unable to locate your position!');
+                            }
+                        } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                        }
+                    });                            
+                },
+                error => {   
+                    alert('Location access is required for effective service delivery. Please make sure it is enabled.');   
+                    console.log(error.message);
+                },               
             );
         },        
      
         googlePlacesAutoComplete() {
+            console.log(this.latitude, this.longitude);
+            
             if(this.location_type !== 'manual') return;
             console.log("Autocomplete intialize..."); 
             console.log(this.autocomplete_location);
@@ -1113,17 +1123,24 @@ export default {
             var infowindow = new google.maps.InfoWindow();               
 
             autocomplete.addListener('place_changed', function() {
+                this.latitude = null;
+                this.longitude = null;
                 infowindow.close();
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     window.alert("Autocomplete returned location contains no geometry");
                     return;
-                } 
+                }                
                 this.latitude = place.geometry.location.lat();
                 this.longitude = place.geometry.location.lng();
                 this.autocomplete_location = place.formatted_address;
+
                 document.getElementById('searchInput').value =  place.formatted_address;
+                document.getElementById('address-hide').value =  place.formatted_address;
+                document.getElementById('lat-hide').value =  place.geometry.location.lat();
+                document.getElementById('lng-hide').value =  place.geometry.location.lng();
                 console.log(this.latitude, this.longitude);
+                document.getElementById('location-hidden-fields').click();
             });   
                            
         },

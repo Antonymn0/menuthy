@@ -68,6 +68,9 @@ class OrderController extends Controller
      * @return response
      */
     public function markOrder($id, $value, $date){ 
+        if($value =='processing') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            ]);
         if($value =='completed') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
             'completed_at' => $date,
@@ -76,13 +79,15 @@ class OrderController extends Controller
             'status' => $value,
             'canceled_at' => $date,
             ]);
+        if($value =='transit') $order= Order::WHERE('id', $id)->first()->update([
+            'status' => $value,
+            ]);
         if($value =='delivered') $order= Order::WHERE('id', $id)->first()->update([
             'status' => $value,
             'delivered_at' => $date,
             ]);
-        if($value =='processing') $order= Order::WHERE('id', $id)->first()->update([
-            'status' => $value,
-            ]);
+        
+        
         
         return response()->json([
            'success' => true,

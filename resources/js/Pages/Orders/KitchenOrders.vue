@@ -441,7 +441,7 @@ export default {
                 response.data.data.data.forEach(order => {
                     // play a beep sound for a new order 
                     if(order.status == 'received'){  
-                        if(order.mode_of_payment == 'stripe' && order.paid == 'false') return; // dont play sound for unpaid stipe orders                    
+                        if(order.mode_of_payment == 'stripe' && order.paid == 'false') return; // dont play sound for unpaid stripe orders                    
                         try {
                            this.$refs.audio.play();
                         return; 
