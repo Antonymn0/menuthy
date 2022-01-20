@@ -11,7 +11,7 @@ use App\Models\SubscriptionPayment;
 use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
-use App\Events\Stripe\SubscriptionPaymentWebhook;
+use App\Events\StripeWebhooks\SubscriptionPaymentWebhook;
 
 class StripePayController extends Controller
 {     
