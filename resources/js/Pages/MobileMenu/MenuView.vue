@@ -370,7 +370,7 @@
                     </div>
                         <p class="order-btn  mt-2 mx-auto" id="place-order-btn">  
                             <span :class="this.order_spinner" class="text-center" v-if="this.order_type == 'Dine In' "></span>  <br> 
-                            <span  v-if="this.User.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 " @click.prevent="payNow()">Pay now </button></span> 
+                            <span  v-if="this.user.package_type == 'premium' && this.order_type == 'Dine In'"> <button class="p-2 px-3 m-1 " @click.prevent="payNow()">Pay now </button></span> 
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type == 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Pay Later </button></span> <br>
                             <span  v-if="this.user.package_type !== null && this.user.package_type !== 'starter' && this.order_type !== 'Dine In' "> <button class="p-2 px-3 m-1 " @click="pre_placeOrder()" >  Place order </button></span> <br>
                             <small class="text-danger"> {{this .errors.cart_empty}} </small>
@@ -510,7 +510,7 @@
                         <td> {{index +1}} </td>
                         <td> {{order.order_number}} </td>
                         <td>{{ this.capitalize( order.order_type)}} </td>
-                        
+
                         <td v-if="order.status == 'received' " class="text-secondary"> {{capitalize(order.status)}} </td>
                         <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
                         <td v-if="order.status == 'completed' " class="text-default"> {{capitalize(order.status)}}</td>
