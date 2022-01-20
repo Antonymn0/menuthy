@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
 
-class SubscriptionPaymentWebhookListener
+class SubscriptionPaymentWebhookListener implements shouldQueue
 {
     /**
      * Create the event listener.
