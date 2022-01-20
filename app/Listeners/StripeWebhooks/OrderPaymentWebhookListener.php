@@ -2,14 +2,11 @@
 
 namespace App\Listeners\StripeWebhooks;
 
-use App\Events\Stripe\OrderPaymentWebhook;
+use App\Events\StripeWebhooks\OrderPaymentWebhook;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-use App\Models\Order;
-use Carbon\Carbon;
-
-class OrderPaymentWebhookListener implements shouldQueue
+class OrderPaymentWebhookListener
 {
     /**
      * Create the event listener.
@@ -24,14 +21,13 @@ class OrderPaymentWebhookListener implements shouldQueue
     /**
      * Handle the event.
      *
-     * @param  \App\Events\Stripe\OrderPaymentWebhook  $event
+     * @param  \App\Events\StripeWebhooks\OrderPaymentWebhook  $event
      * @return void
      */
-    public function handle( $event)
+    public function handle(OrderPaymentWebhook $event)
     {
-        $this->handleOrderWebhook( $event->event);
+        $this-> handleOrderWebhook($event->event);
     }
-
 
      /**
      * Handle stripe order payments webhook call backs
