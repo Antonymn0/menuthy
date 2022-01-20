@@ -14,11 +14,12 @@ use App\Models\OrderItem;
 use Carbon\Carbon;
 use App\Http\Requests\Order\ValidateOrder;
 use App\Events\Order\orderCreated;
+use App\Events\StripeWebhooks\OrderPaymentWebhook;
 
 class OrderPaymentsController extends Controller
 {
     /**
-     * order stripe payment.
+     * order stripe payment check out session.
      * 
      *@param  \Illuminate\Http\Request\ValidateOrder  $request
      * @return \Illuminate\Http\Response
@@ -75,8 +76,8 @@ class OrderPaymentsController extends Controller
             'mode' => 'payment',
             'line_items' => $line_items,
             'metadata' => [
-                        'order_number'=> $request->order_number,
-                     ]
+                    'order_number'=> $request->order_number,
+                    ]
         ]); 
         $this->storeOrder( $request, $session);
        echo json_encode($session);  
@@ -85,28 +86,34 @@ class OrderPaymentsController extends Controller
     /**
      * Handle stripe order payments webhook call backs
      */
-    public function handleOrderWebhook(Request $event){        
-        $data = $event -> data;
-        // update order status if charge succeeded
-        if($event->type == 'charge.succeeded'){
-            $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] )->first();
-            if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return;
-            $order->update([
-                'transaction_id' => $data['object']['payment_intent'],
-                'amount_paid' => $data['object']['amount'] / 100,
-                'paid_at' => Carbon::now(),
-                'paid' => 'true',
-                'reciept_url'=> $data['object']['receipt_url'],
-            ]);
-            return true;
-        }
-        // update order failed if charge failed
-        if($event->type == 'charge.failed'){
-            $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
-            $order->update([
-                'transaction_id' => 'Stripe Payment failed to process!'
-            ]);
-        } 
+    public function handleOrderWebhook(Request $event){ 
+
+        // transform request $event for serialization
+        $new_event = (object) $event->all(); 
+        event(new SubscriptionPaymentWebhook( $new_event ));
+        return true;  
+
+        // $data = $event -> data;
+        // // update order status if charge succeeded
+        // if($event->type == 'charge.succeeded'){
+        //     $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] )->first();
+        //     if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return;
+        //     $order->update([
+        //         'transaction_id' => $data['object']['payment_intent'],
+        //         'amount_paid' => $data['object']['amount'] / 100,
+        //         'paid_at' => Carbon::now(),
+        //         'paid' => 'true',
+        //         'reciept_url'=> $data['object']['receipt_url'],
+        //     ]);
+        //     return true;
+        // }
+        // // update order failed if charge failed
+        // if($event->type == 'charge.failed'){
+        //     $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
+        //     $order->update([
+        //         'transaction_id' => 'Stripe Payment failed to process!'
+        //     ]);
+        // } 
     }
 
 
@@ -162,7 +169,7 @@ class OrderPaymentsController extends Controller
     } 
 
     /**
-     * Force stripe session expire is user cances checkout session
+     * Force stripe session expire if user cancels checkout session
      */
     public function forceStripeSessionExpire ($restaurant_id, $stripe_session_id){
         $restaurant = Restaurant::findOrFail($restaurant_id);

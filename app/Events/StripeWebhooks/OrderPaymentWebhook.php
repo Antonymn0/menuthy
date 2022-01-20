@@ -14,14 +14,15 @@ class OrderPaymentWebhook
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $event;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($event)
     {
-        //
+       $this->event = $event;
     }
 
     /**
