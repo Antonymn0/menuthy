@@ -60,7 +60,8 @@ class StripePayController extends Controller
         $event1 = $event->all();
         $event2 = (object) $event1;
         $event3 = serialize($event2);
-        return $event3;
+        $event4 = unserialize($event3);
+        return $event4;
         event(new SubscriptionPaymentWebhook($event1));
         return true;
         // $data = $event -> data;
