@@ -25,8 +25,9 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
      * @param  \App\Events\Stripe\SubscriptionPaymentWebhook  $event
      * @return void
      */
-    public function handle(SubscriptionPaymentWebhook $event)
-    {
+    public function handle(SubscriptionPaymentWebhook $event)    
+    {   
+        return $event;
         $this->handleSubscriptionWebhook( $event);
 
     }
