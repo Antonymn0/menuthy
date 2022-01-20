@@ -11,7 +11,7 @@ use App\Models\SubscriptionPayment;
 use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
-use App\Events\Stripe\SubscriptionpaymentWebhook;
+use App\Events\Stripe\SubscriptionPaymentWebhook;
 
 class StripePayController extends Controller
 {     
@@ -56,7 +56,7 @@ class StripePayController extends Controller
      * handle charge  events
      *  */ 
     public function handleSubscriptionWebhook(Request $event){
-        event(new SubscriptionpaymentWebhook($event));
+        event(new SubscriptionPaymentWebhook($event));
         return 'Webhook passed to event listerner';
         // $data = $event -> data;
         // $payment =  array();
