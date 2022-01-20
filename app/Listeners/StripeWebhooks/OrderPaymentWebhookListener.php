@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Stripe;
+namespace App\Listeners\StripeWebhooks;
 
 use App\Events\Stripe\OrderPaymentWebhook;
 use Illuminate\Contracts\Queue\ShouldQueue;
