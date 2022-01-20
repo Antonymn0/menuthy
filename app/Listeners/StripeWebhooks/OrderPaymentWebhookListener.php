@@ -32,7 +32,7 @@ class OrderPaymentWebhookListener
      /**
      * Handle stripe order payments webhook call backs
      */
-    public function handleOrderWebhook(Request $event){        
+    public function handleOrderWebhook( $event){        
         $data = $event -> data;
         // update order status if charge succeeded
         if($event->type == 'charge.succeeded'){
