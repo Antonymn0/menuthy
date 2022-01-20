@@ -510,12 +510,14 @@
                         <td> {{index +1}} </td>
                         <td> {{order.order_number}} </td>
                         <td>{{ this.capitalize( order.order_type)}} </td>
+                        
                         <td v-if="order.status == 'received' " class="text-secondary"> {{capitalize(order.status)}} </td>
                         <td v-if="order.status == 'processing' " class="text-primary"> {{capitalize(order.status)}}... </td>
-                        <td v-if="order.status == 'processing' " class="text-default"> {{capitalize(order.status)}}</td>
+                        <td v-if="order.status == 'completed' " class="text-default"> {{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'canceled' " class="text-danger"> {{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'transit' " class="text-secondary"> {{capitalize(order.status)}}</td>
                         <td v-if="order.status == 'delivered' " class="text-default"> {{capitalize(order.status)}}</td>
+
                         <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
                         <td v-if="order.paid == 'false'" class="text-danger"> No</td>
                         <td> {{formatDate(order.created_at)}} </td>
