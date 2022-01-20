@@ -2,16 +2,12 @@
 
 namespace App\Listeners\StripeWebhooks;
 
-use App\Events\Stripe\SubscriptionPaymentWebhook;
+use App\Events\StripeWebhooks\SubscriptionPaymentWebhook;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Stripe\Stripe;
-use App\Models\User;
-use Carbon\Carbon;
-use App\Events\Subscription\SubscriptionCreated;
-use App\Events\Subscription\SubscriptionFailed;
 
 class SubscriptionPaymentWebhookListener implements shouldQueue
+ 
 {
     /**
      * Create the event listener.
