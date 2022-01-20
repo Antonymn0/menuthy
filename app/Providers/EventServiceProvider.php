@@ -43,6 +43,14 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\User\emailVerified' => [
             'App\Listeners\User\emailVerifiedListener'
         ],
+         // stripe subscription webhook event
+        'App\Events\Stripe\SubscriptionPaymentWebhook' => [
+            'App\Listeners\Stripe\SubscriptionPaymentWebhookListener'
+        ],
+         // stripe order payment webhook event
+        'App\Events\Stripe\OrderPaymentWebhook' => [
+            'App\Listeners\Stripe\OrderPaymentWebhookListener'
+        ],
          // stripe info updated event
         'App\Events\User\stripeInfoUpdated' => [
             'App\Listeners\User\stripeInfoUpdatedListener'
