@@ -169,7 +169,7 @@
                             {{this.cart_item_qty[menu_item.id]}}
                             <span @click="removeFromCart(menu_item.id)"  style="position:relative; margin-top:-1.5rem; left:.5rem; font-size:1.5rem; cursor:pointer; border"> <i class="bi bi-x text-danger border rounded-circle py-0 px-1"></i></span> 
                         </span>
-                        <span class="open ">  <button class=" arabic " @click.prevent="[addToCart( menu_item), this.tossItem($event)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
+                        <span class="open " v-if="this.user.package_type !== 'starter'">  <button class=" arabic " @click.prevent="[addToCart( menu_item), this.tossItem($event)]" ><i class="bi bi-cart-plus" style="font-size:1rem;"></i> Add</button></span>  <br>
 
                         <span v-if="this.is_item_in_cart == true && this.item_in_cart == menu_item.id "><small class="text-success p-0">Item already in cart!</small></span>
                          <span v-if="this.item_added_to_cart == true && this.item_in_cart == menu_item.id"><small class="text-primary p-0">Item added to cart...</small></span>
@@ -412,7 +412,7 @@
 
                             <!-- Google map div container-->
                                 <div class="pb-3 hidden  shadow" id="map-container"  style="transition: all 1.5s ease;" v-if="this.location_type == 'auto' ">
-                                    <p class="text-left small"> 
+                                    <p class="text-left small mb-0 pt-1"> 
                                         <span style="font-weight:600 text-left "> Your Location:</span>   <span id="address" >{{this.autocomplete_location}}</span>                                        
                                     </p>
                                     <div id="map" class="mx-auto pt-0 mt-0" > </div> 
@@ -518,7 +518,7 @@
                         <td v-if="order.paid == 'true'" class="text-success"> Yes</td>
                         <td v-if="order.paid == 'false'" class="text-danger"> No</td>
                         <td> {{formatDate(order.created_at)}} </td>
-                        <td><span class="btn-secondary p-2 badge" @click.prevent="expandRow($event)" style="cusor:pointer"> Deatails </span> </td>
+                        <td><span class="btn-secondary p-2 badge" @click.prevent="expandRow($event)" style="cusor:pointer"> Details </span> </td>
                     </tr>
                     <tr class="panel  " style="display:none;" v-if="order.restaurant_id == this.restaurant.id"> 
                         <td colspan="7">
@@ -627,9 +627,9 @@ export default {
         expandRow(event){
             var acc = document.getElementsByClassName("accordion");
             var rows= document.getElementsByClassName('panel');
-            for (let i=0; i< rows.length; i++){
-                rows[i].style.display = "none";             
-            }
+            // for (let i=0; i< rows.length; i++){
+            //     rows[i].style.display = "none";             
+            // }
             var panel = event.target.parentElement.parentElement.nextSibling;
             if(panel.style.display == "table-row") panel.style.display = "none";
             else  panel.style.display = "table-row";      
@@ -1053,7 +1053,6 @@ export default {
             this.latitude = parseFloat(document.getElementById('lat-hide').value);
             this.longitude = parseFloat(document.getElementById('lng-hide').value);
             this.autocomplete_location = document.getElementById('address-hide').value;
-            console.log('Hidden inputs: ', this.latitude, this.longitude, this.autocomplete_location);
         },    
         hideMap(){
           document.getElementById('map').classList.remove('map-styles');
@@ -1061,11 +1060,9 @@ export default {
         },   
         getGeoLocation() {
             if(this.location_type == 'manual') return;
-            console.log('geolocating...');
             navigator.geolocation.getCurrentPosition( position => {                
                 this.latitude = position.coords.latitude;
-                this.longitude = position.coords.longitude;                
-                console.log('Geolocating complete!');
+                this.longitude = position.coords.longitude;
                 document.getElementById('map-container').classList.remove('hidden')
                 document.getElementById('map').classList.add('map-styles');;
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -1113,11 +1110,7 @@ export default {
             console.log(this.latitude, this.longitude);
             
             if(this.location_type !== 'manual') return;
-            console.log("Autocomplete intialize..."); 
-            console.log(this.autocomplete_location);
-            console.log(this.latitude, this.longitude);
-            var lat, lng, address;        
-            console.log('map not visible');
+            var lat, lng, address;   
             var input = document.getElementById('searchInput');
             var autocomplete = new google.maps.places.Autocomplete(input);
             var infowindow = new google.maps.InfoWindow();               
@@ -1139,7 +1132,6 @@ export default {
                 document.getElementById('address-hide').value =  place.formatted_address;
                 document.getElementById('lat-hide').value =  place.geometry.location.lat();
                 document.getElementById('lng-hide').value =  place.geometry.location.lng();
-                console.log(this.latitude, this.longitude);
                 document.getElementById('location-hidden-fields').click();
             });   
                            

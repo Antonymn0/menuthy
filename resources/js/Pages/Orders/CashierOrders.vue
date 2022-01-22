@@ -144,7 +144,7 @@
                             <span v-if="order.transaction_id == 'cash' ">{{capitalize(order.transaction_id)}}</span>
                             <span v-if="order.mode_of_payment == 'stripe' ">{{order.transaction_id}}</span> <br>
                             <span v-if="order.mode_of_payment == 'stripe' && order.paid == 'false' "> <p class="text-muted mb-0">Payment Pending...</p> </span> 
-                            <span v-if="order.mode_of_payment == 'stripe' && order.paid == 'true' && order.reciept_url !== null" class="text-center"><a :href="order.reciept_url" target="blank" class="btn-primary badge"> Reciept</a></span>
+                            <span v-if="order.mode_of_payment == 'stripe' && order.paid == 'true' && order.reciept_url !== null" class="text-center"><a :href="order.reciept_url" target="blank" class="btn-primary badge"> View Reciept</a></span>
                             <span v-if="order.transaction_id !== 'cash' &&  order.mode_of_payment !== 'stripe'">{{capitalize(order.transaction_id)}}</span>
                         </td>                       
                         <td v-if="order.paid_at" class="">{{formatDate(order.paid_at)}}</td>

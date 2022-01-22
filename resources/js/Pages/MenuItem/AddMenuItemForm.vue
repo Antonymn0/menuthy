@@ -81,7 +81,7 @@
                         <span clas='col-xs-8'> Publish </span>
                         <span class="col-xs-4">
                             <label class="switch ">
-                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish">
+                                <input type="checkbox" class="" :checked="form.publish" v-model="form.publish" value=true>
                                 <span class="slider round"></span>
                             </label>
                         </span>                                    
@@ -213,9 +213,9 @@ props:['sub_menu'],
             .then( response => {
                 if( response.status == 201){
                     document.getElementById('closeAddMenu').click(); 
-                    new Swal({   title:'Success', timer:1200 });
-                    this.$inertia.reload(); 
                     this.$refs.form.reset();
+                    this.$inertia.reload(); 
+                    new Swal({   title:'Success', timer:1200 });
                 } 
             })
             .catch( error => {

@@ -16,11 +16,11 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1" >Sectret  key</label>
-                    <input type="text"  v-model="form.stripe_secret_key" class="form-control p-4" id="exampleFormControlInput1" name="menu_name" placeholder="Secret key ">
+                    <input type="text"  v-model="form.stripe_secret_key" class="form-control p-4" id="exampleFormControlInput1"  placeholder="Secret key ">
                     <small class="text-danger"> {{ errors.stripe_secret_key}} </small>
                 </div>         
                 <div class="form-group">
-                    <label for="exampleFormControlInput1" >Your registered Menuthy email</label>
+                    <label for="exampleFormControlInput1" >Your acc Menuthy email</label>
                     <input type="text"  v-model="form.email" class="form-control p-4" id="exampleFormControlInput1"  placeholder="Email">
                     <small class="text-danger"> {{ errors.email}} </small>
                 </div>

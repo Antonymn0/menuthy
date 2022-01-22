@@ -60,14 +60,14 @@
                         </div>
                           <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="exampleFormControlInput2">Timezone <small class="text-muted">({{form.timezone}}) </small></label>
-                                <select class="form-select" aria-label="Default select example" v-model="form.time_zone" >
+                                <label for="exampleFormControlInput2">Timezone </label>
+                                <select class="form-select" aria-label="Default select example" v-model="form.timezone" >
                                     <option selected >{{form.timezone}}</option>
                                     <option v-bind="this.timezone" v-for="item in timeZones" :key="item">{{item}}</option>   
                                 </select>
                             </div> 
                              <div class="pb-1 col-md-6">
-                                <label for="timezone">Currency <small class="text-muted"> ( {{form.currency}} )</small></label>
+                                <label for="timezone">Currency </label>
                                 <select class="form-select" aria-label="Default select example" v-model="form.currency" id="currency">
                                     <option value="#" selected> {{form.currency}}</option>
                                     <option :value="item.code" v-for="item in this.currencies" :key="item"> {{item.code}} : {{item.countryname}} </option>

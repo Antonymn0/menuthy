@@ -52,7 +52,7 @@ class OrderPaymentsController extends Controller
             $price_data['unit_amount'] = $order_item->price * 100;
             // build $product_data
             $product_data['name'] = $order_item->menu_item_name;
-            $product_data['description'] = $order_item->description;
+            // $product_data['description'] = $order_item->description;
             // push $product_data into $price_data 
             $price_data['product_data'] = $product_data;
             // push $price_data into $line_item
@@ -92,28 +92,6 @@ class OrderPaymentsController extends Controller
         $new_event = (object) $event->all(); 
         event(new OrderPaymentWebhook( $new_event ));
         return true;  
-
-        // $data = $event -> data;
-        // // update order status if charge succeeded
-        // if($event->type == 'charge.succeeded'){
-        //     $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] )->first();
-        //     if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return;
-        //     $order->update([
-        //         'transaction_id' => $data['object']['payment_intent'],
-        //         'amount_paid' => $data['object']['amount'] / 100,
-        //         'paid_at' => Carbon::now(),
-        //         'paid' => 'true',
-        //         'reciept_url'=> $data['object']['receipt_url'],
-        //     ]);
-        //     return true;
-        // }
-        // // update order failed if charge failed
-        // if($event->type == 'charge.failed'){
-        //     $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] );
-        //     $order->update([
-        //         'transaction_id' => 'Stripe Payment failed to process!'
-        //     ]);
-        // } 
     }
 
 

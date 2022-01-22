@@ -6,7 +6,9 @@
 <div class="parent">       
         <div class="">
             <div class="header text-center">
-                <a href="#" onclick="history.back()"> <i class="bi bi-chevron-left"></i> Back to dashboard</a>
+                <p class="text-right mb-0"> 
+                     <a class="btn btn-danger  mr-3" href="#" onclick="history.back()"> <i class="bi bi-chevron-left"></i> Back to dashboard</a>
+               </p>
                 <h1> How much does Menuthy cost? </h1> 
                 <p class="text-muted">There is a reason why we are the best in the market. </p> 
             </div>
@@ -57,7 +59,8 @@
                     </tr>
                 </table>
             </p>
-            <p class="text-center text-muted">
+    <!-- ------------------------------------------------------------- -->
+            <!-- <p class="text-center text-muted">
                 Toggle test subscription:  
                 <select name="" class="p-2 rounded" id="" @change.prevent='togglePackage()' v-model="this.packageType">
                     <option value="" selected> -Select-</option>
@@ -67,7 +70,7 @@
                     <option value="premium"> Premium</option>
                 </select>
                 <span class="text-success">{{this.success}}</span>
-            </p>
+            </p> -->
 <!-- ------------------------  package panels------------------------------------------ -->
         <div class="monthly-panels  ">            
             <div class="packages py-3 mt-4">

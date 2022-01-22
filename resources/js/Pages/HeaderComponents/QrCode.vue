@@ -15,13 +15,13 @@
             <div class="modal-body fade-in">
                 <div class="container">
                      <ul class="nav nav-tabs float-center">
-                        <li class="active " @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" >Basic</a> </li>
-                        <li  v-if="this.user.package_type !== 'starter' "> <a data-toggle="tab" href="#tables" class="btn card ml-1">Dine In</a> </li>
+                        <li class="active ml-1"> <a data-toggle="tab" href="#tables" class="btn card ml-1">Dine In</a> </li>
+                        <li class=" ml-1" @click="generateQrCode(this.restaurant.id)" > <a data-toggle="tab" href="#mobile" class="btn card mr-1" v-if="user.package_type == 'pro' || user.package_type == 'premium'">Others</a> </li>
                     </ul>
              
                     <div class="tab-content">
-                        <!-- mobile qr code  -->
-                        <div id="mobile" class="tab-pane  active pt-3">
+                        <!-- Basic qr code  -->
+                        <div id="mobile" class="tab-pane   pt-3" v-if="user.package_type == 'pro' || user.package_type == 'premium'">
                              <small> Pick Up | Drive Through | Delivery</small>
                              <div class="d-flex justify-content-center align-items-center fade-in"> 
                                 <vue-qrcode :value="this.qrCode" :options="{ width: 200 }"></vue-qrcode>
@@ -36,7 +36,7 @@
                             </p>
                         </div>
                         <!-- Tables qr code  -->
-                        <div id="tables" class="tab-pane ">
+                        <div id="tables" class="tab-pane active">
                             <small> Dine In Tables</small>
                            <div class="">    
                                 <h6 class="text-center m-0 mt-3 text-danger">  Table {{this.qr_table_number}}</h6>                                               
@@ -58,12 +58,12 @@
                                     <small class="text-muted"> Click the link to open</small> <br>
                                      <a :href="this.tables_qr_code_link" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                                 </p> 
-                                <div class="form-group" v-if="this.user.package_type !== null">
+                                <div class="form-group" v-if="this.user.package_type !== null && this.user.package_type !== 'starter'">
                                     <label for="exampleFormControlInput2">Enter table number </label>
                                     <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no" @input.prevent="this.maxTableNumber">
                                     <small class="text-danger">{{this.errors.table_number}}</small>
                                 </div> 
-                                <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2">
+                                <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2" v-if="this.user.package_type !== 'starter'">
                                     <button type="button" class="btn btn-primary col-sm-3 m-1 row"  v-if="this.user.package_type !== null" @click="this.generateTablesQrCode(this.table_number)"> Generate</button>
                                     <button type="button"  class="btn btn-success col-sm-3 m-1 row" @click.prevent="dowloadQrCode('tables')" > Dowload </button>
                                     <button type="button"  class="btn btn-danger col-sm-3 m-1 row" data-bs-dismiss="modal"> Cancel</button>

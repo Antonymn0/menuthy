@@ -81,7 +81,7 @@
             <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
                 <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >User Profile</a></li>                
                 <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
-                <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+                <li><a class="dropdown-item" href="/subscription">Subscriptions</a></li>
                 <li class="dropdown-item  border-top px-2">
                     <form action="/logout" method="POST" enctype="multipart/form-data">
                         <div class="ml-2">
