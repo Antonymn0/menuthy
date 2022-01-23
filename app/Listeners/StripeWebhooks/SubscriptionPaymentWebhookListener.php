@@ -34,8 +34,8 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
      */
     public function handle(SubscriptionPaymentWebhook $event)    
     {            
-        // if($event->event->type == 'checkout.session.completed') return true;  
-        // if($event->event->data['metadata']['payment_for'] !== 'subscription payment') return true;
+        if($event->event->type == 'checkout.session.completed') return true;  
+       
 
         $this->handleSubscriptionWebhook( $event->event);
     }
@@ -46,6 +46,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
      */ 
     public function handleSubscriptionWebhook($event){
         $data = $event -> data;
+        if($data['metadata']['payment_for'] !== 'subscription payment') return true;
         $payment =  array();
             $payment['customer_name'] = $data['object']['billing_details']['name'];
             $payment['email'] = $data['object']['billing_details']['email'];
