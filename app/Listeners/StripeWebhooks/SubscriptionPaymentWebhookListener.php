@@ -134,10 +134,10 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
     public function getPackageType($payment_obj){
         $package_type ='';
             // monthly 
-        if($payment_obj->amount_paid == 33 ) $package_type = 'Starter';
-        if($payment_obj->amount_paid == 66 ) $package_type = 'Lite';
-        if($payment_obj->amount_paid == 133 ) $package_type = 'Pro';
-        if($payment_obj->amount_paid == 266 ) $package_type = 'Premium';        
+        if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
+        if($payment_obj->amount_paid == 66 ) $package_type = 'lite';
+        if($payment_obj->amount_paid == 133 ) $package_type = 'pro';
+        if($payment_obj->amount_paid == 266 ) $package_type = 'premium';        
         
         //yearly
         if($payment_obj->amount_paid == 333 ) $package_type = 'starter';
