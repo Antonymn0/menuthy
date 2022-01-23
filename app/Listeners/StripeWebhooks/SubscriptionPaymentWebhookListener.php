@@ -104,48 +104,16 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
         $ex_date = '';
 
         // monthy subscription
-        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $days =30;
+        if($payment_obj->package_period == 'monthly') $days =30;
         
         //yearly subsciption
-        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $days =365;
+        if($payment_obj->package_period == 'yearly') $days =365;
        
         $ex_date = Carbon::now()->addDays($days);
         return $ex_date;
     }   
 
-    /**
-     * Return package period AFTER subscription
-     */
-    public function getPackagePeriod($payment_obj){
-        $period = '';        
-
-        // monthy subscription
-        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $period = 'Monthly';
-        
-        //yearly subsciption
-        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $period = 'Yearly';
-       
-        return $period;
-    }   
-
-    /**
-     * return package type after successful subscription
-     */
-    public function getPackageType($payment_obj){
-        $package_type ='';
-            // monthly 
-        if($payment_obj->amount_paid == 33 ) $package_type = 'starter';
-        if($payment_obj->amount_paid == 66 ) $package_type = 'lite';
-        if($payment_obj->amount_paid == 133 ) $package_type = 'pro';
-        if($payment_obj->amount_paid == 266 ) $package_type = 'premium';        
-        
-        //yearly
-        if($payment_obj->amount_paid == 333 ) $package_type = 'starter';
-        if($payment_obj->amount_paid == 777) $package_type = 'lite';
-        if($payment_obj->amount_paid == 1333 ) $package_type = 'pro';
-        if($payment_obj->amount_paid == 2777 ) $package_type = 'premium';
+  
 
 
-        return $package_type;
-    }
 }
