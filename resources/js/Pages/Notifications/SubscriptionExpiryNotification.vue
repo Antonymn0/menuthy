@@ -32,9 +32,9 @@ export default {
                  
         },
         checkIfSubscriptionIsExpired(){
-            var date = moment(this.registrationExpiryDate).format("YYYY-MM-DD HH:mm:ss");
-            var today = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
-            if( date - today < 25) this.expired = true;
+            var date = moment(this.registrationExpiryDate).format("YYYY-MM-DD");
+            var today = moment(new Date()).format("YYYY-MM-DD");
+            if( moment(today).isSameOrAfter(date) ) this.expired = true;
         }
     },
     mounted(){
