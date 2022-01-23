@@ -61,7 +61,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
             $payment_obj = (object) $payment; 
 
             $payment['package_type'] = $data['object']['metadata']['package_type'];
-            $payment['package_period'] = $data['object']['metadata']['plan_period'];
+            $payment['package_period'] = $data['object']['metadata']['package_period'];
             $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
 
         if($event->type == 'charge.succeeded'){
