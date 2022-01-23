@@ -33,10 +33,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
      * @return void
      */
     public function handle(SubscriptionPaymentWebhook $event)    
-    {            
-        if($event->event->type == 'checkout.session.completed') return true;  
-        if($event->event->data['object']['metadata']['payment_for'] !== 'subscription payment') return true;
-
+    {   
         $this->handleSubscriptionWebhook( $event->event);
     }
 
