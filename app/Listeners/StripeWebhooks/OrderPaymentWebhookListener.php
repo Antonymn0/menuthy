@@ -40,7 +40,8 @@ class OrderPaymentWebhookListener
         // update order status if charge succeeded
         if($event->type == 'charge.succeeded'){
             $order = Order::where('stripe_payment_intent_id',$data['object']['payment_intent'] )->first();
-            if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return;
+            if(!isset($order)) return true;
+            if($order->mode_of_payment == 'stripe' && $order->paid == 'true') return true;
             $order->update([
                 'transaction_id' => $data['object']['payment_intent'],
                 'amount_paid' => $data['object']['amount'] / 100,

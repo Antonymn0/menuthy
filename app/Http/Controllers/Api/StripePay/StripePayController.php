@@ -47,7 +47,10 @@ class StripePayController extends Controller
                     ],
                     'quantity' => 1,
                 ],               
-            ]
+            ],
+            'metadata'=>[
+                'payment_for' => 'subscription'
+            ],
         ]);
         echo json_encode($session);        
     }
