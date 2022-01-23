@@ -28,11 +28,11 @@ export default {
         this.current_link = this.link;
         setTimeout(() => {
             var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
-            this.local_storage.forEach(order => {
+            local_storage.forEach(order => {
                 if(order.order_number == this.current_order.order_number) return; // do not save order if already exists
             });
             local_storage.push(this.current_order);
-            localStorage.setItem('menuthy_orders', JSON.stringify(local_storage));
+            localStorage.setItem('menuthy_orders', JSON.stringify(local_storage)); //push order into local storage
         }, 50);
     }
     
