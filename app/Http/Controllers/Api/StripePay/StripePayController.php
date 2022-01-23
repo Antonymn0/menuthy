@@ -63,7 +63,7 @@ class StripePayController extends Controller
      */ 
     public function handleSubscriptionWebhook(Request $event){
         if($event->type == 'checkout.session.completed') return 'Not a charge event'; 
-        return $event->data['object']['metadata'];
+        return $event->data['object'];
         if($event->data['object']['metadata']['payment_for'] !== 'subscription payment')  return 'Not a subscription event';
         
 
