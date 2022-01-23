@@ -28,7 +28,7 @@ export default {
         this.current_link = this.link;
         setTimeout(() => {
             var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
-            this.local_storage.array.forEach(order => {
+            this.local_storage.forEach(order => {
                 if(order.order_number == this.current_order.order_number) return; // do not save order if already exists
             });
             local_storage.push(this.current_order);
