@@ -27,17 +27,18 @@ export default {
         this.current_order = this.order;
         this.current_link = this.link;
         setTimeout(() => {
+            var add_order = false;
             var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
             if(Object.keys(local_storage).length) {
                 local_storage.forEach(order => {
                     console.log(order.order_number);
                     console.log(this.current_order.order_number);
-                    if(order.order_number == this.current_order.order_number) return; // do not save order if already exists                    
+                    if(order.order_number == this.current_order.order_number) add_order = true; // do not save order if already exists                    
                 });
-                local_storage.push(this.current_order); 
+                if(add_order == false) local_storage.push(this.current_order); 
             }
             else{                  
-                local_storage.push(this.current_order); 
+                if(add_order == false) local_storage.push(this.current_order); 
             }             
             localStorage.setItem('menuthy_orders', JSON.stringify(local_storage)); //push order into local storage
         }, 100);
