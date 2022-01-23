@@ -32,7 +32,8 @@ export default {
                 local_storage.forEach(order => {
                     if(order.order_number == this.current_order.order_number) return; // do not save order if already exists
                 });
-            };           
+            };  
+            console.log('Push item...');      
             local_storage.push(this.current_order);
             localStorage.setItem('menuthy_orders', JSON.stringify(local_storage)); //push order into local storage
         }, 50);
