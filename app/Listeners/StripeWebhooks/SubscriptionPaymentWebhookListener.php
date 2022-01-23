@@ -89,7 +89,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
                 'registration_status' => 'subscribed',
                 'trial_expiry' => null,
                 'package_type' => $$payment_obj->package_type,
-                'package_period' => $$payment_obj->plan_period,
+                'package_period' => $$payment_obj->package_period,
                 'registration_date'=> carbon::now(),
                 'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
             ]);
