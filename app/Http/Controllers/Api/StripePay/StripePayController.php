@@ -73,7 +73,7 @@ class StripePayController extends Controller
         // Transform request $event for serialization
         $new_event = (object) $event->all();
         event(new SubscriptionPaymentWebhook( $new_event ));
-        return 'Charge Success';                
+        return 'Charge Successful';                
     }
 
 /**

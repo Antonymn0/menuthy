@@ -76,9 +76,14 @@ class OrderPaymentsController extends Controller
             'mode' => 'payment',
             'line_items' => $line_items,
             'metadata' => [
-                    'order_number'=> $request->order_number,
-                    'payment_for' => 'order payment'
+                'order_number'=> $request->order_number,
+                'payment_for' => 'order payment'
+                ],
+            'payment_intent_data'=>[
+                "metadata"=> [
+                        'payment_for' => 'order payment'
                     ]
+            ],
         ]); 
         $this->storeOrder( $request, $session);
        echo json_encode($session);  
@@ -88,11 +93,13 @@ class OrderPaymentsController extends Controller
      * Handle stripe order payments webhook call backs
      */
     public function handleOrderWebhook(Request $event){ 
+        if($event->type == 'checkout.session.completed') return 'Not a charge.succeeded event';         
+        if($event->data['object']['metadata']['payment_for'] !== 'order payment')  return 'Not an order payment event';
 
         // transform request $event for serialization
         $new_event = (object) $event->all(); 
         event(new OrderPaymentWebhook( $new_event ));
-        return true;  
+        return 'charge successful';  
     }
 
 
