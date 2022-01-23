@@ -1173,6 +1173,7 @@ export default {
             this.current_sub_menus= this.subMenus;
             this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
             this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
+            console.log(this.user);
             
             
             // setTimeout( this.toggle_show_res_info(), 3000); 
