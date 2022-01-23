@@ -30,7 +30,8 @@ export default {
             var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
             if(Object.keys(local_storage).length) {
                 local_storage.forEach(order => {
-                    console.log(order);
+                    console.log(order.order_number);
+                    console.log(this.current_order.order_number);
                     if(order.order_number == this.current_order.order_number) return; // do not save order if already exists                    
                 });
                 local_storage.push(this.current_order); 
