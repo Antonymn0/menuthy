@@ -19,7 +19,7 @@
             <span v-if="this.restaurant.description !== 'null'"> {{ capitalize(this.restaurant.description) }}</span>
         </p>
          <p class="text-center"> <small>
-                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number !== 'null' ">Phone:</span>  <span v-if="this.restaurant.restaurant_phone_number !== 'null' ">{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
+                 <span style="color:#f89a42;" v-if="this.restaurant.restaurant_phone_number  ">Phone:</span>  <span v-if="this.restaurant.restaurant_phone_number !== 'null' ">{{this.restaurant.restaurant_phone_number}}</span> &nbsp; 
                  <span style="color:#f89a42;" v-if="this.restaurant.restaurant_email !== 'null' ">Email:</span>  <span v-if="this.restaurant.restaurant_email !== 'null' ">{{this.restaurant.restaurant_email}}</span>
         </small> </p>
         <!-- -----------------------------cart items preview button----------------------------------------------- -->
