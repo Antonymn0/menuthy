@@ -28,9 +28,12 @@ export default {
         this.current_link = this.link;
         setTimeout(() => {
             var local_storage = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
-            local_storage.push(this.current_order) 
+            this.local_storage.array.forEach(order => {
+                if(order.order_number == this.current_order.order_number) return; // do not save order if already exists
+            });
+            local_storage.push(this.current_order);
             localStorage.setItem('menuthy_orders', JSON.stringify(local_storage));
-        }, 200);
+        }, 50);
     }
     
 }

@@ -616,11 +616,12 @@ export default {
         location_type:'auto',
         order_spinner:null,
         menuthy_orders:[],
+        pay_now:true,
 
       }
   },
   methods:{
-       
+    
        formatDate(date){
             if (date) return moment(String(date)).format('L') + ' ' + moment(String(date)).format('LT');            
         },
@@ -907,7 +908,7 @@ export default {
             // if(this.order_type == 'Home Delivery') this.getGeoLocation(); // call sendOrder inside get geolocation
             // if(this.order_type !== 'Home Delivery')  this.sendOrder();    // send order straigh away     
             },
-        payNow(){   
+        payNow(){              
             this.validateOrder();
             if(Object.keys(this.errors).length) return;     
             if(!this.user.stripe_publishable_key) {
@@ -929,12 +930,13 @@ export default {
                 console.log(error.response);                    
             });
         },
+        // function to track orders
         fetchLocalStorage(){
             this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')); 
             var tracked_orders =[]           
             this.menuthy_orders.forEach((order) =>{
                 if(order.restaurant_id == this.restaurant.id){
-                    // refresh order status from remote 
+                    // refresh order status from remote - (track order)
                     axios.get('/api/track-order/'  + order.id)
                     .then( response => {
                         // if order is not expired retain it, else discard it
@@ -964,7 +966,8 @@ export default {
             if(order.order_type == 'Home Delivery') order_date = moment(order.delivered_at).add(45, 'minutes').format("YYYY-MM-DD HH:mm");
             if(order.status == 'canceled') order_date = moment(order.canceled_at).add(45, 'minutes').format("YYYY-MM-DD HH:mm");
             is_order_expired = moment(time_now).isAfter(order_date) ;
-           return is_order_expired;            
+            
+            return is_order_expired;            
         },
         sendOrder(){
             this.validateOrder();
