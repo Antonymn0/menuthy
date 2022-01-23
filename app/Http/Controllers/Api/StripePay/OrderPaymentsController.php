@@ -77,6 +77,7 @@ class OrderPaymentsController extends Controller
             'line_items' => $line_items,
             'metadata' => [
                     'order_number'=> $request->order_number,
+                    'payment_for' => 'order payment'
                     ]
         ]); 
         $this->storeOrder( $request, $session);

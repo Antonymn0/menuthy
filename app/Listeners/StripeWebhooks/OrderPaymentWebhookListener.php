@@ -29,6 +29,9 @@ class OrderPaymentWebhookListener
      */
     public function handle(OrderPaymentWebhook $event)
     {
+        if($event->event->type == 'checkout.session.completed') return true;
+        if( $event->event->data->metadata->payment_for !== 'order payment') return true;
+
         $this-> handleOrderWebhook($event->event);
     }
 
