@@ -60,8 +60,8 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
 
             $payment_obj = (object) $payment; 
 
-            $payment['package_type'] = $this->getPackageType($payment_obj);
-            $payment['package_period'] = $this->getPackagePeriod($payment_obj);
+            $payment['package_type'] = $data['object']['metadata']['package_type'];
+            $payment['package_period'] = $data['object']['metadata']['plan_period'];
             $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
 
         if($event->type == 'charge.succeeded'){
@@ -88,8 +88,8 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
             $user->update([
                 'registration_status' => 'subscribed',
                 'trial_expiry' => null,
-                'package_type' => $this->getPackageType($payment_obj),
-                'package_period' => $this->getPackagePeriod($payment_obj),
+                'package_type' => $$payment_obj->package_type,
+                'package_period' => $$payment_obj->plan_period,
                 'registration_date'=> carbon::now(),
                 'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
             ]);

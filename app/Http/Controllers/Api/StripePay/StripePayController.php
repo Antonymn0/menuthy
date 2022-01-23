@@ -53,7 +53,9 @@ class StripePayController extends Controller
             ],
             'payment_intent_data'=>[
                 "metadata"=> [
-                        'payment_for' => 'subscription payment'
+                        'payment_for' => 'subscription payment',
+                        'package_type' => $user_data->plan->type,
+                        'package_period' => $user_data->plan->plan_period,
                     ]
             ],
         ]);

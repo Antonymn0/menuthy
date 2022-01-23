@@ -22,14 +22,14 @@
                 <div class="px-1" >
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
-                        updatePackagePrice(33, 66, 133,266),
+                        updatePackagePrice(0, 66, 133,266),
                         updatePeriod('monthly')                     
                       ]" style="cursor:pointer"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>
                 <div class="px-1" >
                     <p class="yearly shadow "  
                     @click.prevent="[toggleYearlyTabs($event, 'yearly'), 
-                     updatePackagePrice(333, 777, 1333, 2777),
+                     updatePackagePrice(0, 777, 1333, 2777),
                      updatePeriod('yearly')
                     ]" style="cursor:pointer">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
@@ -79,9 +79,9 @@
                     <div > 
                         <div class="shadow"> 
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Starter</h4>
-                            <p class="ty-1 price mb-0"> 
+                            <p class="ty-1 price mb-0 mx-auto">                                
                                 <span class="currency">QAR</span>
-                                <span class="amount">{{this.starter.price}}</span>
+                                <span class="amount">0.0</span>
                                 <span class="period">/Month</span>
                             </p>
                             <p class="d-table text-left mx-auto"> 
@@ -91,7 +91,7 @@
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-x"></i> </span> <span> Unlimited Table Scans </span> <br>
+                               <span><i class="bi bi-x"></i> </span> <span> 1 Table Scans </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Cloud POS </span> <br>
@@ -99,7 +99,7 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Delivery + Driver App </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>                           
-                            <p class="pt-3"> <button @click.prevent="stripeCheckout(this.starter)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
+                            <p class="pt-3"> <button  class="btn btn-danger px-5 d-flex align-items-center mx-auto"> &nbsp; &nbsp;&nbsp; Free  &nbsp;&nbsp;&nbsp; </button> </p>
                             <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Unlimited Table Scans </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> 10 Table scans </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
@@ -148,7 +148,7 @@
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> Unlimited Table Scans </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> 20 Table scans </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
@@ -310,12 +310,12 @@ export default {
                 alert('You are already subscribed to this plan!');
               return;  
             } 
-            if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return;            
-            const stripe = Stripe(this.stripe_public_key);
+            if(! confirm('Do you want to subscribe to ' + plan.name +'?')) return; 
             plan.plan_period = this.plan_period;
             plan.email = window.authUser.email;
-            var form_data = new FormData();
-            form_data.append('user_data', JSON.stringify({plan}));
+            var form_data = new FormData();        
+            form_data.append('user_data', JSON.stringify({plan}));   
+            const stripe = Stripe(this.stripe_public_key);
             new Swal({
                 title: "Hint",
                 text:"Use the same email address you used to register your menuthy account."

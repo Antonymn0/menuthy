@@ -92,7 +92,7 @@ export default {
             qrCode:null,
             table_number:1,
             qr_table_number:1,
-            max_package_tables:1000,
+            max_package_tables:1,
             tables_qr_code_link:null, 
             base_qr_code_link:'',
             errors:{},
@@ -148,7 +148,7 @@ export default {
     },
 
     mounted(){
-        //this.max_package_tables= window.authUser.tables;
+        this.max_package_tables= window.authUser.tables;
         this.qrCode = this.generateQrCode(this.restaurant.id);
     }
     
