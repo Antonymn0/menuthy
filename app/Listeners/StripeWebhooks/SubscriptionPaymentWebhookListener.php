@@ -91,7 +91,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
                 'package_type' => $payment_obj->package_type,
                 'package_period' => $payment_obj->package_period,
                 'registration_date'=> carbon::now(),
-                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
+                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj->package_period)
             ]);
         };
     }
@@ -99,15 +99,15 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
     /**
      * Return NEW expiry date AFTER subscription
      */
-    public function getRegistrationExpiry($payment_obj){
+    public function getRegistrationExpiry($package_period){
         $days = 0;
         $ex_date = '';
 
         // monthy subscription
-        if($payment_obj->package_period == 'monthly') $days =30;
+        if($package_period == 'monthly') $days =30;
         
         //yearly subsciption
-        if($payment_obj->package_period == 'yearly') $days =365;
+        if($package_period == 'yearly') $days =365;
        
         $ex_date = Carbon::now()->addDays($days);
         return $ex_date;
