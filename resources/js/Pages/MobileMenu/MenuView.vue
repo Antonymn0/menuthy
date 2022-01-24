@@ -1164,7 +1164,29 @@ export default {
             }, 
         toggle_show_res_info(){
                 this.show_res_info = false;
-            },        
+            }, 
+        isTrialOrSubsciptionExpied(){
+            var trial_expiry = moment(this.User.trial_expiry).format("YYYY-MM-DD");
+            var registration_expiry = moment(this.User.registration_expiry).format("YYYY-MM-DD");
+            var today = moment(new Date()).format("YYYY-MM-DD");
+
+            // if trial expired, revert user to starter, if not, sett package to lite 
+            if(this.user.registration_status == 'trial'){
+                if( moment(today).isAfter(trial_expiry) ){
+                    this.User.package_type = 'starter';
+                }
+                if( moment(today).isBefore(trial_expiry) ){
+                    this.User.package_type = 'lite';
+                }
+            }
+
+            // if registration expired, revert user to starter, if not 
+            if(this.user.registration_status == 'registered'){
+                if( moment(today).isAfter(registration_expiry) ){
+                    this.User.package_type = 'starter';
+                }                
+            }           
+        }           
     },
   
     mounted(){         
@@ -1176,7 +1198,10 @@ export default {
             this.current_sub_menus= this.subMenus;
             this.restaurant_name = this.restaurant.restaurant_name.replace(/\s+/g, '-').toLowerCase(); 
             this.menuthy_orders = JSON.parse(localStorage.getItem('menuthy_orders')) || [];
-            console.log(this.user);
+            
+            setInterval(() => {
+                this.isTrialOrSubsciptionExpied();
+            }, 10000);
             
             
             // setTimeout( this.toggle_show_res_info(), 3000); 

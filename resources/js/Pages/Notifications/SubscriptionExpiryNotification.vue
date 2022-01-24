@@ -34,6 +34,7 @@ export default {
         checkIfSubscriptionIsExpired(){
             var date = moment(this.registrationExpiryDate).format("YYYY-MM-DD");
             var today = moment(new Date()).format("YYYY-MM-DD");
+            
             if( moment(today).isSameOrAfter(date) ) this.expired = true;
         }
     },

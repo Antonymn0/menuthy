@@ -247,11 +247,36 @@ export default {
                     item.classList.remove('active');
                 });
             event.target.classList.add('active');
+        },
+        isTrialOrSubsciptionExpied(){
+            var trial_expiry = moment(this.user.trial_expiry).format("YYYY-MM-DD");
+            var registration_expiry = moment(this.user.registration_expiry).format("YYYY-MM-DD");
+            var today = moment(new Date()).format("YYYY-MM-DD");
+
+            // if trial expired, revert user to starter, if not, sett package to lite 
+            if(this.user.registration_status == 'trial'){
+                if( moment(today).isAfter(trial_expiry) ){
+                    this.user.package_type = 'starter';
+                }
+                if( moment(today).isBefore(trial_expiry) ){
+                    this.user.package_type = 'lite';
+                }
+            }
+
+            // if registration expired, revert user to starter, if not 
+            if(this.user.registration_status == 'registered'){
+                if( moment(today).isAfter(registration_expiry) ){
+                    this.user.package_type = 'starter';
+                }                
+            }           
         }
     },
     mounted(){
         this.fetchOrders('today');
         this.fetchQrScans();
+        setInterval(() => {
+            this.isTrialOrSubsciptionExpied();
+        }, 10000);
     }
 }
 </script>
