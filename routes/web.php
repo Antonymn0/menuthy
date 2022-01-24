@@ -113,7 +113,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin-qr-scansearch-email/{email}', [App\Http\Controllers\Web\Admin\QrCodeScansController::class, 'searchScansByEmail'])->name('all-scans-by-name');
 
   Route::get('/admin-subscription-reconciliation', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'viewAllSubscriptionpayments'])->name('all-subscription-payments');
-
+ 
   });  
   
   // banking routes 

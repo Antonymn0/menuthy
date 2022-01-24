@@ -148,7 +148,10 @@ if (App::environment('production')) {
 // ------------------Reports routes ---------------------------------
  Route::get('/summary-reports/orders/{restaurant_id}',[App\Http\Controllers\Api\Report\ReportController::class, 'fetchSummayReportOrders'])->name('fetch-reports');
  Route::get('/custom-reports/orders/{restaurant_id}/{period}/{order_type}/{table_number}/{order_status}',[App\Http\Controllers\Api\Report\ReportController::class, 'fetchCustomReportOrders'])->name('fetch-reports');
- 
+  
+  // Reconciliation payments
+  Route::get('/admin/fetch-reconciliations', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'fetchReconciliations'])->name('all-subscription-payments');
+
 
 
    //============================Stripe Pay  routes ===================//
