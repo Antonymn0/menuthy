@@ -118,7 +118,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
         $tables = 1;
         if($package_type == 'starter') $tables = 1;
         if($package_type == 'lite') $tables = 10;
-        if($package_type == 'pro') $tables = 20;
+        if($package_type == 'pro') $tables = 30;
         if($package_type == 'premium') $tables = 1000;
 
         return $tables;

@@ -59,7 +59,7 @@
                                      <a :href="this.tables_qr_code_link" target="_blank" style="text-decoration:none; color:#e6034b"> menuthy/{{this.restaurant.restaurant_name}}</a> 
                                 </p> 
                                 <div class="form-group" v-if="this.user.package_type !== null && this.user.package_type !== 'starter'">
-                                    <label for="exampleFormControlInput2">Enter table number </label>
+                                    <label for="exampleFormControlInput2">Enter table number <small> (Max: {{max_package_tables}} Tables )</small></label>
                                     <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no" @input.prevent="this.maxTableNumber">
                                     <small class="text-danger">{{this.errors.table_number}}</small>
                                 </div> 

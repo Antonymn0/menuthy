@@ -150,7 +150,7 @@
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-check-lg"></i> </span> <span> 20 Table scans </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> 30 Table scans </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-check-lg"></i> </span> <span> Cloud POS </span> <br>
