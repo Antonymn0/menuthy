@@ -60,7 +60,7 @@
                                 </p> 
                                 <div class="form-group" v-if="this.user.package_type !== null && this.user.package_type !== 'starter'">
                                     <label for="exampleFormControlInput2">Enter table number <small> (Max: {{max_package_tables}} Tables )</small></label>
-                                    <input type="number" min="1" max="50" v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no" @input.prevent="this.maxTableNumber">
+                                    <input type="number" min="1"  v-model="this.table_number" class="form-control p-4"  id="exampleFormControlInput2" placeholder="Table no" @input.prevent="this.maxTableNumber">
                                     <small class="text-danger">{{this.errors.table_number}}</small>
                                 </div> 
                                 <div class="d-flex justify-content-center align-items-center  mx-auto my-2 p-2" v-if="this.user.package_type !== 'starter'">
