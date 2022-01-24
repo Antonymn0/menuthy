@@ -118,9 +118,9 @@ export default {
     mounted(){
         this.user = window.authUser;
 
-        setInterval(() => {
+        setTimeout(() => {
             this.isTrialOrSubsciptionExpied();
-        }, 10000);
+        }, 1000);
 
     }
 }

@@ -113,8 +113,8 @@ export default {
     },
     methods:{
         isTrialOrSubsciptionExpied(){
-            var trial_expiry = moment(this.user.trial_expiry).format("YYYY-MM-DD");
-            var registration_expiry = moment(this.user.registration_expiry).format("YYYY-MM-DD");
+            var trial_expiry = moment(this.authUser.trial_expiry).format("YYYY-MM-DD");
+            var registration_expiry = moment(this.authUser.registration_expiry).format("YYYY-MM-DD");
             var today = moment(new Date()).format("YYYY-MM-DD");
 
             // if trial expired, revert user to starter, if not, sett package to lite 
@@ -139,11 +139,11 @@ export default {
         }
     }, 
     mounted(){
-        this.user = window.authUser;
+        this.authUser = window.authUser;
 
-        setInterval(() => {
+        setTimeout(() => {
             this.isTrialOrSubsciptionExpied();
-        }, 10000);
+        }, 1000);
 
     }
 }

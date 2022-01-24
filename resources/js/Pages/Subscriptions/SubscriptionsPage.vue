@@ -41,6 +41,7 @@
                         <th>Email</th>
                         <th>Package type</th>
                         <th>Period</th>
+                        <th>Status</th>
                         <th>Subscription date</th>
                         <th>Expiry date</th>
                     </tr>
@@ -52,6 +53,7 @@
                         <td v-else>{{capitalize(this.user.registration_status)}}</td>
 
                         <td> {{capitalize(this.user.package_period)}}</td>
+                        <td> {{capitalize(this.package_status)}}</td>
                         <td>{{formatDate(this.user.registration_date)}}</td>
 
                         <td v-if="this.user.registration_status !== 'trial' ">{{formatDate(this.user.registration_expiry)}}</td>
@@ -215,7 +217,8 @@ export default {
          return{
             user: window.authUser,
             plan_period:'monthly' ,
-            packageType:'', 
+            packageType:'',
+            package_status:null, 
             success:'',
 
             starter:{
@@ -330,10 +333,32 @@ export default {
                 console.log(error);                    
             });
         },
+        isTrialOrSubsciptionExpied(){
+            var trial_expiryD = moment(this.user.trial_expiry).format("YYYY-MM-DD");
+            var registration_expiryD = moment(this.user.registration_expiry).format("YYYY-MM-DD");
+            var today = moment(new Date()).format("YYYY-MM-DD");
+
+            // if trial expired, revert user to starter, if not, sett package to lite 
+            if(this.user.registration_status == 'trial'){
+                if( moment(today).isAfter(trial_expiryD) ) this.package_status = 'expired';                
+                else this.package_status = 'running...';               
+            }
+
+            // if registration expired, revert user to starter, if not 
+            if(this.user.registration_status == 'registered'){
+                if( moment(today).isAfter(registration_expiryD) ) this.package_status = 'expired';
+                else this.package_status = 'running...'; 
+                                
+            }           
+        }
         
     },
     mounted(){
-      //
+        this.user = window.authUser;
+        
+       setTimeout(() => {
+            this.isTrialOrSubsciptionExpied();
+        }, 2000);
     }
      
 }
