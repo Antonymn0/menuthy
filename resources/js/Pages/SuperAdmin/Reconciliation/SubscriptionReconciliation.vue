@@ -6,7 +6,7 @@
                 <Sidebar />
             </div>
             <div class="col-md-9 pt-5">
-                <button class="btn btn-success float-right" @click.prevent="this. getReconciliations()">Refresh</button>
+                <button class="btn btn-success float-right" @click.prevent="this. getReconciliations()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button>
                 <h4>Subscription Payments Reconciliation <small class="text-muted">(Incomplete)</small> </h4>
                 <div>
                     <form class="form-inline">
@@ -19,7 +19,7 @@
                         </form>
                 </div>
                 <div class="table-responsive">
-                    <table class="table-sm table-striped  p-2">
+                    <table class="table-sm table-striped  table-hover p-2">
                         <thead>
                             <th> # </th>
                             <th> Email </th>
