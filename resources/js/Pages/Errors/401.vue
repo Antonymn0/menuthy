@@ -3,7 +3,7 @@
     <div class="border-left p-2">
       <h3 class="">Unauthorised Access</h3>
       <p class="">Error code 403</p>
-      <span><a href="/home" class="btn alert-danger  m-2" > <i  class="fa fa-chevron-left"></i> Go Back</a> </span>
+      <span><button class="btn alert-danger  m-2" onclick="history.back()"> <i  class="fa fa-chevron-left"></i> Go Back</button> </span>
   </div>
 </div>
 </template>
