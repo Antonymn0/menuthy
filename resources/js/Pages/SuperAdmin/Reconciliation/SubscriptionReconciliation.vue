@@ -67,7 +67,7 @@ export default {
             getReconciliations(){
                  axios.get('api/admin/fetch-reconciliations')
                 .then( response => {
-                    this.current_reconciliations = response.data.data;
+                    this.current_reconciliations = response.data.data.data;
                 })
                 .catch( error => {
                 this.$swal('Failed!');
