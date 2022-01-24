@@ -62,7 +62,7 @@
                 </table>
             </p>
     <!-- ------------------------------------------------------------- -->
-            <p class="text-center text-muted">
+            <!-- <p class="text-center text-muted">
                 Toggle test subscription:  
                 <select name="" class="p-2 rounded" id="" @change.prevent='togglePackage()' v-model="this.packageType">
                     <option value="" selected> -Select-</option>
@@ -72,7 +72,7 @@
                     <option value="premium"> Premium</option>
                 </select>
                 <span class="text-success">{{this.success}}</span>
-            </p>
+            </p> -->
 <!-- ------------------------  package panels------------------------------------------ -->
         <div class="monthly-panels  ">            
             <div class="packages py-3 mt-4">

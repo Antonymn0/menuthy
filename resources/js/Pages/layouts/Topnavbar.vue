@@ -99,19 +99,14 @@ export default {
 
             // if trial expired, revert user to starter, if not, sett package to lite 
             if(this.user.registration_status == 'trial'){
-                if( moment(today).isAfter(trial_expiry) ){
-                    this.user.package_type = 'starter';
-                }
-                if( moment(today).isBefore(trial_expiry) ){
-                    this.user.package_type = 'lite';
-                }
+                if( moment(today).isAfter(trial_expiry) ) this.user.package_type = 'starter';                    
+                else this.user.package_type = 'lite';                
             }
 
             // if registration expired, revert user to starter, if not 
             if(this.user.registration_status == 'registered'){
-                if( moment(today).isAfter(registration_expiry) ){
-                    this.user.package_type = 'starter';
-                }                
+                if( moment(today).isAfter(registration_expiry) ) this.user.package_type = 'starter';                   
+                                
             }           
         }
     },

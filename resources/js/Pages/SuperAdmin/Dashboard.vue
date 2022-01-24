@@ -13,7 +13,7 @@
 <div class=" pt-4 p-0 web-dash">
     <h3> Dashboard</h3>
     <div class=" row panel mx-2 ">
-            <div class="col-md-3 p-1">
+            <div class="col-md-2 p-1">
                 <div class="d-flex align-content-center align-items-center card shadow p-2 text-success">
                     <h5>
                         All clients
@@ -24,18 +24,48 @@
                     <button class="btn btn-success rounded" @click="viewAllClients"> View </button>
                 </div>
                 </div>
-                <div class="col-md-3 p-1">
-                <div class="d-flex align-content-center align-items-center card shadow p-2 text-primary">
-                    <h5>
-                        Master clients
-                    </h5>
-                    <p>
-                        {{this.getMasterClients(this.users.data)}}
-                    </p>
-                    <button class="btn btn-primary rounded" @click="viewMasterClients"> View </button>
+            <div class="col-md-5 p-1">
+                <div class="rounded card shadow ">
+                    <div class="text-center text-primary row pt-1 ">
+                        <div class=" col-md-4 ">
+                            <div class="shadow rounded p-1">
+                                <h5>
+                                  &nbsp;   Lite &nbsp; 
+                                </h5>
+                                <p class="text-muted">
+                                    {{this.getLiteClients(this.users.data)}}
+                                </p>
+                                <button class="btn btn-primary btn-sm my-1 rounded" @click="viewLiteClients"> View </button>
+                            </div>                           
+                        </div>
+                        <div class=" col-md-4 ">
+                            <div class="shadow rounded p-1">
+                                <h5>
+                                    &nbsp; &nbsp;  Pro &nbsp; &nbsp;
+                                </h5>
+                                <p class="text-muted">
+                                    {{this.getProClients(this.users.data)}}
+                                </p>
+                                <button class="btn btn-primary btn-sm my-1 rounded" @click="viewProClients"> View </button>
+                            </div>                           
+                        </div>
+                        <div class=" col-md-4 ">
+                            <div class="shadow rounded p-1">
+                                <h5>
+                                    Premium
+                                </h5>
+                                <p class="text-muted">
+                                    {{this.getPremiumClients(this.users.data)}}
+                                </p>
+                                <button class="btn btn-primary btn-sm my-1 rounded" @click="viewPremiumClients"> View </button>
+                            </div>                           
+                        </div>
+                       
+                       
+                    </div> 
                 </div>
             </div>
-                <div class="col-md-3 p-1">
+            <div class="col-md-2 p-1">
                 <div class="d-flex align-content-center align-items-center card shadow p-2 text-warning">
                     <h5>
                         On trial
@@ -45,8 +75,8 @@
                     </p>
                     <button class="btn btn-warning rounded" @click="viewOnTrialClients"> View </button>
                 </div>
-                </div>
-                <div class="col-md-3 p-1">
+            </div>
+            <div class="col-md-2 p-1">
                 <div class="d-flex align-content-center align-items-center card shadow p-2 text-muted">
                     <h5>
                         Suspended
@@ -154,20 +184,34 @@ export default {
         }
     },
     methods:{
-        getMasterClients(users){            
-            let master =0;
-            users.forEach((user) => {               
-               if(user.package_type == 'master') master +=1; 
-            });
-            
-            return master;           
-        },
+      
         getOnTrialClients(users){
             let trial =0;
             users.forEach((user) => { 
                 if(user.registration_status == 'trial') trial +=1;
             });
             return trial;           
+        },
+        getLiteClients(users){
+            let lite =0;
+            users.forEach((user) => { 
+                if(user.package_type == 'lite') lite +=1;
+            });
+            return lite;           
+        },
+        getProClients(users){
+            let pro =0;
+            users.forEach((user) => { 
+                if(user.package_type == 'pro') pro +=1;
+            });
+            return pro;           
+        },
+        getPremiumClients(users){
+            let premium =0;
+            users.forEach((user) => { 
+                if(user.package_type == 'premium') premium +=1;
+            });
+            return premium;           
         },
         getSuspendedClients(users){
             let suspended =0;
@@ -194,19 +238,33 @@ export default {
             this.current_users = this.users.data;
             this.title = 'All clients' ;
         },
-        viewMasterClients(){
-            this.current_users =[]; // unset current users
-            this.users.data.forEach((user)=> {
-                if(user.package_type == 'master') this.current_users.push(user);
-                this.title = 'Master clients' ;
-                
-            });
-        },
+ 
         viewOnTrialClients(){
             this.current_users = []; // unset current users
             this.users.data.forEach((user)=> {
                 if(user.registration_status == 'trial') this.current_users.push(user);
                 this.title = ' Clients on-trial' ;                
+            });
+        },
+        viewLiteClients(){
+            this.current_users = []; // unset current users
+            this.users.data.forEach((user)=> {
+                if(user.package_type == 'lite') this.current_users.push(user);
+                this.title = ' Lite Clients ' ;                
+            });
+        },
+        viewProClients(){
+            this.current_users = []; // unset current users
+            this.users.data.forEach((user)=> {
+                if(user.package_type == 'pro') this.current_users.push(user);
+                this.title = ' Pro Clients ' ;                
+            });
+        },
+        viewPremiumClients(){
+            this.current_users = []; // unset current users
+            this.users.data.forEach((user)=> {
+                if(user.package_type == 'premium') this.current_users.push(user);
+                this.title = ' Premium Clients ' ;                
             });
         },
         viewSuspendedClients(){
@@ -243,8 +301,7 @@ export default {
     },
     mounted(){
         this.current_users = this.users.data;
-
-       
+        this.viewSuspendedClients();       
     }
 }
 </script>
