@@ -91,7 +91,8 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
                 'package_type' => $payment_obj->package_type,
                 'package_period' => $payment_obj->package_period,
                 'registration_date'=> carbon::now(),
-                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj->package_period)
+                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj->package_period),
+                'tables' => $this->getTables($payment_obj->package_type)
             ]);
         };
     }
@@ -113,7 +114,15 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
         return $ex_date;
     }   
 
-  
+  public function getTables($package_type){
+        $tables = 1;
+        if($package_type == 'starter') $tables = 1;
+        if($package_type == 'lite') $tables = 10;
+        if($package_type == 'pro') $tables = 20;
+        if($package_type == 'premium') $tables = 1000;
+
+        return $tables;
+  }
 
 
 }
