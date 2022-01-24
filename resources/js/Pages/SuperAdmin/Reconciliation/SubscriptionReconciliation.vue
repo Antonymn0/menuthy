@@ -18,7 +18,6 @@
                             <th>Package  Period </th>
                             <th> Amount paid </th>
                             <th> Date paid </th>
-                            <th> Date paid </th>
                             <th> Payment id </th>
                             <th> Reciept </th>
                             <th>Action </th>
@@ -30,6 +29,8 @@
                             <td>{{payment.package_type}}</td>
                             <td>{{payment.package_period}}</td>
                             <td>{{payment.amount_paid}}</td>
+                            <td>{{payment.created_at}}</td>
+                            <td>{{payment.payment_intent}}</td>
                             <td><span v-if="payment.reciept_url"><a :href="payment.reciept_url" target="black">View reciept</a></span></td>
                             <td>
                                 <span class="btn btn-success">Reconcile</span>
