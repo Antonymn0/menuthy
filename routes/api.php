@@ -151,6 +151,9 @@ if (App::environment('production')) {
   
   // Reconciliation payments
   Route::get('/admin/fetch-reconciliations', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'fetchReconciliations'])->name('all-subscription-payments');
+  Route::get('/admin/find-user/{email}', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'getUserAccount'])->name('get-user');
+  Route::get('/admin/reconcile-payment/{userID}/{paymentID}', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'reconcilePayment'])->name('reconcile-payment');
+  Route::get('/admin/search-payment/{payment_email}', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'searchPayment'])->name('search-payment');
 
 
 

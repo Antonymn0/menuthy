@@ -33,6 +33,9 @@ class SubscriptionPayment extends Model
         'amount_paid',
         'package_type',
         'package_period',
+        'reconciled',
+        'reconciled_at',
+        'reconciled_to',
         'registration_expiry',
         'registration_date',
         'deleted_at'

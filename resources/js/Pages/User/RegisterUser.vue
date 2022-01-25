@@ -1056,7 +1056,7 @@ export default {
             });
         },
         validateEmail(){
-            if(!this.regex.test(this.form.email)) this.errors.email = 'invalid email!' ;
+            if(!this.regex.test(this.form.email)) this.errors.email = 'Invalid email!' ;
              else delete this.errors.email;
         },
         confirmPassword(){
