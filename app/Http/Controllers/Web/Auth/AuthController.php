@@ -31,7 +31,9 @@ class AuthController extends Controller
         if(isset($restaurant)){
             return redirect()->intended('/dashboard');
         }
-
+        if($user->role == 'admin'){
+            return redirect()->intended('/admin');
+        }
         // else redirect to register resaturant page
          return redirect('/');
      }
