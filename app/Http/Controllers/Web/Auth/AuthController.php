@@ -19,7 +19,7 @@ class AuthController extends Controller
     }
 
 
-    //redirect users
+    //redirect users after login
     public function redirectUser(){
         $user = Auth::user();
 
@@ -34,8 +34,8 @@ class AuthController extends Controller
         if($user->role == 'admin'){
             return redirect()->intended('/admin');
         }
-        // else redirect to register resaturant page
-         return redirect('/');
+        // else redirect to register restaurant page
+        return redirect('/');
      }
 
     //logout user

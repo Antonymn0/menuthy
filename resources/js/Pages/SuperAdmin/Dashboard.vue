@@ -1,9 +1,7 @@
 <template>
 
 <div>
-
     <Header />
-
 <div class="row ">
 <div class="sidebar p-0 m-0">
     <Sidebar />
@@ -59,8 +57,7 @@
                                 </p>
                                 <button class="btn btn-primary btn-sm my-1 rounded" @click="viewPremiumClients"> View </button>
                             </div>                           
-                        </div>
-                       
+                        </div>                       
                        
                     </div> 
                 </div>
@@ -151,7 +148,6 @@
         </div>
     </div>
 
-
 </div>
     <!-- ------------------------------------- -->
 </div>
@@ -183,8 +179,7 @@ export default {
             suspended_users:0
         }
     },
-    methods:{
-      
+    methods:{      
         getOnTrialClients(users){
             let trial =0;
             users.forEach((user) => { 
@@ -276,13 +271,26 @@ export default {
                     var data =response.data.data.data;
                     this.current_users = data; 
                     this.suspended_users = Object.keys(this.current_users).length;  
-                    } 
+                } 
             })
             .catch( error => {
                this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
         },
+        getSuspendedClients(){
+            axios.get('/users/deleted')
+            .then( response => {
+                if( response.status == 200){ 
+                    this.suspended_users = Object.keys(response.data.data.data).length;  
+                } 
+            })
+            .catch( error => {
+               this.$swal('Failed!');
+                console.log(error.response.data.errors);                    
+            });
+        },
+
         restoreUser(user_id){
             if(! confirm('Do you want to restore this user?')) return;
                  axios.get('api/user/restore/' + user_id)
@@ -296,12 +304,11 @@ export default {
                this.$swal('Failed!');
                 console.log(error.response.data.errors);                    
             });
-        }
-        
+        }        
     },
     mounted(){
         this.current_users = this.users.data;
-        this.viewSuspendedClients();       
+        this.getSuspendedClients();     
     }
 }
 </script>

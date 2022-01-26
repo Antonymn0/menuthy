@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use App\Events\Subscription\SubscriptionCreated;
 use App\Events\Subscription\SubscriptionFailed;
 
-class SubscriptionPaymentWebhookListener implements shouldQueue
+class SubscriptionPaymentWebhookListener 
  
 {
     /**
@@ -63,6 +63,7 @@ class SubscriptionPaymentWebhookListener implements shouldQueue
             $payment['package_type'] = $data['object']['metadata']['package_type'];
             $payment['package_period'] = $data['object']['metadata']['package_period'];
             $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
+            return $payment;
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
