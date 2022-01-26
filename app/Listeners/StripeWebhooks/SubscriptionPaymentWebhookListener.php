@@ -56,14 +56,12 @@ class SubscriptionPaymentWebhookListener
             $payment['reciept_number'] = $data['object']['receipt_number'];
             $payment['reciept_url'] = $data['object']['receipt_url'];
             $payment['amount_paid'] = $data['object']['amount'] / 100;
-            $payment['registration_date'] =Carbon::now();
-
-            $payment_obj = (object) $payment; 
+            $payment['registration_date'] =Carbon::now();  
 
             $payment['package_type'] = $data['object']['metadata']['package_type'];
             $payment['package_period'] = $data['object']['metadata']['package_period'];
-            $payment['registration_expiry'] = $this->getRegistrationExpiry($payment_obj);
-            dd($payment);
+            $payment['registration_expiry'] = $this->getRegistrationExpiry( $data['object']['metadata']['package_period'] );
+           
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
