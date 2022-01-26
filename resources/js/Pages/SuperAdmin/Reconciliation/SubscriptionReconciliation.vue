@@ -179,7 +179,7 @@ export default {
             getPayments(){
                 axios.get('api/admin/fetch-reconciliations')
                 .then( response => {
-                    console.log(response.data.data.data);
+                    console.log(response.data.data);
                     this.payments = response.data.data.data;
                 })
                 .catch( error => {
