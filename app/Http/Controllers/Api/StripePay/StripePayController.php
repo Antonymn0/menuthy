@@ -75,25 +75,7 @@ class StripePayController extends Controller
         // Transform request $event for serialization
         $new_event = (object) $event->all();
         event(new SubscriptionPaymentWebhook( $new_event ));
-        return 'Charge Successful';                
-    }
-
-/**
- * Update user account after successful payment
- */
-    public function updateUser($payment){
-        $payment_obj = (object) $payment;         //convert array to object
-        $user = User::where('email', $payment_obj->email)->first();
-        if(isset($user)){
-            $user->update([
-                'registration_status' => 'subscribed',
-                'trial_expiry' => null,
-                'package_type' => $this->getPackageType($payment_obj),
-                'package_period' => $this->getPackagePeriod($payment_obj),
-                'registration_date'=> carbon::now(),
-                'registration_expiry'=> $this->getRegistrationExpiry($payment_obj)
-            ]);
-        };
+        // return 'Charge Successful';                
     }
 
 
@@ -111,56 +93,5 @@ class StripePayController extends Controller
         return Inertia::render('Subscriptions/FailedPage');
     } 
 
-    /**
-     * Return NEW expiry date AFTER subscription
-     */
-    public function getRegistrationExpiry($payment_obj){
-        $days = 0;
-        $ex_date = '';
-
-        // monthy subscription
-        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $days =30;
-        
-        //yearly subsciption
-        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $days =365;
-       
-        $ex_date = Carbon::now()->addDays($days);
-        return $ex_date;
-    }   
-
-    /**
-     * Return package period AFTER subscription
-     */
-    public function getPackagePeriod($payment_obj){
-        $period = '';        
-
-        // monthy subscription
-        if($payment_obj->amount_paid == 33 || $payment_obj->amount_paid == 66 || $payment_obj->amount_paid == 133 || $payment_obj->amount_paid == 266) $period = 'Monthly';
-        
-        //yearly subsciption
-        if($payment_obj->amount_paid == 333 || $payment_obj->amount_paid == 777 || $payment_obj->amount_paid == 1333 || $payment_obj->amount_paid == 2777) $period = 'Yearly';
-       
-        return $period;
-    }   
-
-    /**
-     * return package type after successful subscription
-     */
-    public function getPackageType($payment_obj){
-        $package_type ='';
-            // monthly 
-        if($payment_obj->amount_paid == 33 ) $package_type = 'Starter';
-        if($payment_obj->amount_paid == 66 ) $package_type = 'Lite';
-        if($payment_obj->amount_paid == 133 ) $package_type = 'Pro';
-        if($payment_obj->amount_paid == 266 ) $package_type = 'Premium';        
-        
-        //yearly
-        if($payment_obj->amount_paid == 333 ) $package_type = 'Starter';
-        if($payment_obj->amount_paid == 777) $package_type = 'Lite';
-        if($payment_obj->amount_paid == 1333 ) $package_type = 'Pro';
-        if($payment_obj->amount_paid == 2777 ) $package_type = 'Premium';
-
-
-        return $package_type;
-    }
+  
 }
