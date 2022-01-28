@@ -233,9 +233,7 @@ export default {
                     this.spinner = false;  
                     this.success= 'Success, User created!'  ;  
                     this.$refs.formuser.reset();
-                    setTimeout(() => document.getElementById('closeuser').click(), 3000);
-
-                   
+                    setTimeout(() => document.getElementById('closeuser').click(), 2500);                   
                 } 
             })
             .catch( error => {  
