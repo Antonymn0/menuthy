@@ -23,19 +23,22 @@ class AuthController extends Controller
     public function redirectUser(){
         $user = Auth::user();
 
-        //get restaurant associated with user
-        $restaurant = Restaurant::Where('user_id', $user->id)->first();
-   
+        if($user->role == 'user'){
+            //get restaurant associated with user
+            $restaurant = Restaurant::Where('user_id', $user->id)->first();    
 
-        // if user has restaurant redirect to dashboard
-        if(isset($restaurant)){
-            return redirect()->intended('/dashboard');
+            // if user has restaurant redirect to dashboard
+            if(isset($restaurant)) return redirect()->intended('/dashboard');  
+            // else redirect to register restaurant page
+            return redirect('/');
         }
         if($user->role == 'admin'){
-            return redirect()->intended('/admin');
-        }
-        // else redirect to register restaurant page
-        return redirect('/');
+                return redirect()->intended('/admin');
+            }
+        if($user->role == 'kitchen') return redirect('/kitchen');
+        if($user->role == 'cashier') return redirect('/cashier');
+        if($user->role == 'delivery') return redirect('/delivery');
+        
      }
 
     //logout user

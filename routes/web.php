@@ -75,23 +75,36 @@ Route::middleware(['auth', 'is_user'])->group(function () {
     Route::get('/{restaurant_name}/orders/kitchen/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'kitchenOrders'])->name('kitchen-orders');
     Route::get('/{restaurant_name}/orders/cashier/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'cashierOrders'])->name('cashier-orders');
     Route::get('/{restaurant_name}/orders/delivery/{restaurant_id}', [App\Http\Controllers\Web\Order\OrderController::class, 'deliveryOrders'])->name('delivery-orders');
-    Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
-    Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
-    Route::get('/orders/{restaurant_id}/type/{order_type}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTypes']);
-    Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
-    Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
+   
   
   // reports routes
-   Route::get('/reports/summary', [App\Http\Controllers\Api\Report\ReportController::class, 'summaryReportsPage']);
-   Route::get('/reports/custom', [App\Http\Controllers\Api\Report\ReportController::class, 'customReportsPage']);
-  
-  // --------------------------------------------------------------------------//
-  //Subsciptions packages  page routes
-  Route::get('subscription', [App\Http\Controllers\Web\Subscription\SubscriptionController::class, 'showSubscriptionsPackagesPage'])->name('show-packages');
+    Route::get('/reports/summary', [App\Http\Controllers\Api\Report\ReportController::class, 'summaryReportsPage']);
+    Route::get('/reports/custom', [App\Http\Controllers\Api\Report\ReportController::class, 'customReportsPage']);
+    
+    // --------------------------------------------------------------------------//
+    //Subsciptions packages  page routes
+    Route::get('subscription', [App\Http\Controllers\Web\Subscription\SubscriptionController::class, 'showSubscriptionsPackagesPage'])->name('show-packages');
   
   }); 
 
+  //Protected routes shared but user/cashier/kitchen/delivery
+  Route::middleware(['auth', 'is_user_cashier_kitchen_delivery'])->group(function () { 
+      Route::get('/{restaurant_name}/orders/{restaurant_id}/refresh', [App\Http\Controllers\Web\Order\OrderController::class, 'refreshOrders'])->name('refresh-orders');
+      Route::get('/orders/{restaurant_id}/{search_term}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrders']);
+      Route::get('/orders/{restaurant_id}/type/{order_type}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTypes']);
+      Route::get('/orders/{restaurant_id}/tables/{table_no}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderTables']);
+      Route::get('/orders/{restaurant_id}/date/{date}', [App\Http\Controllers\Web\Order\OrderController::class, 'fetchOrderBydate']);
+      Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
+   }); 
+  
+// ---------------------------------------------------------------------------------
 
+// cashier, kitchen and delivery independent routes
+Route::get('/cashier', [App\Http\Controllers\Api\Cashier\CashierController::class, 'cashierPage'])->middleware('cashier');
+Route::get('/kitchen', [App\Http\Controllers\Api\Kitchen\KitchenController::class, 'kitchenPage'])->middleware('kitchen');
+Route::get('/delivery', [App\Http\Controllers\Api\Delivery\DeliveryController::class, 'deliveryPage'])->middleware('delivery');
+
+// --------------------------------------------------------------------------------------
 
 //=====================Protected SUPER ADMIN ROUTES ====================//
 Route::middleware(['auth','admin'])->group(function () { 
@@ -101,7 +114,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/users/deleted',[App\Http\Controllers\Web\Admin\AdminController::class, 'getDeletedUsers'])->name('deleted-users');
     Route::get('admin/orders',[App\Http\Controllers\Web\Admin\OrdersController::class, 'getAllOrders'])->name('admin-orders');
     
-    Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
+    // Route::get('/search-orders/{order_no}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrderNo'])->name('search-order-no');
     Route::get('/search-orders/transaction/{transaction_id}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchTransactionId'])->name('search-transaction-id');
     Route::get('/search-orders/email/{email}',[App\Http\Controllers\Web\Admin\OrdersController::class, 'searchOrdersByResaturantEmail'])->name('search-ordersby-email');
 

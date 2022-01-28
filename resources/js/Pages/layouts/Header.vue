@@ -82,6 +82,7 @@
                 <li data-toggle="modal" data-target="#profile"><a class="dropdown-item" href="#" >User Profile</a></li>                
                 <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
                 <li><a class="dropdown-item" href="/subscription">Subscriptions</a></li>
+                <li> <a class="dropdown-item" href="#" onclick="event.preventDefault();" data-toggle="modal" data-target="#exampleModalAddUsers">Add Users</a> </li>
                 <li class="dropdown-item  border-top px-2">
                     <form action="/logout" method="POST" enctype="multipart/form-data">
                         <div class="ml-2">
@@ -97,6 +98,60 @@
             </p>
         </div>
         <!-- -------------------------------------------------------------------------- -->
+         <!-- Modal -->
+                <div class="modal fade" id="exampleModalAddUsers" tabindex="-1" role="dialog" aria-labelledby="exampleModalAddUsersTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLongTitle">Add an Employee User account</h4>
+                        <button type="button" class="close" id="closeuser" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" ref="formuser" @submit.prevent="createNewUser()">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Full name* </label>
+                                <input type="text" class="form-control p-4"   v-model="form.full_name" id="exampleFormControlInput1"  placeholder="Full name " required>
+                                <small class="text-danger">{{this.errors.full_name}}</small>
+                            </div>                        
+                            <div class="form-group">
+                                <label for="exampleFormControlemail">Email* </label>
+                                <input type="email" inputmode="email" class="form-control p-4"   v-model="form.email" id="exampleFormControlemail"  placeholder="Email" required>
+                                <small class="text-danger">{{this.errors.email}}</small>
+                            </div>                        
+                            <div class="form-group">
+                                <label for="exampleFormControlpassword">Password* </label>
+                                <input type="password"  class="form-control p-4"   v-model="form.password" id="exampleFormControlpassword"  placeholder="Password" required>
+                                <small class="text-danger">{{this.errors.password}}</small>
+                            </div>                        
+                            <div class="form-group">
+                                <label for="exampleFormControlpasswordagain">Confirm Password* </label>
+                                <input type="password"  class="form-control p-4"   v-model="form.confirm_password" id="exampleFormControlpasswordagain"  placeholder="Confirm Password" required>
+                                <small class="text-danger">{{this.errors.confirm_password}}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlrole">Role:</label>
+                               <select id="" class="w-100  p-3 rounded border bg-white text-muted" v-model="form.role">
+                                   <option value="" selected>- Role -</option>
+                                   <option value="cashier" >Cashier</option>
+                                   <option value="kitchen" >Kitchen</option>
+                                   <option value="delivery" >Delivery</option>
+                               </select>
+                               <small class="text-danger">{{this.errors.role}}</small>
+                            </div>
+
+                            <div class="text-center border-top px-3 pt-1">                                
+                                <span class="spinner-border " role="status" v-if="this.spinner"></span>   <br>                             
+                                <span class="text-success small pb-2"  v-if="this.success !=='' "> {{this.success}} </span>   <br>                             
+                                <button type="button" class="btn btn-danger m-1" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary m-1" >Create</button>                            
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
     </div>
 </header> 
  
@@ -132,10 +187,24 @@ export default {
         MobileNav,
         QrCode,
         Feedback,
+        success:''
     },
     data(){
         return{
-            Qr_code_link:''
+            Qr_code_link:'',
+            errors:{},
+            success:'',
+            form:{
+                full_name:'',
+                email:'',
+                password:'',
+                confirm_passord:'',
+                role:'',
+                created_by:null
+            },
+            spinner:false,
+            regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+            
         }
     },
   
@@ -145,6 +214,64 @@ export default {
         },
         logout(){
             this.$inertia.visit('/logout');
+        },
+        createNewUser(){
+            this.validateForm();
+            if(Object.keys(this.errors).length) return;
+            var user_data = new FormData();
+                user_data.append('full_name', this.form.full_name);
+                user_data.append('email', this.form.email);
+                user_data.append('password', this.form.password);
+                user_data.append('password_again', this.form.password_again);
+                user_data.append('role', this.form.role);
+                user_data.append('created_by', this.form.created_by);
+                this.spinner = true;
+
+            axios.post('api/user', user_data)
+            .then( response => {
+                if( response.status == 201){ 
+                    this.spinner = false;  
+                    this.success= 'Success, User created!'  ;  
+                    this.$refs.formuser.reset();
+                    setTimeout(() => document.getElementById('closeuser').click(), 3000);
+
+                   
+                } 
+            })
+            .catch( error => {  
+                this.spinner = false;           
+                if(error.response.status == 422) {
+                    if(error.response.data.errors.email){
+                        this.errors.email = error.response.data.errors.email[0];                       
+                        return;
+                    } 
+                    if(error.response.data.errors.password){
+                        this.errors.password = error.response.data.errors.password[0];
+                        return;
+                    } 
+                }
+                console.log(error.response); 
+                new Swal({ title: "Error", timer: 2000});                                                                                      
+                                       
+                });
+
+        },
+        validateForm(){
+            this.errors={};            
+            if(this.form.full_name == '') this.errors.full_name = 'Name field is required!';
+            if(this.form.email == '') this.errors.email = 'Email field is required!';
+            if(this.form.password == '') this.errors.password = 'Password field is required!';
+            if(this.form.password == '') this.errors.password = 'Password field is required!';
+            if(this.form.confirm_password == '') this.errors.confirm_password = 'Confirm password field is required!';
+            if(this.form.role == '') this.errors.role= 'Role is required!';
+            if(!this.regex.test(this.form.email)) this.errors.email = 'Invalid email!' ;
+            if(this.form.password !== this.form.confirm_password) this.errors.confirm_password = 'Password does not match!';
+            if(this.form.created_by== null){
+                this.errors.user = 'Cannot determine user';
+               new Swal({ title: "Error, Cannot determine curent user!", timer: 2000}); 
+               
+            }
+           
         }
     },
     created() {
@@ -153,6 +280,7 @@ export default {
     },
     mounted(){
         this.authUser = window.authUser;
+        this.form.created_by = window.authUser.id;
         this.csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); //csrf token
     }
 }

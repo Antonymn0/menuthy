@@ -22,6 +22,8 @@ class AddColumnsToUsers extends Migration
             // $table->text('stripe_secret_key')->nullable();
             // $table->dateTime('stripe_info_updated_at')->nullable();
 
+            $table->integer('created_by')->nullable();
+
         });
     }
 

@@ -31,7 +31,7 @@ class ValidateUser extends FormRequest
             'password' => ['required','min:4'],
             'package_type' => ['nullable','string'],
             'role' => ['required','string'],
-            
+            'created_by' => ['integer'],            
         ];
     }
 

@@ -30,16 +30,19 @@
                         <option value="today"> All </option>
                         <option value="recieved"> Open </option>
                         <option value="completed"> Completed </option>
+                        <option value="transit"> Transit </option>
+                        <option value="delivered"> Delivered </option>
                         <option value="canceled"> Canceled </option>
                      </select>
                 </div>
                  <div class="forn-group p-2">
                      <label for="mode"> Order type:</label>
                      <select id="mode" class="form-control"  v-model="select_status" @change="fetchOrderTypes(this.select_status)"> 
-                        <option value="all"> All </option>
-                        <option value="dine in"> Dine in </option>
-                        <option value="take away"> Take away </option>
-                        <option value="pick up"> Pick up </option>
+                       <option value="all"> All </option>
+                        <option value="Dine In"> Dine in </option>
+                        <option value="Take Away"> Pick-Up </option>
+                        <option value="Drive Through"> Drive-Thru </option>
+                        <option value="Home Delivery"> Delivery </option>
                      </select>
                 </div>
             </div>
@@ -456,8 +459,7 @@ export default {
     mounted(){
         this.refreshOrdersInterval = setInterval(this.refreshOrders, 10000);  //refresh orders every 10 seconds on load
         this.authRestaurant = window.authRestaurant;
-        this.current_orders = this.orders;
-       
+        this.current_orders = this.orders;       
     }
 }
 </script>

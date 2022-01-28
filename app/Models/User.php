@@ -57,6 +57,7 @@ class User extends Authenticatable
         'avatar',
         'name',
         'image',
+        'created_by'
 
     ];
 
@@ -88,14 +89,24 @@ class User extends Authenticatable
      * ------ this block to be refactored in favour of eloquent relation further below
      */
     public function restaurant(){
-
-        $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
-
-        if( $restaurant ){
-            return $restaurant;
+        //restaurant owner
+        if(Auth::user()->role == 'user'){
+            $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
+            if( $restaurant ){
+                return $restaurant;
+            }
         }
+        // cashier/kitchen/delivery
+        if(Auth::user()->role !== 'user' && Auth::user()->role !== 'admin'){
+            $restaurant = Restaurant::WHERE('user_id', Auth::user()->created_by)->first();
+            if( $restaurant ){
+                return $restaurant;
+            }
+        }
+        
+        else return null;
 
-        return null;
+       
     }
 
     // eloquent relation

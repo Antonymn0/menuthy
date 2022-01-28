@@ -156,7 +156,6 @@ if (App::environment('production')) {
   Route::get('/admin/search-payment/{payment_email}', [App\Http\Controllers\Web\Admin\SubscriptionReconciliationController::class, 'searchPayment'])->name('search-payment');
 
 
-
    //============================Stripe Pay  routes ===================//
     //  stripe inf outes 
     Route::post('/banking/update-stripe-info','Api\Banking\BankingController@updateStripeInfo');

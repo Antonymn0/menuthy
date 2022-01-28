@@ -71,7 +71,7 @@ export default {
     },
     data(){
         return{
-            authRestaurant: '',
+            authRestaurant: window.authRestaurant,
         }
     },
     mounted(){
@@ -85,12 +85,10 @@ export default {
 <style lang="scss" scoped>
 @import "../../../sass/app.scss";
 
-
      .restaurant-btn:hover, .restaurant-btn:hover:active {
         color: #fcfcfc;
         background-color:  #e91912; 
-     }
-     
+     }     
 
      .restaurant-btn{
          background-color:  #c40a04;

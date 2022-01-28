@@ -2,10 +2,10 @@
     <div> 
         <Header />
         <div class="row ">
-            <div class="sidebar p-0 m-0 col-md-3">
+            <div class="sidebar p-0 m-0 col-md-2">
                 <Sidebar />
             </div>
-            <div class="col-md-9 pt-5">
+            <div class="col-md-10 pt-5 pl-5">
                 <button class="btn btn-success float-right" @click.prevent="this.getPayments()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button>
                 <h3>Subscription Payments Reconciliation <small class="text-muted">(Incomplete)</small> </h3>
                 <div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table-sm table-striped  table-hoverable p-2">
-                        <thead>
+                        <thead class="border-bottom">
                             <th> # </th>
                             <th> Email </th>
                             <th> Name </th>
@@ -67,12 +67,13 @@
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Reconcile payment</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div>
+                            
                             <form action="#" @submit.prevent="this.ReconcilePayment()">
                                 <div class="form-group">
                                     <label for="email">Enter claimant's registered menuthy account email</label>
@@ -117,6 +118,9 @@
                         </div>
                     </div>
                     <div class="text-right py-2 border-top mr-3">
+                        <div v-if="this.success !== '' "> 
+                            <span class="text-success p-1">{{this.success}}</span>
+                        </div>
                          <small class="text-danger pb-1">{{this.errors.payment_reconciled}}</small> <br>
                         <button type="button" class="btn btn-success m-1" @click.prevent="this.reconcilePayment()" v-if="this.userAcc">Reconcile</button>
                         <button type="button" class="btn btn-danger m-1" data-dismiss="modal">Cancel</button>
@@ -159,6 +163,7 @@ export default {
                 payments:{},
                 current_payment:{},
                 errors:{},
+                success:'',
                 regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
             }
         },
@@ -214,7 +219,9 @@ export default {
                 if(! confirm('Reconcile this payment?')) return;
                 axios.get('api/admin/reconcile-payment/' + this.userAcc.id + '/' + this.current_payment.id )
                 .then( response => {  
-                    console.log(response.data);                                      
+                    this.success = 'Success. Payment reconciled!';
+                    setTimeout(() => document.getElementById('close').click(), 3000);
+                                           
                 })
                 .catch( error => {
                     this.$swal('Failed!');

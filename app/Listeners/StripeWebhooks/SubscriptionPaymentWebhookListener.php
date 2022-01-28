@@ -60,8 +60,7 @@ class SubscriptionPaymentWebhookListener
 
             $payment['package_type'] = $data['object']['metadata']['package_type'];
             $payment['package_period'] = $data['object']['metadata']['package_period'];
-            $payment['registration_expiry'] = $this->getRegistrationExpiry( $data['object']['metadata']['package_period'] );
-           
+            $payment['registration_expiry'] = $this->getRegistrationExpiry( $data['object']['metadata']['package_period'] );           
 
         if($event->type == 'charge.succeeded'){
             $subscription = SubscriptionPayment::create($payment); // record subscription in subscriptions table
