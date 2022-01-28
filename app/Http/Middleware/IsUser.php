@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 class IsUser
 {
    /**
@@ -16,7 +17,7 @@ class IsUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role == 'user') {
+        if (Auth::user()->role == 'user') {
             return $next($request);
         }
         return Inertia::render('Errors/401');

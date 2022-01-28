@@ -43,12 +43,14 @@ Route::get('/', function () {
  // verify email route
     Route::get('/verify-email/{email}','Web\Auth\EmailVerificationController@verifyEmail');
 
+// redict users after authentication
+Route::get('/redirect/user','Web\Auth\AuthController@redirectUser')->middleware('auth');
+
 //============ PROTECTED  All Users ROUTES ===================
+
 Route::middleware(['auth', 'is_user'])->group(function () { 
     // route to dash board users will be redirected accordingly
     Route::get('/dashboard/{user_id}/{restaurant_id}', [App\Http\Controllers\Web\DashboardController::class, 'index']);
-    // redict users after authentication
-    Route::get('/redirect/user','Web\Auth\AuthController@redirectUser');
        
     //logout route
     Route::post('/logout','Web\Auth\AuthController@logout');

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class IsUser_Cashier_Kitchen_Delivery
 {
@@ -17,7 +18,7 @@ class IsUser_Cashier_Kitchen_Delivery
      */
     public function handle(Request $request, Closure $next)
     {
-        $role = auth()->user()->role;
+        $role = Auth::user()->role;
         if ($role == 'user' || $role == 'cashier' ||  $role == 'kitchen' || $role == 'delivery') {
             return $next($request);
         }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class IsKitchen
 {
@@ -18,7 +19,7 @@ class IsKitchen
     public function handle(Request $request, Closure $next)
     {
         
-        if (auth()->user()->role == 'kitchen') {
+        if (Auth::user()->role == 'kitchen') {
             return $next($request);
         }
         return Inertia::render('Errors/401');

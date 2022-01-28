@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class IsDelivery
 {
@@ -17,7 +18,7 @@ class IsDelivery
      */
     public function handle(Request $request, Closure $next)
     {        
-        if (auth()->user()->role == 'delivery') {
+        if (Auth::user()->role == 'delivery') {
             return $next($request);
         }
         return Inertia::render('Errors/401');

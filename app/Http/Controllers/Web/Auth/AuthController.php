@@ -23,6 +23,7 @@ class AuthController extends Controller
     public function redirectUser(){
         $user = Auth::user();
 
+       if($user->role == 'admin')return redirect()->intended('/admin');  
         if($user->role == 'user'){
             //get restaurant associated with user
             $restaurant = Restaurant::Where('user_id', $user->id)->first();    
@@ -32,12 +33,14 @@ class AuthController extends Controller
             // else redirect to register restaurant page
             return redirect('/');
         }
-        if($user->role == 'admin'){
-                return redirect()->intended('/admin');
-            }
-        if($user->role == 'kitchen') return redirect('/kitchen');
-        if($user->role == 'cashier') return redirect('/cashier');
-        if($user->role == 'delivery') return redirect('/delivery');
+        else{
+            // role users
+            $restaurant = Restaurant::Where('user_id', $user->registered_by)->first();  
+            if($user->role == 'kitchen') return redirect('/kitchen');
+            if($user->role == 'cashier') return redirect('/cashier');
+            if($user->role == 'delivery') return redirect('/delivery');  
+        }
+        
         
      }
 
