@@ -20,9 +20,9 @@ class AddFieldsToSubscriptionPayments extends Migration
             // $table->dateTime('registration_date')->nullable();
             // $table->timestamp('deleted_at')->nullable(); 
 
-            $table->string('reconciled_to')->nullable(); 
-            $table->string('reconciled')->nullable(); 
-            $table->timestamp('reconciled_at')->nullable(); 
+            // $table->string('reconciled_to')->nullable(); 
+            // $table->string('reconciled')->nullable(); 
+            // $table->timestamp('reconciled_at')->nullable(); 
         });
     }
 
