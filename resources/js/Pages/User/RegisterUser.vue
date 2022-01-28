@@ -1017,14 +1017,15 @@ export default {
             })
             .catch( error => {  
                 Swal.close();
-                 if(error.response.status == 422) {
+                if(error.response.status == 422) {
                      if(error.response.data.errors.email){
                          this.errors.email = error.response.data.errors.email[0];
                          return;
                      } 
                     }
-                    console.log(error.response); 
-              new Swal({ title: "Error", timer: 2000});                                                                                      
+                if(error.response.status == 500) this.storeRestaurant(response.data.data.id); // resend store resaturant again
+                console.log(error.response); 
+                new Swal({ title: "Error", timer: 2000});                                                                                      
                                        
                 });
         },
