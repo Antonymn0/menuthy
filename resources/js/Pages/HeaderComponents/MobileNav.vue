@@ -56,6 +56,15 @@
                     <li class="nav-item" v-if="this.user.registration_status !== 'trial'  && this.user.package_type == 'premium'">
                         <a class="nav-link " href="/banking">Bank Settings</a>
                     </li>
+                    <li class="nav-item" >
+                          <ul class="dropdown-menu   pb-0 mb-0" aria-labelledby="navbarDropdown">
+                            <li data-toggle="modal" data-target="#profile" class="dropdown-item"><a  href="#" >User Profile</a></li>                
+                            <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModalEditRestaurant" > Restaurant Info</a></li>
+                            <li><a class="dropdown-item" href="/subscription">Subscriptions</a></li>
+                            <li> <a class="dropdown-item" href="#" onclick="event.preventDefault();" data-toggle="modal" data-target="#exampleModalAddUsers">User accounts</a> </li>
+                            
+                        </ul>
+                    </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="#">Settings</a>
                     </li> -->
@@ -71,6 +80,7 @@
                             <li><a class="dropdown-item" href="#">Integrations</a></li>
                         </ul>
                     </li>   -->
+
                     <li class="dropdown-item  pt-2">
                         <form action="/logout" method="POST" enctype="multipart/form-data">
                             <div class="ml-2 border-top pt-2">
