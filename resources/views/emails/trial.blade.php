@@ -3,6 +3,7 @@
 # {{$user->first_name}},
 Hope you are enjoying your trial period fully. 
 Please click the button below to purchase a package and enjoy our unlimited service.
+We have packages that will suite your preference.
 
 
 @component('mail::button', ['url' => url('/subscription')])

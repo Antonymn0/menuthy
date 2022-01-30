@@ -35,6 +35,11 @@ class EventServiceProvider extends ServiceProvider
             //
         ],
 
+         // Trial events
+        'App\Events\Trial\trialEnded' => [
+            'App\Listeners\Trial\trialEndedListener',
+        ],
+       
          // send email verification event
         'App\Events\User\SendEmailVerificationLink' => [
             'App\Listeners\User\SendEmailVerificationLinkListener'

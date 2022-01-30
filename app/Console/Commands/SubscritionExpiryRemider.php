@@ -43,12 +43,12 @@ class SubscritionExpiryRemider extends Command
     public function handle()
     {
         $from = Carbon::now();
-        $to = carbon::now()->addDays(25);
+        $to = Carbon::now()->addDays(5);
 
         $users =  DB::table('users')->whereBetween('registration_expiry', [$from, $to])->get();
 
         foreach($users as $user){
-            Mail::to($user->email)->send(new SubscriptionExpiryReminder($user));
+           if($user->registration_status == 'registered') Mail::to($user->email)->send(new SubscriptionExpiryReminder($user));
         }
     }
 }

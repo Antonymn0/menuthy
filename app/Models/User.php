@@ -86,13 +86,15 @@ class User extends Authenticatable
      * Get Users restaurant details
      * 
      * return json
-     * ------ this block to be refactored in favour of eloquent relation further below
+     * 
      */
     public function restaurant(){
         //restaurant owner
         if(Auth::user()->role == 'user'){
             $restaurant = Restaurant::WHERE('user_id', Auth::user()->id)->first();
             if( $restaurant ){
+                // get role users of the restaurant ie cashier/kitchen/delievry 
+                $restaurant->role_users = User::where('created_by', Auth::user()->id )->get();
                 return $restaurant;
             }
         }
@@ -102,11 +104,8 @@ class User extends Authenticatable
             if( $restaurant ){
                 return $restaurant;
             }
-        }
-        
-        else return null;
-
-       
+        }        
+        else return null;       
     }
 
     // eloquent relation

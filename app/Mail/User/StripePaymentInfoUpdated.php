@@ -29,6 +29,6 @@ class StripePaymentInfoUpdated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails/user/stripeinfoUpdatedEmail')->with(['user'=>$this->user]);;
+        return $this->markdown('emails/user/stripeinfoUpdatedEmail')->with(['user'=>$this->user]);
     }
 }

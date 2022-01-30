@@ -5,7 +5,7 @@ System notification <br>
 
 User {{$user->first_name}} {{$user->last_name}} of email {{$user->email}} has newly registered on this system.
 
-This is a system generated notification email. Do not reply.
+<small>This is a system generated notification email. Do not reply. </small>
 
 Thankyou,<br>
 

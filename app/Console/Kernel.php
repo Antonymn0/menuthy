@@ -24,10 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //  $schedule->command('SendTrialExpiryNotification:TrialPeriodNotification')->daily()
-        //                         ->appendOutputTo('scheduler.log');
-        //  $schedule->command('subscriptionExpiry:reminder')->daily()
-        //                           ->appendOutputTo('scheduler.log');
+        $schedule->command('SendTrialExpiryNotification:TrialPeriodNotification')->everyMinute()
+                    ->appendOutputTo('scheduler.log');
+        $schedule->command('subscriptionExpiry:reminder')->everyMinute()
+                    ->appendOutputTo('scheduler.log');
+        $schedule->command('TrialPeriod:ended')->everyMinute()
+                    ->appendOutputTo('scheduler.log');
+        $schedule->command('UnpaidStripeOrders:delete')->everyMinute()
+                    ->appendOutputTo('scheduler.log');
     }
 
     /**

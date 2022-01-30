@@ -2,9 +2,9 @@
 <img src="{{url('/images/menuthy_logo_i.png')}}" style="width:90px; float:right" alt="menuthy Logo"> <br>
 # Dear {{$user->first_name}},
 
-Your subscription is expiring in less than a months time.
+Your subscription will expire in the next few days.
 Please make arrangements to extend it and avoid  service interuption.
-visit the link below to make payments.
+visit the link below to extend.
 
 @component('mail::button', ['url' => url('/subscription')])
 Extend Subscription

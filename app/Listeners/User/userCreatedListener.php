@@ -34,10 +34,10 @@ class userCreatedListener implements shouldQueue
     public function handle(userCreated $event)
     {
             // send welcome email and confirmation emails
-          Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
-          Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
+        Mail::to($event->user->email)->send(new WelcomeEmail($event->user));
+        Mail::to($event->user->email)->send(new ConfirmEmail($event->user));
 
           // notify admin new user registered email
-          Mail::to(env('ADMIN_EMAIL'))->send(new NotifyAdminNewUserCreated($event->user));
+        if($user->role == 'user')  Mail::to(env('ADMIN_EMAIL'))->send(new NotifyAdminNewUserCreated($event->user));
     }
 }

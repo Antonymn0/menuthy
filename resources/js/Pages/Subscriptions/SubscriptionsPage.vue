@@ -93,7 +93,7 @@
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Menu Management </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> 24/7 Online Support </span> <br>
                                <span><i class="bi bi-check-lg"></i>  </span> <span> Multi language support </span> <br>
-                               <span><i class="bi bi-x"></i> </span> <span> 1 Table Scans </span> <br>
+                               <span><i class="bi bi-check-lg"></i> </span> <span> 1 Table Scans </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Dine-in Orders </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Kitchen Order Management </span> <br>
                                <span><i class="bi bi-x"></i> </span> <span> Cloud POS </span> <br>
