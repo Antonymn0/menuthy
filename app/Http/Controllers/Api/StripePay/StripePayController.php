@@ -38,7 +38,7 @@ class StripePayController extends Controller
             'line_items' => [
                 [
                     'price_data'=>[
-                        'currency' => 'qar',
+                        'currency' => 'usd',
                         'product_data' => [
                             'name' => $user_data->plan->name,
                             'description' => $user_data->plan->description,

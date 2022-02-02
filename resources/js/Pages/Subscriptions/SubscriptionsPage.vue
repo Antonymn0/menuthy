@@ -22,14 +22,14 @@
                 <div class="px-1" >
                     <p class="yearly shadow active-yearly" 
                     @click.prevent="[toggleYearlyTabs($event, 'monthly'), 
-                        updatePackagePrice(0, 66, 133,266),
+                        updatePackagePrice(0, 19, 37,73),
                         updatePeriod('monthly')                     
                       ]" style="cursor:pointer"> <span><i class="bi bi-check"></i> </span> Billed Monthly</p>
                 </div>
                 <div class="px-1" >
                     <p class="yearly shadow "  
                     @click.prevent="[toggleYearlyTabs($event, 'yearly'), 
-                     updatePackagePrice(0, 777, 1333, 2777),
+                     updatePackagePrice(0, 266, 366, 766),
                      updatePeriod('yearly')
                     ]" style="cursor:pointer">  <span ><i class="bi bi-check"></i> </span>  Billed Yearly </p>
                 </div>
@@ -82,7 +82,7 @@
                         <div class="shadow"> 
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Starter</h4>
                             <p class="ty-1 price mb-0 mx-auto">                                
-                                <span class="currency">QAR</span>
+                                <span class="currency">USD</span>
                                 <span class="amount">0.0</span>
                                 <span class="period">/Month</span>
                             </p>
@@ -110,7 +110,7 @@
                             <span class="m-0  px-4 py-0  float-right recomended"> Recommended</span> <br>
                             <h4 class="pb-4    text-dark text-center  "> <span class="mx-auto"  > Lite </span>  </h4>
                             <p class="ty-1 price mb-0"> 
-                                <span class="currency">QAR</span>
+                                <span class="currency">USD</span>
                                 <span class="amount">{{this.lite.price}}</span>
                                 <span class="period">/Month</span>
                             </p>
@@ -139,7 +139,7 @@
                         <div class="shadow"> 
                             <h4 class="pb-4 mb-3 pt-1 text-dark"> Pro</h4>
                             <p class="ty-1 price mb-0"> 
-                                <span class="currency" >QAR</span>
+                                <span class="currency" >USD</span>
                                 <span class="amount">{{this.pro.price}}</span>
                                 <span class="period">/Month</span>                              
                             </p>
@@ -166,7 +166,7 @@
                     <div class="shadow"> 
                         <h4 class="pb-4 mb-3 pt-1 text-dark"> Premium</h4>
                         <p class="ty-1 price mb-0"> 
-                            <span class="currency" >QAR</span>
+                            <span class="currency" >USD</span>
                             <span class="amount">{{this.premium.price}}</span>
                             <span class="period">/Month</span>                              
                         </p>
@@ -223,7 +223,7 @@ export default {
 
             starter:{
                 'name' : 'Menuthy starter plan',
-                'price' : 33,
+                'price' : 0,
                 'description' : 'Menuthy STARTER plan subscription',
                 'plan_period' : this.period(),
                 'type' : 'starter',
@@ -231,7 +231,7 @@ export default {
                 },
             lite:{
                 'name' : 'Menuthy lite plan',
-                'price' :66,
+                'price': 19,
                 'description' : 'Menuthy LITE plan subscription',
                 'plan_period' : this.period(),
                 'type' : 'lite',
@@ -239,7 +239,7 @@ export default {
             },
             pro:{
                 'name': 'Menuthy pro plan',
-                'price' :133,
+                'price' :37,
                 'description' : 'Menuthy PRO plan subscription',
                 'plan_period' : this.period(),
                 'type' : 'pro',
@@ -247,7 +247,7 @@ export default {
                 },
             premium:{
                 'name': 'Menuthy premium plan',
-                'price' :266,
+                'price' :73,
                 'description' : 'Menuthy PREMIUM plan subscription',
                 'plan_period' : this.period(),
                 'type' : 'premium',
