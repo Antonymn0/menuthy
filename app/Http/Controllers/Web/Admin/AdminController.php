@@ -17,7 +17,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::with('getRestaurant')->paginate(ENV('API_PAGINATION',10));
+        $users = User::with('getRestaurant')
+        ->orderBy('created_at', 'desc')
+        ->paginate(ENV('API_PAGINATION',10));
         return Inertia::render('SuperAdmin/Dashboard',['users'=> $users]);
     }
 

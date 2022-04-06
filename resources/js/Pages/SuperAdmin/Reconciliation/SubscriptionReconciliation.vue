@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-10 pt-5 pl-5">
                 <button class="btn btn-success float-right" @click.prevent="this.getPayments()"> <i class="bi bi-arrow-repeat  pr-1"></i> Refresh</button>
-                <h3>Subscription Payments Reconciliation <small class="text-muted">(Incomplete)</small> </h3>
+                <h3>Subscription Payments Reconciliation  </h3>
                 <div>
                     <form class="py-3" @submit.prevent="searchPayment()">                        
                         <div class="form-group  mx-sm-3 mb-2">

@@ -49,7 +49,7 @@ class UserController extends Controller
         $user_data['trial_expiry'] = $this->trialDays($this->trial_days);
 
         $user= User::create($user_data);
-        event(new userCreated($user));
+        // event(new userCreated($user));
         return response()->json([
             'success'=> true,
             'message'=> 'User created successfuly',

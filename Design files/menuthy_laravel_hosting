@@ -1,0 +1,73 @@
+    app.menuthy.com app hosting to a shared hosting on Bluehost
+
+Method 1
+
+1. on your local machine, delete vendor and node_modules folders from the project root
+
+2. Compress the whole project into a .zip format
+
+3. Upload files via Ftp to public_html/app-menuthy-com
+
+4. Extract the uploaded .zip file into the same directory
+
+5. Edit the .env file and update the database and other information accordingly (if there was a change)
+
+6. Create a .htaccess file at the root of public_html/app-menuthy-com and paste the following piece of code in it: 
+        <IfModule mod_rewrite.c>
+            RewriteEngine on
+            RewriteRule ^$ public/ [L]
+            RewriteRule (.*) public/$1 [L]
+        </IfModule>
+
+7. Connect  to the directory via SSh
+
+8. Run command "composer update"
+
+9. All clear.
+
+
+Method 2 (easiest)
+
+1.Connect to app-menuthy-com directrory via SSH
+
+2.Clone your github repository with command "git clone your-github-repo" (replace your-github-repo with your github repository link)
+
+3.After the cloning is successfull, run command "composer install"
+
+3.Edit the .env file to use proper database credentials and other configurations
+
+4. Create .htaccess file at the root of public_html/app-menuthy-com and paste the following piece of code in it: 
+        <IfModule mod_rewrite.c>
+            RewriteEngine on
+            RewriteRule ^$ public/ [L]
+            RewriteRule (.*) public/$1 [L]
+        </IfModule>
+
+5. All clear, menuthy app successfully hosted
+
+6. To update the later on run command "git pull" followed by "composer update"
+
+
+
+How to connect to app.menuthy.com via SSH
+
+1. Open command shell on your local machine
+
+2. Run command "ssh -p 2222 -o "IdentitiesOnly yes" -i ~/.ssh/id_rsa -v menuthyc@app.menuthy.com"
+
+3. Wait for the command to run then when prompted for a password use "1NfiniT33+1$%&*()dStart" or the new passowrd you have if it changed
+
+4. If authenticated you will be logedin to the root of the server
+
+5. Navigate to app-menuthy-com directory where the app.menuthy.com site is hosted with the following commands:
+        cd public_html
+        cd app-menuthy-com
+
+6. You are now inside the app.menuthy.com directory. From here you can run all the composer commands or any other laravel commands you want to run for menuthy for menuthycapp.
+
+
+(Whichever way you choose to host menuthy, you have to connect vis SSH so as to run commands on the shell) 
+
+Reference video https://www.youtube.com/watch?v=GGzBhA1cY1s&ab_channel=DavidCarr
+
+Referrence article: https://stackoverflow.com/questions/61310416/how-do-i-upload-a-laravel-project-on-cpanel-shared-hostin

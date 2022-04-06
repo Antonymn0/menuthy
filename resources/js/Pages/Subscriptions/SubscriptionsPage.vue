@@ -102,7 +102,7 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>                           
                             <p class="pt-3"> <button  class="btn btn-danger px-5 d-flex align-items-center mx-auto"> &nbsp; &nbsp;&nbsp; Free  &nbsp;&nbsp;&nbsp; </button> </p>
-                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 55 USD applicable </small>  </p>
                         </div>
                     </div>
                     <div> 
@@ -132,7 +132,7 @@
                             <p class="pt-3"> 
                                 <button  @click.prevent="stripeCheckout(this.lite)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe  </button> 
                                 </p>
-                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 55 USD applicable </small>  </p>
                         </div>
                     </div>
                     <div> 
@@ -159,7 +159,7 @@
                                <span><i class="bi bi-x"></i> </span> <span>  Accept online payments</span> <br>
                             </p>
                             <p class="pt-3"> <button @click.prevent="stripeCheckout(this.pro)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
-                            <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
+                            <p class="text-muted"> <small>One-Time  Setup fee of 55 USD applicable </small>  </p>
                         </div>
                     </div>
                     <div> 
@@ -186,7 +186,7 @@
                             <span><i class="bi bi-check-lg"></i> </span> <span>  Accept online payments</span> <br>
                         </p>
                         <p class="pt-3"> <button @click.prevent="stripeCheckout(this.premium)" class="btn btn-danger px-5 d-flex align-items-center mx-auto">  Subscribe   </button> </p>
-                        <p class="text-muted"> <small>One-Time  Setup fee of 200 QAR applicable </small>  </p>
+                        <p class="text-muted"> <small>One-Time  Setup fee of 55 USD applicable </small>  </p>
                     </div>
                 </div>
                 </div>

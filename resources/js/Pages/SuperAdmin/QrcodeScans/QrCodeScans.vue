@@ -70,7 +70,7 @@
                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                 <div class="modal-content text-muted ">
                                 <div class="modal-header">
-                                    <img :src="restaurant.image" alt="" v-if="restaurant.image" >
+                                    <img :src="restaurant.image" alt="" v-if="restaurant.image" style="width:80px; height:80px">
                                     <h5 class="modal-title" id="staticBackdropLabel">{{this.capitalize(restaurant.restaurant_name)}} scan history</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
